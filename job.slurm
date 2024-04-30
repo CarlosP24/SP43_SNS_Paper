@@ -6,7 +6,6 @@ sbatch <<EOT
 #SBATCH --nodes=6
 #SBATCH --exclude=es1
 #SBATCH --exclusive
-#SBATCH --time=$4
 #SBATCH --output=slurm.out/$1_$2_%j.out
 #SBATCH --error=slurm.out/$1_$2_%j.err
 #SBATCH --job-name=$1_$2
