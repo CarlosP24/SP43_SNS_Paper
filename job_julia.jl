@@ -16,7 +16,7 @@ my_procs = map(x -> (x, :auto), nodes)
 addprocs(my_procs; exeflags="--project", enable_threaded_blas = false)
 
 @everywhere begin
-    using FullShell, ProgressMeter, Parameters
+    using FullShell, ProgressMeter, Parameters, Quantica
     include("calcs.jl")
 end
 
