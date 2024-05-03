@@ -33,18 +33,22 @@ function plot_TCMsemi(dir, mod_left, mod_right, cmax)
 
         Φrng_D = range(first(Φrng), last(Φrng), length = length(Φrng)-1)
         
-        for (τ, color) in zip([first(τs), last(τs)], [first(colors), last(colors)])
+        for (τ, color) in zip([first(τs), τs[3] ], [first(colors), last(colors)])
             Js_dict = Js_τZ[τ]
             Js = sum(values(Js_dict))
+            Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
             Ic = maximum.(Js)
             Ic = Ic ./ maximum(Ic)
+            Ic_not0 = maximum.(Js_not0)
+            Ic_not0 = Ic_not0 ./ maximum(Ic_not0)
             lines!(ax_I, Φrng, Ic; color  = color, label = L"\tau = %$(τ)")
+            lines!(ax_I, Φrng, Ic_not0; color  = color, linestyle = :dash, )
             ylims!(ax_I, -0.1, 1.2)
             coef = τ < 0.5 ? 1 : 3
             lines!(ax_D, Φrng_D, coef.*abs.(diff(Ic)); color = color, label = L"\tau = %$(τ)")
         end
 
-        axislegend(ax_I, position = :rt, labelsize = 15, framevisible = false,)
+        axislegend(ax_I, position = :rc, labelsize = 15, framevisible = false,)
 
         for ax in [ax_I, ax_D]
             xlims!(ax, (Φa, Φb))

@@ -43,17 +43,21 @@ models = Dict(
     "TCM_20_island" => (;
         base_model...,
         w = 20,
-        τΓ = 12,
+        d = 10,
+        τΓ = 10,
         μ = 18.1,
         α = 50,
+        g = 10,
         ishollow = false,
     ),
-    "TCM_20_gapped" => (;
+    "TCM_20_gapless" => (;
         base_model...,
         w = 20,
-        τΓ = 12,
+        d = 10,
+        τΓ = 10,
         μ = 18.5,
         α = 50,
+        g = 10,
         ishollow = false,
     ),
 )
