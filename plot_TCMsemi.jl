@@ -6,9 +6,9 @@ mod_right = "TCM_20_island"
 cmax = [3e-2, 3e-2]
 
 function plot_TCMsemi(dir, mod_left, mod_right, cmax)
-    fig = Figure(size = (2/3 * 1100, 2/3 * 650), fontsize = 20, )
+    fig = Figure(size = (2/3 * 1100, 650), fontsize = 20, )
     for (col, mod) in enumerate([mod_left, mod_right])
-        data = load("$(dir)/$(mod)/semi.jld2")
+        data = load("$(dir)/$(mod)/semi_LDOS.jld2")
         Φrng = data["Φrng"]
         ωrng = real.(data["ωrng"])
         LDOS = data["LDOS"]
@@ -22,27 +22,40 @@ function plot_TCMsemi(dir, mod_left, mod_right, cmax)
         col != 1 && hideydecorations!(ax_LDOS; ticks = false)
         hidexdecorations!(ax_LDOS; ticks = false)
 
-        ax_I = Axis(fig[2, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_0$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
+        ax_I = Axis(fig[2, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_\text{max}$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
+        ax_D = Axis(fig[3, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$ \left| \frac{d I_c}{d \Phi} \right|$ (arb. units.) ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0])
+        
+        data = load("$(dir)/$(mod)/semi_J.jld2")
 
         Js_τZ = data["Js_Zτ"]
         τs = sort(collect(keys(Js_τZ)))
         colors = reverse(cgrad(:rainbow))[1:end-1]
+
+        Φrng_D = range(first(Φrng), last(Φrng), length = length(Φrng)-1)
         
         for (τ, color) in zip([first(τs), last(τs)], [first(colors), last(colors)])
             Js_dict = Js_τZ[τ]
             Js = sum(values(Js_dict))
             Ic = maximum.(Js)
-            lines!(ax_I, Φrng, Ic ./ first(Ic); color  = color, label = L"\tau = %$(τ)")
+            Ic = Ic ./ maximum(Ic)
+            lines!(ax_I, Φrng, Ic; color  = color, label = L"\tau = %$(τ)")
             ylims!(ax_I, -0.1, 1.2)
+            coef = τ < 0.5 ? 1 : 3
+            lines!(ax_D, Φrng_D, coef.*abs.(diff(Ic)); color = color, label = L"\tau = %$(τ)")
         end
 
-        axislegend(ax_I, position = :rb, labelsize = 15, framevisible = false,)
+        axislegend(ax_I, position = :rt, labelsize = 15, framevisible = false,)
 
-        xlims!(ax_I, (Φa, Φb))
+        for ax in [ax_I, ax_D]
+            xlims!(ax, (Φa, Φb))
+            vlines!(ax, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
+        end
         ylims!(ax_I, (-0.1, 1.2))
-        vlines!(ax_I, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
+        ylims!(ax_D, (-0.01, 0.2))
 
         col != 1 && hideydecorations!(ax_I; grid = false, ticks = false)
+        col != 1 && hideydecorations!(ax_D; grid = false, ticks = false)
+        hidexdecorations!(ax_I; grid = false, ticks = false)
 
 
     end
@@ -55,12 +68,16 @@ function plot_TCMsemi(dir, mod_left, mod_right, cmax)
     Label(fig[2, 1, TopLeft()], "c",  padding = (-40, 0, -25, 0); style...)
     Label(fig[2, 2, TopLeft()], "d",  padding = (-10, 0, -25, 0); style...)
     
+    Label(fig[3, 1, TopLeft()], "e",  padding = (-40, 0, -25, 0); style...)
+    Label(fig[3, 2, TopLeft()], "f",  padding = (-10, 0, -25, 0); style...)
 
     colgap!(fig.layout, 1, 10)
     colgap!(fig.layout, 2, 5)
     rowgap!(fig.layout, 1, 5)
+    rowgap!(fig.layout, 2, 5)
     return fig
 end
 
 fig = plot_TCMsemi(dir, mod_left, mod_right, cmax)
+save("Figures/TCMsemi.pdf", fig)
 fig

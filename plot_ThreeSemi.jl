@@ -9,8 +9,8 @@ function plot_ThreeSemi(geos, model, indir, cmax)
     fig = Figure(size = (1100, 650), fontsize = 20, )
 
     for (col, geo) in enumerate(geos)
-        path = "$(indir)/$(geo)/$(model).jld2"
-        data = load(path)
+        path = "$(indir)/$(geo)/$(model)"
+        data = load("$(path)_LDOS.jld2")
 
         # LDOS
 
@@ -28,6 +28,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         hidexdecorations!(ax_LDOS; ticks = false)
 
         # Ic 
+        data = load("$(path)_J.jld2")
         Js_τZ = data["Js_Zτ"]
         ax_Abs = Axis(fig[2, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c$ (arb. units) ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0])
         ax_Rel = Axis(fig[3, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_0$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
