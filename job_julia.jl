@@ -54,22 +54,31 @@ g_right, g = calcs_dict[calc](hSC, params)
 # Run 
 LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
 
-J = josephson(g[attach_link[calc]], 1.1 * 0.23; imshift = 0.01, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)
+J = josephson(g[attach_link[calc]], 1.1 * 0.23; imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)
 Js_Zτ = Js_flux(J, Φrng, Zs, τs)
 
 # Save
-outdir =  "Output/$(mod)/$(subdir).jld2"
-mkpath(dirname(outdir))
+outdir_LDOS =  "Output/$(mod)/$(subdir)_LDOS.jld2"
+outdir_J =  "Output/$(mod)/$(subdir)_J.jld2"
 
-save(outdir, 
+mkpath(dirname(outdir_LDOS))
+
+save(outdir_LDOS, 
     Dict(
         "model" => model,
-        "φs" => φs,
         "Φrng" => Φrng,
         "ωrng" => ωrng,
-        "Js_Zτ" => Js_Zτ,
         "LDOS" => LDOS
     )      
+)
+
+save(outdir_J,
+    Dict(
+        "model" => model,
+        "Φrng" => Φrng,
+        "φs" => φs,
+        "Js_Zτ" => Js_Zτ
+    )
 )
 
 

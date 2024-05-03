@@ -26,8 +26,8 @@ function plot_TCMsemi(dir, mod_left, mod_right, cmax)
 
         Js_τZ = data["Js_Zτ"]
         τs = sort(collect(keys(Js_τZ)))
-        colors = cgrad(:RdYlGn_10)
-
+        colors = reverse(cgrad(:rainbow))[1:end-1]
+        
         for (τ, color) in zip([first(τs), last(τs)], [first(colors), last(colors)])
             Js_dict = Js_τZ[τ]
             Js = sum(values(Js_dict))

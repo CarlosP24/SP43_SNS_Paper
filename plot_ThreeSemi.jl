@@ -33,9 +33,9 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         ax_Rel = Axis(fig[3, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_0$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
 
         τs = sort(collect(keys(Js_τZ)))
-        colors = reverse(cgrad(:RdYlGn_10))
+        colors = reverse(cgrad(:rainbow))[1:end-1]
         step = floor(Int64, length(colors) / length(τs))
-        nc = reverse(colors[1:step:end])
+        nc = colors[1:step:end]
 
         for (τ, color) in zip(τs, nc)
             Js_dict = Js_τZ[τ]
@@ -61,8 +61,8 @@ function plot_ThreeSemi(geos, model, indir, cmax)
     end
 
     Colorbar(fig[1, 4], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15, ticksize = 2, ticklabelpad = 5)
-    Colorbar(fig[2, 4], colormap = :RdYlGn_10, label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
-    Colorbar(fig[3, 4], colormap = :RdYlGn_10, label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[2, 4], colormap = reverse(cgrad(:rainbow))[1:end-1], label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[3, 4], colormap = reverse(cgrad(:rainbow))[1:end-1], label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
 
     style = (font = "CMU Serif Bold", fontsize = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -25, 0); style...)
