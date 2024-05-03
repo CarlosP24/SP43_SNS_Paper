@@ -6,7 +6,6 @@ indir = "Output"
 cmax = [5e-2, 2e-2, 1.5e-1]
 
 function plot_ThreeSemi(geos, model, indir, cmax)
-    colors = cgrad(:RdYlGn_10, 10)
     fig = Figure(size = (1100, 650), fontsize = 20, )
 
     for (col, geo) in enumerate(geos)

@@ -54,7 +54,7 @@ g_right, g = calcs_dict[calc](hSC, params)
 # Run 
 LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
 
-J = josephson(g[attach_link[calc]], 1.1 * 0.23; imshift = 0.01, omegamap = ω -> (; ω), phases = φs, atol = 1e-3)
+J = josephson(g[attach_link[calc]], 1.1 * 0.23; imshift = 0.01, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)
 Js_Zτ = Js_flux(J, Φrng, Zs, τs)
 
 # Save
