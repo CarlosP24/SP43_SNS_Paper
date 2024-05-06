@@ -31,25 +31,38 @@ function plot_TCMsemi(dir, mod_left, mod_right, cmax)
         τs = sort(collect(keys(Js_τZ)))
         colors = reverse(cgrad(:rainbow))[1:end-1]
 
-        Φrng_D = range(first(Φrng), last(Φrng), length = length(Φrng)-1)
-        
+        Φc = findmin(abs.(Φrng .- 0.5))[2]
+        Φd = findmin(abs.(Φrng .- 1.5))[2]
+
+        Φrng_D = collect(range(first(Φrng), last(Φrng), length = length(Φrng)-1))
+        Φ05 = findmin(abs.(Φrng_D .- 0.5))[2]
+        Φ15 = findmin(abs.(Φrng_D .- 1.5))[2]
+        exclude = [Φ05 - 1, Φ05, Φ05 + 1, Φ15 - 1, Φ15, Φ15 + 1]
+        deleteat!(Φrng_D, exclude)
+
         for (τ, color) in zip([first(τs), τs[3] ], [first(colors), last(colors)])
             Js_dict = Js_τZ[τ]
             Js = sum(values(Js_dict))
             Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
+            Js_0 = Js_dict[0]
             Ic = maximum.(Js)
-            Ic = Ic ./ maximum(Ic)
+            mIc = maximum(Ic)
+            Ic = Ic ./ mIc
             Ic_not0 = maximum.(Js_not0)
-            Ic_not0 = Ic_not0 ./ maximum(Ic_not0)
+            Ic_not0 = Ic_not0 ./ mIc
+            Ic0 = maximum.(Js_0)
+            Ic0 = Ic0 ./ mIc
             lines!(ax_I, Φrng, Ic; color  = color, label = L"\tau = %$(τ)")
-            lines!(ax_I, Φrng, Ic_not0; color  = color, linestyle = :dash, )
-            ylims!(ax_I, -0.1, 1.2)
-            coef = τ < 0.5 ? 1 : 3
-            lines!(ax_D, Φrng_D, coef.*abs.(diff(Ic)); color = color, label = L"\tau = %$(τ)")
+            lines!(ax_I, Φrng[Φc:Φd], Ic_not0[Φc:Φd]; color  = color, linestyle = :dash, )
+            lines!(ax_I, Φrng[Φc:Φd], Ic0[Φc:Φd]; color  = color, linestyle = :dot, )
+            ylims!(ax_I, -0.1, 1.2) 
+            DIc = abs.(diff(Ic))
+            deleteat!(DIc, exclude)
+            lines!(ax_D, Φrng_D, DIc; color = color, label = L"\tau = %$(τ)")
         end
 
-        axislegend(ax_I, position = :rc, labelsize = 15, framevisible = false,)
-
+        axislegend(ax_I, position = (1, 0.3), labelsize = 15, framevisible = false,)
+        vlines!(ax_D, range(Φa, Φb, step = 1) .+ 0.5, color = :white, linestyle = :solid, linewidth = 5)
         for ax in [ax_I, ax_D]
             xlims!(ax, (Φa, Φb))
             vlines!(ax, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
@@ -74,6 +87,9 @@ function plot_TCMsemi(dir, mod_left, mod_right, cmax)
     
     Label(fig[3, 1, TopLeft()], "e",  padding = (-40, 0, -25, 0); style...)
     Label(fig[3, 2, TopLeft()], "f",  padding = (-10, 0, -25, 0); style...)
+
+    Label(fig[1, 1, Top()], "Gapless ZBP")
+    Label(fig[1, 2, Top()], "Gaped ZBP")
 
     colgap!(fig.layout, 1, 10)
     colgap!(fig.layout, 2, 5)

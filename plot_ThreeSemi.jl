@@ -47,7 +47,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
             ylims!(ax_Abs, (-0.1 * first(Ic), 1.1 * first(Ic)))
         end
 
-        ylims!(ax_Rel, -0.1, 1.2)
+        ylims!(ax_Rel, -0.1, 4º)
 
         for ax in [ax_Abs, ax_Rel]
             xlims!(ax, (Φa, Φb))

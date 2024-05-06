@@ -21,13 +21,11 @@ models = Dict(
         μ = 0.75,
         α = 85,
     ),
-    "TCM_30" => (;
+    "MHC_20_topo" => (;
         base_model...,
-        w = 30,
-        τΓ = 26,
-        μ = 10.4,
-        α = 35,
-        ishollow = false,
+        w = 20,
+        μ = 0.75,
+        α = 85,
     ),
     "SCM" => (;
         base_model...,
@@ -38,6 +36,16 @@ models = Dict(
         τΓ = 40,
         μ = 2,
         preα = 46.66,
+        ishollow = false,
+    ),
+    "TCM_20_triv" => (;
+        base_model...,
+        w = 20,
+        d = 10,
+        τΓ = 10,
+        μ = 18.7,
+        α = 50,
+        g = 10,
         ishollow = false,
     ),
     "TCM_20_island" => (;
