@@ -21,7 +21,7 @@ models = Dict(
         μ = 0.75,
         α = 85,
     ),
-    "MHC_20_topo" => (;
+    "MHC_20" => (;
         base_model...,
         w = 20,
         μ = 0.75,
