@@ -47,10 +47,10 @@ Zs = 0
 # Load model
 include("models.jl")
 model = models[mod]
-model = (; model..., L = L)
+model = (; model..., L = L, ξd = 0)
 
 # Build nanowire
-hSM, hSC, params = build_cyl(; model...,)
+hSM, hSC, params = build_cyl(; model..., nforced = 1)
 
 # Get Greens
 g_right, g = calcs_dict[calc](hSC, params)
