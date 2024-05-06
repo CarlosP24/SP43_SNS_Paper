@@ -1,9 +1,9 @@
 using CairoMakie, JLD2
 
-geos = ["HCA", "TCM_30", "SCM"]
+geos = ["HCA", "MHC_20", "SCM"]
 model = "semi"
 indir = "Output"
-cmax = [5e-2, 2e-2, 1.5e-1]
+cmax = [5e-2, 5e-2, 1.5e-1]
 
 function plot_ThreeSemi(geos, model, indir, cmax)
     fig = Figure(size = (1100, 650), fontsize = 20, )
@@ -47,7 +47,9 @@ function plot_ThreeSemi(geos, model, indir, cmax)
             ylims!(ax_Abs, (-0.1 * first(Ic), 1.1 * first(Ic)))
         end
 
-        ylims!(ax_Rel, -0.1, 4º)
+        col == 1 && ylims!(ax_Rel, -0.1, 3.5)
+        col == 2 && ylims!(ax_Rel, -0.1, 3.5)
+        col == 3 && ylims!(ax_Rel, -0.1, 1.1)
 
         for ax in [ax_Abs, ax_Rel]
             xlims!(ax, (Φa, Φb))
@@ -55,8 +57,8 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         end
 
 
-        col != 1 && hideydecorations!(ax_Abs; ticks = false)
-        col != 1 && hideydecorations!(ax_Rel; ticks = false)
+        col != 1 && hideydecorations!(ax_Abs; ticks = false, grid = false)
+        col != 1 && hideydecorations!(ax_Rel; ticks = false, grid = false, ticklabels = false)
 
         hidexdecorations!(ax_Abs; grid = false, ticks = false)
     end
@@ -68,18 +70,18 @@ function plot_ThreeSemi(geos, model, indir, cmax)
     style = (font = "CMU Serif Bold", fontsize = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -25, 0); style...)
     Label(fig[1, 2, TopLeft()], "b",  padding = (-10, 0, -25, 0); style...)
-    Label(fig[1, 3, TopLeft()], "c",  padding = (-10, 0, -25, 0); style...)
+    Label(fig[1, 3, TopLeft()], "c",  padding = (-30, 0, -25, 0); style...)
 
     Label(fig[2, 1, TopLeft()], "d",  padding = (-40, 0, -25, 0); style...)
     Label(fig[2, 2, TopLeft()], "e",  padding = (-10, 0, -25, 0); style...)
-    Label(fig[2, 3, TopLeft()], "f",  padding = (-10, 0, -25, 0); style...)
+    Label(fig[2, 3, TopLeft()], "f",  padding = (-30, 0, -25, 0); style...)
 
     Label(fig[3, 1, TopLeft()], "g",  padding = (-40, 0, -25, 0); style...)
     Label(fig[3, 2, TopLeft()], "h",  padding = (-10, 0, -25, 0); style...)
-    Label(fig[3, 3, TopLeft()], "i",  padding = (-10, 0, -25, 0); style...)
+    Label(fig[3, 3, TopLeft()], "i",  padding = (-30, 0, -25, 0); style...)
 
     Label(fig[1, 1, Top()], L"w \rightarrow 0", padding = (0, 0, 5, 0); style...)
-    Label(fig[1, 2, Top()], L"w = R/2", padding = (0, 0, 5, 0); style...)
+    Label(fig[1, 2, Top()], L"w = 0.3 R", padding = (0, 0, 5, 0); style...)
     Label(fig[1, 3, Top()], L"w = R", padding = (0, 0, 5, 0); style...)
 
     colgap!(fig.layout, 1, 10)
