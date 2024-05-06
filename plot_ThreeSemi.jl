@@ -35,7 +35,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
 
         τs = sort(collect(keys(Js_τZ)))
         colors = reverse(cgrad(:rainbow))[1:end-1]
-        step = floor(Int64, length(colors) / length(τs))
+        step = ceil(Int64, length(colors) / length(τs))
         nc = colors[1:step:end]
 
         for (τ, color) in zip(τs, nc)

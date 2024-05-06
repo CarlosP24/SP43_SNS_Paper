@@ -44,7 +44,7 @@ mkpath(dirname(outdir_LDOS))
 Φrng = subdiv(0, 2.5, 200)
 ωrng = subdiv(-.26, .26, 201) .+ 1e-4im 
 Zs = -5:5
-τs = [0.1, 0.4, 0.7, 0.8, 0.9, 1.0]
+τs = [0.1, 0.2, 0.4, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0]
 
 # Load model
 include("models.jl")
