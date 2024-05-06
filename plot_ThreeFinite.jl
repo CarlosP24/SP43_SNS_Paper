@@ -1,11 +1,11 @@
 using CairoMakie, JLD2
 
 geos = ["HCA", "MHC_20", "SCM"]
-model = "semi"
+model = "L=50"
 indir = "Output"
 cmax = [5e-2, 5e-2, 1.5e-1]
 
-function plot_ThreeSemi(geos, model, indir, cmax)
+function plot_ThreeFinite(geos, model, indir, cmax)
     fig = Figure(size = (1100, 650), fontsize = 20, )
 
     for (col, geo) in enumerate(geos)
@@ -24,7 +24,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         Φa, Φb = first(Φrng), last(Φrng)
 
         ax_LDOS = Axis(fig[1, col], xlabel = L"\Phi / \Phi_0", ylabel = L"\omega", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = ([-Δ0, 0, Δ0], [L"-\Delta_0", "0", L"\Delta_0"]))
-        heatmap!(ax_LDOS, Φrng, ωrng, sum(values(LDOS)); colormap = cgrad(:thermal)[10:end], colorrange = (5e-4, cmax[col]), lowclip = :black)
+        heatmap!(ax_LDOS, Φrng, ωrng, LDOS[0]; colormap = cgrad(:thermal)[10:end], colorrange = (5e-4, cmax[col]), lowclip = :black)
         xlims!(ax_LDOS, (Φa, Φb))
 
         col != 1 && hideydecorations!(ax_LDOS; ticks = false)
@@ -42,14 +42,11 @@ function plot_ThreeSemi(geos, model, indir, cmax)
 
         for (τ, color) in zip(τs, colors)
             Js_dict = Js_τZ[τ]
-            Js = sum(values(Js_dict))
-            Js0 = Js_dict[0]
+            #Js = sum(values(Js_dict))
+            Js = Js_dict[0]
             Ic = maximum.(Js)
-            Ic0 = maximum.(Js0)
-            Icm = first(Ic)
             lines!(ax_Abs, Φrng, Ic; color = color )
-            lines!(ax_Rel, Φrng, Ic ./ Icm; color  = color)
-            lines!(ax_Rel, Φrng, Ic0 ./ Icm; color = color, linestyle = :dash)
+            lines!(ax_Rel, Φrng, Ic ./ first(Ic); color  = color)
             ylims!(ax_Abs, (-0.1 * first(Ic), 1.1 * first(Ic)))
         end
 
@@ -99,15 +96,6 @@ function plot_ThreeSemi(geos, model, indir, cmax)
     return fig
 end
 
-fig = plot_ThreeSemi(geos, model, indir, cmax)
-save("Figures/ThreeSemi.pdf", fig)
-fig
-
-## 
-geos = ["HCA", "MHC_20", "SCM"]
-model = "L=200"
-indir = "Output"
-cmax = [5e-2, 5e-2, 1.5e-1]
-
-fig = plot_ThreeSemi(geos, model, indir, cmax)
+fig = plot_ThreeFinite(geos, model, indir, cmax)
+save("Figures/ThreeFinite.pdf", fig)
 fig
