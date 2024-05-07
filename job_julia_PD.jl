@@ -45,7 +45,7 @@ hSM, hSC, params = build_cyl(; model...)
 g = calcs_dict["semi"](hSC, params)
 
 # Run n save 
-LDOS = calc_ldos0(ρ, μrng, αrng, Φrng, Zs; ω = ω)
+LDOS = calc_ldos0(ldos(g[cells = (-1)]), μrng, αrng, Φrng, Zs; ω = ω)
 
 save(outdir, 
     Dict(

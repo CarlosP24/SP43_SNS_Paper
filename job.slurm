@@ -12,5 +12,5 @@ sbatch <<EOT
 
 scontrol show hostnames $SLURM_JOB_NODELIST > machinefile
 
-julia --project job_julia_PD.jl $1 $2
+julia --project job_julia.jl $1 $2
 EOT
