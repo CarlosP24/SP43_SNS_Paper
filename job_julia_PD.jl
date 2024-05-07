@@ -42,10 +42,10 @@ model = models[mod]
 hSM, hSC, params = build_cyl(; model...) 
 
 # Get Greens 
-g = calcs_dict["semi"](hSC, params)
+g_right, g = calcs_dict["semi"](hSC, params)
 
 # Run n save 
-LDOS = calc_ldos0(ldos(g[cells = (-1)]), μrng, αrng, Φrng, Zs; ω = ω)
+LDOS = calc_ldos0(ldos(g_right[cells = (-1)]), μrng, αrng, Φrng, Zs; ω = ω)
 
 save(outdir, 
     Dict(

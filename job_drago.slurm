@@ -4,7 +4,6 @@ sbatch <<EOT
 #!/bin/bash
 #SBATCH --partition=long
 #SBATCH --nodes=20
-#SBATCH --mem-per-cpu=60GB
 #SBATCH --time=02-00:00:00
 #SBATCH --output=slurm.out/$1_$2_%j.out
 #SBATCH --error=slurm.out/$1_$2_%j.err
