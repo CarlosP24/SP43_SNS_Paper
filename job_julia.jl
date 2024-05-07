@@ -58,16 +58,16 @@ hSM, hSC, params = build_cyl(; model...,)
 g_right, g = calcs_dict[calc](hSC, params)
 
 # Run n save LDOS
-# LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
+LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
 
-# save(outdir_LDOS, 
-#     Dict(
-#         "model" => model,
-#         "Φrng" => Φrng,
-#         "ωrng" => ωrng,
-#         "LDOS" => LDOS
-#     )      
-# )
+save(outdir_LDOS, 
+    Dict(
+        "model" => model,
+        "Φrng" => Φrng,
+        "ωrng" => ωrng,
+        "LDOS" => LDOS
+    )      
+)
 
 # Run n save Josephson
 J = josephson(g[attach_link[calc]], 1.1 * 0.23; imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)

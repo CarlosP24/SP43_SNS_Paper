@@ -68,4 +68,14 @@ models = Dict(
         g = 10,
         ishollow = false,
     ),
+    "TCM_40" => (;
+        base_model...,
+        w = 40,
+        d = 10,
+        μ = 6.7,
+        α = 20,
+        τΓ = 48,
+        g = 10,
+        ishollow = false,
+    ),
 )

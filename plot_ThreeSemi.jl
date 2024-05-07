@@ -32,7 +32,9 @@ function plot_ThreeSemi(geos, model, indir, cmax)
 
         # Ic 
         data = load("$(path)_J.jld2")
+        data_n = load("$(path)_J_nforced.jld2")
         Js_τZ = data["Js_Zτ"]
+        Js_τZ_n = data_n["Js_Zτ"]
         ax_Abs = Axis(fig[2, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c$ (arb. units) ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0])
         ax_Rel = Axis(fig[3, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_0$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
 
@@ -40,6 +42,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         τs =  filter(τ -> !(τ in [0.85, 0.95]), τs)
         colors = reverse(cgrad(:rainbow, length(τs) + ifelse(iseven(length(τs)), 1, 2)))[1:end-1]
 
+        Icms = Dict()
         for (τ, color) in zip(τs, colors)
             Js_dict = Js_τZ[τ]
             Js = sum(values(Js_dict))
@@ -47,11 +50,19 @@ function plot_ThreeSemi(geos, model, indir, cmax)
             Ic = maximum.(Js)
             Ic0 = maximum.(Js0)
             Icm = first(Ic)
+            Icms[τ] = Icm
             lines!(ax_Abs, Φrng, Ic; color = color )
             lines!(ax_Rel, Φrng, Ic ./ Icm; color  = color)
-            lines!(ax_Rel, Φrng, Ic0 ./ Icm; color = color, linestyle = :dash)
+            #lines!(ax_Rel, Φrng, Ic0 ./ Icm; color = color, linestyle = :dash)
             ylims!(ax_Abs, (-0.1 * first(Ic), 1.1 * first(Ic)))
         end
+
+        Js_dict_n = Js_τZ_n[0.1]
+        Js_n = sum(values(Js_dict_n))
+        Ic_n = maximum.(Js_n)
+        Icm_n = Icms[0.1]
+        lines!(ax_Rel, Φrng, Ic_n ./ Icm_n; color = colors[1], linestyle = :dash)
+
 
         col == 1 && ylims!(ax_Rel, -0.1, 3.5)
         col == 2 && ylims!(ax_Rel, -0.1, 3.5)
