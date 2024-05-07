@@ -11,7 +11,7 @@ nodes = open("machinefile") do f
 nodes = split(nodes, "\n")
 pop!(nodes)
 nodes = string.(nodes)
-my_procs = map(x -> (x, :auto), nodes)
+my_procs = map(x -> (x, 48), nodes)
 
 addprocs(my_procs; exeflags="--project", enable_threaded_blas = false)
 
