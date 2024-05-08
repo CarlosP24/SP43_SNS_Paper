@@ -11,7 +11,7 @@ nodes = open("machinefile") do f
 nodes = split(nodes, "\n")
 pop!(nodes)
 nodes = string.(nodes)
-my_procs = map(x -> (x, 48), nodes)
+my_procs = map(x -> (x, :auto), nodes)
 
 addprocs(my_procs; exeflags="--project", enable_threaded_blas = false)
 
@@ -28,9 +28,9 @@ outdir = "Output/$(mod)_PD.jld2"
 mkpath(dirname(outdir))
 
 # Basic config
-μrng = subdiv(18, 20.5, 200)
-αrng = subdiv(0, 200, 200)
-Φrng = subdiv(0.501, 1.49, 200)
+μrng = subdiv(18, 20.5, 100)
+αrng = subdiv(0, 200, 100)
+Φrng = subdiv(0.501, 1.49, 50)
 Zs = 0:5
 ω = 0.0 + 1e-4im
 

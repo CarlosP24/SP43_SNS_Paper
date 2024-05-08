@@ -5,7 +5,9 @@ model = "semi"
 indir = "Output"
 cmax = [5e-2, 5e-2, 1.5e-1]
 
-function plot_ThreeSemi(geos, model, indir, cmax)
+channels = [10, 8, 28]
+
+function plot_ThreeSemi(geos, model, indir, cmax, channels)
     fig = Figure(size = (1100, 650), fontsize = 20, )
 
     for (col, geo) in enumerate(geos)
@@ -20,14 +22,15 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         Φrng = data["Φrng"]
         ωrng = real.(data["ωrng"])
         LDOS = data["LDOS"]
+        Zs = collect(keys(LDOS))
         Δ0 = data["model"].Δ0
         Φa, Φb = first(Φrng), last(Φrng)
 
-        ax_LDOS = Axis(fig[1, col], xlabel = L"\Phi / \Phi_0", ylabel = L"\omega", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = ([-Δ0, 0, Δ0], [L"-\Delta_0", "0", L"\Delta_0"]))
+        ax_LDOS = Axis(fig[1, col], xlabel = L"\Phi / \Phi_0", ylabel = L"\omega", xticks = range(round(Int, Φa), round(Int, Φb)),)
         heatmap!(ax_LDOS, Φrng, ωrng, sum(values(LDOS)); colormap = cgrad(:thermal)[10:end], colorrange = (5e-4, cmax[col]), lowclip = :black)
         xlims!(ax_LDOS, (Φa, Φb))
 
-        col != 1 && hideydecorations!(ax_LDOS; ticks = false)
+        col != 1 && hideydecorations!(ax_LDOS; ticks = false, grid = false, )
         hidexdecorations!(ax_LDOS; ticks = false)
 
         # Ic 
@@ -35,8 +38,8 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         data_n = load("$(path)_J_nforced.jld2")
         Js_τZ = data["Js_Zτ"]
         Js_τZ_n = data_n["Js_Zτ"]
-        ax_Abs = Axis(fig[2, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c$ (arb. units) ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0])
-        ax_Rel = Axis(fig[3, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_0$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
+        ax_Abs = Axis(fig[2, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c$ $(e \Delta_\text{eff} /\hbar)$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, channels[col]])
+        ax_Rel = Axis(fig[3, col]; xlabel = L"\Phi / \Phi_0", ylabel = L"$I_c/I_c(0)$ ", xticks = range(round(Int, Φa), round(Int, Φb)), yticks = [0, 1])
 
         τs = sort(collect(keys(Js_τZ)))
         τs =  filter(τ -> !(τ in [0.85, 0.95]), τs)
@@ -50,11 +53,11 @@ function plot_ThreeSemi(geos, model, indir, cmax)
             Ic = maximum.(Js)
             Ic0 = maximum.(Js0)
             Icm = first(Ic)
+            #println("$τ: $Icm")
             Icms[τ] = Icm
             lines!(ax_Abs, Φrng, Ic; color = color )
             lines!(ax_Rel, Φrng, Ic ./ Icm; color  = color)
             #lines!(ax_Rel, Φrng, Ic0 ./ Icm; color = color, linestyle = :dash)
-            ylims!(ax_Abs, (-0.1 * first(Ic), 1.1 * first(Ic)))
         end
 
         Js_dict_n = Js_τZ_n[0.1]
@@ -63,6 +66,13 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         Icm_n = Icms[0.1]
         lines!(ax_Rel, Φrng, Ic_n ./ Icm_n; color = colors[1], linestyle = :dash)
 
+        IcmT = Icms[1.0]
+        Δeff = IcmT / (2 * π *  channels[col])
+
+        ax_LDOS.yticks = ([-Δ0, -Δeff, 0, Δeff, Δ0], [L"-\Delta_0", L"-\Delta_\text{eff}", "0", L"\Delta_\text{eff}",L"\Delta_0"])
+
+        ax_Abs.yticks = ([0, (channels[col]) * Δeff * 2 * π], [L"0", L"%$(channels[col] )"])
+        ylims!(ax_Abs, (-0.1 * IcmT, 1.2 * IcmT))
 
         col == 1 && ylims!(ax_Rel, -0.1, 3.5)
         col == 2 && ylims!(ax_Rel, -0.1, 3.5)
@@ -74,7 +84,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
         end
 
 
-        col != 1 && hideydecorations!(ax_Abs; ticks = false, grid = false)
+        col != 1 && hideydecorations!(ax_Abs; ticks = false, grid = false, ticklabels = false)
         col != 1 && hideydecorations!(ax_Rel; ticks = false, grid = false, ticklabels = false)
 
         hidexdecorations!(ax_Abs; grid = false, ticks = false)
@@ -86,22 +96,22 @@ function plot_ThreeSemi(geos, model, indir, cmax)
 
     style = (font = "CMU Serif Bold", fontsize = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -25, 0); style...)
-    Label(fig[1, 2, TopLeft()], "b",  padding = (-10, 0, -25, 0); style...)
+    Label(fig[1, 2, TopLeft()], "b",  padding = (-30, 0, -25, 0); style...)
     Label(fig[1, 3, TopLeft()], "c",  padding = (-30, 0, -25, 0); style...)
 
     Label(fig[2, 1, TopLeft()], "d",  padding = (-40, 0, -25, 0); style...)
-    Label(fig[2, 2, TopLeft()], "e",  padding = (-10, 0, -25, 0); style...)
+    Label(fig[2, 2, TopLeft()], "e",  padding = (-30, 0, -25, 0); style...)
     Label(fig[2, 3, TopLeft()], "f",  padding = (-30, 0, -25, 0); style...)
 
     Label(fig[3, 1, TopLeft()], "g",  padding = (-40, 0, -25, 0); style...)
-    Label(fig[3, 2, TopLeft()], "h",  padding = (-10, 0, -25, 0); style...)
+    Label(fig[3, 2, TopLeft()], "h",  padding = (-30, 0, -25, 0); style...)
     Label(fig[3, 3, TopLeft()], "i",  padding = (-30, 0, -25, 0); style...)
 
     Label(fig[1, 1, Top()], L"w \rightarrow 0", padding = (0, 0, 5, 0); style...)
     Label(fig[1, 2, Top()], L"w = 0.3 R", padding = (0, 0, 5, 0); style...)
     Label(fig[1, 3, Top()], L"w = R", padding = (0, 0, 5, 0); style...)
 
-    colgap!(fig.layout, 1, 10)
+    colgap!(fig.layout, 1, 15)
     colgap!(fig.layout, 2, 10)
     colgap!(fig.layout, 3, 10)
 
@@ -110,7 +120,7 @@ function plot_ThreeSemi(geos, model, indir, cmax)
     return fig
 end
 
-fig = plot_ThreeSemi(geos, model, indir, cmax)
+fig = plot_ThreeSemi(geos, model, indir, cmax, channels)
 save("Figures/ThreeSemi.pdf", fig)
 fig
 
@@ -120,5 +130,5 @@ model = "L=200"
 indir = "Output"
 cmax = [5e-2, 5e-2, 1.5e-1]
 
-fig = plot_ThreeSemi(geos, model, indir, cmax)
+fig = plot_ThreeSemi(geos, model, indir, cmax, channels)
 fig

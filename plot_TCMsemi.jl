@@ -34,7 +34,7 @@ function plot_TCMsemi(dir, mod_left, mod_center, mod_right, cmax)
         Φc = findmin(abs.(Φrng .- 0.5))[2]
         Φd = findmin(abs.(Φrng .- 1.5))[2]
 
-        for (τ, color) in zip([first(τs), τs[3] ], [first(colors), last(colors)])
+        for (τ, color) in zip([first(τs), τs[3] ], [first(colors), colors[3]])
             Js_dict = Js_τZ[τ]
             Js = sum(values(Js_dict))
             Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
@@ -77,7 +77,7 @@ function plot_TCMsemi(dir, mod_left, mod_center, mod_right, cmax)
 
     Label(fig[1, 1, Top()], "Non-toplogical")
     Label(fig[1, 2, Top()], "Gapless MZM-ZBP")
-    Label(fig[1, 3, Top()], "Gapped MZM-ZBP")
+    Label(fig[1, 3, Top()], "Gapped topological ZBP")
 
     colgap!(fig.layout, 1, 10)
     colgap!(fig.layout, 2, 10)

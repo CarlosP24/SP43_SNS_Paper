@@ -1,10 +1,10 @@
 base_model = (;
-    R = 70,
+    R = 40,
     w = 0,
     d = 0,
     Δ0 = 0.23,
     ξd = 70,
-    a0 = 5,
+    a0 = 2,
     preα = 0,
     g = 0,
     α = 0,
@@ -21,15 +21,15 @@ models = Dict(
         μ = 0.75,
         α = 85,
     ),
-    "MHC_20" => (;
+    "MHC_10" => (;
         base_model...,
-        w = 20,
+        w = 10,
         μ = 0.75,
         α = 85,
     ),
     "SCM" => (;
         base_model...,
-        w = 70,
+        w = 30,
         d = 10,
         Vmin = -30,
         g = 10,
@@ -38,9 +38,9 @@ models = Dict(
         preα = 46.66,
         ishollow = false,
     ),
-    "TCM_20_triv" => (;
+    "TCM_10_triv" => (;
         base_model...,
-        w = 20,
+        w = 10,
         d = 10,
         τΓ = 10,
         μ = 18.7,
@@ -48,9 +48,9 @@ models = Dict(
         g = 10,
         ishollow = false,
     ),
-    "TCM_20_island" => (;
+    "TCM_10_island" => (;
         base_model...,
-        w = 20,
+        w = 10,
         d = 10,
         τΓ = 10,
         μ = 18.1,
@@ -58,9 +58,9 @@ models = Dict(
         g = 10,
         ishollow = false,
     ),
-    "TCM_20_gapless" => (;
+    "TCM_10_gapless" => (;
         base_model...,
-        w = 20,
+        w = 10,
         d = 10,
         τΓ = 10,
         μ = 18.5,
@@ -68,9 +68,9 @@ models = Dict(
         g = 10,
         ishollow = false,
     ),
-    "TCM_40" => (;
+    "TCM_20" => (;
         base_model...,
-        w = 40,
+        w = 20,
         d = 10,
         μ = 6.7,
         α = 20,
