@@ -1,4 +1,5 @@
-function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, path = "Output")
+function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, φs = subdiv(0, π, 51)
+, path = "Output")
 
     if L == 0
         gs = "semi"

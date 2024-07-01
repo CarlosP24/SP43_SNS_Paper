@@ -27,6 +27,7 @@ end
 ωlength = 201
 Φrng = subdiv(0, 3.5, Φlength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
+φs = subdiv(0, π, 51)
 Zs = -5:5 
 
 # Include code
@@ -39,7 +40,7 @@ mod = ARGS[1]
 L = parse(Int64, ARGS[2])
 
 #calc_LDOS(mod, L; Φrng, ωrng, Zs)
-calc_J(mod, L; Φrng, Zs)
+calc_J(mod, L; Φrng, Zs, φs)
 
 # Clean up
 rmprocs(workers())
