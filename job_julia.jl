@@ -31,13 +31,15 @@ Zs = -5:5
 
 # Include code
 include("models.jl")
-include("calcs/calc_LDOS_J.jl")
+include("calcs/calc_LDOS.jl")
+include("calcs/calc_J.jl")
 
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
 
-calc_LDOS_J(mod, L; Φrng, ωrng, Zs)
+#calc_LDOS(mod, L; Φrng, ωrng, Zs)
+calc_J(mod, L; Φrng, Zs)
 
 # Clean up
 rmprocs(workers())

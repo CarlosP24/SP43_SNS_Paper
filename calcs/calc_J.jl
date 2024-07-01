@@ -1,4 +1,4 @@
-function calc_LDOS_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), ωrng = subdiv(-.26, .26, 201) .+ 1e-4im, Zs = -5:5, path = "Output")
+function calc_LDOS(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, path = "Output")
 
     if L == 0
         gs = "semi"
@@ -22,18 +22,6 @@ function calc_LDOS_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), ωrng = subdiv(-
     # Get Greens
     g_right, g = greens_dict[gs](hSC, params)
 
-    # Run n save LDOS
-    LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
-
-    save(outdir, 
-        Dict(
-            "model" => model,   
-            "Φrng" => Φrng,
-            "ωrng" => ωrng,
-            "LDOS" => LDOS,  
-            )
-    )
-
     # Run n save Josephson
     J = josephson(g[attach_link[calc]], bandwidth(model); imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)
     Js_Zτ = Js_flux(J, Φrng, Zs, τs)
@@ -47,4 +35,3 @@ function calc_LDOS_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), ωrng = subdiv(-
         )
     )
 end
-

@@ -20,6 +20,11 @@ greens_dict = Dict(
     "finite" => get_greens_finite,
 )
 
+attach_link = Dict(
+    "semi" => 1,
+    "finite" => 2,
+)
+
 # LDOS
 function calc_ldos(ρ, Φs, ωs, Zs)
     pts = Iterators.product(Φs, ωs, Zs)
