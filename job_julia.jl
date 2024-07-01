@@ -15,75 +15,29 @@ my_procs = map(x -> (x, :auto), nodes)
 
 addprocs(my_procs; exeflags="--project", enable_threaded_blas = false)
 
+# Main 
+using JLD2
 @everywhere begin
-    using FullShell, ProgressMeter, Parameters, Quantica
-    include("calcs.jl")
+    using FullShell, Parameters, ProgressMeter, Quantica
+    include("functions.jl")
 end
 
-# Read arguments 
-mod = ARGS[1]
-length = ARGS[2]
-L = parse(Int64, length)
+# Global config 
+Φlength = 200
+ωlength = 201
+Φrng = subdiv(0, 3.5, Φlength)
+ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
+Zs = -5:5 
 
-if L == 0
-    calc = "semi"
-    subdir = "semi"
-else
-    calc = "finite"
-    subdir = "L=$(L)"
-end
-
-# Setup Output
-outdir_LDOS =  "Output/$(mod)/$(subdir)_LDOS.jld2"
-outdir_J =  "Output/$(mod)/$(subdir)_J.jld2"
-mkpath(dirname(outdir_LDOS))
-
-
-# Basic config 
-φs = subdiv(0, π, 51)
-Φrng = subdiv(0, 2.5, 200)
-ωrng = subdiv(-.26, .26, 201) .+ 1e-4im 
-Zs = -5:5
-τs = [0.1, 0.2, 0.4, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0]
-
-# Load model
+# Include code
 include("models.jl")
-model = models[mod]
-model = (; model..., L = L)
+include("calcs/calc_LDOS_J.jl")
 
-# Build nanowire
-hSM, hSC, params = build_cyl(; model...,)
+# Run
+mod = ARGS[1]
+L = parse(Int64, ARGS[2])
 
-# Get Greens
-g_right, g = calcs_dict[calc](hSC, params)
+calc_LDOS_J(mod, L; Φrng, ωrng, Zs)
 
-# Run n save LDOS
-LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
-
-save(outdir_LDOS, 
-    Dict(
-        "model" => model,
-        "Φrng" => Φrng,
-        "ωrng" => ωrng,
-        "LDOS" => LDOS
-    )      
-)
-
-# Run n save Josephson
-J = josephson(g[attach_link[calc]], 1.1 * 0.23; imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)
-Js_Zτ = Js_flux(J, Φrng, Zs, τs)
-
-
-save(outdir_J,
-    Dict(
-        "model" => model,
-        "Φrng" => Φrng,
-        "φs" => φs,
-        "Js_Zτ" => Js_Zτ
-    )
-)
-
-
-# Clean up 
-rmprocs(workers()...)
-
+# Clean up
+rmprocs(workers())
