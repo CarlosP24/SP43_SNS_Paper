@@ -10,7 +10,7 @@ function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, φs = subd
     end
 
     # Setup Output
-    outdir = "$(path)/$(mod)/$(subdir).jld2"
+    outdir = "$(path)/$(mod)/$(subdir)_J.jld2"
     mkpath(dirname(outdir))
 
     # Load models
@@ -27,7 +27,7 @@ function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, φs = subd
     J = josephson(g[attach_link[gs]], bandwidth(Params(; model...)); imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-4)
     Js_Zτ = Js_flux(J, Φrng, Zs, τs)
 
-    save(outdir_J,
+    save(outdir,
         Dict(
             "model" => model,
             "Φrng" => Φrng,
