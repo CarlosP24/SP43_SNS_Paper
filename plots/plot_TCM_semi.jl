@@ -11,5 +11,5 @@ function plot_TCMsemi(indir;  )
     return fig
 end
 
-fig = plot_TCMsemi("Output/TCM_20/semi.jld2")
+fig = plot_TCMsemi("Output/TCM_20/L=100.jld2")
 fig
