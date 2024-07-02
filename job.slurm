@@ -3,7 +3,7 @@ mkdir -p slurm.out
 sbatch <<EOT
 #!/bin/bash
 #SBATCH -p esbirro
-#SBATCH --nodes=1
+#SBATCH --nodes=2
 #SBATCH --exclude=es1
 #SBATCH --exclusive
 #SBATCH --output=slurm.out/$1_$2_%j.out
