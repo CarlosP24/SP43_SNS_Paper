@@ -24,8 +24,10 @@ function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, φs = subd
     g_right, g = greens_dict[gs](hSC, params)
 
     # Run n save Josephson
-    J = josephson(g[attach_link[gs]], bandwidth(Params(; model...)); imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-7)
-    Js_Zτ = Js_flux(J, Φrng, Zs, τs)
+    #J = josephson(g[attach_link[gs]], bandwidth(Params(; model...)); imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-7)
+    J = josephson(g[attach_link[gs]], model.Δ0 * 50; imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-7)
+
+    Js_Zτ = Js_flux(J, Φrng, Zs, τs)    
 
     save(outdir,
         Dict(

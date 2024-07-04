@@ -29,7 +29,7 @@ end
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
 φs = subdiv(0, π, 51)
 Zs = -5:5 
-τs = [0.1, 0.7, 1.0]
+τs = [0.1, 0.2, 0.4, 0.7, 0.8, 0.9, 1.0]
 
 
 # Include code
@@ -41,7 +41,7 @@ include("calcs/calc_J.jl")
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
 
-#calc_LDOS(mod, L; Φrng, ωrng, Zs)
+calc_LDOS(mod, L; Φrng, ωrng, Zs)
 calc_J(mod, L; Φrng, Zs, φs, τs)
 
 # Clean up

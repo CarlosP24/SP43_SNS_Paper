@@ -36,6 +36,7 @@ function build_data(indir)
     xticks = range(round(Int, Φa), round(Int, Φb))
     yticks = ([-Δ0, 0, Δ0], [L"-\Delta_0", "0", L"\Delta_0"]) 
 
+    Φrng = data_J["Φrng"]
     Js_τZ = data_J["Js_Zτ"]
     φs = data_J["φs"]
     τs = sort(collect(keys(Js_τZ)))
@@ -45,6 +46,7 @@ function build_data(indir)
 
     return formated_data(; data_LDOS, data_J, model, Φrng, ωrng, LDOS, Zs, Δ0, xticks, yticks, Js_τZ, φs, τs, Φa, Φb, Φc, Φd)    
 end
+
 
 function plot_LDOS(pos, data, cmax)
     @unpack xlabel, xticks, yticks, Φrng, ωrng, LDOS, Φa, Φb = data
@@ -58,7 +60,7 @@ function plot_I(pos, data; colors = reverse(cgrad(:rainbow))[1:end-1])
     @unpack xlabel, xticks, Φrng, Φa, Φb, Js_τZ, φs, τs, Φc, Φd = data
     ax_I = Axis(pos; xlabel, ylabel = L"$I_c/I_\text{max}$ ", xticks, yticks = [0, 1])
 
-    for (τ, color) in zip([first(τs), τs[3]], [first(colors), colors[3]])
+    for (τ, color) in zip([first(τs), τs[2]], [first(colors), colors[3]])
         Js_dict = Js_τZ[τ]
         Js = sum(values(Js_dict))
         Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
@@ -76,4 +78,5 @@ function plot_I(pos, data; colors = reverse(cgrad(:rainbow))[1:end-1])
     xlims!(ax_I, (Φa, Φb))
     vlines!(ax_I, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
     ylims!(ax_I, -0.1, 1.2)
+    return ax_I
 end
