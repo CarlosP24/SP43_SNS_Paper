@@ -56,11 +56,11 @@ function plot_LDOS(pos, data, cmax)
     return ax_LDOS
 end
 
-function plot_I(pos, data; colors = reverse(cgrad(:rainbow))[1:end-1])
+function plot_I(pos, data; colors = reverse(cgrad(:rainbow))[1:end-1], cτs = [0.1, 0.7])
     @unpack xlabel, xticks, Φrng, Φa, Φb, Js_τZ, φs, τs, Φc, Φd = data
     ax_I = Axis(pos; xlabel, ylabel = L"$I_c/I_\text{max}$ ", xticks, yticks = [0, 1])
 
-    for (τ, color) in zip([first(τs), τs[2]], [first(colors), colors[3]])
+    for (τ, color) in zip(cτs, [first(colors), colors[3]])
         Js_dict = Js_τZ[τ]
         Js = sum(values(Js_dict))
         Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
@@ -79,4 +79,36 @@ function plot_I(pos, data; colors = reverse(cgrad(:rainbow))[1:end-1])
     vlines!(ax_I, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
     ylims!(ax_I, -0.1, 1.2)
     return ax_I
+end
+
+function plot_Is(pos_abs, pos_rel, data, channels; cmap = :rainbow)
+    @unpack xlabel, xticks, Φrng, Φa, Φb, Js_τZ, φs, τs, Φc, Φd = data
+    ax_Abs = Axis(pos_abs; xlabel, ylabel =L"$I_c$ $(e \Delta_\text{eff} /\hbar)$ ", xticks, yticks = [0, channels])
+    ax_Rel = Axis(pos_rel; xlabel, ylabel =  L"$I_c/I_c(0)$ ", xticks, yticks = [0, 1])
+    colors = reverse(cgrad(cmap, length(τs) + ifelse(iseven(length(τs)), 1, 2)))[1:end-1]
+    Icms = Dict()
+    for (τ, color) in zip(τs, colors)
+        Js_dict = Js_τZ[τ]
+        Js = sum(values(Js_dict))
+        Js0 = Js_dict[0]
+        Ic = maximum.(Js)
+        Ic0 = maximum.(Js0)
+        Icm = first(Ic)
+        Icms[τ] = Icm
+        lines!(ax_Abs, Φrng, Ic; color = color )
+        lines!(ax_Rel, Φrng, Ic ./ Icm; color  = color)
+        #lines!(ax_Rel, Φrng, Ic0 ./ Icm; color = color, linestyle = :dash)
+    end
+
+    IcmT = Icms[1.0]
+    Δeff = IcmT / (2 * π *  channels)
+    ax_Abs.yticks = ([0, (channels) * Δeff * 2 * π], [L"0", L"%$(channels)"])
+    ylims!(ax_Abs, (-0.1 * IcmT, 1.2 * IcmT))
+
+    for ax in [ax_Abs, ax_Rel]
+        xlims!(ax, (Φa, Φb))
+        vlines!(ax, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
+    end
+
+    return ax_Abs, ax_Rel, Δeff
 end
