@@ -23,14 +23,14 @@ using JLD2
 end
 
 # Global config 
-Φlength = 200
-ωlength = 201
-φlength = 201
+Φlength = 300
+ωlength = 301
+φlength = 301
 
 Φrng = subdiv(0, 2.5, Φlength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
 φrng = subdiv(0, 2π, φlength)
-φs = subdiv(0, π, 51)
+φs = subdiv(0, π, 101)
 
 Zs = -5:5 
 τs = 0.1:0.1:1.0
