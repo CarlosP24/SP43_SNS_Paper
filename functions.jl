@@ -7,6 +7,14 @@ function get_greens_semi(hSC, p)
     return g_right, g
 end
 
+function get_greens_semi(hSC, hSCshift, p)
+    @unpack a0, t = p
+    coupling = @hopping((; τ = 1) -> - τ * t * σ0τz; range = 2*a0)
+    g_right = hSC |> greenfunction(GS.Schur(boundary = 0))
+    g = hSCshift |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return g_right, g
+end
+
 function get_greens_finite(hSC, p)
     @unpack a0, t, L = p 
     coupling = @hopping((; τ = 1) -> - τ * t * σ0τz; range = 2*a0)
@@ -14,6 +22,16 @@ function get_greens_finite(hSC, p)
     g = hSC |> attach(onsite(1e9 * σ0τz,), cells = (L,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
     return g_right, g
 end
+
+function get_greens_finite(hSC, hSCshift, p)
+    @unpack a0, t, L = p 
+    coupling = @hopping((; τ = 1) -> - τ * t * σ0τz; range = 2*a0)
+    g_right = hSC |> attach(onsite(1e9 * σ0τz,), cells = (- L,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = hSCshift |> attach(onsite(1e9 * σ0τz,), cells = (L,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return g_right, g
+end
+
+
 
 greens_dict = Dict(
     "semi" => get_greens_semi,
@@ -39,6 +57,22 @@ function calc_ldos(ρ, Φs, ωs, Zs)
     end
     LDOSarray = reshape(LDOS, size(pts)...)
     return Dict([Z => sum.(LDOSarray[:, :, i]) for (i, Z) in enumerate(Zs)])
+end
+
+# Andreev spectrum
+function Andreev_spectrum(ρ, φrng, ωrng, Zs)
+    pts = Iterators.product(φrng, ωrng, Zs)
+    Andreev = @showprogress pmap(pts) do pt 
+        φ, ω, Z = pt
+        ld = try 
+            ρ(ω; ω = ω, phase = φ, Z = Z)
+        catch
+            0.0
+        end
+        return ld 
+    end
+    Andreevarray = reshape(Andreev, size(pts)...)
+    return Dict([Z => sum.(Andreevarray[:, :, i]) for (i, Z) in enumerate(Zs)])
 end
 
 # MZM Length
@@ -68,3 +102,4 @@ function bandwidth(p::Params)
     @unpack ħ2ome, μ, m0, a0 = p
     return max(abs(4*ħ2ome/(2m0*a0^2) - μ), abs(-4*ħ2ome/(2m0*a0^2) - μ))
 end
+

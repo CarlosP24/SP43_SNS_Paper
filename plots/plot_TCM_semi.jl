@@ -48,13 +48,14 @@ end
 
 ##
 
-L = 150
-if L == 0
-    subdir = "semi"
-else
-    subdir = "L=$(L)"
-end
+for L in [0, 50, 100, 150, 200]
+    if L == 0
+        subdir = "semi"
+    else
+        subdir = "L=$(L)"
+    end
 
-fig = plot_TCM(L)
-save("Figures/TCM_$(subdir).pdf", fig)
-fig
+    fig = plot_TCM(L)
+    save("Figures/TCM_$(subdir).pdf", fig)
+    fig
+end
