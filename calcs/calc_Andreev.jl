@@ -7,9 +7,7 @@ function calc_Andreev(mod, L, Φ; φrng = subdiv(0, 2π, 101), ωrng = subdiv(-.
         subdir = "L=$(L)"
     end
 
-    # Setup Output
-    outdir = "$(path)/$(mod)/$(subdir).jld2"
-    mkpath(dirname(outdir))
+
 
     # Load models
     model = models[mod]
@@ -21,9 +19,14 @@ function calc_Andreev(mod, L, Φ; φrng = subdiv(0, 2π, 101), ωrng = subdiv(-.
 
     g_right, g = greens_dict[gs](hSC, hSCshift, params)
 
-    # Run n save Andreev spectra
+    # Run Andreev spectra
     ASpectrum = Andreev_spectrum(ldos(g[attach_link[gs]]), φrng, ωrng, Zs)
 
+    # Setup Output
+    outdir = "$(path)/$(mod)/$(subdir)_Andreev_Φ=$(model.Φ).jld2"
+    mkpath(dirname(outdir))
+
+    # Save
     save(outdir, 
         Dict(
             "model" => model,   

@@ -25,24 +25,34 @@ end
 # Global config 
 Φlength = 200
 ωlength = 201
+φlength = 201
+
 Φrng = subdiv(0, 2.5, Φlength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
+φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, π, 51)
+
 Zs = -5:5 
-τs = [0.1, 0.2, 0.4, 0.7, 0.8, 0.9, 1.0]
+τs = 0.1:0.1:1.0
 
 
 # Include code
 include("models.jl")
 include("calcs/calc_LDOS.jl")
 include("calcs/calc_J.jl")
+include("calcs/calc_Andreev.jl")
 
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
 
-#calc_LDOS(mod, L; Φrng, ωrng, Zs)
+calc_LDOS(mod, L; Φrng, ωrng, Zs)
 calc_J(mod, L; Φrng, Zs, φs, τs)
+
+Φcross = [0.7, 1.245]
+for Φ in Φcross
+    calc_Andreev(mod, L, Φ; Φrng, ωrng, Zs)
+end
 
 # Clean up
 rmprocs(workers())

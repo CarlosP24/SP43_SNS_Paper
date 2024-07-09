@@ -61,3 +61,20 @@ for (opt, Ls) in opts
     fig = plot_finite(Ls = Ls)
     save("Figures/TCM_40_$(subdir).pdf", fig)
 end
+
+##
+using CairoMakie, JLD2, Parameters, Revise
+includet("plot_functions.jl")
+path = "Output"
+mod = "TCM_40"
+L = 100
+subdir = "L=$(L)"
+indir = "$(path)/$(mod)/$(subdir).jld2"
+data = build_data(indir)
+fig = Figure() 
+ax_I = plot_LDOS(fig[1, 1], data, 3e-2)
+vlines!(ax_I, 1.245; color = :white, linestyle = :dash)
+vlines!(ax_I, 0.7; color = :white, linestyle = :dash)
+
+fig
+
