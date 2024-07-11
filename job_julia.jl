@@ -32,7 +32,7 @@ end
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, π, 51)
 
-Zs = -5:5 
+Zs = -2:2 
 τs = 0.1:0.1:1.0
 
 
