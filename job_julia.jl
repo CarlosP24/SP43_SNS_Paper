@@ -23,9 +23,9 @@ using JLD2
 end
 
 # Global config 
-Φlength = 100
-ωlength = 101
-φlength = 101
+Φlength = 200
+ωlength = 201
+φlength = 201
 
 Φrng = subdiv(0, 2.5, Φlength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
@@ -46,13 +46,14 @@ include("calcs/calc_Andreev.jl")
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
 
-calc_LDOS(mod, L; Φrng, ωrng, Zs)
-calc_J(mod, L; Φrng, Zs, φs, τs)
 
 Φcross = [0.7, 1.245]
 for Φ in Φcross
     calc_Andreev(mod, L, Φ; Φrng, ωrng, Zs)
 end
+
+calc_LDOS(mod, L; Φrng, ωrng, Zs)
+#calc_J(mod, L; Φrng, Zs, φs, τs)
 
 # Clean up
 rmprocs(workers())
