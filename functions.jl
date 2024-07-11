@@ -60,12 +60,12 @@ function calc_ldos(ρ, Φs, ωs, Zs)
 end
 
 # Andreev spectrum
-function Andreev_spectrum(ρ, φrng, ωrng, Zs)
+function Andreev_spectrum(ρ, φrng, ωrng, Zs; τ = 0.1)
     pts = Iterators.product(φrng, ωrng, Zs)
     Andreev = @showprogress pmap(pts) do pt 
         φ, ω, Z = pt
         ld = try 
-            ρ(ω; ω = ω, phase = φ, Z = Z)
+            ρ(ω; ω = ω, phase = φ, Z = Z, τ = τ)
         catch
             0.0
         end

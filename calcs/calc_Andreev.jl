@@ -1,4 +1,4 @@
-function calc_Andreev(mod, L, Φ; φrng = subdiv(0, 2π, 101), ωrng = subdiv(-.26, .26, 101) .+ 1e-4im, Zs = -5:5, path = "Output")
+function calc_Andreev(mod, L, Φ; τ = 0.1, φrng = subdiv(0, 2π, 101), ωrng = subdiv(-.26, .26, 101) .+ 1e-4im, Zs = -5:5, path = "Output")
     if L == 0
         gs = "semi"
         subdir = "semi"
@@ -20,7 +20,7 @@ function calc_Andreev(mod, L, Φ; φrng = subdiv(0, 2π, 101), ωrng = subdiv(-.
     g_right, g = greens_dict[gs](hSC, hSCshift, params)
 
     # Run Andreev spectra
-    ASpectrum = Andreev_spectrum(ldos(g[attach_link[gs]]), φrng, ωrng, Zs)
+    ASpectrum = Andreev_spectrum(ldos(g[attach_link[gs]]), φrng, ωrng, Zs; τ)
 
     # Setup Output
     outdir = "$(path)/$(mod)/$(subdir)_Andreev_Φ=$(model.Φ).jld2"

@@ -20,6 +20,20 @@
     Φd = nothing
 end
 
+function build_data(indir, Φ)
+    indirA = replace(indir, ".jld2" => "_Andreev_Φ=$(Φ).jld2")
+    data_Andreev = load(indirA)
+    model = data_Andreev["model"]
+    φrng = data_Andreev["φrng"]
+    ωrng = real.(data_Andreev["ωrng"])
+    Andreev = data_Andreev["Andreev"] 
+    Δ0 = model.Δ0
+    φa, φb = first(φrng), last(φrng)
+    xticks = ([0, π, 2π], [L"0", L"\pi", L"2\pi"])
+    yticks = ([-Δ0, 0, Δ0], [L"-\Delta_0", "0", L"\Delta_0"]) 
+    return formated_data(; data_LDOS = data_Andreev, model, Φrng = φrng, ωrng, LDOS = Andreev, Φa = φa, Φb = φb, xticks, yticks, Δ0, xlabel = L"\varphi")
+end
+
 function build_data(indir)
     data_LDOS = load(indir)
     indir_J = replace(indir, ".jld2" => "_J.jld2")
@@ -48,10 +62,15 @@ function build_data(indir)
 end
 
 
-function plot_LDOS(pos, data, cmax)
+function plot_LDOS(pos, data, cmin, cmax; Zs = nothing)
     @unpack xlabel, xticks, yticks, Φrng, ωrng, LDOS, Φa, Φb = data
     ax_LDOS = Axis(pos; xlabel, ylabel = L"\omega", xticks, yticks)
-    heatmap!(ax_LDOS, Φrng, real.(ωrng), sum(values(LDOS)); colormap = cgrad(:thermal)[10:end], colorrange = (2e-4, cmax), lowclip = :black)
+    if Zs === nothing
+        LDOSp = sum(values(LDOS))
+    else
+        LDOSp = sum([LDOS[Z] for Z in Zs])
+    end
+    heatmap!(ax_LDOS, Φrng, real.(ωrng), LDOSp; colormap = cgrad(:thermal)[10:end], colorrange = (cmin, cmax), lowclip = :black)
     xlims!(ax_LDOS, (Φa, Φb))
     return ax_LDOS
 end
