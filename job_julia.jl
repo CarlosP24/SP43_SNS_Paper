@@ -48,10 +48,11 @@ L = parse(Int64, ARGS[2])
 
 
 Φcross = [0.7, 1.245]
-for Φ in Φcross
-    calc_Andreev(mod, L, Φ; τ = 0.1, φrng, ωrng, Zs)
+for τ in τs
+    for Φ in Φcross
+        calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
+    end
 end
-
 #calc_LDOS(mod, L; Φrng, ωrng, Zs)
 #calc_J(mod, L; Φrng, Zs, φs, τs)
 

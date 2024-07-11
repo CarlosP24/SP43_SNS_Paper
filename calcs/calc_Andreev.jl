@@ -23,12 +23,13 @@ function calc_Andreev(mod, L, Φ; τ = 0.1, φrng = subdiv(0, 2π, 101), ωrng =
     ASpectrum = Andreev_spectrum(ldos(g[attach_link[gs]]), φrng, ωrng, Zs; τ)
 
     # Setup Output
-    outdir = "$(path)/$(mod)/$(subdir)_Andreev_Φ=$(model.Φ).jld2"
+    outdir = "$(path)/$(mod)/$(subdir)_Andreev_Φ=$(model.Φ)_τ=$(τ).jld2"
     mkpath(dirname(outdir))
 
     # Save
     save(outdir, 
         Dict(
+            "τ" => τ,
             "model" => model,   
             "φrng" => φrng,
             "ωrng" => ωrng,

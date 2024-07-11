@@ -21,21 +21,23 @@ function plot_finite(; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40", 
         hidexdecorations!(ax_LDOS; ticks = false)
 
         ax_I = plot_I(fig[2, col], data)
-        axislegend(ax_I, position = (1, 1.1), labelsize = 15, framevisible = false, align = (:center, :center))
+        #axislegend(ax_I, position = (1, 1.1), labelsize = 15, framevisible = false, align = (:center, :center))
         vlines!(ax_I, [Φ1]; ymin = 0.8,  color = :pink, linestyle = :dash)
         vlines!(ax_I, [Φ2]; ymin = 0.8, color = :yellow, linestyle = :dash)
 
         gA = fig[3, col] = GridLayout()
 
         data_A1 = build_data(indir, Φ1)
-        ax_A1 = plot_LDOS(gA[1, 1], data_A1, 2e-3, 1; Zs = [-2,2])
+        ax_A1 = plot_LDOS(gA[1, 1], data_A1, 5e-5, 5e-3;  Zs = [-2, 2])
         scatter!(ax_A1, [π/4], [0.24]; color = :pink, markersize = 10)
         text!(ax_A1, 5π/4, 0.24; text = L"$m_J = \pm 2$", align = (:center, :center), color = :white, fontsize = 15)
+        text!(ax_A1, π, -0.23; text = L"\tau = 0.1", align = (:center, :center), color = :white, fontsize = 15)
         col != 1 && hideydecorations!(ax_A1; ticks = false)
         data_A2 = build_data(indir, Φ2)
-        ax_A2 = plot_LDOS(gA[1, 2], data_A2, 2e-3, 5e-1; Zs = 0)
+        ax_A2 = plot_LDOS(gA[1, 2], data_A2, 5e-5, 5e-1; Zs = 0)
         scatter!(ax_A2, [π/4], [0.24]; color = :yellow, markersize = 10)
         text!(ax_A2, 5π/4, 0.24; text = L"$m_J =  0$", align = (:center, :center), color = :white, fontsize = 15)
+        text!(ax_A2, π, -0.23; text = L"\tau = 0.1", align = (:center, :center), color = :white, fontsize = 15)
 
         hideydecorations!(ax_A2; ticks = false)
 
@@ -48,6 +50,7 @@ function plot_finite(; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40", 
 
 
     Colorbar(fig[1, 3], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[2, 3], colormap = reverse(cgrad(:rainbow))[1:end-1], label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
     Colorbar(fig[3, 3], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15, ticksize = 2, ticklabelpad = 5)
 
     style = (font = "CMU Serif Bold", fontsize = 20)
