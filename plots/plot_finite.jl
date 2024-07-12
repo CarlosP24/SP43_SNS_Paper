@@ -97,5 +97,5 @@ function study_Andreev(τ, L; Φ1 = 0.7, Φ2 = 1.245, path = "Output",  mod = "T
     return fig
 end
 
-fig = study_Andreev(0.9, 100)
+fig = study_Andreev(0.4, 100)
 fig
