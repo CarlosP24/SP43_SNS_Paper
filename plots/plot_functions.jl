@@ -20,8 +20,8 @@
     Φd = nothing
 end
 
-function build_data(indir, Φ)
-    indirA = replace(indir, ".jld2" => "_Andreev_Φ=$(Φ).jld2")
+function build_data(indir, Φ, τ)
+    indirA = replace(indir, ".jld2" => "_Andreev_Φ=$(Φ)_τ=$(τ).jld2")
     data_Andreev = load(indirA)
     model = data_Andreev["model"]
     φrng = data_Andreev["φrng"]

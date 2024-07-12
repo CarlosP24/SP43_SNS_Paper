@@ -2,7 +2,7 @@ using CairoMakie, JLD2, Parameters, Revise
 
 includet("plot_functions.jl")
 
-function plot_finite(; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40", Ls = [0, 100], cmin = 2e-4, cmaxs = [3e-2, 3e-2])
+function plot_finite(τ; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40", Ls = [0, 100], cmin = 2e-4, cmaxs = [3e-2, 3e-2])
 
     fig = Figure(size = (600, 700), fontsize = 20, )
 
@@ -27,17 +27,17 @@ function plot_finite(; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40", 
 
         gA = fig[3, col] = GridLayout()
 
-        data_A1 = build_data(indir, Φ1)
-        ax_A1 = plot_LDOS(gA[1, 1], data_A1, 5e-5, 5e-3;  Zs = [-2, 2])
+        data_A1 = build_data(indir, Φ1, τ)
+        ax_A1 = plot_LDOS(gA[1, 1], data_A1, 5e-5, 5e-2;  Zs = [-2, 2])
         scatter!(ax_A1, [π/4], [0.24]; color = :pink, markersize = 10)
         text!(ax_A1, 5π/4, 0.24; text = L"$m_J = \pm 2$", align = (:center, :center), color = :white, fontsize = 15)
-        text!(ax_A1, π, -0.23; text = L"\tau = 0.1", align = (:center, :center), color = :white, fontsize = 15)
+        text!(ax_A1, π, -0.23; text = L"\tau = %$(τ)", align = (:center, :center), color = :white, fontsize = 15)
         col != 1 && hideydecorations!(ax_A1; ticks = false)
-        data_A2 = build_data(indir, Φ2)
-        ax_A2 = plot_LDOS(gA[1, 2], data_A2, 5e-5, 5e-1; Zs = 0)
+        data_A2 = build_data(indir, Φ2, τ)
+        ax_A2 = plot_LDOS(gA[1, 2], data_A2, 5e-5, 5e-2; Zs = 0)
         scatter!(ax_A2, [π/4], [0.24]; color = :yellow, markersize = 10)
         text!(ax_A2, 5π/4, 0.24; text = L"$m_J =  0$", align = (:center, :center), color = :white, fontsize = 15)
-        text!(ax_A2, π, -0.23; text = L"\tau = 0.1", align = (:center, :center), color = :white, fontsize = 15)
+        text!(ax_A2, π, -0.23; text = L"\tau = %$(τ)", align = (:center, :center), color = :white, fontsize = 15)
 
         hideydecorations!(ax_A2; ticks = false)
 
@@ -74,7 +74,28 @@ function plot_finite(; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40", 
     return fig
 end
 
-fig = plot_finite()
+fig = plot_finite(0.1)
 save("Figures/TCM_40.pdf", fig)
 fig
 
+##
+function study_Andreev(τ, L; Φ1 = 0.7, Φ2 = 1.245, path = "Output",  mod = "TCM_40")
+    fig = Figure() 
+    if L == 0
+        subdir = "semi"
+    else
+        subdir = "L=$(L)"
+    end
+    indir = "$(path)/$(mod)/$(subdir).jld2"
+
+    data = build_data(indir, Φ1, τ)
+    ax = plot_LDOS(fig[1, 1], data, 0, 5e-2;)
+
+    data = build_data(indir, Φ2, τ)
+    ax = plot_LDOS(fig[1, 2], data, 0, 5e-2;)
+    hideydecorations!(ax; ticks = false)
+    return fig
+end
+
+fig = study_Andreev(0.9, 100)
+fig

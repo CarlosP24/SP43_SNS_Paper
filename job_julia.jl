@@ -28,7 +28,6 @@ end
 φlength = 201
 
 Φrng = subdiv(0, 2.5, Φlength)
-ωrng = subdiv(-.26, .26, ωlength) .+ 1e-4im
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, π, 51)
 
@@ -45,14 +44,15 @@ include("calcs/calc_Andreev.jl")
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
-
+τ = parse(Float64, ARGS[3])
 
 Φcross = [0.7, 1.245]
-for τ in τs
-    for Φ in Φcross
-        calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
-    end
+
+for Φ in Φcross
+    ωrng = subdiv(-.26 * τ, .26 * τ, ωlength) .+ 1e-4im
+    calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
 end
+
 #calc_LDOS(mod, L; Φrng, ωrng, Zs)
 #calc_J(mod, L; Φrng, Zs, φs, τs)
 
