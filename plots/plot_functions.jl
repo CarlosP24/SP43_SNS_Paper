@@ -30,7 +30,7 @@ function build_data(indir, Φ, τ)
     Δ0 = model.Δ0
     φa, φb = first(φrng), last(φrng)
     xticks = ([0, π, 2π], [L"0", L"\pi", L"2\pi"])
-    yticks = ([-Δ0, 0, Δ0], [L"-\Delta_0", "0", L"\Delta_0"]) 
+    yticks = ([0], [L"0"]) 
     return formated_data(; data_LDOS = data_Andreev, model, Φrng = φrng, ωrng, LDOS = Andreev, Φa = φa, Φb = φb, xticks, yticks, Δ0, xlabel = L"\varphi")
 end
 
