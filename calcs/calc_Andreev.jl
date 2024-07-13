@@ -45,33 +45,33 @@ function calc_Andreev_loop(mod, L, τ; Φrng = subdiv(0.5, 1.5, 200), φrng = su
         subdir = "L=$(L)"
     end
 
-   # Load models
-   model = models[mod]
-   model = (; model..., L = L)
+    # Load models
+    model = models[mod]
+    model = (; model..., L = L)
 
-   # Build nanowire
-   hSM, hSC, params = build_cyl(; model..., )
-   hSM, hSCshift, params = build_cyl(; model..., phaseshifted = true )
+    # Build nanowire
+    hSM, hSC, params = build_cyl(; model..., )
+    hSM, hSCshift, params = build_cyl(; model..., phaseshifted = true )
 
-   g_right, g = greens_dict[gs](hSC, hSCshift, params)
+    g_right, g = greens_dict[gs](hSC, hSCshift, params)
 
-     # Run Andreev spectra
-     ASpectrum = Andreev_spectrum(ldos(g[attach_link[gs]]), Φrng, φrng, ωrng, Zs; τ)
+    # Run Andreev spectra
+    ASpectrum = Andreev_spectrum(ldos(g[attach_link[gs]]), Φrng, φrng, ωrng, Zs; τ)
 
-     # Setup Output
-     outdir = "$(path)/$(mod)/$(subdir)_Andreev_Φloop_τ=$(τ).jld2"
-     mkpath(dirname(outdir))
- 
-     # Save
-     save(outdir, 
-         Dict(
-             "τ" => τ,
-             "model" => model,   
-             "Φrng" => Φrng,
-             "φrng" => φrng,
-             "ωrng" => ωrng,
-             "Andreev" => ASpectrum,  
-             )
-     )
+    # Setup Output
+    outdir = "$(path)/$(mod)/$(subdir)_Andreev_Φloop_τ=$(τ).jld2"
+    mkpath(dirname(outdir))
+
+    # Save
+    save(outdir, 
+        Dict(
+            "τ" => τ,
+            "model" => model,   
+            "Φrng" => Φrng,
+            "φrng" => φrng,
+            "ωrng" => ωrng,
+            "Andreev" => ASpectrum,  
+            )
+    )
 
 end
