@@ -75,6 +75,22 @@ function Andreev_spectrum(ρ, φrng, ωrng, Zs; τ = 0.1)
     return Dict([Z => sum.(Andreevarray[:, :, i]) for (i, Z) in enumerate(Zs)])
 end
 
+# Andreev spectru, Φloop 
+function Andreev_spectrum(ρ, Φrng, φrng, ωrng, Zs; τ = 0.1)
+    pts = Iterators.product(Φrng, φrng, ωrng, Zs)
+    Andreev = @showprogress pmap(pts) do pt 
+        Φ, φ, ω, Z = pt
+        ld = try 
+            ρ(ω; ω = ω, Φ = Φ, phase = φ, Z = Z, τ = τ)
+        catch
+            0.0
+        end
+        return ld 
+    end
+    Andreevarray = reshape(Andreev, size(pts)...)
+    return Dict([Z => sum.(Andreevarray[:, :, :, i]) for (i, Z) in enumerate(Zs)])
+end
+
 # MZM Length
 
 function calc_length(g, Φrng, ωrng; ω = 0.0 + 1e-4im, Z = 0, minabs = 1e-5)
