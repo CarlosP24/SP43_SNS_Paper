@@ -33,6 +33,7 @@ end
 
 Zs = -2:2 
 τs = 0.1:0.1:1.0
+τ = 0.1
 
 
 # Include code
@@ -44,10 +45,10 @@ include("calcs/calc_Andreev.jl")
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
-τ = parse(Float64, ARGS[3])
+Φ = parse(Float64, ARGS[3])
 
 #Φcross = [0.7, 1.245]
-Φcross = subdiv(1.20, 1.30, 11)
+#Φcross = subdiv(1.20, 1.30, 11)
 
 ωlims = Dict(
     1.0 => [1, 1e-4],
@@ -62,10 +63,10 @@ L = parse(Int64, ARGS[2])
     0.1 => [0.01, 1e-6],
 )
 
-for Φ in Φcross
-    ωrng = subdiv(-.26 * ωlims[τ][1], .26 * ωlims[τ][1], ωlength) .+ ωlims[τ][2]*1.0im
-    calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
-end
+
+ωrng = subdiv(-.26 * ωlims[τ][1], .26 * ωlims[τ][1], ωlength) .+ ωlims[τ][2]*1.0im
+calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
+
 
 # Φrng = subdiv(0.5, 1.5, Φlength)
 # φrng = subdiv(0, 2π, φlength)
