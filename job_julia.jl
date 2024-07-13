@@ -3,7 +3,7 @@ using Pkg
 Pkg.activate(".")
 Pkg.instantiate()
 
-using Distributed, JLD2
+using Distributed
 
 nodes = open("machinefile") do f
     read(f, String)
@@ -13,7 +13,7 @@ pop!(nodes)
 nodes = string.(nodes)
 my_procs = map(x -> (x, :auto), nodes)
 
-addprocs(my_procs; exeflags="--project", enable_threaded_blas = false)
+addprocs(my_procs; exeflags="--project", enable_threaded_blas = true)
 
 # Main 
 using JLD2
@@ -61,15 +61,15 @@ L = parse(Int64, ARGS[2])
     0.1 => [0.01, 1e-6],
 )
 
-for Φ in Φcross
-    ωrng = subdiv(-.26 * ωlims[τ][1], .26 * ωlims[τ][1], ωlength) .+ ωlims[τ][2]*1.0im
-    calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
-end
+# for Φ in Φcross
+#     ωrng = subdiv(-.26 * ωlims[τ][1], .26 * ωlims[τ][1], ωlength) .+ ωlims[τ][2]*1.0im
+#     calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
+# end
 
-# Φrng = subdiv(0.5, 1.5, Φlength)
-# φrng = subdiv(0, 2π, φlength)
-# ωrng = subdiv(-.26 * ωlims[τ][1], .26 * ωlims[τ][1], ωlength) .+ ωlims[τ][2]*1.0im
-# calc_Andreev_loop(mod, L, τ; Φrng, φrng, ωrng)
+Φrng = subdiv(0.5, 1.5, Φlength)
+φrng = subdiv(0, 2π, φlength)
+ωrng = subdiv(-.26 * ωlims[τ][1], .26 * ωlims[τ][1], ωlength) .+ ωlims[τ][2]*1.0im
+calc_Andreev_loop(mod, L, τ; Φrng, φrng, ωrng)
 
 #calc_LDOS(mod, L; Φrng, ωrng, Zs)
 #calc_J(mod, L; Φrng, Zs, φs, τs)
