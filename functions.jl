@@ -44,12 +44,12 @@ attach_link = Dict(
 )
 
 # LDOS
-function calc_ldos(ρ, Φs, ωs, Zs)
+function calc_ldos(ρ, Φs, ωs, Zs; τ = 1, φ = 0)
     pts = Iterators.product(Φs, ωs, Zs)
     LDOS = @showprogress pmap(pts) do pt
         Φ, ω, Z = pt 
         ld = try 
-            ρ(ω; ω = ω, Φ = Φ, Z = Z)
+            ρ(ω; ω = ω, Φ = Φ, Z = Z, τ = τ, phase = φ)
         catch
             0.0
         end

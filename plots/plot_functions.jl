@@ -75,28 +75,33 @@ function plot_LDOS(pos, data, cmin, cmax; Zs = nothing)
     return ax_LDOS
 end
 
-function plot_I(pos, data; colors = reverse(cgrad(:rainbow))[1:end-1], cτs = [0.1, 0.7])
+function plot_I(pos, data; colors = ColorSchemes.rainbow, cτs = [0.1, 0.7])
     @unpack xlabel, xticks, Φrng, Φa, Φb, Js_τZ, φs, τs, Φc, Φd = data
     ax_I = Axis(pos; xlabel, ylabel =L"$I_c$", xticks,  yscale = log10)
 
-    for (τ, color) in zip(τs, colors)
+    for (τ, color) in zip(τs, reverse(get(colors, range(0, 1, length(τs)))))
         Js_dict = Js_τZ[τ]
         Js = sum(values(Js_dict))
         Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
+        Js_not01 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z ∉ [-1, 2]])
         Js_0 = Js_dict[0]
         Ic = maximum.(Js)
         mIc = maximum(Ic)
         #Ic = Ic ./ mIc
         Ic_not0 = maximum.(Js_not0)
+        Ic_not01 = maximum.(Js_not01)
         #Ic_not0 = Ic_not0 ./ mIc
         Ic0 = maximum.(Js_0)
         #Ic0 = Ic0 ./ mIc
         lines!(ax_I, Φrng, Ic; color  = color, label = L"\tau = %$(τ)")
         lines!(ax_I, Φrng[Φc:Φd], Ic_not0[Φc:Φd]; color  = color, linestyle = :dash, )
+        #lines!(ax_I, Φrng[1:Φc], Ic_not01[1:Φc]; color  = color, linestyle = :dash, )
+        #lines!(ax_I, Φrng[Φd:end], Ic_not01[Φd:end]; color  = color, linestyle = :dash, )
+
     end
     xlims!(ax_I, (Φa, Φb))
     vlines!(ax_I, range(Φa, Φb, step = 1) .+ 0.5, color = :black, linestyle = :dash)
-    ylims!(ax_I, 1E-5, 1)
+    ylims!(ax_I, 1E-5, 1E1)
     return ax_I
 end
 
