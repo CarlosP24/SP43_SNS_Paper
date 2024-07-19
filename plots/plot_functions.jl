@@ -81,20 +81,25 @@ function plot_I(pos, data; colors = ColorSchemes.rainbow, cτs = [0.1, 0.7])
 
     for (τ, color) in zip(τs, reverse(get(colors, range(0, 1, length(τs)))))
         Js_dict = Js_τZ[τ]
-        Js = sum(values(Js_dict))
-        Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
-        Js_not01 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z ∉ [-1, 2]])
-        Js_0 = Js_dict[0]
-        Ic = maximum.(Js)
-        mIc = maximum(Ic)
-        #Ic = Ic ./ mIc
-        Ic_not0 = maximum.(Js_not0)
-        Ic_not01 = maximum.(Js_not01)
+        # Js = sum(values(Js_dict))
+        # Js_not0 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0])
+        # Js_not01 = sum([Js_dict[Z] for Z in keys(Js_dict) if Z ∉ [-1, 2]])
+        # Js_0 = Js_dict[0]
+        # Ic = maximum.(Js)
+        # mIc = maximum(Ic)
+        # #Ic = Ic ./ mIc
+        # Ic_not0 = maximum.(Js_not0)
+        # Ic_not01 = maximum.(Js_not01)
         #Ic_not0 = Ic_not0 ./ mIc
-        Ic0 = maximum.(Js_0)
+        Ic0 = maximum.(Js_dict[0])
+        Ic_not0 = sum([maximum.(Js_dict[Z]) for Z in keys(Js_dict) if Z != 0])
+        Ic_not01 = sum([maximum.(Js_dict[Z]) for Z in keys(Js_dict) if Z ∉ [-1, 2]])
+        Ic_0 = Js_dict[0]
         #Ic0 = Ic0 ./ mIc
-        lines!(ax_I, Φrng, Ic; color  = color, label = L"\tau = %$(τ)")
-        lines!(ax_I, Φrng[Φc:Φd], Ic_not0[Φc:Φd]; color  = color, linestyle = :dash, )
+
+        Ic = sum([maximum.(Js_dict[Z]) for Z in keys(Js_dict)])
+        lines!(ax_I, Φrng, abs.(Ic); color  = color, label = L"\tau = %$(τ)")
+        lines!(ax_I, Φrng[Φc:Φd], abs.(Ic_not0[Φc:Φd]); color  = color, linestyle = :dash, )
         #lines!(ax_I, Φrng[1:Φc], Ic_not01[1:Φc]; color  = color, linestyle = :dash, )
         #lines!(ax_I, Φrng[Φd:end], Ic_not01[Φd:end]; color  = color, linestyle = :dash, )
 

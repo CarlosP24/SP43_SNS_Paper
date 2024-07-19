@@ -88,7 +88,7 @@ data = load(indir)
 ωrng = real.(data["ωrng"])
 ω0 = findmin(abs.(ωrng))[2]
 LDOS = data["LDOS"]
-Zs = 1
+Zs = -2:2
 fig = Figure() 
 ax = Axis(fig[1, 1]; xlabel = L"\Phi /\Phi_0", ylabel = "LDOS", yscale = log10)
 scatter!(ax, Φrng[Φa:Φb], sum([LDOS[Z] for Z in Zs])[Φa:Φb, ω0])
@@ -108,8 +108,7 @@ Js_Zτ = data["Js_Zτ"]
 
 
 Js_dict = Js_Zτ[τ]
-Js = sum([Js_dict[Z] for Z in Zs])
-Ic = maximum.(Js)
+Ic = sum([maximum.(Js_dict[Z]) for Z in Zs])
 ax = Axis(fig[2, 1]; xlabel = L"\Phi / \Phi_0", ylabel = L"I_c",)
 scatter!(ax, Φrng[Φa:Φb], Ic[Φa:Φb];)
 fig

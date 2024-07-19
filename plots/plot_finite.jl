@@ -81,7 +81,7 @@ function plot_finite(τ; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40"
 end
 
 fig = plot_finite(0.1)
-save("Figures/TCM_40.pdf", fig)
+#save("Figures/TCM_40.pdf", fig)
 fig
 
 ##

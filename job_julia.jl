@@ -69,7 +69,7 @@ L = parse(Int64, ARGS[2])
 # calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
 
 
-#calc_LDOS(mod, L; Φrng, ωrng, Zs)
+calc_LDOS(mod, L; Φrng, ωrng, Zs)
 calc_J(mod, L; Φrng, Zs, φs, τs)
 
 # Clean up
