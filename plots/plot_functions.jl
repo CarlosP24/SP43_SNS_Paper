@@ -20,13 +20,16 @@
     Φd = nothing
 end
 
-function build_data(indir, Φ, τ)
+function build_data(indir, Φ, τ; shrink = 1)
     indirA = replace(indir, ".jld2" => "_Andreev_Φ=$(Φ)_τ=$(τ).jld2")
     data_Andreev = load(indirA)
     model = data_Andreev["model"]
     φrng = data_Andreev["φrng"]
     ωrng = real.(data_Andreev["ωrng"])
-    Andreev = data_Andreev["Andreev"] 
+    ωa = findmin(abs.(first(ωrng) * shrink .- ωrng))[2]
+    ωb = findmin(abs.(last(ωrng) * shrink .- ωrng))[2]
+    ωrng = ωrng[ωa:ωb]
+    Andreev = Dict([Z => data_Andreev["Andreev"][Z][:, ωa:ωb] for Z in keys(data_Andreev["Andreev"])])
     Δ0 = model.Δ0
     φa, φb = first(φrng), last(φrng)
     xticks = ([0, π, 2π], [L"0", L"\pi", L"2\pi"])

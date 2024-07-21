@@ -28,13 +28,13 @@ end
 φlength = 201
 
 Φrng = subdiv(0, 2.5, Φlength)
-ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3
+ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, π, 51)
 
 Zs = -2:2 
 τs = 0.1:0.1:1.0
-τ = 0.1
+#τ = 0.1
 
 
 # Include code
