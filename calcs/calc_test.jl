@@ -5,7 +5,7 @@ function calc_test()
 
     L = 100
     subdir = "L=$(L)"
-    gs = finite 
+    gs = "finite" 
     mod = "TCM_40"
     
     outdir = "Output/Test/$(subdir).jld2"
