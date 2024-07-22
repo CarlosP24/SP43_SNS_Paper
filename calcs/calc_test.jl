@@ -6,7 +6,8 @@ function calc_test()
     L = 100
     subdir = "L=$(L)"
     gs = finite 
-
+    mod = "TCM_40"
+    
     outdir = "Output/Test/$(subdir).jld2"
     mkpath(dirname(outdir))
 
