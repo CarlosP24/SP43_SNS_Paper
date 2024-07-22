@@ -42,6 +42,7 @@ include("models.jl")
 include("calcs/calc_LDOS.jl")
 include("calcs/calc_J.jl")
 include("calcs/calc_Andreev.jl")
+include("calcs/calc_test.jl")
 
 # Run
 mod = ARGS[1]
@@ -69,8 +70,10 @@ L = parse(Int64, ARGS[2])
 # calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
 
 
-calc_LDOS(mod, L; Φrng, ωrng, Zs)
-calc_J(mod, L; Φrng, Zs, φs, τs)
+#calc_LDOS(mod, L; Φrng, ωrng, Zs)
+#calc_J(mod, L; Φrng, Zs, φs, τs)
+
+calc_test()
 
 # Clean up
 rmprocs(workers())

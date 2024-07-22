@@ -2,7 +2,7 @@ using CairoMakie, JLD2, Parameters, Revise
 
 includet("plot_functions.jl")
 
-function plot_Three(L; indir = "Output", geos = ["HCA", "MHC_20", "SCM"], channels = [8, 8, 28], cmin = 0, cmaxs = [5e-2, 5e-2, 1.5e-1])
+function plot_Three(L; indir = "Output", geos = ["HCA", "MHC_20", "SCM"], channels = [8, 8, 28], cmin = 1e-4, cmaxs = [3e-2, 3e-2, 1e-1])
     fig = Figure(size = (1100, 500), fontsize = 20, )
 
     if L == 0

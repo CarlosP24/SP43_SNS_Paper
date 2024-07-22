@@ -59,6 +59,21 @@ function calc_ldos(ρ, Φs, ωs, Zs; τ = 1, φ = 0)
     return Dict([Z => sum.(LDOSarray[:, :, i]) for (i, Z) in enumerate(Zs)])
 end
 
+function calc_ldos_τs(ρ, Φs, ωs, Zs, τs; φ = 0)
+    pts = Iterators.product(Φs, ωs, Zs, τs)
+    LDOS = @showprogress pmap(pts) do pt
+        Φ, ω, Z, τ = pt 
+        ld = try 
+            ρ(ω; ω = ω, Φ = Φ, Z = Z, τ = τ, phase = φ)
+        catch
+            0.0
+        end
+        return ld
+    end
+    LDOSarray = reshape(LDOS, size(pts)...)
+    return Dict([τ => Dict([Z => sum.(LDOSarray[:, :, i, j]) for (i, Z) in enumerate(Zs)]) for (j, τ) in enumerate(τs)])
+end
+
 # Andreev spectrum
 function Andreev_spectrum(ρ, φrng, ωrng, Zs; τ = 0.1)
     pts = Iterators.product(φrng, ωrng, Zs)
