@@ -12,8 +12,8 @@ mod = "TCM_40"
 gs = "finite"
 Φ = 2.11
 
-φrng = subdiv(0, 2π, 101)
-ωrng = subdiv(-.26, .26, 101)
+φrng = subdiv(0, 2π, 201)
+ωrng = subdiv(-.26 * 0.01, .26 * 0.01, 201)
 τ = 0.1 
 Zs = -2:2
 model = models[mod]
@@ -52,5 +52,5 @@ Andreev = data["Andreev"]
 
 fig = Figure() 
 ax = Axis(fig[1, 1]; xlabel = L"\varphi", ylabel = L"\omega", xticks = ([0, π, 2π], [L"0", L"\pi", L"2\pi"]))
-heatmap!(ax, φrng, ωrng, sum(values(Andreev)); colormap = :thermal, colorrange = (0, 1e-4))
+heatmap!(ax, φrng, ωrng, sum(values(Andreev)); colormap = :thermal, colorrange = (0, 1e-6))
 fig
