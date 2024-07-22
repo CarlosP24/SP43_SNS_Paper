@@ -87,13 +87,8 @@ function plot_I(pos, data; colors = ColorSchemes.rainbow, cτs = [0.1, 0.7], yra
 
         Js_dict = Dict([Z => mapreduce(permutedims, vcat, Js_dict[Z]) for Z in keys(Js_dict)])
 
-        Ic0 = maximum.(Js_dict[0])
-        Ic_not0 = sum([maximum.(Js_dict[Z]) for Z in keys(Js_dict) if Z != 0])
-        Ic_not01 = sum([maximum.(Js_dict[Z]) for Z in keys(Js_dict) if Z ∉ [-1, 2]])
-        Ic_0 = Js_dict[0]
-        #Ic0 = Ic0 ./ mIc
-
         Ic = getindex(findmax(sum(values(Js_dict)); dims = 2),1) |> vec
+        Ic_not0 = getindex(findmax(sum([Js_dict[Z] for Z in keys(Js_dict) if Z != 0]); dims = 2),1) |> vec
         lines!(ax_I, Φrng, abs.(Ic); color  = color, label = L"\tau = %$(τ)")
         lines!(ax_I, Φrng[Φc:Φd], abs.(Ic_not0[Φc:Φd]); color  = color, linestyle = :dash, )
         #lines!(ax_I, Φrng[1:Φc], Ic_not01[1:Φc]; color  = color, linestyle = :dash, )

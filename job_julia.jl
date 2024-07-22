@@ -30,7 +30,7 @@ end
 Φrng = subdiv(0, 2.5, Φlength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
 φrng = subdiv(0, 2π, φlength)
-φs = subdiv(0, π, 51)
+φs = subdiv(0, 2π, 101)
 
 Zs = -5:5 
 τs = 0.1:0.1:1.0
