@@ -113,5 +113,60 @@ ax = Axis(fig[2, 1]; xlabel = L"\Phi / \Phi_0", ylabel = L"I_c",)
 scatter!(ax, Φrng[Φa:Φb], Ic[Φa:Φb];)
 fig
 
+
+##
+Zs = -2
+Js = sum([Js_dict[Z] for Z in Zs])
+Is = getindex(findmax(Js; dims = 2),1) |> vec
+findmin(Is)
+fig = Figure()
+ax = Axis(fig[1, 1]; xlabel = L"\Phi / \Phi_0", ylabel = L"\varphi", yticks = ([0, π/2, π], [L"0", L"\frac{\pi}{2}", L"\pi"]))
+heatmap!(ax, Φrng, φrng, Js)
+hidexdecorations!(ax, ticks = false)
+ax = Axis(fig[2, 1]; xlabel = L"Φ/Φ_0", ylabel = L"I_c",)
+lines!(ax, Φrng, Is )
+vlines!(ax, 2.11; color = :orange, linestyle = :dash)
+xlims!(ax, (0, 2.5))
+fig
+##
+Φlength = 100
+ωlength = 101
+φlength = 101
+
+Φrng = subdiv(2.0, 2.2, Φlength)
+ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
+φrng = subdiv(0, 2π, φlength)
+φs = subdiv(0, π, 21)
+
+Zs = -2:2 
+τs = 0.1
+
+mod = "TCM_40"
+L = 100
+
+#calc_LDOS(mod, L; Φrng, ωrng, Zs, path = "Output/Tests")
+calc_J(mod, L; Φrng, Zs, φs, τs, path = "Output/Tests")
+
+##
+using CairoMakie
+includet("plots/plot_functions.jl")
+data = build_data("Output/Tests/TCM_40/L=100.jld2")
+@unpack Φrng, Js_τZ, φs = data 
+Js_dict = Js_τZ[0.1]
+Js_dict = Dict([Z =>mapreduce(permutedims, vcat, Js_dict[Z]) for Z in keys(Js_dict)])
+φrng = φs
+Zs = -2:2
+Js = sum([Js_dict[Z] for Z in Zs])
+Is = getindex(findmax(Js; dims = 2), 1) |> vec
+findmin(Is)
+fig = Figure()
+ax = Axis(fig[1, 1]; xlabel = L"\Phi / \Phi_0", ylabel = L"\varphi", yticks = ([0, π/2, π], [L"0", L"\frac{\pi}{2}", L"\pi"]))
+heatmap!(ax, Φrng, φrng, Js)
+hidexdecorations!(ax, ticks = false)
+ax = Axis(fig[2, 1]; xlabel = L"Φ/Φ_0", ylabel = L"I_c",)
+scatter!(ax, Φrng, Is )
+vlines!(ax, 2.11; color = :orange, linestyle = :dash)
+xlims!(ax, (2.0, 2.2))
+fig
 ##
 rmprocs(workers()...)

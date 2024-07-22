@@ -32,7 +32,7 @@ end
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, π, 51)
 
-Zs = -2:2 
+Zs = -5:5 
 τs = 0.1:0.1:1.0
 #τ = 0.1
 
@@ -46,7 +46,7 @@ include("calcs/calc_Andreev.jl")
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
-τs = [0.1, 0.2, 0.4, 0.7, 0.8, 0.9, 1.0]
+#τs = [0.1, 0.2, 0.4, 0.7, 0.8, 0.9, 1.0]
 
 #Φcross = [0.7, 1.245]
 #Φcross = subdiv(1.20, 1.30, 11)
