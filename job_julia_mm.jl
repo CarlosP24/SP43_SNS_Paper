@@ -29,7 +29,7 @@ Blength = 100
 φlength = 51
 
 
-Brng = subdiv(0, 0.25, Φlength)
+Brng = subdiv(0, 0.25, Blength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, 2π, 101) 
@@ -44,7 +44,7 @@ modL = "MHC_20"
 modR = "MHC_20_60"
 
 calc_mismatch_LDOS(modL, modR; Brng, ωrng)
-calc_mismatch_J(modL, modR; Brng, φs,  τs)
+#calc_mismatch_J(modL, modR; Brng, φs,  τs)
 
 # Clean up
 rmprocs(workers())

@@ -11,7 +11,7 @@ function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv
     end
 
     # Setup Output
-    outdir = "$(path)/$(mod)/$(gs)_J.jld2"
+    outdir = "$(path)/Rmismatch/$(gs)_J.jld2"
     mkpath(dirname(outdir))
 
     # Build nanowires
@@ -50,7 +50,7 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
       end
   
       # Setup Output
-      outdir = "$(path)/$(mod)/$(gs)_J.jld2"
+      outdir = "$(path)/Rmismatch/$(gs)_J.jld2"
       mkpath(dirname(outdir))
   
       # Build nanowires
