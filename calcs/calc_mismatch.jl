@@ -55,7 +55,7 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
   
       # Build nanowires
       hSM_left, hSC_left, params_left = build_cyl_mm(; model_left..., )
-      hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshift = true)
+      hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = true)
   
       # Get Greens
       g_right, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
