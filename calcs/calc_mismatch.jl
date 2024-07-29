@@ -1,4 +1,4 @@
-function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv(0, 2π, 51), path = "Output")
+function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv(0, 2π, 51), τs = 0.1:0.1:1.0, path = "Output")
 
     # Load models
     model_left = models[modL]
@@ -50,7 +50,7 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
       end
   
       # Setup Output
-      outdir = "$(path)/Rmismatch/$(gs)_J.jld2"
+      outdir = "$(path)/Rmismatch/$(gs).jld2"
       mkpath(dirname(outdir))
   
       # Build nanowires

@@ -64,6 +64,12 @@ function build_data(indir)
     return formated_data(; data_LDOS, data_J, model, Φrng, ωrng, LDOS, Zs, Δ0, xticks, yticks, Js_τZ, φs, τs, Φa, Φb, Φc, Φd)    
 end
 
+function build_data_mm(indir)
+    data = load(indir)
+    Brng = data["Brng"]
+    ωrng = real.(data["Φrng"])
+end
+
 
 function plot_LDOS(pos, data, cmin, cmax; Zs = nothing)
     @unpack xlabel, xticks, yticks, Φrng, ωrng, LDOS, Φa, Φb = data
