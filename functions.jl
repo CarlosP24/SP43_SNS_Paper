@@ -18,8 +18,9 @@ end
 function get_greens_semi(hSC_left, hSC_right, p_left, p_right)
     coupling = build_coupling(p_left, p_right)
     g_right = hSC_right |> greenfunction(GS.Schur(boundary = 0))
+    g_left = hSC_left |> greenfunction(GS.Schur(boundary = 0))
     g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
-    return g_right, g
+    return g_right, g_left, g
 end
 
 function get_greens_finite(hSC, p)
@@ -182,7 +183,8 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
     a0 = p_left.a0
     conv = p_left.conv
     num_mJ = p_right.num_mJ
-    n(B, p) =  B * p.area_LP * conv
+    t = p_left.t
+    n(B, p) =  B * π * (p.R + p.d/2) * conv
     nint(B, p) = round(Int, n(B, p))
     mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
 
@@ -195,9 +197,9 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
         nint(B, p_left) - nint(B, p_right))
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * c_up   * isapprox(ΔmJ(r, dr, B),  0.5*Δn(dr, B)); range = 3*num_mJ*a0,
+        τ * t * c_up * isapprox(ΔmJ(r, dr, B),  0.5*Δn(dr, B)); range = 2*num_mJ*a0,
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-      - τ * c_down * isapprox(ΔmJ(r, dr, B), -0.5*Δn(dr, B)); range = 3*num_mJ*a0,
+      - τ * t * c_down * isapprox(ΔmJ(r, dr, B), -0.5*Δn(dr, B)); range = 2*num_mJ*a0,
     )
     return model
 end

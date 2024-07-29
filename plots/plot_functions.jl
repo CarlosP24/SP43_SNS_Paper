@@ -20,6 +20,20 @@
     Φd = nothing
 end
 
+@with_kw struct formated_data_mm
+    xlabel = L"B \text{(T)}"
+    ylabelpadding = -10
+    data = nothing
+    Brng = nothing
+    ωrng = nothing
+    model_left = nothing
+    model_right = nothing
+    LDOS_left = nothing 
+    LDOS_right = nothing
+    Φleft = nothing 
+    Φright = nothing
+end
+
 function build_data(indir, Φ, τ; shrink = 1)
     indirA = replace(indir, ".jld2" => "_Andreev_Φ=$(Φ)_τ=$(τ).jld2")
     data_Andreev = load(indirA)
@@ -79,6 +93,7 @@ function build_data_mm(indir)
     Φleft = Brng .* (π * (Rleft + dleft/2)^2 * conv)
     Φright = Brng .* (π * (Rright + dright/2)^2 * conv)
 
+    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Φleft, Φright)
 end
 
 

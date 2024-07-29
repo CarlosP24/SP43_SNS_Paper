@@ -16,12 +16,13 @@ function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv
 
     # Build nanowires
     hSM_left, hSC_left, params_left = build_cyl_mm(; model_left..., )
-    hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshift = true)
+    hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = true)
 
     # Get Greens
-    g_right, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
+    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
-    J = josephson(g[attach_link[gs]], model.Δ0 * 50; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+    J = josephson(g[attach_link[gs]], 100 * 0.23; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+    #J = josephson(g[attach_link[gs]], 0.23 * 50; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
 
     Js_τ = Js_flux(J, Brng, τs)
 
@@ -58,10 +59,10 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
       hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = true)
   
       # Get Greens
-      g_right, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
+      g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
-      LDOS_left = calc_ldos(ldos(g[cells = (-1,)]), Brng, ωrng)
-      LDOS_right = calc_ldos(ldos(g[cells = (1,)]), Brng, ωrng)
+      LDOS_left = calc_ldos(ldos(g_left[cells = (-1,)]), Brng, ωrng; τ = 0.0)
+      LDOS_right = calc_ldos(ldos(g_right[cells = (-1,)]), Brng, ωrng; τ = 0.0)
 
 
         save(outdir,
