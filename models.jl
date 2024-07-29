@@ -26,6 +26,7 @@ models = Dict(
         w = 20,
         μ = 0.75,
         α = 85,
+        L = 0,
     ),
     "MHC_20_60" => (;
     base_model...,
@@ -33,6 +34,7 @@ models = Dict(
         w = 20,
         μ = 0.75,
         α = 85,
+        L = 0,
     ),
     "SCM" => (;
         base_model...,
