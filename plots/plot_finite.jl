@@ -77,11 +77,11 @@ function plot_finite(τ, L; Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_
 end
 
 fig = plot_finite(0.1, 0)
-#save("Figures/TCM_40_semi.pdf", fig)
+save("Figures/TCM_40_semi.pdf", fig)
 fig
 
 fig = plot_finite(0.1, 100)
-#save("Figures/TCM_40_100.pdf", fig)
+save("Figures/TCM_40_100.pdf", fig)
 fig
 ##
 function study_Andreev(τ, L, cmax; Φ1 = 0.7, Φ2 = 1.245, path = "Output",  mod = "TCM_40")

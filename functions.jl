@@ -15,6 +15,13 @@ function get_greens_semi(hSC, hSCshift, p)
     return g_right, g
 end
 
+function get_greens_semi(hSC_left, hSC_right, p_left, p_right)
+    coupling = build_coupling(p_left, p_right)
+    g_right = hSC_right |> greenfunction(GS.Schur(boundary = 0))
+    g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return g_right, g
+end
+
 function get_greens_finite(hSC, p)
     @unpack a0, t, L = p 
     coupling = @hopping((; τ = 1) -> - τ * t * σ0τz; range = 2*a0)
@@ -31,6 +38,14 @@ function get_greens_finite(hSC, hSCshift, p)
     return g_right, g
 end
 
+function get_greens_finite(hSC_left, hSC_right, p_left, p_right)
+    @unpack L_left = p_left
+    @unpack L_right = p_right
+    coupling = build_coupling(p_left, p_right)
+    g_right = hSC_right |> attach(onsite(1e9 * σ0τz,), cells = (- L_right,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return g_right, g
+end
 
 
 greens_dict = Dict(
@@ -57,6 +72,21 @@ function calc_ldos(ρ, Φs, ωs, Zs; τ = 1, φ = 0)
     end
     LDOSarray = reshape(LDOS, size(pts)...)
     return Dict([Z => sum.(LDOSarray[:, :, i]) for (i, Z) in enumerate(Zs)])
+end
+
+function calc_ldos(ρ, Bs, ωs; τ = 1, φ = 0)
+    pts = Iterators.product(Bs, ωs)
+    LDOS = @showprogress pmap(pts) do pt
+        B, ω = pt 
+        ld = try 
+            ρ(ω; ω = ω, B = B, τ = τ, phase = φ)
+        catch
+            0.0
+        end
+        return ld
+    end
+    LDOSarray = reshape(LDOS, size(pts)...)
+    return sum.(LDOSarray)
 end
 
 function calc_ldos_τs(ρ, Φs, ωs, Zs, τs; φ = 0)
@@ -129,8 +159,45 @@ function Js_flux(J, Φrng, Zs, τs)
     return Dict([τ => Dict([Z => Zarray[:, i, j] for (i, Z) in enumerate(Zs)]) for (j, τ) in enumerate(τs)])
 end
 
+function Js_flux(J, Brng, τs)
+    pts = Iterators.product(Brng, τs)
+    Jss = @showprogress pmap(pts) do pt
+        B, τ = pt
+        J(; B = B, τ = τ)
+    end
+    Barray = reshape(Jss, size(pts)...)
+    return Dict([τ => Barray[:, i] for (i, τ) in enumerate(τs)])
+end
+
 function bandwidth(p::Params)
     @unpack ħ2ome, μ, m0, a0 = p
     return max(abs(4*ħ2ome/(2m0*a0^2) - μ), abs(-4*ħ2ome/(2m0*a0^2) - μ))
 end
 
+
+# Radii mismatch 
+
+function build_coupling(p_left::Params_mm, p_right::Params_mm)
+    p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
+    a0 = p_left.a0
+    conv = p_left.conv
+    num_mJ = p_right.num_mJ
+    n(B, p) =  B * p.area_LP * conv
+    nint(B, p) = round(Int, n(B, p))
+    mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
+
+    ΔmJ(r, dr, B) = ifelse(dr[1] > 0,
+        mJ(r+dr/2, B, p_right) - mJ(r-dr/2, B, p_left),
+        mJ(r+dr/2, B, p_left) - mJ(r-dr/2, B, p_right))
+    
+    Δn(dr, B) = ifelse(dr[1] > 0,
+        nint(B, p_right) - nint(B, p_left),
+        nint(B, p_left) - nint(B, p_right))
+
+    model = @hopping((r, dr; τ = 1, B = p_left.B) ->
+        τ * c_up   * isapprox(ΔmJ(r, dr, B),  0.5*Δn(dr, B)); range = 3*num_mJ*a0,
+    ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
+      - τ * c_down * isapprox(ΔmJ(r, dr, B), -0.5*Δn(dr, B)); range = 3*num_mJ*a0,
+    )
+    return model
+end
