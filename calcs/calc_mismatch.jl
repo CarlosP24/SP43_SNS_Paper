@@ -60,7 +60,9 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
       # Get Greens
       g_right, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
-      LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Brng, ωrng)
+      LDOS_left = calc_ldos(ldos(g[cells = (-1,)]), Brng, ωrng)
+      LDOS_right = calc_ldos(ldos(g[cells = (1,)]), Brng, ωrng)
+
 
         save(outdir,
             Dict(
@@ -68,7 +70,8 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
                 "model_right" => model_right,
                 "Brng" => Brng,
                 "ωrng" => ωrng,
-                "LDOS" => LDOS
+                "LDOS_left" => LDOS_left,
+                "LDOS_right" => LDOS_right
             )
         )
 
