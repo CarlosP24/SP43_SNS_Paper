@@ -66,8 +66,8 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
 
         save(outdir,
             Dict(
-                "model_left" => model_left,
-                "model_right" => model_right,
+                "model_left" => params_left,
+                "model_right" => params_right,
                 "Brng" => Brng,
                 "ωrng" => ωrng,
                 "LDOS_left" => LDOS_left,

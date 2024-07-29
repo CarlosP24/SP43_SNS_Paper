@@ -68,6 +68,17 @@ function build_data_mm(indir)
     data = load(indir)
     Brng = data["Brng"]
     ωrng = real.(data["Φrng"])
+    model_left = data["model_left"]
+    model_right = data["model_right"]
+    LDOS_left = data["LDOS_left"]
+    LDOS_right = data["LDOS_right"]
+
+    @unpack conv, Rleft, dleft = model_left
+    @unpack Rright, dright = model_right
+
+    Φleft = Brng .* (π * (Rleft + dleft/2)^2 * conv)
+    Φright = Brng .* (π * (Rright + dright/2)^2 * conv)
+
 end
 
 
