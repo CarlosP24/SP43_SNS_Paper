@@ -175,6 +175,16 @@ function Js_flux(J, Φrng, Zs, τs)
     return Dict([τ => Dict([Z => Zarray[:, i, j] for (i, Z) in enumerate(Zs)]) for (j, τ) in enumerate(τs)])
 end
 
+function Js_τs(J, τrng, Zs; Φ = 0.51)
+    pts = Iterators.product(τrng, Zs)
+    Jss = @showprogress pmap(pts) do pt
+        τ, Z = pt
+        J(; Φ = Φ, Z = Z, τ = τ)
+    end
+    Zarray = reshape(Jss, size(pts)...)
+    return Dict([Z => Zarray[:, i] for (i, Z) in enumerate(Zs)])
+end
+
 function Js_flux(J, Brng, τs)
     pts = Iterators.product(Brng, τs)
     Jss = @showprogress pmap(pts) do pt
@@ -219,4 +229,13 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
        - τ * t * c_down * isapprox(ΔmJ(r, dr, B), -0.5*Δn(dr, B)); range = 3*num_mJ*a0,
     )
     return model
+end
+
+
+# Transparency 
+function get_TN(G, τrng; Φ = 0)
+    Gτ = @showprogress pmap(τrng) do τ
+        G(0; τ, Φ)
+    end
+    return reshape(Gτ, size(τrng)...)
 end
