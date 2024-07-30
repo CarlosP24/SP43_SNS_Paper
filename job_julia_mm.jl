@@ -43,8 +43,8 @@ include("calcs/calc_mismatch.jl")
 modL = "MHC_20"
 modR = "MHC_20_60"
 
-calc_mismatch_LDOS(modL, modR; Brng, ωrng)
-#calc_mismatch_J(modL, modR; Brng, φs,  τs)
+#calc_mismatch_LDOS(modL, modR; Brng, ωrng)
+calc_mismatch_J(modL, modR; Brng, φs,  τs)
 
 # Clean up
 rmprocs(workers())

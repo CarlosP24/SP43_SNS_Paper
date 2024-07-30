@@ -38,18 +38,19 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
     τs = reverse(sort(collect(keys(Js_τ))))
 
     for (i,τ) in enumerate(τs)
-        ax_I = Axis(fig[2 + i, 1]; xlabel = L"$B$ (T)", ylabel = L"$I_c / I_c (B=0)$",)
+        ax_I = Axis(fig[2 + i, 1]; xlabel = L"$B$ (T)", ylabel = L"$I_c / I_c (B=0)$", )
         Js = mapreduce(permutedims, vcat, Js_τ[τ])
         Ic = getindex(findmax(Js; dims = 2),1) |> vec
         vlines!(ax_I, Bleft[1:end-1], color = (:black, 0.5), linestyle = :dash,)
         vlines!(ax_I, Bright[1:end-1], color = (:black, 0.5), linestyle = :dash)
-        lines!(ax_I, Brng, Ic ./ first(Ic); label = L"\tau = %$(τ)", linewidth = 4)
+        lines!(ax_I, Brng, abs.(Ic ./ first(Ic)); label = L"\tau = %$(τ)", linewidth = 4)
         Label(fig[2 + i, 1, Top()], L"\tau = %$(τ)", fontsize = 20, color = :black, padding = (480, 0, -100, 0))
         xlims!(ax_I, (first(Brng), last(Brng)))
         i == 1 && hidexdecorations!(ax_I, ticks = false)
         if i == 2 
             ax_I.ylabelpadding = 25
         end
+        i == 2 && ylims!(ax_I, (0, 1))
     end
 
     Colorbar(fig[1, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 20, ticksize = 2, ticklabelpad = 5)
