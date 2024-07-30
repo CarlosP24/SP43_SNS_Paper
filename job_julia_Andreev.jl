@@ -34,7 +34,7 @@ L = parse(Int64, ARGS[1])
 
 φrng = subdiv(0, 2π, φlength)
 
-Zs = -2:2
+Zs = -5:5
 
 Φ3 = L == 0 ? 1.54 : 1.56
 Φs = [0.7, 1.245, Φ3]
