@@ -121,6 +121,21 @@ function Andreev_spectrum(ρ, φrng, ωrng, Zs; τ = 0.1)
     return Dict([Z => sum.(Andreevarray[:, :, i]) for (i, Z) in enumerate(Zs)])
 end
 
+function Andreev_spectrum(ρ, φrng, ωrng; τ = 0.1)
+    pts = Iterators.product(φrng, ωrng)
+    Andreev = @showprogress pmap(pts) do pt 
+        φ, ω = pt
+        ld = try 
+            ρ(ω; ω = ω, phase = φ, τ = τ)
+        catch
+            0.0
+        end
+        return ld 
+    end
+    Andreevarray = reshape(Andreev, size(pts)...)
+    return sum.(Andreevarray)
+end
+
 # Andreev spectru, Φloop 
 function Andreev_spectrum(ρ, Φrng, φrng, ωrng, Zs; τ = 0.1)
     pts = Iterators.product(Φrng, φrng, ωrng, Zs)

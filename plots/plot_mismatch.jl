@@ -5,7 +5,7 @@ using CairoMakie, JLD2, Parameters, Revise
 includet("plot_functions.jl")
 
 function plot_mismatch(;path = "Output/Rmismatch", L = 0)
-    fig = Figure(size = (800, 1200), fontsize = 25, )
+    fig = Figure(size = (800, 1000), fontsize = 25, )
 
     if L == 0
         subdir = "semi"
@@ -29,7 +29,7 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
     ax_right = Axis(fig[2, 1]; ylabel = L"$\omega / \Delta_0$", yticks = ([-Δ0, 0, Δ0], [L"-1", "0", L"1"]))
     heatmap!(ax_right, Brng, ωrng, LDOS_right, colormap = :thermal, colorrange = (2e-3, 5e-2), lowclip = :black, rasterize = true)
 
-    for (n, B) in zip(nright, Bright)
+    for (n, B) in zip(nright, Bright[1:end-1])
         text!(ax_right, B - 0.01, -real(Δ0); text =  L"$%$(n)$", fontsize = 20, color = :white, align = (:center, :center))
     end
 
@@ -48,9 +48,9 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
         xlims!(ax_I, (first(Brng), last(Brng)))
         i == 1 && hidexdecorations!(ax_I, ticks = false)
         if i == 2 
-            ax_I.ylabelpadding = 25
+            ax_I.ylabelpadding = 10
         end
-        i == 2 && ylims!(ax_I, (0, 1))
+
     end
 
     Colorbar(fig[1, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 20, ticksize = 2, ticklabelpad = 5)
@@ -58,17 +58,19 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
     Colorbar(fig[2, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 20, ticksize = 2, ticklabelpad = 5)
 
 
+    rowsize!(fig.layout, 3, Relative(1/3 * 0.5))
+    rowsize!(fig.layout, 4, Relative(1/3 * 0.5))
 
     rowgap!(fig.layout, 1, 10)
-    rowgap!(fig.layout, 2, 5)
-    rowgap!(fig.layout, 3, 5)
+    rowgap!(fig.layout, 2, -15)
+    rowgap!(fig.layout, 3, -10)
     colgap!(fig.layout, 1, 5)
 
     style = (font = "CMU Serif Bold", fontsize = 30)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -35, 0); style...)
     Label(fig[2, 1, TopLeft()], "b",  padding = (-40, 0, -35, 0); style...)
-    Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, -35, 0); style...)
-    Label(fig[4, 1, TopLeft()], "d",  padding = (-40, 0, -35, 0); style...)
+    Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, -10, 0); style...)
+    Label(fig[4, 1, TopLeft()], "d",  padding = (-40, 0, -10, 0); style...)
 
 
 
@@ -78,4 +80,64 @@ end
 
 fig = plot_mismatch()
 save("Figures/mismatch.pdf", fig)
+fig
+
+##
+function plot_mismatch_J(;path = "Output/Rmismatch", L = 0)
+    fig = Figure(size = (800, 1000), fontsize = 25, )
+
+    if L == 0
+        subdir = "semi"
+    else
+        subdir = "L=$(L)"
+    end
+
+    indir = "$(path)/$(subdir).jld2"
+    data = build_data_mm(indir)
+    @unpack Brng, ωrng, LDOS_left, LDOS_right, Δ0, nleft, nright, Bleft, Bright, Js_τ = data
+
+    φs = range(0, 2π, 101)
+    ax_left = Axis(fig[1, 1]; ylabel = L"$\omega / \Delta_0$", yticks = ([-Δ0, 0, Δ0], [L"-1", "0", L"1"]))
+    heatmap!(ax_left, Brng, ωrng, LDOS_left, colormap = :thermal, colorrange = (1e-3, 5e-2), lowclip = :black, rasterize = true) 
+
+    for (n, B) in zip(nleft, Bleft[1:end-1])
+        text!(ax_left, B - 0.01, -real(Δ0); text =  L"$%$(n)$", fontsize = 20, color = :white, align = (:center, :center))
+    end
+    vlines!(ax_left, 0.035; color = :white)
+
+    hidexdecorations!(ax_left; ticks = false)
+
+    ax_right = Axis(fig[2, 1]; ylabel = L"$\omega / \Delta_0$", yticks = ([-Δ0, 0, Δ0], [L"-1", "0", L"1"]))
+    heatmap!(ax_right, Brng, ωrng, LDOS_right, colormap = :thermal, colorrange = (2e-3, 5e-2), lowclip = :black, rasterize = true)
+
+    for (n, B) in zip(nright, Bright[1:end-1])
+        text!(ax_right, B - 0.01, -real(Δ0); text =  L"$%$(n)$", fontsize = 20, color = :white, align = (:center, :center))
+    end
+    vlines!(ax_right, 0.035; color = :white)
+
+    hidexdecorations!(ax_right; ticks = false)
+
+    τs = reverse(sort(collect(keys(Js_τ))))
+
+    cs = Dict(
+        1 => (-2e-1, 2e-1),
+        2 => (-1e-5, 1e-5)
+    )
+
+    for (i,τ) in enumerate(τs)
+        ax_I = Axis(fig[2 + i, 1]; xlabel = L"$B$ (T)", ylabel = L"$φ$", )
+        Js = mapreduce(permutedims, vcat, Js_τ[τ])
+        
+        heatmap!(ax_I, Brng, φs, Js; rasterize = true, colorrange = cs[i])
+        i == 1 && hidexdecorations!(ax_I, ticks = false)
+        vlines!(ax_I, 0.035; color = :white)
+
+
+    end
+
+
+    return fig
+end
+
+fig = plot_mismatch_J()
 fig

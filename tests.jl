@@ -28,14 +28,15 @@ gs = "semi"
 
 Brng = subdiv(0, 0.25, 200)
 φs = subdiv(0, 2π, 21)
-ωrng = subdiv(-.26, .26, 201) .+ 1e-3im
+ωrng = subdiv(-.26 * 0.001, .26 * 0.001, 101) .+ 1e-9im
+φrng = subdiv(0, 2π, 101)
 
 model_left = models[modL]
-model_left = (; model_left..., d = 5)
+model_left = (; model_left..., d = 5, B = 0.035)
 model_right = models[modR]
-model_right = (; model_right..., d = 5)
+model_right = (; model_right..., d = 5, B = 0.035)
 
-τ = 0.1
+τ = 0.01
 path = "Output/tests"
 
 # Build nanowires
@@ -45,7 +46,7 @@ hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted
 # Get Greens
 g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
-LDOS = calc_ldos(ldos(g[1]), Brng, ωrng; τ)
+Andreev = Andreev_spectrum(ldos(g[1]), φrng, ωrng; τ)
 
 
 #calc_mismatch_LDOS(modL, modR; Brng, ωrng, path)
@@ -54,8 +55,8 @@ LDOS = calc_ldos(ldos(g[1]), Brng, ωrng; τ)
 ##
 using CairoMakie
 fig = Figure() 
-ax = Axis(fig[1, 1]; ylabel = L"\omega / \Delta_0",xlabel = L"B (T)")
-heatmap!(ax, Brng, real.(ωrng), LDOS; colormap = :thermal, colorrange = (1e-3, 5e-2), lowclip = :black, rasterize = true)
+ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\varphi", xticks = [0, π, 2π],)
+heatmap!(ax, φrng, real.(ωrng), Andreev; colormap = :thermal, colorrange = (1e-2, 1e-2), lowclip = :black, rasterize = true)
 fig
 ##
 

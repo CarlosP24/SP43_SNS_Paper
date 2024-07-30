@@ -38,6 +38,7 @@ end
     Bright = nothing
     Js_τ = nothing
     Δ0 = nothing
+    φs = nothing
 end
 
 function build_data(indir, Φ, τ; shrink = 1)
@@ -95,6 +96,7 @@ function build_data_mm(indir)
     LDOS_left = data["LDOS_left"]
     LDOS_right = data["LDOS_right"]
 
+
     Δ0 = model_left.Δ0
 
     @unpack conv, R, d = model_left
@@ -116,7 +118,7 @@ function build_data_mm(indir)
 
     Js_τ = data_J["Js_τ"]
 
-    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Δ0, Φleft, Φright, nleft, nright, Bleft, Bright, Js_τ)
+    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Δ0, Φleft, Φright, nleft, nright, Bleft, Bright, Js_τ,)
 end
 
 
