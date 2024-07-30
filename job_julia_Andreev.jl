@@ -26,8 +26,8 @@ end
 mod = "TCM_40"
 L = parse(Int64, ARGS[1])
 
-ωlength = 401
-φlength = 401
+ωlength = 101
+φlength = 101
 
 τ = 0.1
 
