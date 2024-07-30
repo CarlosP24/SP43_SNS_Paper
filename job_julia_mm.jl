@@ -24,8 +24,8 @@ using JLD2
 end
 
 # Global config 
-Blength = 200
-ωlength = 201
+Blength = 400
+ωlength = 401
 φlength = 101
 
 
@@ -43,7 +43,7 @@ include("calcs/calc_mismatch.jl")
 modL = "MHC_20"
 modR = "MHC_20_60"
 
-#calc_mismatch_LDOS(modL, modR; Brng, ωrng)
+calc_mismatch_LDOS(modL, modR; Brng, ωrng)
 calc_mismatch_J(modL, modR; Brng, φs,  τs)
 
 # Clean up
