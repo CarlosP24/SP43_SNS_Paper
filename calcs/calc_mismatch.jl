@@ -45,7 +45,9 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
 
       # Load models
       model_left = models[modL]
+      model_left = (; model_left..., d = 5)
       model_right = models[modR]
+      model_right = (; model_right..., d = 5)
   
       if model_left.L == 0
           gs = "semi"
