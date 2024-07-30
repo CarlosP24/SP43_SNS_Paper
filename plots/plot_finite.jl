@@ -2,7 +2,7 @@ using CairoMakie, JLD2, Parameters, Revise, Colors, ColorSchemes
 
 includet("plot_functions.jl")
 
-function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, path = "Output", mod = "TCM_40",  cmin = 5e-4, cmax = 2e-2)
+function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, Φ3 = [1.54, 1.56], path = "Output", mod = "TCM_40",  cmin = 5e-4, cmax = 2e-2)
 
     fig = Figure(size = (800, 600), fontsize = 20, )
 
@@ -47,6 +47,7 @@ function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, path = "Output",
         ax_A1.yticks = ([-Δ0/100 * shrink, 0, Δ0/100 * shrink], [L"-1", L"0", L"1"])
         ax_A1.ylabel = L"\omega / \Delta_0 \cdot %$(Int(shrink * 10)) \cdot 10^{3}"
         col == 2 && hideydecorations!(ax_A1; ticks = false)
+
         data_A2 = build_data(indir, Φ2, τ; shrink)
         ax_A2 = plot_LDOS(gA[1, 2], data_A2, 5e-3, 5e-2;)
         ax_A2.yticks = ([-Δ0/100 * shrink, 0, Δ0/100 * shrink], [L"-1", L"0", L"1"])
@@ -57,6 +58,15 @@ function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, path = "Output",
 
         hideydecorations!(ax_A2; ticks = false)
 
+        data_A3 = build_data(indir, Φ3[col], τ; shrink)
+        ax_A3 = plot_LDOS(gA[1, 3], data_A3, 0, 5e-1;)
+        #ax_A3.yticks = ([-Δ0/100 * shrink, 0, Δ0/100 * shrink], [L"-1", L"0", L"1"])
+
+        scatter!(ax_A3, [π/4], [0.0022 * shrink]; color = :yellow, markersize = 10)
+        #text!(ax_A2, 5π/4, 0.0024; text = L"$m_J =  0$", align = (:center, :center), color = :white, fontsize = 15)
+        text!(ax_A3, π, -0.0021 * shrink; text = L"\tau = %$(τ)", align = (:center, :center), color = :white, fontsize = 15)
+
+        hideydecorations!(ax_A3; ticks = false)
 
         Label(fig[1, col, Top()], ifelse(L==0, L"$L\rightarrow \infty", L"$L = %$(L*5)$ nm"), padding = (0, 0, 5, 0);)
     end
@@ -95,7 +105,7 @@ function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, path = "Output",
 end
 
 fig = plot_finite(0.1)
-save("Figures/TCM_40.pdf", fig)
+#save("Figures/TCM_40.pdf", fig)
 fig
 ##
 function study_Andreev(τ, L, cmax; Φ1 = 0.7, Φ2 = 1.245, path = "Output",  mod = "TCM_40")

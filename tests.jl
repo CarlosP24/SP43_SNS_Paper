@@ -92,4 +92,38 @@ fig
 
 
 ##
+mod = "TCM_40"
+L = 100
+
+ωlength = 51
+φlength = 51
+
+τ = 0.1
+
+ωrng = subdiv(-.26 * 0.01, .26 * 0.01, ωlength) .+ 1e-9im
+φrng = subdiv(0, 2π, φlength)
+
+Zs = -2:2
+
+Φ3 = L == 0 ? 1.54 : 1.56
+Φs = [Φ3]
+
+for Φ in Φs
+    calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
+end
+
+##
+using CairoMakie 
+data = load("Output/TCM_40/L=100_Andreev_Φ=1.56_τ=0.1.jld2")
+
+φrng = data["φrng"]
+ωrng = real.(data["ωrng"])
+Andreev = data["Andreev"]
+
+fig = Figure()
+ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\varphi", xticks = [0, π, 2π],)
+heatmap!(ax, φrng, ωrng, sum(values(Andreev)); colormap = :thermal, lowclip = :black, rasterize = true)
+fig
+
+##
 rmprocs(workers()...)
