@@ -182,9 +182,11 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
     a0 = p_left.a0
     conv = p_left.conv
-    num_mJ = p_right.num_mJ
+    num_mJ_right = p_right.num_mJ
+    num_mJ_left = p_left.num_mJ
     t = p_left.t
-    n(B, p) =  B * π * (p.R + p.d/2) * conv
+    num_mJ = max(num_mJ_left, num_mJ_right)
+    n(B, p) =  B * π * (p.R + p.d/2)^2 * conv
     nint(B, p) = round(Int, n(B, p))
     mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
 
@@ -197,9 +199,9 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
         nint(B, p_left) - nint(B, p_right))
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * t * c_up * isapprox(ΔmJ(r, dr, B),  0.5*Δn(dr, B)); range = 2*num_mJ*a0,
+        τ * t * c_up * isapprox(ΔmJ(r, dr, B),  0.5*Δn(dr, B)); range = 3*num_mJ*a0,
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-      - τ * t * c_down * isapprox(ΔmJ(r, dr, B), -0.5*Δn(dr, B)); range = 2*num_mJ*a0,
+       - τ * t * c_down * isapprox(ΔmJ(r, dr, B), -0.5*Δn(dr, B)); range = 3*num_mJ*a0,
     )
     return model
 end

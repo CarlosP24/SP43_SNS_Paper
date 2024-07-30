@@ -16,12 +16,13 @@ function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv
 
     # Build nanowires
     hSM_left, hSC_left, params_left = build_cyl_mm(; model_left..., )
-    hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = true)
+    hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = false)
 
     # Get Greens
     g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
-    J = josephson(g[attach_link[gs]], 100 * 0.23; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+    bandwidth = maximum(params_left.Δ0, params_right.Δ0) * 50
+    J = josephson(g[attach_link[gs]], bandwidth; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
     #J = josephson(g[attach_link[gs]], 0.23 * 50; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
 
     Js_τ = Js_flux(J, Brng, τs)

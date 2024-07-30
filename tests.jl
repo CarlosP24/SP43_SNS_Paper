@@ -25,8 +25,8 @@ end
 modL = "MHC_20"
 modR = "MHC_20_60"
 
-Brng = subdiv(0, 0.1, 100)
-φs = subdiv(0, 2π, 51)
+Brng = subdiv(0, 0.1, 50)
+φs = subdiv(0, 2π, 21)
 ωrng = subdiv(-.26, .26, 101) .+ 1e-3im
 
 τs = 0.1
@@ -63,6 +63,10 @@ heatmap!(ax, Brng, real.(ωrng), LDOS_right; colormap = :thermal)
 hidexdecorations!(ax; ticks = false)
 ax = Axis(fig[3, 1]; xlabel = L"B", ylabel = L"I_c")
 Brng = data_J["Brng"]
-lines!(ax, Brng, Ic./first(Ic); )
+scatter!(ax, Brng, Ic./first(Ic); )
 xlims!(ax, (first(Brng), last(Brng)))
 fig
+
+
+##
+rmprocs(workers()...)

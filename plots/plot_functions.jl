@@ -32,6 +32,10 @@ end
     LDOS_right = nothing
     Φleft = nothing 
     Φright = nothing
+    nleft = nothing 
+    nright = nothing
+    Js_τ = nothing
+    Δ0 = nothing
 end
 
 function build_data(indir, Φ, τ; shrink = 1)
@@ -79,21 +83,33 @@ function build_data(indir)
 end
 
 function build_data_mm(indir)
+    indir_J = replace(indir, ".jld2" => "_J.jld2")
     data = load(indir)
+    data_J = load(indir_J)
     Brng = data["Brng"]
-    ωrng = real.(data["Φrng"])
+    ωrng = real.(data["ωrng"])
     model_left = data["model_left"]
     model_right = data["model_right"]
     LDOS_left = data["LDOS_left"]
     LDOS_right = data["LDOS_right"]
 
-    @unpack conv, Rleft, dleft = model_left
-    @unpack Rright, dright = model_right
+    Δ0 = model_left.Δ0
+
+    @unpack conv, R, d = model_left
+    Rleft = R 
+    dleft = d
+    @unpack R, d = model_right
+    Rright = R 
+    dright = d
 
     Φleft = Brng .* (π * (Rleft + dleft/2)^2 * conv)
+    nleft = range(round(Int, first(Φleft)), round(Int, last(Φleft)))
     Φright = Brng .* (π * (Rright + dright/2)^2 * conv)
+    nright = range(round(Int, first(Φright)), round(Int, last(Φright)))
 
-    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Φleft, Φright)
+    Js_τ = data_J["Js_τ"]
+
+    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Δ0, Φleft, Φright, nleft, nright, Js_τ)
 end
 
 
