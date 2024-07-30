@@ -130,7 +130,7 @@ function plot_LDOS(pos, data, cmin, cmax; Zs = nothing)
     else
         LDOSp = sum([LDOS[Z] for Z in Zs])
     end
-    heatmap!(ax_LDOS, Φrng, real.(ωrng), LDOSp; colormap = cgrad(:thermal)[10:end], colorrange = (cmin, cmax), lowclip = :black)
+    heatmap!(ax_LDOS, Φrng, real.(ωrng), LDOSp; colormap = cgrad(:thermal)[10:end], colorrange = (cmin, cmax), lowclip = :black, rasterize = true)
     xlims!(ax_LDOS, (Φa, Φb))
     return ax_LDOS
 end
