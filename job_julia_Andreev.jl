@@ -43,7 +43,7 @@ Zs = -2:2
 include("models.jl")
 include("calcs/calc_Andreev.jl")
 
-for Φ in Φsd
+for Φ in Φs
     calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
 end
 
