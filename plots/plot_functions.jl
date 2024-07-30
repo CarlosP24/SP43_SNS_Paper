@@ -34,6 +34,8 @@ end
     Φright = nothing
     nleft = nothing 
     nright = nothing
+    Bleft = nothing 
+    Bright = nothing
     Js_τ = nothing
     Δ0 = nothing
 end
@@ -104,12 +106,17 @@ function build_data_mm(indir)
 
     Φleft = Brng .* (π * (Rleft + dleft/2)^2 * conv)
     nleft = range(round(Int, first(Φleft)), round(Int, last(Φleft)))
+
+    Bleft = Brng[map(n -> findmin(abs.(n + 0.5 .- Φleft))[2], nleft)]
+
     Φright = Brng .* (π * (Rright + dright/2)^2 * conv)
     nright = range(round(Int, first(Φright)), round(Int, last(Φright)))
 
+    Bright = Brng[map(n -> findmin(abs.(n + 0.5 .- Φright))[2], nright)]
+
     Js_τ = data_J["Js_τ"]
 
-    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Δ0, Φleft, Φright, nleft, nright, Js_τ)
+    return formated_data_mm(; data, Brng, ωrng, model_left, model_right, LDOS_left, LDOS_right, Δ0, Φleft, Φright, nleft, nright, Bleft, Bright, Js_τ)
 end
 
 
