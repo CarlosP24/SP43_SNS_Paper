@@ -35,8 +35,6 @@ Zs = -5:5
 # Include code
 include("models.jl")
 include("calcs/calc_LDOS.jl")
-include("calcs/calc_J.jl")
-
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
