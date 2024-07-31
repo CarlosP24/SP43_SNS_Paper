@@ -13,15 +13,21 @@ include("models.jl")
 end
 
 ##
-Tlength = 200
+# Global config
+Tlength = 100
 φlength = 21
 
-Trng = subdiv(1e-4, 1, Tlength)
+Trng = 10 .^ range(-4, 0, Tlength)
 φs = subdiv(0, 2π, φlength)
 
-Zs = -5:5
+Zs = 0
 Φ = 0.51
 
+# Include code 
+include("models.jl")
+include("calcs/calc_trans.jl")
+
+# Run 
 mod = "SCM"
 L = 0
 

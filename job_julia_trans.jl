@@ -23,10 +23,11 @@ using JLD2
 end
 
 # Global config
-Tlength = 400
+
+Tlength = 100
 φlength = 101
 
-Trng = subdiv(0, 1, Tlength)
+Trng = 10 .^ range(-4, 0, Tlength)
 φs = subdiv(0, 2π, φlength)
 
 Zs = -5:5
