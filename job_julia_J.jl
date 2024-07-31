@@ -28,7 +28,7 @@ end
 φlength = 101
 
 Φrng = subdiv(0, 2.5, Φlength)
-φs = subdiv(0, 2π, φrng)
+φs = subdiv(0, 2π, φlength)
 
 τs = 0.1:0.1:1.0
 Zs = -5:5
