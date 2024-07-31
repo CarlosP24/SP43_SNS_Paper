@@ -1,9 +1,11 @@
+using Pkg 
+Pkg.activate(".")
 using CairoMakie, JLD2, Parameters, Revise
 
 includet("plot_functions.jl")
 
 function plot_Three(L; indir = "Output", geos = ["HCA", "MHC_20", "SCM"], channels = [8, 8, 28], cmin = 1e-4, cmaxs = [3e-2, 3e-2, 1e-1])
-    fig = Figure(size = (1100, 500), fontsize = 20, )
+    fig = Figure(size = (550, 500), fontsize = 15, )
 
     if L == 0
         subdir = "semi"
@@ -45,6 +47,7 @@ function plot_Three(L; indir = "Output", geos = ["HCA", "MHC_20", "SCM"], channe
     colgap!(fig.layout, 3, 5)
 
     rowgap!(fig.layout, 1, 10)
+    rowsize!(fig.layout, 1, Relative(1/3))
 
     return fig
 end

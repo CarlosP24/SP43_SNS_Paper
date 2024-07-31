@@ -5,7 +5,7 @@ using CairoMakie, JLD2, Parameters, Revise
 includet("plot_functions.jl")
 
 function plot_mismatch(;path = "Output/Rmismatch", L = 0)
-    fig = Figure(size = (800, 1000), fontsize = 25, )
+    fig = Figure(size = (550, 600), fontsize = 15, )
 
     if L == 0
         subdir = "semi"
@@ -43,8 +43,8 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
         Ic = getindex(findmax(Js; dims = 2),1) |> vec
         vlines!(ax_I, Bleft[1:end-1], color = (:black, 0.5), linestyle = :dash,)
         vlines!(ax_I, Bright[1:end-1], color = (:black, 0.5), linestyle = :dash)
-        lines!(ax_I, Brng, abs.(Ic ./ first(Ic)); label = L"\tau = %$(τ)", linewidth = 4)
-        Label(fig[2 + i, 1, Top()], L"\tau = %$(τ)", fontsize = 20, color = :black, padding = (480, 0, -100, 0))
+        lines!(ax_I, Brng, abs.(Ic ./ first(Ic)); label = L"\tau = %$(τ)", linewidth = 3)
+        Label(fig[2 + i, 1, Top()], L"\tau = %$(τ)", fontsize = 15, color = :black, padding = (270, 0, -100, 0))
         xlims!(ax_I, (first(Brng), last(Brng)))
         i == 1 && hidexdecorations!(ax_I, ticks = false)
         if i == 2 
@@ -53,9 +53,9 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
 
     end
 
-    Colorbar(fig[1, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 20, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[1, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 10, ticksize = 2, ticklabelpad = 5)
 
-    Colorbar(fig[2, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 20, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[2, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 10, ticksize = 2, ticklabelpad = 5)
 
 
     rowsize!(fig.layout, 3, Relative(1/3 * 0.5))
@@ -66,7 +66,7 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
     rowgap!(fig.layout, 3, -10)
     colgap!(fig.layout, 1, 5)
 
-    style = (font = "CMU Serif Bold", fontsize = 30)
+    style = (font = "CMU Serif Bold", fontsize = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -35, 0); style...)
     Label(fig[2, 1, TopLeft()], "b",  padding = (-40, 0, -35, 0); style...)
     Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, -10, 0); style...)

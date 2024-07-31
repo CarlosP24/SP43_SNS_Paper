@@ -29,7 +29,7 @@ calc_trans(mod, L; Φ = Φ, Trng = Trng, φs = φs, Zs = Zs)
 
 ## 
 using CairoMakie 
-data = load("Output/HCA/semi_trans.jld2")
+data = load("Output/MHC_20/semi_trans.jld2")
 Js_Zτ = data["Js_Zτ"]
 Trng = data["Trng"]
 
