@@ -234,7 +234,7 @@ end
 
 # Transparency 
 function get_TN(G, τrng; Φ = 0)
-    Gτ = @showprogress pmap(τrng) do τ
+    Gτ = pmap(τrng) do τ
         G(0; τ, Φ)
     end
     return reshape(Gτ, size(τrng)...)

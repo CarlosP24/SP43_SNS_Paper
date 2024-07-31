@@ -23,7 +23,7 @@ using JLD2
 end
 
 # Global config
-Tlength = 100
+Tlength = 400
 φlength = 101
 
 Trng = subdiv(0, 1, Tlength)
