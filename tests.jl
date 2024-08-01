@@ -114,15 +114,44 @@ end
 
 ##
 using CairoMakie 
-data = load("Output/TCM_40/L=100_Andreev_Φ=1.56_τ=0.1.jld2")
+data = load("Output/SCM/semi.jld2")
 
-φrng = data["φrng"]
+Φrng = data["Φrng"]
 ωrng = real.(data["ωrng"])
-Andreev = data["Andreev"]
+LDOS = data["LDOS"]
+Zs = -5:5
+LDOS = Dict([Z => LDOS[Z] for Z in Zs])
 
 fig = Figure()
-ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\varphi", xticks = [0, π, 2π],)
-heatmap!(ax, φrng, ωrng, sum(values(Andreev)); colormap = :thermal, lowclip = :black, rasterize = true)
+ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\Phi/\Phi_0", xticks = [0, 1, 2],)
+heatmap!(ax, Φrng, real.(ωrng), sum(values(LDOS)); colormap = :thermal,  lowclip = :black, rasterize = true)
+fig
+##
+mod = "SCM"
+L = 0 
+
+Φlength = 50
+ωlength = 51
+
+Φrng = subdiv(0, 2.5, Φlength)
+ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
+
+Zs = -8:8
+model = models[mod]
+model = (; model..., L = L)
+gs = "semi"
+
+hSM, hSC, params = build_cyl(; model..., )
+
+# Get Greens
+g_right, g = greens_dict[gs](hSC, params)
+
+# Run n save LDOS
+LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
+
+fig = Figure()
+ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\Phi/\Phi_0", xticks = [0, 1, 2],)
+heatmap!(ax, Φrng, real.(ωrng), sum(values(LDOS)); colormap = :thermal,  lowclip = :black, rasterize = true)
 fig
 
 ##

@@ -31,7 +31,7 @@ end
 φs = subdiv(0, 2π, φlength)
 
 τs = 0.1:0.1:1.0
-Zs = -5:5
+Zs = -8:8
 
 
 # Include code 
@@ -42,7 +42,7 @@ include("calcs/calc_J.jl")
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
-calc_J(mod, L; Φrng, Zs, φs, τs)
+calc_J(mod, L; Φrng, Zs, φs, τs; ωim = 1e-6)
 
 # Clean up
 rmprocs(workers())

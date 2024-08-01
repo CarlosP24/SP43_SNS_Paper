@@ -1,5 +1,5 @@
 function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, φs = subdiv(0, π, 51)
-, τs = range(0.1, 1.0, length = 10), path = "Output")
+, τs = range(0.1, 1.0, length = 10), path = "Output", ωim = 1e-5)
 
     if L == 0
         gs = "semi"
@@ -25,7 +25,7 @@ function calc_J(mod, L; Φrng = subdiv(0.501, 1.499, 200), Zs = -5:5, φs = subd
 
     # Run n save Josephson
     #J = josephson(g[attach_link[gs]], bandwidth(Params(; model...)); imshift = 1e-4, omegamap = ω -> (; ω), phases = φs, atol = 1e-7)
-    J = josephson(g[attach_link[gs]], model.Δ0 * 50; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+    J = josephson(g[attach_link[gs]], model.Δ0 * 50; imshift = ωim, omegamap = ω -> (; ω), phases = φs, atol = ωim)
 
     Js_Zτ = Js_flux(J, Φrng, Zs, τs)    
 

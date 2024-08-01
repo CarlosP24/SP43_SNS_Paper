@@ -29,8 +29,7 @@ end
 Φrng = subdiv(0, 2.5, Φlength)
 ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
 
-τs = 0.1:0.1:1.0
-Zs = -5:5
+Zs = -8:8
 
 # Include code
 include("models.jl")

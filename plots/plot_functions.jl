@@ -130,7 +130,7 @@ function plot_LDOS(pos, data, cmin, cmax; Zs = nothing)
     else
         LDOSp = sum([LDOS[Z] for Z in Zs])
     end
-    heatmap!(ax_LDOS, Φrng, real.(ωrng), LDOSp; colormap = cgrad(:thermal)[10:end], colorrange = (cmin, cmax), lowclip = :black, rasterize = true)
+    heatmap!(ax_LDOS, Φrng, real.(ωrng), LDOSp; colormap = cgrad(:thermal)[10:end], colorrange = (cmin, cmax), lowclip = :black, rasterize = 5)
     xlims!(ax_LDOS, (Φa, Φb))
     return ax_LDOS
 end
@@ -194,12 +194,9 @@ function plot_Iτ(pos, indir)
     data = load(indir)
     Js_Zτ = data["Js_Zτ"]
     Trng = data["Trng"]
-    Trng = Trng[2:end]
-
     Js_dict = Dict([Z => mapreduce(permutedims, vcat, Js_Zτ[Z]) for Z in keys(Js_Zτ)])
     Ic = getindex(findmax(sum(values(Js_dict)); dims = 2),1) |> vec
-    Ic = Ic[2:end]
     ax = Axis(pos; xlabel = L"T_N", ylabel = L"I_c", xscale = log10, yscale = log10)
     lines!(ax, Trng, Ic; color = :black, linewidth = 2)
-    return ax
+    return ax, Trng
 end
