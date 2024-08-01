@@ -53,9 +53,9 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
 
     end
 
-    Colorbar(fig[1, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 10, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[1, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15,  ticksize = 2, ticklabelpad = 5)
 
-    Colorbar(fig[2, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 10, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[2, 2], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15,  ticksize = 2, ticklabelpad = 5)
 
 
     rowsize!(fig.layout, 3, Relative(1/3 * 0.5))

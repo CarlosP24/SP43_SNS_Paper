@@ -42,7 +42,7 @@ include("calcs/calc_J.jl")
 # Run
 mod = ARGS[1]
 L = parse(Int64, ARGS[2])
-calc_J(mod, L; Φrng, Zs, φs, τs; ωim = 1e-6)
+calc_J(mod, L; Φrng, Zs, φs, τs, ωim = 1e-6)
 
 # Clean up
 rmprocs(workers())
