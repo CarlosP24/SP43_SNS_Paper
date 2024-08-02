@@ -189,7 +189,12 @@ function Js_flux(J, Brng, τs)
     pts = Iterators.product(Brng, τs)
     Jss = @showprogress pmap(pts) do pt
         B, τ = pt
-        J(; B = B, τ = τ)
+        j = try 
+            J(; B = B, τ = τ)
+        catch
+            NaN
+        end
+        return ld 
     end
     Barray = reshape(Jss, size(pts)...)
     return Dict([τ => Barray[:, i] for (i, τ) in enumerate(τs)])
