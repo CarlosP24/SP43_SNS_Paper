@@ -45,7 +45,7 @@ include("calcs/calc_mismatch.jl")
 modL = "MHC_20"
 modR = "MHC_20_ξ"
 
-#calc_mismatch_LDOS(modL, modR; Brng, ωrng, path)
+#calc_mismatch_LDOS(modL, odR; Brng, ωrng, path)
 calc_mismatch_J(modL, modR; Brng, φs,  τs, path)
 
 # Clean up
