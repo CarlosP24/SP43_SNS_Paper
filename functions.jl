@@ -48,10 +48,19 @@ function get_greens_finite(hSC_left, hSC_right, p_left, p_right)
     return g_right, g
 end
 
+function get_greens_semi_f(hsemi, hfinite, psemi, pfinite)
+    coupling = build_coupling(psemi, pfinite)
+    @unpack L = pfinite
+    gs = hsemi |> greenfunction(GS.Schur(boundary = 0))
+    gf = hfinite |> attach(onsite(1e9 * σ0τz,), cells = (- L,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = hsemi |> attach(gf[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return gs, gf, g
+end
 
 greens_dict = Dict(
     "semi" => get_greens_semi,
-    "finite" => get_greens_finite,
+    "finite" => get_greens_finite,  
+    "semi_finite" => get_greens_semi_f,
 )
 
 attach_link = Dict(
@@ -194,7 +203,7 @@ function Js_flux(J, Brng, τs)
         catch
             NaN
         end
-        return ld 
+        return j
     end
     Barray = reshape(Jss, size(pts)...)
     return Dict([τ => Barray[:, i] for (i, τ) in enumerate(τs)])

@@ -154,5 +154,8 @@ ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\Phi/\Phi_0", xticks = [0, 1
 heatmap!(ax, Φrng, real.(ωrng), sum(values(LDOS)); colormap = :thermal,  lowclip = :black, rasterize = true)
 fig
 
+
+## Test mismatch L 
+
 ##
 rmprocs(workers()...)
