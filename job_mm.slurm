@@ -2,9 +2,9 @@
 mkdir -p slurm.out
 sbatch <<EOT
 #!/bin/bash
-#SBATCH -p esbirro
+#SBATCH -p all
 #SBATCH --nodes=$1
-#SBATCH --exclude=es1
+#SBATCH --exclude=es1,f1
 #SBATCH --exclusive
 #SBATCH --output=slurm.out/%j.out
 #SBATCH --job-name=Rmismatch
