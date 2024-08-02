@@ -6,7 +6,7 @@ using CairoMakie, JLD2, Parameters, Revise, ColorSchemes
 includet("plot_functions.jl")
 
 function plot_Three(L; indir = "Output", geos = ["HCA", "MHC_20", "SCM"], channels = [8, 8, 28], cmin = 1e-4, cmaxs = [5e-2, 5e-2, 1.6e-1], sTcs = [0.15, 0.15, 0.08], Tcs = [0.3, 0.4, 0.7])
-    fig = Figure(size = (550, 700), fontsize = 15, )
+    fig = Figure(size = (550, 600), fontsize = 15, )
 
     if L == 0
         subdir = "semi"
@@ -52,7 +52,7 @@ function plot_Three(L; indir = "Output", geos = ["HCA", "MHC_20", "SCM"], channe
     end
 
     Colorbar(fig[1, 4], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15, ticksize = 2, ticklabelpad = 5)
-    Colorbar(fig[2, 4], colormap = reverse(ColorSchemes.rainbow), label = L"T_N", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[2, 4], colormap = reverse(ColorSchemes.rainbow), label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([1e-5,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5,)
 
     style = (font = "CMU Serif Bold", fontsize = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-20, 0, -25, 0); style...)

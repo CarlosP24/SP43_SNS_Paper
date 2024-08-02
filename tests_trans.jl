@@ -56,6 +56,36 @@ axislegend(ax; position = :rb, orientation = :horizontal)
 save("Figures/HCA_TN_Ic.pdf", fig)
 fig
 
+## Trans mismatch 
+
+modL = "MHC_20"
+modR = "MHC_20_60"
+# Load models
+model_left = models[modL]
+model_left = (; model_left..., d = 5)
+model_right = models[modR]
+model_right = (; model_right..., d = 5)
+
+if model_left.L == 0
+    gs = "semi"
+else
+    gs = "finite"
+end
+
+hSM_left, hSC_left, params_left = build_cyl_mm(; model_left..., )
+hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = false)
+
+g_right, g_left, g = greens_dict[gs](hSM_left, hSM_right, params_left, params_right)
+τrng = subdiv(0, 1, 100)
+Gτs = get_TN(conductance(g[1, 1]), τrng; Φ = 0)
+Gτs = Gτs ./ maximum(Gτs)
+
+Tτ = linear_interpolation(τrng, Gτs)
+Tτ(0.05)
+Tτ(0.7)
+Tτ(1.0)
+
+save("Output/Rmismatch/semi_τT.jld2", Dict("τs" => τrng, "Ts" => Gτs))
 
 ## Clean up
 rmprocs(workers())

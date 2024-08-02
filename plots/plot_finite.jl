@@ -5,7 +5,7 @@ using CairoMakie, JLD2, Parameters, Revise, Colors, ColorSchemes
 
 includet("plot_functions.jl")
 
-function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, Φ3 = [1.54, 1.56], path = "Output", mod = "TCM_40",  cmin = 5e-4, cmax = 2e-2)
+function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, Φ3 = [1.54, 1.56], path = "Output", mod = "TCM_40",  cmin = 1e-3, cmax = 2e-2)
 
     fig = Figure(size = (550, 600), fontsize = 15, )
 
@@ -92,7 +92,7 @@ function plot_finite(τ; Ls = [0, 100], Φ1 = 0.7, Φ2 = 1.245, Φ3 = [1.54, 1.5
 
 
     Colorbar(fig[1, 3], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15, ticksize = 2, ticklabelpad = 5)
-    Colorbar(fig[2, 3], colormap = reverse(ColorSchemes.rainbow), label = L"T_N", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
+    Colorbar(fig[2, 3], colormap = reverse(ColorSchemes.rainbow), label = L"\tau", limits = (0, 1),  ticklabelsvisible = true, ticks = ([0,1], [ L"\rightarrow 0", L"1"]), labelpadding = -30,  width = 15, ticksize = 2, ticklabelpad = 5)
     #Colorbar(fig[3, 3], colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15, ticksize = 2, ticklabelpad = 5)
 
     style = (font = "CMU Serif Bold", fontsize = 20)

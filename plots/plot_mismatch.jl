@@ -4,7 +4,7 @@ using CairoMakie, JLD2, Parameters, Revise
 
 includet("plot_functions.jl")
 
-function plot_mismatch(;path = "Output/Rmismatch", L = 0)
+function plot_mismatch(;path = "Output/Rmismatch", L = 0, lab = [L"T_N = 0.1", L"T_N \rightarrow 0"], )
     fig = Figure(size = (550, 600), fontsize = 15, )
 
     if L == 0
@@ -36,7 +36,6 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
     hidexdecorations!(ax_right; ticks = false)
 
     τs = reverse(sort(collect(keys(Js_τ))))
-
     for (i,τ) in enumerate(τs)
         ax_I = Axis(fig[2 + i, 1]; xlabel = L"$B$ (T)", ylabel = L"$I_c / I_c (B=0)$", )
         Js = mapreduce(permutedims, vcat, Js_τ[τ])
@@ -44,7 +43,7 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
         vlines!(ax_I, Bleft[1:end-1], color = (:black, 0.5), linestyle = :dash,)
         vlines!(ax_I, Bright[1:end-1], color = (:black, 0.5), linestyle = :dash)
         lines!(ax_I, Brng, abs.(Ic ./ first(Ic)); label = L"\tau = %$(τ)", linewidth = 3)
-        Label(fig[2 + i, 1, Top()], L"\tau = %$(τ)", fontsize = 15, color = :black, padding = (270, 0, -100, 0))
+        Label(fig[2 + i, 1, Top()], lab[i], fontsize = 12, color = :black, padding = (260, 0, -80, 0))
         xlims!(ax_I, (first(Brng), last(Brng)))
         i == 1 && hidexdecorations!(ax_I, ticks = false)
         if i == 2 
@@ -62,15 +61,15 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0)
     rowsize!(fig.layout, 4, Relative(1/3 * 0.5))
 
     rowgap!(fig.layout, 1, 10)
-    rowgap!(fig.layout, 2, -15)
-    rowgap!(fig.layout, 3, -10)
+    rowgap!(fig.layout, 2, -5)
+    rowgap!(fig.layout, 3, -5)
     colgap!(fig.layout, 1, 5)
 
     style = (font = "CMU Serif Bold", fontsize = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -35, 0); style...)
     Label(fig[2, 1, TopLeft()], "b",  padding = (-40, 0, -35, 0); style...)
-    Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, -10, 0); style...)
-    Label(fig[4, 1, TopLeft()], "d",  padding = (-40, 0, -10, 0); style...)
+    Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, 0, 0); style...)
+    Label(fig[4, 1, TopLeft()], "d",  padding = (-40, 0, 0, 0); style...)
 
 
 

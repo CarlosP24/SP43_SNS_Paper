@@ -34,6 +34,8 @@ Brng = subdiv(0, 0.25, Blength)
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, 2π, 101) 
 
+path = "Output/ximismatch"
+
 τs = [0.05, 0.7]
 
 include("models.jl")
@@ -41,10 +43,10 @@ include("calcs/calc_mismatch.jl")
 
 # Select models 
 modL = "MHC_20"
-modR = "MHC_20_60"
+modR = "MHC_20_ξ"
 
-#calc_mismatch_LDOS(modL, modR; Brng, ωrng)
-calc_mismatch_J(modL, modR; Brng, φs,  τs)
+calc_mismatch_LDOS(modL, modR; Brng, ωrng, path)
+calc_mismatch_J(modL, modR; Brng, φs,  τs, path)
 
 # Clean up
 rmprocs(workers())
