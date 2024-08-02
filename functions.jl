@@ -196,13 +196,13 @@ end
 
 function Js_flux(J, Brng, τs)
     pts = Iterators.product(Brng, τs)
-    lenght = length(J())
+    lg = length(J())
     Jss = @showprogress pmap(pts) do pt
         B, τ = pt
         j = try 
             J(; B = B, τ = τ)
         catch
-            [NaN for _ in 1:length]
+            [NaN for _ in 1:Int(lg)]
         end
         return j
     end
