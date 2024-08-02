@@ -1,6 +1,6 @@
 using Pkg 
 Pkg.activate(".")
-using CairoMakie, JLD2, Parameters, Revise
+using CairoMakie, JLD2, Parameters, Revise, Interpolations
 
 includet("plot_functions.jl")
 
@@ -77,8 +77,8 @@ function plot_mismatch(;path = "Output/Rmismatch", L = 0, lab = [L"T_N = 0.1", L
     return fig
 end
 
-fig = plot_mismatch()
-save("Figures/mismatch.pdf", fig)
+fig = plot_mismatch(; path = "Output/ximismatch",)
+save("Figures/ximismatch.pdf", fig)
 fig
 
 ##
