@@ -7,7 +7,7 @@ sbatch <<EOT
 #SBATCH --exclude=es1,f1
 #SBATCH --exclusive
 #SBATCH --output=slurm.out/%j.out
-#SBATCH --job-name=Rmismatch
+#SBATCH --job-name=ximismatch
 
 scontrol show hostnames $SLURM_JOB_NODELIST > machinefile
 
