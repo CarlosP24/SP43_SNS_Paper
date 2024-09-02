@@ -274,12 +274,14 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
 end
 
 # Junction harmonics
+
 function harmonics_array(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
     Random.seed!(123321)
     σ1 = prefactor * σ
     d(ℓ) = Normal(0, σ1/ℓ^2)
     return [rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 1:ℓmax]
 end
+
 function build_coupling(p_left::Params_mm, p_right::Params_mm, σ = 0.2; kw...)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
     a0 = p_left.a0
@@ -300,10 +302,12 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ = 0.2; kw...)
     
     har = harmonics_array(σ, ℓmax; kw...)
 
+    δt(r, dr, B) = ifelse(dr[1] > 0, har[round(Int, ΔmJ(r, dr, B))], conj(har[round(Int, ΔmJ(r, dr, B))]))
+
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * t * c_up * har[Int(round(ΔmJ(r, dr, B)))]
+        τ * t * c_up * δt(r, dr, B) 
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-        - τ * t * c_down * har[Int(round(ΔmJ(r, dr, B)))]
+        - τ * t * c_down * δt(r, dr, B) 
     )
     return model
 end
