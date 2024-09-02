@@ -305,9 +305,9 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ = 0.2; kw...)
     δt(r, dr, B) = ifelse(dr[1] > 0, har[round(Int, ΔmJ(r, dr, B))], conj(har[round(Int, ΔmJ(r, dr, B))]))
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * t * c_up * δt(r, dr, B) 
+        τ * t * c_up * δt(r, dr, B); range = 3*ℓmax*a0, 
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-        - τ * t * c_down * δt(r, dr, B) 
+        - τ * t * c_down * δt(r, dr, B); range = 3*ℓmax*a0, 
     )
     return model
 end

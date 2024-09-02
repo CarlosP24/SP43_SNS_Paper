@@ -46,7 +46,7 @@ modL = "MHC_20"
 modR = "MHC_20"
 σ = 0.2
 
-calc_mismatch_LDOS(modL, modR, σ; Brng, ωrng)
+#calc_mismatch_LDOS(modL, modR, σ; Brng, ωrng)
 calc_mismatch_J(modL, modR, σ; Brng, φs, τs )
 
 # Clean up
