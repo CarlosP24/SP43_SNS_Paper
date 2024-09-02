@@ -49,13 +49,13 @@ function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv
 
 end
 
-function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = subdiv(-.26, .26, 201) .+ 1e-4im, path = "Output/Rmismatch")
+function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = subdiv(-.26, .26, 201) .+ 1e-4im, path = "Output/Rmismatch", d = 5, Lleft = 0, Lright = 0)
 
       # Load models
       model_left = models[modL]
-      model_left = (; model_left..., d = 5)
+      model_left = (; model_left..., d = d, L = Lleft)
       model_right = models[modR]
-      model_right = (; model_right..., d = 5)
+      model_right = (; model_right..., d = d, L = Lright)
   
       if model_left.L == 0
         if model_right.L == 0

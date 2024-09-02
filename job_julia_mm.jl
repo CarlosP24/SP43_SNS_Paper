@@ -43,10 +43,12 @@ include("calcs/calc_mismatch.jl")
 
 # Select models 
 modL = "MHC_20"
-modR = "MHC_20_L"
+Lleft = 0
+modR = "MHC_20"
+Lright = 100
 
-calc_mismatch_LDOS(modL, modR; Brng, ωrng, path)
-calc_mismatch_J(modL, modR; Brng, φs,  τs, path)
+calc_mismatch_LDOS(modL, modR; Brng, ωrng, path, Lleft, Lright)
+calc_mismatch_J(modL, modR; Brng, φs,  τs, path, Lleft, Lright)
 
 # Clean up
 rmprocs(workers())
