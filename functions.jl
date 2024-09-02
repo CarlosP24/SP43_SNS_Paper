@@ -66,6 +66,7 @@ greens_dict = Dict(
 attach_link = Dict(
     "semi" => 1,
     "finite" => 2,
+    "semi_finite" => 1,
 )
 
 # LDOS
