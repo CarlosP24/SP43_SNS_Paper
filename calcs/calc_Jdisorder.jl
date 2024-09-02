@@ -41,6 +41,7 @@ function calc_mismatch_J(modL, modR, σ; Brng = subdiv(0.0, 0.25, 100), φs = su
         Dict(
             "model_left" => model_left,
             "model_right" => model_right,
+            "σ" => σ,
             "Brng" => Brng,
             "τs" => τs,
             "Js_τ" => Js_τ
@@ -92,6 +93,7 @@ function calc_mismatch_LDOS(modL, modR, σ; Brng = subdiv(0.0, 0.25, 100), ωrng
                 "model_right" => params_right,
                 "Brng" => Brng,
                 "ωrng" => ωrng,
+                "σ" => σ,
                 "LDOS_left" => LDOS_left,
                 "LDOS_right" => LDOS_right
             )

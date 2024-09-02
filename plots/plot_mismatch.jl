@@ -90,6 +90,11 @@ save("Figures/Lmismatch.pdf", fig)
 fig
 
 ##
+fig = plot_mismatch(; path = "Output/tdisorder",)
+#save("Figures/tdisorder.pdf", fig)
+fig
+
+##
 function plot_mismatch_J(;path = "Output/Rmismatch", L = 0)
     fig = Figure(size = (800, 1000), fontsize = 25, )
 
