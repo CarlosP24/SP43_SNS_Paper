@@ -31,8 +31,8 @@ function calc_mismatch_J(modL, modR; Brng = subdiv(0.0, 0.25, 100), φs = subdiv
     # Get Greens
     g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
-    bandwidth = maximum([model_left.Δ0, model_right.Δ0]) * 50
-    J = josephson(g[attach_link[gs]], bandwidth; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+    bw = maximum([model_left.Δ0, model_right.Δ0]) * 50
+    J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
     #J = josephson(g[attach_link[gs]], 0.23 * 50; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
 
     Js_τ = Js_flux(J, Brng, τs)
@@ -98,3 +98,7 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
         )
 
 end
+
+
+##
+J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
