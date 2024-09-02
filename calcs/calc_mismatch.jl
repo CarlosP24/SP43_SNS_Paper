@@ -58,10 +58,18 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
       model_right = (; model_right..., d = 5)
   
       if model_left.L == 0
-          gs = "semi"
-      else
-          gs = "finite"
-      end
+        if model_right.L == 0
+            gs = "semi"
+        else
+            gs = "semi_finite"
+        end
+    else
+        if model_right.L == 0
+            gs = "semi_finite"
+        else
+            gs = "finite"
+        end
+    end
   
       # Setup Output
       outdir = "$(path)/$(gs).jld2"
