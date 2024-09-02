@@ -23,6 +23,14 @@ function get_greens_semi(hSC_left, hSC_right, p_left, p_right)
     return g_right, g_left, g
 end
 
+function get_greens_semi(hSC_left, hSC_right, p_left, p_right, σ)
+    coupling = build_coupling(p_left, p_right, σ)
+    g_right = hSC_right |> greenfunction(GS.Schur(boundary = 0))
+    g_left = hSC_left |> greenfunction(GS.Schur(boundary = 0))
+    g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return g_right, g_left, g
+end
+
 function get_greens_finite(hSC, p)
     @unpack a0, t, L = p 
     coupling = @hopping((; τ = 1) -> - τ * t * σ0τz; range = 2*a0)
@@ -48,8 +56,26 @@ function get_greens_finite(hSC_left, hSC_right, p_left, p_right)
     return g_right, g
 end
 
+function get_greens_finite(hSC_left, hSC_right, p_left, p_right, σ)
+    @unpack L_left = p_left
+    @unpack L_right = p_right
+    coupling = build_coupling(p_left, p_right, σ)
+    g_right = hSC_right |> attach(onsite(1e9 * σ0τz,), cells = (- L_right,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return g_right, g
+end
+
 function get_greens_semi_f(hsemi, hfinite, psemi, pfinite)
     coupling = build_coupling(psemi, pfinite)
+    @unpack L = pfinite
+    gs = hsemi |> greenfunction(GS.Schur(boundary = 0))
+    gf = hfinite |> attach(onsite(1e9 * σ0τz,), cells = (- L,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = hsemi |> attach(gf[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    return gs, gf, g
+end
+
+function get_greens_semi_f(hsemi, hfinite, psemi, pfinite, σ)
+    coupling = build_coupling(psemi, pfinite, σ)
     @unpack L = pfinite
     gs = hsemi |> greenfunction(GS.Schur(boundary = 0))
     gf = hfinite |> attach(onsite(1e9 * σ0τz,), cells = (- L,)) |> greenfunction(GS.Schur(boundary = 0))
@@ -217,7 +243,7 @@ function bandwidth(p::Params)
 end
 
 
-# Radii mismatch 
+# Mismatch
 
 function build_coupling(p_left::Params_mm, p_right::Params_mm)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
@@ -247,6 +273,40 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm)
     return model
 end
 
+# Junction harmonics
+function harmonics_array(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
+    Random.seed!(123321)
+    σ1 = prefactor * σ
+    d(ℓ) = Normal(0, σ1/ℓ^2)
+    return [rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 1:ℓmax]
+end
+function build_coupling(p_left::Params_mm, p_right::Params_mm, σ = 0.2; kw...)
+    p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
+    a0 = p_left.a0
+    conv = p_left.conv
+    num_mJ_right = p_right.num_mJ
+    num_mJ_left = p_left.num_mJ
+    t = p_left.t
+
+    ℓmax = Int(round(abs(num_mJ_right) + abs(num_mJ_left)))
+
+    n(B, p) =  B * π * (p.R + p.d/2)^2 * conv
+    nint(B, p) = round(Int, n(B, p))
+    mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
+
+    ΔmJ(r, dr, B) = ifelse(dr[1] > 0,
+        mJ(r+dr/2, B, p_right) - mJ(r-dr/2, B, p_left),
+        mJ(r+dr/2, B, p_left) - mJ(r-dr/2, B, p_right))
+    
+    har = harmonics_array(σ, ℓmax; kw...)
+
+    model = @hopping((r, dr; τ = 1, B = p_left.B) ->
+        τ * t * c_up * har[Int(round(ΔmJ(r, dr, B)))]
+    ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
+        - τ * t * c_down * har[Int(round(ΔmJ(r, dr, B)))]
+    )
+    return model
+end
 
 # Transparency 
 function get_TN(G, τrng; Φ = 0)

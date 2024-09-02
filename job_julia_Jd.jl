@@ -24,9 +24,9 @@ using JLD2
 end
 
 # Global config 
-Blength = 400
-ωlength = 401
-φlength = 101
+Blength = 100
+ωlength = 101
+φlength = 51
 
 
 Brng = subdiv(0, 0.25, Blength)
@@ -39,16 +39,15 @@ path = "Output/Lmismatch"
 τs = [0.05, 0.7]
 
 include("models.jl")
-include("calcs/calc_mismatch.jl") 
+include("calcs/calc_Jdisorder.jl") 
 
 # Select models 
 modL = "MHC_20"
-Lleft = 0
 modR = "MHC_20"
-Lright = 100
+σ = 0.2
 
-calc_mismatch_LDOS(modL, modR; Brng, ωrng, path, Lleft, Lright)
-calc_mismatch_J(modL, modR; Brng, φs,  τs, path, Lleft, Lright)
+calc_mismatch_LDOS(modL, modR, σ; Brng, ωrng,)
+calc_mismatch_J(modL, modR, σ; Brng, φs,  )
 
 # Clean up
 rmprocs(workers())
