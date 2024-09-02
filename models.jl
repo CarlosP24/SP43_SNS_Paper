@@ -29,12 +29,19 @@ models = Dict(
         L = 0,
     ),
     "MHC_20_ξ" => (;
-    base_model...,
+        base_model...,
         w = 20,
         μ = 0.75,
         α = 85,
         L = 0,
         ξd = 150,
+    ),
+    "MHC_20_L" => (;
+        base_model...,
+        w = 20,
+        μ = 0.75,
+        α = 85,
+        L = 100,
     ),
     "MHC_20_60" => (;
     base_model...,
