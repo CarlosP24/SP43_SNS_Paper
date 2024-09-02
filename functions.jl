@@ -282,7 +282,7 @@ function harmonics_array(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
     return [rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 1:ℓmax]
 end
 
-function build_coupling(p_left::Params_mm, p_right::Params_mm, σ = 0.2; kw...)
+function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
     a0 = p_left.a0
     conv = p_left.conv
@@ -303,11 +303,11 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ = 0.2; kw...)
     har = harmonics_array(σ, ℓmax; kw...)
 
     function δt(r, dr, B)
-        ΔmJ = ΔmJ(r, dr, B)
-        if ΔmJ == 0
+        Δm = ΔmJ(r, dr, B)
+        if Δm == 0
             return 1.0
         end
-        h = har[round(Int, ΔmJ)]
+        h = har[round(Int, Δm)]
         return ifelse(dr[1] > 0, h, conj(h))
     end
 
