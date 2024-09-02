@@ -4,10 +4,12 @@ using CairoMakie, JLD2, Parameters, Revise, Interpolations
 
 includet("plot_functions.jl")
 
-function plot_mismatch(;path = "Output/Rmismatch", L = 0, lab = [L"T_N = 0.1", L"T_N \rightarrow 0"], )
+function plot_mismatch(;path = "Output/Rmismatch", L = 0, Lmismatch = false, lab = [L"T_N = 0.1", L"T_N \rightarrow 0"], )
     fig = Figure(size = (550, 600), fontsize = 15, )
 
-    if L == 0
+    if Lmismatch 
+        subdir = "semi_finite"
+    elseif L == 0
         subdir = "semi"
     else
         subdir = "L=$(L)"
@@ -83,7 +85,7 @@ save("Figures/ximismatch.pdf", fig)
 fig
 
 ##
-fig = plot_mismatch(; path = "Output/Lmismatch",)
+fig = plot_mismatch(; path = "Output/Lmismatch", Lmismatch = true)
 #save("Figures/Lmismatch.pdf", fig)
 fig
 
