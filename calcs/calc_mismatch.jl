@@ -98,7 +98,3 @@ function calc_mismatch_LDOS(modL, modR; Brng = subdiv(0.0, 0.25, 100), ωrng = s
         )
 
 end
-
-
-##
-J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
