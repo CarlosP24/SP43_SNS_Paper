@@ -313,8 +313,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
             return 1.0
         end
         h = har[round(Int, abs(Δm))]
-        #return ifelse(dr[1] > 0, h, conj(h))
-        return abs(h)
+        return ifelse(dr[1] > 0, h, conj(h))
     end
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
