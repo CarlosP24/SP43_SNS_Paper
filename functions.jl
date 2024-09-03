@@ -313,7 +313,8 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
             return 1.0
         end
         h = har[round(Int, abs(Δm))]
-        return ifelse(dr[1] > 0, h, conj(h))
+        #return ifelse(dr[1] > 0, h, conj(h))
+        return abs(h)
     end
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
@@ -323,6 +324,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
     )
     return model
 end
+
 
 # Transparency 
 function get_TN(G, τrng; Φ = 0)
