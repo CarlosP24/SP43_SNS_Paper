@@ -41,7 +41,7 @@ include("calcs/calc_Jdisorder.jl")
 
 # Select models 
 modL = "MHC_20"
-modR = "MHC_20"
+modR = "MHC_20_60"
 σ = 0.2
 
 #calc_mismatch_LDOS(modL, modR, σ; Brng, ωrng)
