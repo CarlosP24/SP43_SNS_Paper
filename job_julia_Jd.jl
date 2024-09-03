@@ -24,9 +24,9 @@ using JLD2
 end
 
 # Global config 
-Blength = 400
-ωlength = 401
-φlength = 101
+Blength = 100
+ωlength = 101
+φlength = 51
 
 
 Brng = subdiv(0, 0.25, Blength)
@@ -42,7 +42,7 @@ include("calcs/calc_Jdisorder.jl")
 # Select models 
 modL = "MHC_20"
 modR = "MHC_20_60"
-σ = 0.2
+σ = 0
 
 #calc_mismatch_LDOS(modL, modR, σ; Brng, ωrng)
 calc_mismatch_J(modL, modR, σ; Brng, φs, τs )
