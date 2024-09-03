@@ -5,7 +5,7 @@ using CairoMakie, JLD2, Parameters, Revise, Interpolations
 includet("plot_functions.jl")
 
 function plot_diode(;path = "Output/Rmismatch", L = 0, Lmismatch = false, lab = [L"T_N = 0.1", L"T_N \rightarrow 0"], )
-    fig = Figure(size = (4/3 * 550, 600), fontsize = 15, )
+    fig = Figure(size = (550, 600), fontsize = 15, )
 
     if Lmismatch 
         subdir = "semi_finite"
@@ -37,35 +37,23 @@ function plot_diode(;path = "Output/Rmismatch", L = 0, Lmismatch = false, lab = 
 
     hidexdecorations!(ax_right; ticks = false)
 
+
+    indird = "$(path)_reversed/$(subdir)_J.jld2"
+    datad = load(indird)
+    Js_τd = datad["Js_τ"]
+
+
     τs = reverse(sort(collect(keys(Js_τ))))
     for (i,τ) in enumerate(τs)
         ax_I = Axis(fig[2 + i, 1]; xlabel = L"$B$ (T)", ylabel = L"$I_c / I_c (B=0)$", )
         Js = mapreduce(permutedims, vcat, Js_τ[τ])
         Ic = getindex(findmax(Js; dims = 2),1) |> vec
+        Jsd = mapreduce(permutedims, vcat, Js_τd[τ])
+        Icd = getindex(findmax(Jsd; dims = 2),1) |> vec
         vlines!(ax_I, Bleft[1:end-1], color = (:black, 0.5), linestyle = :dash,)
         vlines!(ax_I, Bright[1:end-1], color = (:black, 0.5), linestyle = :dash)
         lines!(ax_I, Brng, abs.(Ic ./ first(Ic)); label = L"\tau = %$(τ)", linewidth = 3)
-        Label(fig[2 + i, 1, Top()], lab[i], fontsize = 12, color = :black, padding = (260, 0, -80, 0))
-        xlims!(ax_I, (first(Brng), last(Brng)))
-        i == 1 && hidexdecorations!(ax_I, ticks = false)
-        if i == 2 
-            ax_I.ylabelpadding = 10
-        end
-
-    end
-
-    indir = "$(path)/$(subdir)_diode.jld2"
-    data = load(indir)
-    Js_τ = data["Js_τ"]
-
-    τs = reverse(sort(collect(keys(Js_τ))))
-    for (i,τ) in enumerate(τs)
-        ax_I = Axis(fig[4 + i, 1]; xlabel = L"$B$ (T)", ylabel = L"$I_c / I_c (B=0)$", )
-        Js = mapreduce(permutedims, vcat, Js_τ[τ])
-        Ic = getindex(findmax(Js; dims = 2),1) |> vec
-        vlines!(ax_I, Bleft[1:end-1], color = (:black, 0.5), linestyle = :dash,)
-        vlines!(ax_I, Bright[1:end-1], color = (:black, 0.5), linestyle = :dash)
-        lines!(ax_I, Brng, abs.(Ic ./ first(Ic)); label = L"\tau = %$(τ)", linewidth = 3)
+        lines!(ax_I, Brng, abs.(Icd ./ first(Icd)); label = L"\tau = %$(τ)", linewidth = 3, color = :red, linestyle = :dash)
         Label(fig[2 + i, 1, Top()], lab[i], fontsize = 12, color = :black, padding = (260, 0, -80, 0))
         xlims!(ax_I, (first(Brng), last(Brng)))
         i == 1 && hidexdecorations!(ax_I, ticks = false)
@@ -99,3 +87,6 @@ function plot_diode(;path = "Output/Rmismatch", L = 0, Lmismatch = false, lab = 
 
     return fig
 end
+
+fig = plot_diode()
+fig

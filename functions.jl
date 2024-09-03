@@ -304,10 +304,10 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
 
     function δt(r, dr, B)
         Δm = ΔmJ(r, dr, B)
-        if Δm == 0
+        if isapprox(Δm, 0)
             return 1.0
         end
-        h = har[round(Int, Δm)]
+        h = har[round(Int, abs(Δm))]
         return ifelse(dr[1] > 0, h, conj(h))
     end
 

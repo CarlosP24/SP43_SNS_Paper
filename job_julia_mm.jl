@@ -41,7 +41,7 @@ path = "Output/Rmismatch_reversed"
 include("models.jl")
 include("calcs/calc_mismatch.jl") 
 
-# Select models 
+# Select models     
 modL = "MHC_20_60"
 modR = "MHC_20"
 

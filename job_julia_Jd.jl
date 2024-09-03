@@ -34,8 +34,6 @@ Brng = subdiv(0, 0.25, Blength)
 φrng = subdiv(0, 2π, φlength)
 φs = subdiv(0, 2π, 101) 
 
-path = "Output/Lmismatch"
-
 τs = [0.05, 0.7]
 
 include("models.jl")
