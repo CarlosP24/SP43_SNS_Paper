@@ -290,7 +290,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
     num_mJ_left = p_left.num_mJ
     t = p_left.t
 
-    ℓmax = Int(round(abs(num_mJ_right) + abs(num_mJ_left)))
+    num_mJ = max(num_mJ_left, num_mJ_right)
 
     n(B, p) =  B * π * (p.R + p.d/2)^2 * conv
     nint(B, p) = round(Int, n(B, p))
@@ -304,7 +304,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
         nint(B, p_right) - nint(B, p_left),
         nint(B, p_left) - nint(B, p_right))
     
-    har = harmonics_array(σ, ℓmax; kw...)
+    har = harmonics_array(σ, 2*num_mJ; kw...)
 
     function δt(r, dr, B, p)
         Δm = ΔmJ(r, dr, B)
@@ -317,9 +317,9 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
     end
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * t * c_up * δt(r, dr, B, 1); range = 3*ℓmax*a0, 
+        τ * t * c_up * δt(r, dr, B, 1); range = 3*num_mJ*a0, 
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-        - τ * t * c_down * δt(r, dr, B, -1); range = 3*ℓmax*a0, 
+        - τ * t * c_down * δt(r, dr, B, -1); range = 3*num_mJ*a0, 
     )
     return model
 end
