@@ -299,12 +299,17 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
     ΔmJ(r, dr, B) = ifelse(dr[1] > 0,
         mJ(r+dr/2, B, p_right) - mJ(r-dr/2, B, p_left),
         mJ(r+dr/2, B, p_left) - mJ(r-dr/2, B, p_right))
+
+    Δn(dr, B) = ifelse(dr[1] > 0,
+        nint(B, p_right) - nint(B, p_left),
+        nint(B, p_left) - nint(B, p_right))
     
     har = harmonics_array(σ, ℓmax; kw...)
 
-    function δt(r, dr, B)
+    function δt(r, dr, B, p)
         Δm = ΔmJ(r, dr, B)
-        if isapprox(Δm, 0)
+        dn = Δn(dr, B)
+        if isapprox(Δm, p*dn)
             return 1.0
         end
         h = har[round(Int, abs(Δm))]
@@ -312,9 +317,9 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm, σ; kw...)
     end
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * t * c_up * δt(r, dr, B); range = 3*ℓmax*a0, 
+        τ * t * c_up * δt(r, dr, B, 1); range = 3*ℓmax*a0, 
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-        - τ * t * c_down * δt(r, dr, B); range = 3*ℓmax*a0, 
+        - τ * t * c_down * δt(r, dr, B, -1); range = 3*ℓmax*a0, 
     )
     return model
 end
