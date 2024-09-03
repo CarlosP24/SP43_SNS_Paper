@@ -29,10 +29,10 @@ function calc_mismatch_J(modL, modR, σ; Brng = subdiv(0.0, 0.25, 100), φs = su
     hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = false)
 
     # Get Greens
-    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right, σ)
+    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right, 0)
 
     bandwidth = maximum([model_left.Δ0, model_right.Δ0]) * 50
-    J = josephson(g[attach_link[gs]], bandwidth; imshift = 1e-7, omegamap = ω -> (; ω), phases = φs, atol = 1e-7)
+    J = josephson(g[attach_link[gs]], bandwidth; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
     #J = josephson(g[attach_link[gs]], 0.23 * 50; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
 
     Js_τ = Js_flux(J, Brng, τs)
