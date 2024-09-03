@@ -24,9 +24,9 @@ using JLD2
 end
 
 # Global config 
-Blength = 100
-ωlength = 101
-φlength = 51
+Blength = 400
+ωlength = 401
+φlength = 101
 
 
 Brng = subdiv(0, 0.25, Blength)
