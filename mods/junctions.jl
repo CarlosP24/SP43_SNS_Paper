@@ -11,16 +11,16 @@
     name = ""
 end
 
-Rmismatch = junctions(; name = "Rmismatch", wireL = "MHC_20", wireR = "MHC_20_60")
+Rmismatch = Junctions(; name = "Rmismatch", wireL = "MHC_20", wireR = "MHC_20_60")
 
-Rmismatch_σ = junctions(Rmismatch; name = "Rmismatch_s", σ = 0.2)
+Rmismatch_σ = Junctions(Rmismatch; name = "Rmismatch_s", σ = 0.2)
 
-ξmismatch = junctions(; name = "ξmismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
+ξmismatch = Junctions(; name = "ξmismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
 
-ξmismatch_σ = junctions(ξmismatch; name = "ximismatch_s", σ = 0.2)
+ξmismatch_σ = Junctions(ξmismatch; name = "ximismatch_s", σ = 0.2)
 
-Lmismatch = junctions(; name = "Lmismatch", wireL = "MHC_20", wireR = "MHC_20", LR = 100)
+Lmismatch = Junctions(; name = "Lmismatch", wireL = "MHC_20", wireR = "MHC_20", LR = 100)
 
-Lmismatch_σ = junctions(Lmismatch; name = "Lmismatch_s", σ = 0.2)
+Lmismatch_σ = Junctions(Lmismatch; name = "Lmismatch_s", σ = 0.2)
 
 junctions_dict = Dict([j.name => j for j in [Rmismatch, Rmismatch_σ, ξmismatch, ξmismatch_σ, Lmismatch, Lmismatch_σ]])

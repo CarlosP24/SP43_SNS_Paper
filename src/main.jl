@@ -15,7 +15,7 @@ include("launchers/$(launchers[launcher])")
 
 # Load code 
 using JLD2
-@evereywhere begin
+@everywhere begin
     using Quantica
     using FullShell
     using Parameters

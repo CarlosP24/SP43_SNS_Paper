@@ -6,3 +6,4 @@ tests_local.jl
 models_largeR.jl
 plotting/
 Old/
+Results/

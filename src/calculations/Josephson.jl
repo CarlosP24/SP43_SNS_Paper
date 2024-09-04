@@ -18,12 +18,12 @@ function calc_Josephson(junction::Junctions, calc_params::Calc_Params)
 
     # Build Josephson integrator
     bw = maximum([model_left.Δ0, model_right.Δ0]) * 50
-    J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+    J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φrng, atol = 1e-5)
 
     # Compute Josephson current
-    Js_τs = Js_flux(J, Brng, τs)
+    Js_τs = pjosephson(J, Brng, τs)
 
-    return results(;
+    return Results(;
         params = calc_params,
         junction = junction,
         Js_τs = Js_τs,
