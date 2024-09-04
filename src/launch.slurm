@@ -7,10 +7,10 @@ sbatch <<EOT
 #SBATCH --exclude=es1
 #SBATCH --exclusive
 #SBATCH --output=slurm.out/%j.out
-#SBATCH --job-name=$2
+#SBATCH --job-name=$1
 
 scontrol show hostnames $SLURM_JOB_NODELIST > machinefile
 
-julia --project job_julia.jl slurm $2 
+julia --project main.jl slurm $1
 
 EOT
