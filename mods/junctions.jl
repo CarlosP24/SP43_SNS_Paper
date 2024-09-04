@@ -1,0 +1,26 @@
+@with_kw struct Junctions
+    wireL = "HCA"
+    wireR = "HCA"
+    LL = 0
+    LR = 0
+    σ = 0
+    model_left = (; wires[wireL]..., L = LL, σ = σ)
+    model_right = (; wires[wireR]..., L = LR, σ = σ)
+    gs = ifelse(LL == 0, ifelse(LR == 0, "semi", "semi_finite"), ifelse(LR == 0, "semi_finite", "finite"))
+    τs = [0.05, 0.7]
+    name = ""
+end
+
+Rmismatch = junctions(; name = "Rmismatch", wireL = "MHC_20", wireR = "MHC_20_60")
+
+Rmismatch_σ = junctions(Rmismatch; name = "Rmismatch_s", σ = 0.2)
+
+ξmismatch = junctions(; name = "ξmismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
+
+ξmismatch_σ = junctions(ξmismatch; name = "ximismatch_s", σ = 0.2)
+
+Lmismatch = junctions(; name = "Lmismatch", wireL = "MHC_20", wireR = "MHC_20", LR = 100)
+
+Lmismatch_σ = junctions(Lmismatch; name = "Lmismatch_s", σ = 0.2)
+
+junctions_dict = Dict([j.name => j for j in [Rmismatch, Rmismatch_σ, ξmismatch, ξmismatch_σ, Lmismatch, Lmismatch_σ]])

@@ -2,14 +2,15 @@
 mkdir -p slurm.out
 sbatch <<EOT
 #!/bin/bash
-#SBATCH -p all
+#SBATCH -p esbirro
 #SBATCH --nodes=$2
-#SBATCH --exclude=es1,f1
+#SBATCH --exclude=es1
 #SBATCH --exclusive
 #SBATCH --output=slurm.out/%j.out
-#SBATCH --job-name=Rmismatch
+#SBATCH --job-name=$2
 
 scontrol show hostnames $SLURM_JOB_NODELIST > machinefile
 
-julia --project job_julia_Andreev.jl $1
+julia --project job_julia.jl slurm $2 
+
 EOT

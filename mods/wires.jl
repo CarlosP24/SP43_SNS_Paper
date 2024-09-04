@@ -1,7 +1,7 @@
-base_model = (;
+base_wire = (;
     R = 70,
     w = 0,
-    d = 0,
+    d = 5,
     Δ0 = 0.23,
     ξd = 70,
     a0 = 5,
@@ -15,21 +15,21 @@ base_model = (;
     Vmax = 0,
     ishollow = true,
 )
-models = Dict(
+wires = Dict(
     "HCA" => (;
-        base_model...,
+        base_wire...,
         μ = 0.75,
         α = 85,
     ),
     "MHC_20" => (;
-        base_model...,
+        base_wire...,
         w = 20,
         μ = 0.75,
         α = 85,
         L = 0,
     ),
     "MHC_20_ξ" => (;
-        base_model...,
+        base_wire...,
         w = 20,
         μ = 0.75,
         α = 85,
@@ -37,7 +37,7 @@ models = Dict(
         ξd = 150,
     ),
     "MHC_20_60" => (;
-        base_model...,
+        base_wire...,
         w = 20,
         μ = 0.75,
         α = 85,
@@ -45,7 +45,7 @@ models = Dict(
         R = 60,
     ),
     "SCM" => (;
-        base_model...,
+        base_wire...,
         w = 70,
         d = 10,
         Vmin = -30,
@@ -56,7 +56,7 @@ models = Dict(
         ishollow = false,
     ),
     "TCM_20_triv" => (;
-        base_model...,
+        base_wire...,
         w = 20,
         d = 10,
         τΓ = 10,
@@ -66,7 +66,7 @@ models = Dict(
         ishollow = false,
     ),
     "TCM_20_island" => (;
-        base_model...,
+        base_wire...,
         w = 20,
         d = 10,
         τΓ = 10,
@@ -76,7 +76,7 @@ models = Dict(
         ishollow = false,
     ),
     "TCM_20_gapless" => (;
-        base_model...,
+        base_wire...,
         w = 20,
         d = 10,
         τΓ = 10,
@@ -86,7 +86,7 @@ models = Dict(
         ishollow = false,
     ),
     "TCM_40" => (;
-        base_model...,
+        base_wire...,
         w = 40,
         d = 10,
         μ = 6.95,
