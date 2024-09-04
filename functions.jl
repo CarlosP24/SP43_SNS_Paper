@@ -223,7 +223,7 @@ function harmonics_dict(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
     Random.seed!(123321)
     σ1 = prefactor * σ
     d(ℓ) = Normal(0, σ1/ℓ^2)
-    hdict = Dict([ℓ => rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 1:ℓmax])
+    hdict = Dict([ℓ => rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 0.5:0.5:ℓmax])
     hdict[0] = 1.0 + 0.0im
     return hdict
 end
@@ -254,7 +254,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; kw...)
     hdict = harmonics_dict(σ, 2*num_mJ; kw...)
 
     δt(r, dr, B, p) = get(hdict, 
-        round(Int, abs(ΔmJ(r, dr, B) + p * 0.5 * Δn(dr, B))), 
+        round(abs(ΔmJ(r, dr, B) - p * 0.5 * Δn(dr, B)); base = 2, digits = 1), 
         0)
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
