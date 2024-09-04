@@ -1,161 +1,122 @@
-using Pkg
-Pkg.activate(".")
-using FullShell, Revise, Parameters, Quantica, ProgressMeter, Distributed, JLD2
+using Pkg 
+Pkg.activate("")
+
+using Revise 
+using Quantica, FullShell, ProgressMeter
+includet("functions.jl")
+includet("models.jl")
+
+using Distributed 
 addprocs(8)
 
-##
-includet("calcs/calc_LDOS.jl")
-includet("calcs/calc_LDOS_phase_bias.jl")
-includet("calcs/calc_J.jl")
-includet("calcs/calc_Andreev.jl")
-includet("calcs/calc_mismatch.jl")
-includet("functions.jl")
-@everywhere begin 
-    using FullShell, Revise, Parameters, Quantica, ProgressMeter, JLD2
-    include("calcs/calc_LDOS.jl")
-    include("calcs/calc_LDOS_phase_bias.jl")
-    include("calcs/calc_J.jl")
-    include("calcs/calc_Andreev.jl")
-    include("models.jl")
-    include("calcs/calc_mismatch.jl")
+@everywhere begin
+    using FullShell, Revise, Parameters, Quantica, ProgressMeter, JLD2, Interpolations, Random, Distributions
     include("functions.jl")
 end
 
-##
+## 
 modL = "MHC_20"
 modR = "MHC_20_60"
-gs = "semi"
 
-Brng = subdiv(0, 0.25, 200)
-φs = subdiv(0, 2π, 21)
-ωrng = subdiv(-.26 * 0.001, .26 * 0.001, 101) .+ 1e-9im
-φrng = subdiv(0, 2π, 101)
+Lleft = Lright = 0
+d = 5
 
 model_left = models[modL]
-model_left = (; model_left..., d = 5, B = 0.035)
+model_left = (; model_left..., d = d, L = Lleft)
 model_right = models[modR]
-model_right = (; model_right..., d = 5, B = 0.035)
+model_right = (; model_right..., d = d, L = Lright)
 
-τ = 0.01
-path = "Output/tests"
-
-# Build nanowires
-hSM_left, hSC_left, params_left = build_cyl_mm(; model_left..., )
-hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = true)
-
-# Get Greens
-g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
-
-Andreev = Andreev_spectrum(ldos(g[1]), φrng, ωrng; τ)
-
-
-#calc_mismatch_LDOS(modL, modR; Brng, ωrng, path)
-#calc_mismatch_J(modL, modR; Brng, φs, τs, path)
-
-##
-using CairoMakie
-fig = Figure() 
-ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\varphi", xticks = [0, π, 2π],)
-heatmap!(ax, φrng, real.(ωrng), Andreev; colormap = :thermal, colorrange = (1e-2, 1e-2), lowclip = :black, rasterize = true)
-fig
-##
-
-using CairoMakie 
-includet("plots/plot_functions.jl")
-
-data = load("Output/Tests/Rmismatch/semi.jld2")
-
-Brng = data["Brng"]
-ωrng = real.(data["ωrng"])
-
-LDOS_left = data["LDOS_left"]
-LDOS_right = data["LDOS_right"]
-
-data_J = load("Output/Tests/Rmismatch/semi_J.jld2")
-Js_τ = data_J["Js_τ"]
-
-Js = mapreduce(permutedims, vcat, Js_τ[0.1])
-Ic = getindex(findmax(Js; dims = 2), 1) |> vec 
-    
-fig = Figure()
-ax = Axis(fig[1, 1]; ylabel = L"\omega")
-heatmap!(ax, Brng, real.(ωrng), LDOS_left; colormap = :thermal)
-hidexdecorations!(ax; ticks = false)
-ax = Axis(fig[2, 1]; ylabel = L"\omega")
-heatmap!(ax, Brng, real.(ωrng), LDOS_right; colormap = :thermal)
-hidexdecorations!(ax; ticks = false)
-ax = Axis(fig[3, 1]; xlabel = L"B", ylabel = L"I_c")
-Brng = data_J["Brng"]
-scatter!(ax, Brng, Ic./first(Ic); )
-xlims!(ax, (first(Brng), last(Brng)))
-fig
-
-
-##
-mod = "TCM_40"
-L = 100
-
-ωlength = 51
-φlength = 51
-
-τ = 0.1
-
-ωrng = subdiv(-.26 * 0.01, .26 * 0.01, ωlength) .+ 1e-9im
-φrng = subdiv(0, 2π, φlength)
-
-Zs = -2:2
-
-Φ3 = L == 0 ? 1.54 : 1.56
-Φs = [Φ3]
-
-for Φ in Φs
-    calc_Andreev(mod, L, Φ; τ = τ, φrng, ωrng, Zs)
+if model_left.L == 0
+    if model_right.L == 0
+        gs = "semi"
+    else
+        gs = "semi_finite"
+    end
+else
+    if model_right.L == 0
+        gs = "semi_finite"
+    else
+        gs = "finite"
+    end
 end
 
 ##
-using CairoMakie 
-data = load("Output/SCM/semi.jld2")
-
-Φrng = data["Φrng"]
-ωrng = real.(data["ωrng"])
-LDOS = data["LDOS"]
-Zs = -5:5
-LDOS = Dict([Z => LDOS[Z] for Z in Zs])
-
-fig = Figure()
-ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\Phi/\Phi_0", xticks = [0, 1, 2],)
-heatmap!(ax, Φrng, real.(ωrng), sum(values(LDOS)); colormap = :thermal,  lowclip = :black, rasterize = true)
-fig
-##
-mod = "SCM"
-L = 0 
-
-Φlength = 50
-ωlength = 51
-
-Φrng = subdiv(0, 2.5, Φlength)
-ωrng = subdiv(-.26, .26, ωlength) .+ 1e-3im
-
-Zs = -8:8
-model = models[mod]
-model = (; model..., L = L)
-gs = "semi"
-
-hSM, hSC, params = build_cyl(; model..., )
-
-# Get Greens
-g_right, g = greens_dict[gs](hSC, params)
-
-# Run n save LDOS
-LDOS = calc_ldos(ldos(g_right[cells = (-1,)]), Φrng, ωrng, Zs)
-
-fig = Figure()
-ax = Axis(fig[1, 1]; ylabel = L"\omega", xlabel = L"\Phi/\Phi_0", xticks = [0, 1, 2],)
-heatmap!(ax, Φrng, real.(ωrng), sum(values(LDOS)); colormap = :thermal,  lowclip = :black, rasterize = true)
-fig
-
-
-## Test mismatch L 
+hSM_left, hSC_left, params_left = build_cyl_mm(; model_left..., )
+hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = false)
 
 ##
-rmprocs(workers()...)
+@everywhere begin 
+    function harmonics_dict(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
+        Random.seed!(123321)
+        σ1 = prefactor * σ
+        d(ℓ) = Normal(0, σ1/ℓ^2)
+        hdict = Dict([ℓ => rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 1:ℓmax])
+        hdict[0] = 1.0 + 0.0im
+        return hdict
+    end
+end
+
+function build_coupling(p_left::Params_mm, p_right::Params_mm; kw...)
+    p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
+    a0 = p_left.a0
+    conv = p_left.conv
+    num_mJ_right = p_right.num_mJ
+    num_mJ_left = p_left.num_mJ
+    t = p_left.t
+    σ = (p_left.σ + p_right.σ) / 2
+
+    num_mJ = max(num_mJ_left, num_mJ_right)
+
+    n(B, p) =  B * π * (p.R + p.d/2)^2 * conv
+    nint(B, p) = round(Int, n(B, p))
+    mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
+
+    ΔmJ(r, dr, B) = ifelse(dr[1] > 0,
+        mJ(r+dr/2, B, p_right) - mJ(r-dr/2, B, p_left),
+        mJ(r+dr/2, B, p_left) - mJ(r-dr/2, B, p_right))
+
+    Δn(dr, B) = ifelse(dr[1] > 0,
+        nint(B, p_right) - nint(B, p_left),
+        nint(B, p_left) - nint(B, p_right))
+    
+    hdict = harmonics_dict(σ, 2*num_mJ; kw...)
+
+    δt(r, dr, B, p) = get(hdict, 
+        round(Int, abs(ΔmJ(r, dr, B) + p * 0.5 * Δn(dr, B))), 
+        0)
+
+    model = @hopping((r, dr; τ = 1, B = p_left.B) ->
+        τ * t * c_up * abs(δt(r, dr, B, 1)); range = 3*num_mJ*a0, 
+    ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
+        - τ * t * c_down * abs(δt(r, dr, B, -1)); range = 3*num_mJ*a0, 
+    )
+    return model
+end
+
+##
+g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
+
+##
+φs = subdiv(0, 2π, 101)
+Brng = subdiv(0, 0.25, 100)
+
+τs = 0.05
+σ = 0.2
+
+bw = maximum([model_left.Δ0, model_right.Δ0]) * 50
+J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
+
+
+Js_τ = Js_flux(J, Brng, τs; σ)
+
+## 
+using CairoMakie
+fig = Figure() 
+ax = Axis(fig[1, 1]; xlabel = L"B", ylabel = L"I_c",)
+for (τ, Js) in Js_τ
+    Js = mapreduce(permutedims, vcat, Js)
+    Ic = getindex(findmax(Js; dims = 2),1) |> vec
+    lines!(ax, Brng, Ic ./ first(Ic); label = L"$τ = %$(τ)")
+end
+axislegend(ax; position = :lt, orientation = :horizontal)
+fig

@@ -2,9 +2,9 @@ function calc_mismatch_J(modL, modR, σ; Brng = subdiv(0.0, 0.25, 100), φs = su
 
     # Load models
     model_left = models[modL]
-    model_left = (; model_left..., d = d, L = Lleft)
+    model_left = (; model_left..., d = d, L = Lleft, σ = σ)
     model_right = models[modR]
-    model_right = (; model_right..., d = d, L = Lright)
+    model_right = (; model_right..., d = d, L = Lright, σ = σ)
 
     if model_left.L == 0
         if model_right.L == 0
@@ -29,7 +29,7 @@ function calc_mismatch_J(modL, modR, σ; Brng = subdiv(0.0, 0.25, 100), φs = su
     hSM_right, hSC_right, params_right = build_cyl_mm(; model_right..., phaseshifted = false)
 
     # Get Greens
-    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right, 0)
+    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
 
     bandwidth = maximum([model_left.Δ0, model_right.Δ0]) * 50
     J = josephson(g[attach_link[gs]], bandwidth; imshift = 1e-5, omegamap = ω -> (; ω), phases = φs, atol = 1e-5)
