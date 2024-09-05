@@ -15,7 +15,6 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; kw...)
     num_mJ_left = p_left.num_mJ
     t = p_left.t
     σ = (p_left.σ + p_right.σ) / 2
-
     num_mJ = max(num_mJ_left, num_mJ_right)
 
     n(B, p) =  B * π * (p.R + p.d/2)^2 * conv

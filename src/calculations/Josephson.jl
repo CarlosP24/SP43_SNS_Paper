@@ -1,7 +1,6 @@
 function calc_Josephson(junction::Junctions, calc_params::Calc_Params)
     # Load model 
     @unpack model_left, model_right, gs, τs, name = junction
-
     # Load parameters
     @unpack Brng, φrng, outdir = calc_params 
 

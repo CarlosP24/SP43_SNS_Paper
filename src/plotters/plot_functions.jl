@@ -5,7 +5,6 @@ function loadres(name::String; path = "Results", length = "semi")
     resT = load("$(input)_trans.jld2")["resT"]
     resσ = load("$(path)/$(name)_s/$(length)_J.jld2")["resJ"]
     res = nResults(; params = resLDOS.params, junction = resLDOS.junction, LDOS_left = resLDOS.LDOS_left, LDOS_right = resLDOS.LDOS_right, Js_τs = resJ.Js_τs, Tτ = resT.Tτ, τT = resT.τT, Js_τs_σ = resσ.Js_τs, junction_σ = resσ.junction)
-
     return res
 end
 
