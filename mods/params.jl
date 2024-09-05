@@ -26,6 +26,7 @@ end
     LDOS_right = nothing
     Js_τs = nothing
     Js_τs_σ = nothing
+    Js_τs_α = nothing
     path = nothing
     Tτ = nothing 
     τT = nothing
