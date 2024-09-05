@@ -27,5 +27,4 @@ function calc_LDOS(junction::Junctions, calc_params::Calc_Params)
         LDOS_right = LDOS_right,
         path = path
     )
-
 end

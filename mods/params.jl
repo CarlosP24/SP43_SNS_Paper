@@ -13,4 +13,20 @@ end
     LDOS_right = nothing
     Js_τs = nothing
     path = nothing
+    Tτ = nothing 
+    τT = nothing
+end
+
+@with_kw struct nResults
+    params = nothing
+    junction = nothing
+    junction_σ = nothing
+    name = nothing
+    LDOS_left = nothing
+    LDOS_right = nothing
+    Js_τs = nothing
+    Js_τs_σ = nothing
+    path = nothing
+    Tτ = nothing 
+    τT = nothing
 end
