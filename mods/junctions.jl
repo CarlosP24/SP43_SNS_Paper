@@ -16,12 +16,18 @@ Rmismatch = Junctions(; name = "Rmismatch", wireL = "MHC_20", wireR = "MHC_20_60
 
 Rmismatch_σ = Junctions(; name = "Rmismatch_s",wireL = "MHC_20", wireR = "MHC_20_60" , σ = 0.2)
 
+Rmismatch_α0 = Junctions(Rmismatch; model_left = (; Rmismatch.model_left..., α = 0), model_right = (; Rmismatch.model_right..., α = 0), name = "Rmismatch_noSOC",)
+
 ξmismatch = Junctions(; name = "ximismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
 
 ξmismatch_σ = Junctions(; name = "ximismatch_s", wireL = "MHC_20", wireR = "MHC_20_ξ", σ = 0.2)
+
+ξmismatch_α0 = Junctions(ξmismatch; model_left = (; ξmismatch.model_left..., α = 0), model_right = (; ξmismatch.model_right..., α = 0),  name = "ximismatch_noSOC",)
 
 Lmismatch = Junctions(; name = "Lmismatch", wireL = "MHC_20", wireR = "MHC_20", LR = 100)
 
 Lmismatch_σ = Junctions(name = "Lmismatch_s", wireL = "MHC_20", wireR = "MHC_20", LR = 100, σ = 0.2)
 
-junctions_dict = Dict([j.name => j for j in [Rmismatch, Rmismatch_σ, ξmismatch, ξmismatch_σ, Lmismatch, Lmismatch_σ]])
+Lmismatch_α0 = Junctions(Lmismatch; model_left = (; Lmismatch.model_left..., α = 0), model_right = (; Lmismatch.model_right..., α = 0),  name = "Lmismatch_noSOC",)
+
+junctions_dict = Dict([j.name => j for j in [Rmismatch, Rmismatch_σ, Rmismatch_α0, ξmismatch, ξmismatch_σ, ξmismatch_α0, Lmismatch, Lmismatch_σ, Lmismatch_α0]])

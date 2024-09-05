@@ -31,7 +31,7 @@ function fig_LDOS_Ic(name::String; length = "semi")
         Ic = get_Ic(Js_τs[τ])
         Icσ = get_Ic(Js_τs_σ[τ])
         ax = plot_Ic(fig[2 + i, 1], params.Brng, Ic, Icσ, junction_σ.σ, model_left, model_right)
-        axislegend(ax; lab, framewidth = 0)
+        Label(fig[2 + i, 1, Top()], lab; padding = (285, 0, -50, 0), fontsize = 15)
         i == 1 && hidexdecorations!(ax, ticks = false)
     end
     return fig

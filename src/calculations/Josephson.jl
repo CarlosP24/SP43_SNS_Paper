@@ -20,7 +20,7 @@ function calc_Josephson(junction::Junctions, calc_params::Calc_Params)
     J = josephson(g[attach_link[gs]], bw; imshift = 1e-5, omegamap = ω -> (; ω), phases = φrng, atol = 1e-5)
 
     # Compute Josephson current
-    Js_τs = pjosephson(J, Brng, τs)
+    Js_τs = pjosephson(J, Brng, τs;)
 
     return Results(;
         params = calc_params,
