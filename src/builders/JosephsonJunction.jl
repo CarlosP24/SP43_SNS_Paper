@@ -36,10 +36,14 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; kw...)
         round(abs(ΔmJ(r, dr, B) - p * 0.5 * Δn(dr, B)); base = 2, digits = 1), 
         0)
 
+    δtc(dr, δt) = ifelse(dr[1] > 0, 
+        δt, 
+        conj(δt))
+
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
-        τ * t * c_up * abs(δt(r, dr, B, 1)); range = 3*num_mJ*a0, 
+        τ * t * c_up * δtc(dr, δt(r, dr, B, 1)); range = 3*num_mJ*a0, 
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
-        - τ * t * c_down * abs(δt(r, dr, B, -1)); range = 3*num_mJ*a0, 
+        - τ * t * c_down * δtc(dr, δt(r, dr, B, -1)); range = 3*num_mJ*a0, 
     )
 
     return model
