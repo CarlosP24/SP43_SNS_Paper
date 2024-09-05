@@ -54,11 +54,11 @@ params = Calc_Params()
 #resLDOS = calc_LDOS(junction, params)
 #save(resLDOS.path, Dict("resLDOS" => resLDOS))
 
-#resJ = calc_Josephson(junction, params)
-#save(resJ.path, Dict("resJ" => resJ))
+resJ = calc_Josephson(junction, params)
+save(resJ.path, Dict("resJ" => resJ))
 
-resT = calc_transparency(junction, params)
-save(resT.path, Dict("resT" => resT))
+# resT = calc_transparency(junction, params)
+# save(resT.path, Dict("resT" => resT))
 
 
 # Clean up

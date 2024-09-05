@@ -13,7 +13,7 @@ end
 
 Rmismatch = Junctions(; name = "Rmismatch", wireL = "MHC_20", wireR = "MHC_20_60")
 
-Rmismatch_σ = Junctions(Rmismatch; name = "Rmismatch_s", σ = 0.2)
+Rmismatch_σ = Junctions(Rmismatch; name = "Rmismatch_s", σ = 0.5)
 
 ξmismatch = Junctions(; name = "ximismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
 
