@@ -69,8 +69,9 @@ function greens_finite(hSC_left, hSC_right, p_left, p_right)
     L_right = L
     coupling = build_coupling(p_left, p_right)
     g_right = hSC_right |> attach(onsite(1e9 * σ0τz,), cells = (- L_right,)) |> greenfunction(GS.Schur(boundary = 0))
+    g_left = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (- L_left,)) |> greenfunction(GS.Schur(boundary = 0))
     g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
-    return g_right, g
+    return g_right, g_left, g
 end
 
 
