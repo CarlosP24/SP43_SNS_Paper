@@ -59,5 +59,3 @@ function fig_LDOS_Ic(name::String; length = "semi", noSOC = true)
 
     return fig
 end
-
-fig_LDOS_Ic("Lmismatch"; length = "semi_finite", noSOC = false) 

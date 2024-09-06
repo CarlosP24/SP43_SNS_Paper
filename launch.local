@@ -1,2 +1,2 @@
 #!/bin/bash
-julia --project src/main.jl local $1
+julia --project src/main.jl local $1 $2

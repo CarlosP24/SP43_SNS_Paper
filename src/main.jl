@@ -47,7 +47,14 @@ using JLD2
 end
 
 # Choose model
-junction = junctions_dict[ARGS[2]]
+input = ARGS[2]
+
+if input == "loop_sigma"
+    σ = parse(Float64, ARGS[3])
+    junction = junctions_σ[σ]
+else
+    junction = junctions_dict[ARGS[2]]
+end
 params = Calc_Params()
 
 # Launch calculations
@@ -55,7 +62,14 @@ params = Calc_Params()
 #save(resLDOS.path, Dict("resLDOS" => resLDOS))
 
 resJ = calc_Josephson(junction, params)
-save(resJ.path, Dict("resJ" => resJ))
+
+if input == "loop_sigma"
+    spath = "Results/Rmismatch_s/semi_J_$(σ).jld2"
+else
+    spath = resJ.path 
+end
+save(spath, Dict("resJ" => resJ))
+
 
 # resT = calc_transparency(junction, params)
 # save(resT.path, Dict("resT" => resT))
