@@ -58,8 +58,8 @@ end
 params = Calc_Params()
 
 # Launch calculations
-resLDOS = calc_LDOS(junction, params)
-save(resLDOS.path, Dict("resLDOS" => resLDOS))
+# resLDOS = calc_LDOS(junction, params)
+# save(resLDOS.path, Dict("resLDOS" => resLDOS))
 
 resJ = calc_Josephson(junction, params)
 
