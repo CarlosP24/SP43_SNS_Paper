@@ -12,6 +12,6 @@ function add_Bticks(ax, model, params)
     end
 end
 
-function add_colorbar(pos)
-    Colorbar(pos, colormap = :thermal, label = L"$$ LDOS (arb. units)", limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15,  ticksize = 2, ticklabelpad = 5, labelsize = 12) 
+function add_colorbar(pos; colormap = :thermal, label = L"$$ LDOS (arb. units)", labelsize = 12)
+    Colorbar(pos; colormap, label, limits = (0, 1),  ticklabelsvisible = true, ticks = [0,1], labelpadding = -5,  width = 15,  ticksize = 2, ticklabelpad = 5, labelsize) 
 end

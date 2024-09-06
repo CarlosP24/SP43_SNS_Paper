@@ -1,6 +1,6 @@
-function fig_LDOS_Ic(name::String; length = "semi", noSOC = true)
-    fig = Figure(size = (550, 600), fontsize = 15)
-    res = loadres(name; length)
+function fig_LDOS_Ic(name::String; lth = "semi", noSOC = true, disorder = false)
+    fig = Figure(size = (550, 600 * ifelse(disorder, 3/2, 1)), fontsize = 15)
+    res = loadres(name; length = lth)
     @unpack params, junction, LDOS_left, LDOS_right, Js_τs, Js_τs_α= res
     model_left = junction.model_left
     model_right = junction.model_right
@@ -37,9 +37,15 @@ function fig_LDOS_Ic(name::String; length = "semi", noSOC = true)
         ax, lα = plot_Ic(fig[2 + i, 1], params.Brng, Ic, Icα, model_left, model_right, noSOC)
         noSOC && axislegend(ax, [lα], [L"\alpha = 0"],lab; position = (0.88, 0.5), framevisible = false, 
         labelsize = 14, patchsize = (12, 20), patchlabelgap = 0, titlegap = 0, titlesize = 14)
-        !noSOC && text!(ax, ifelse(length == "semi", 0.065, 0.185), maximum(filter( x -> !isnan(x), Ic./first(Ic))) * 0.8; text = lab, fontsize = 14, color = :black)
+        !noSOC && text!(ax, ifelse(lth == "semi", 0.065, 0.185), maximum(filter( x -> !isnan(x), Ic./first(Ic))) * 0.8; text = lab, fontsize = 14, color = :black)
 
-        i == 1 && hidexdecorations!(ax, ticks = false)
+        (i == 1 || disorder) && hidexdecorations!(ax, ticks = false)
+    end
+
+    # Disorder
+    if disorder 
+        ax_top, ax_bot = plot_Ic_mm(fig, 5, name; lth = lth, σs = 0.1:0.1:1.0)
+        hidexdecorations!(ax_top; ticks = false)
     end
 
     add_colorbar(fig[1, 2])
@@ -49,6 +55,13 @@ function fig_LDOS_Ic(name::String; length = "semi", noSOC = true)
     rowgap!(fig.layout, 2, 5)
     rowgap!(fig.layout, 3, 5)
 
+    if disorder
+        add_colorbar(fig[5, 2]; colormap = reverse(ColorSchemes.rainbow), label = L"\sigma", labelsize = 15)
+        add_colorbar(fig[6, 2]; colormap = reverse(ColorSchemes.rainbow), label = L"\sigma", labelsize = 15)
+        rowgap!(fig.layout, 4, 5)
+        rowgap!(fig.layout, 5, 5)
+    end
+
     colgap!(fig.layout, 1, 5)
 
     style = (font = "CMU Serif Bold", fontsize = 20)
@@ -57,5 +70,12 @@ function fig_LDOS_Ic(name::String; length = "semi", noSOC = true)
     Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, -30, 0); style...)
     Label(fig[4, 1, TopLeft()], "d",  padding = (-40, 0, -30, 0); style...)
 
+    if disorder 
+        Label(fig[5, 1, TopLeft()], "e",  padding = (-40, 0, -30, 0); style...)
+        Label(fig[6, 1, TopLeft()], "f",  padding = (-40, 0, -30, 0); style...)
+    end
+
     return fig
 end
+
+fig_LDOS_Ic("Rmismatch"; disorder = true)

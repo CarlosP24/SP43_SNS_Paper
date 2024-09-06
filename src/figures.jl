@@ -1,5 +1,5 @@
 # Header
-using CairoMakie, Revise, Parameters, JLD2
+using CairoMakie, Revise, Parameters, JLD2, Colors, ColorSchemes
 
 global conv = 1.5193e-3 # Magnetic field in T to flux prefactor
 
@@ -15,7 +15,7 @@ includet("plotters/plot_Ic.jl")
 includet("plotters/fig_LDOS_Ic.jl")
 
 ## Figure Rmismatch
-fig = fig_LDOS_Ic("Rmismatch";)
+fig = fig_LDOS_Ic("Rmismatch"; disorder = true)
 save("Figures/Rmismatch.pdf",fig)
 fig
 

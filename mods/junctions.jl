@@ -18,6 +18,8 @@ Rmismatch_σ = Junctions(; name = "Rmismatch_s",wireL = "MHC_20", wireR = "MHC_2
 
 Rmismatch_α0 = Junctions(Rmismatch; model_left = (; Rmismatch.model_left..., α = 0), model_right = (; Rmismatch.model_right..., α = 0), name = "Rmismatch_noSOC",)
 
+Rmismatch_L = Junctions(; name = "Rmismatch_L",wireL = "MHC_20", wireR = "MHC_20_60" , LL = 100, LR = 100)
+
 ξmismatch = Junctions(; name = "ximismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
 
 ξmismatch_σ = Junctions(; name = "ximismatch_s", wireL = "MHC_20", wireR = "MHC_20_ξ", σ = 0.2)
