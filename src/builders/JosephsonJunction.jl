@@ -2,7 +2,7 @@ function harmonics_dict(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
     Random.seed!(123321)
     σ1 = prefactor * σ
     d(ℓ) = Normal(0, σ1/ℓ^2)
-    hdict = Dict([ℓ => rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 0.5:0.5:ℓmax])
+    hdict = Dict([ℓ => rand(d(ℓ)) * exp(2π * rand() * im) for ℓ in 1:ℓmax])
     hdict[0] = 1.0 + 0.0im
     return hdict
 end
