@@ -25,5 +25,5 @@ save("Figures/ximismatch.pdf",fig)
 fig
 ## Figure Rmismatch_L
 fig = fig_LDOS_Ic("Rmismatch_L"; lth = "finite", noSOC = false) 
-save("Figures/Rmismatch_finite.pdf",fig)
+#save("Figures/Rmismatch_finite.pdf",fig)
 fig
