@@ -37,7 +37,7 @@ function fig_LDOS_Ic(name::String; lth = "semi", noSOC = true, disorder = false)
         ax, lα = plot_Ic(fig[2 + i, 1], params.Brng, Ic, Icα, model_left, model_right, noSOC)
         noSOC && axislegend(ax, [lα], [L"\alpha = 0"],lab; position = (0.88, 0.5), framevisible = false, 
         labelsize = 14, patchsize = (12, 20), patchlabelgap = 0, titlegap = 0, titlesize = 14)
-        !noSOC && text!(ax, ifelse(lth == "semi", 0.065, 0.185), maximum(filter( x -> !isnan(x), Ic./first(Ic))) * 0.8; text = lab, fontsize = 14, color = :black)
+        !noSOC && text!(ax, ifelse(lth == "semi", 0.065, 0.188), maximum(filter( x -> !isnan(x), Ic./first(Ic))) * 0.5; text = lab, fontsize = 14, color = :black)
 
         (i == 1 || disorder) && hidexdecorations!(ax, ticks = false)
     end
@@ -78,4 +78,4 @@ function fig_LDOS_Ic(name::String; lth = "semi", noSOC = true, disorder = false)
     return fig
 end
 
-fig_LDOS_Ic("Rmismatch"; disorder = true)
+fig = fig_LDOS_Ic("Rmismatch_L"; lth = "finite", noSOC = false) 

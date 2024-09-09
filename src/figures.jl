@@ -23,7 +23,7 @@ fig
 fig = fig_LDOS_Ic("ximismatch"; noSOC = false)
 save("Figures/ximismatch.pdf",fig)
 fig
-## Figure Lmismatch
-fig = fig_LDOS_Ic("Lmismatch"; length = "semi_finite", noSOC = false) 
-save("Figures/Lmismatch.pdf",fig)
+## Figure Rmismatch_L
+fig = fig_LDOS_Ic("Rmismatch_L"; lth = "finite", noSOC = false) 
+save("Figures/Rmismatch_finite.pdf",fig)
 fig
