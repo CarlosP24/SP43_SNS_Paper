@@ -1,6 +1,6 @@
 function calc_Josephson(junction::Junctions, calc_params::Calc_Params)
     # Load model 
-    @unpack model_left, model_right, gs, τs, name = junction
+    @unpack model_left, model_right, gs, τs, name, tfunction = junction
     # Load parameters
     @unpack Brng, φrng, outdir = calc_params 
 
@@ -13,7 +13,7 @@ function calc_Josephson(junction::Junctions, calc_params::Calc_Params)
     hSM_right, hSC_right, params_right = build_cyl_mm(; model_right...,)
 
     # Get Greens
-    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right)
+    g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right; tfunction)
 
     # Build Josephson integrator
     bw = maximum([model_left.Δ0, model_right.Δ0]) * 50

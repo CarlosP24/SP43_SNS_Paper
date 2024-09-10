@@ -23,6 +23,7 @@ using JLD2
     using Random
     using Distributions
     using Interpolations
+    using SpecialFunctions
     
     # Load models
     include("../mods/params.jl")

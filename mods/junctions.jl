@@ -9,6 +9,7 @@
     gs = ifelse(LL == 0, ifelse(LR == 0, "semi", "semi_finite"), ifelse(LR == 0, "semi_finite", "finite"))
     τs = [0.05, 0.7]
     name = ""
+    tfunction = "normal"
 end
 
 

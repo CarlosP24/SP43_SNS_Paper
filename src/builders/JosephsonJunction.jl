@@ -1,4 +1,4 @@
-function harmonics_dict(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
+function normal_deformation(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
     Random.seed!(123321)
     σ1 = prefactor * σ
     d(ℓ) = Normal(0, σ1/ℓ^2)
@@ -7,7 +7,21 @@ function harmonics_dict(σ, ℓmax; prefactor = 3 * sqrt(10)/π^2)
     return hdict
 end
 
-function build_coupling(p_left::Params_mm, p_right::Params_mm; kw...)
+expNormal(ℓ, σ) = exp(- ℓ^2/2 * σ^2)
+
+function electric_field(σ, ℓmax;)
+    prefactor = 2 * real(erf(π/ (sqrt(2) * σ) + sqrt(2) * σ * 1im)) / erf(π/ (sqrt(2) * σ))
+    hdict = Dict([ℓ => prefactor * expNormal(ℓ, σ) for ℓ in 1:ℓmax])
+    hdict[0] = 1.0
+    return hdict
+end
+
+tfunctions = Dict(
+    "normal" => normal_deformation,
+    "electric" => electric_field
+)
+
+function build_coupling(p_left::Params_mm, p_right::Params_mm; tfunction = "normal", kw...)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
     a0 = p_left.a0
     conv = p_left.conv
@@ -28,7 +42,8 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; kw...)
     Δn(dr, B) = ifelse(dr[1] > 0,
         nint(B, p_right) - nint(B, p_left),
         nint(B, p_left) - nint(B, p_right))
-    
+
+    harmonics_dict = tfunctions[tfunction]
     hdict = harmonics_dict(σ, 2*num_mJ; kw...)
 
     δt(r, dr, B, p) = get(hdict, 

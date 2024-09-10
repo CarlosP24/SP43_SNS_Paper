@@ -26,8 +26,8 @@ end
     greens_semi(hSC_left, hSC_right, p_left, p_right)
 Obtain Greens function operator for a non-symmetric junction between semi-infinite leads.
 """
-function greens_semi(hSC_left, hSC_right, p_left, p_right)
-    coupling = build_coupling(p_left, p_right)
+function greens_semi(hSC_left, hSC_right, p_left, p_right; tfunction = "normal")
+    coupling = build_coupling(p_left, p_right; tfunction)
     g_right = hSC_right |> greenfunction(GS.Schur(boundary = 0))
     g_left = hSC_left |> greenfunction(GS.Schur(boundary = 0))
     g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
@@ -62,12 +62,12 @@ end
     greens_semi(hSC_left, hSC_right, p_left, p_right)
 Obtain Greens function operator for a non-symmetric junction between finite leads.
 """
-function greens_finite(hSC_left, hSC_right, p_left, p_right)
+function greens_finite(hSC_left, hSC_right, p_left, p_right; tfunction = "normal")
     @unpack L = p_left
     L_left = L
     @unpack L = p_right
     L_right = L
-    coupling = build_coupling(p_left, p_right)
+    coupling = build_coupling(p_left, p_right; tfunction)
     g_right = hSC_right |> attach(onsite(1e9 * σ0τz,), cells = (- L_right,)) |> greenfunction(GS.Schur(boundary = 0))
     g_left = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (- L_left,)) |> greenfunction(GS.Schur(boundary = 0))
     g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
@@ -79,8 +79,8 @@ end
     greens_semi_f(hSC_left, hSC_right, psemi, pfinite)
 Obtain Greens function operator for a non-symmetric junction between a finite and a semi-infinite lead.
 """
-function greens_semi_f(hsemi, hfinite, psemi, pfinite)
-    coupling = build_coupling(psemi, pfinite)
+function greens_semi_f(hsemi, hfinite, psemi, pfinite; tfunction = "normal")
+    coupling = build_coupling(psemi, pfinite; tfunction)
     @unpack L = pfinite
     gs = hsemi |> greenfunction(GS.Schur(boundary = 0))
     gf = hfinite |> attach(onsite(1e9 * σ0τz,), cells = (- L,)) |> greenfunction(GS.Schur(boundary = 0))
