@@ -11,7 +11,7 @@ function fig_diode(name::String; lth = "semi",  path = "Results",)
     for (i, τ) in enumerate(τs)
         Ic = get_Ic(Js_τs[τ])
         Im = get_Im(Js_τs[τ])
-        ax =  plot_diode(fig[i, 1], params.Brng, Ic, Im, model_left, model_right)
+        ax =  plot_diode(fig[i, 1], params.Brng[10:end], Ic[10:end], Im[10:end], model_left, model_right)
         i == 1 && hidexdecorations!(ax; ticks = false)
     end
 
