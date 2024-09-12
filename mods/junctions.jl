@@ -23,7 +23,7 @@ Rmismatch_α0 = Junctions(Rmismatch; model_left = (; Rmismatch.model_left..., α
 
 Rmismatch_L = Junctions(; name = "Rmismatch_L", wireL = "MHC_20", wireR = "MHC_20_60" , LL = 100, LR = 100)
 
-Rmismatch_α = Junctions(; name = "Rmismatch_SOC", wireL = "MHC_20", wireR = "MHC_20_60", tfunction = "electric", σ = 1, SOC = true, αj = 100)
+Rmismatch_α = Junctions(; name = "Rmismatch_SOC", wireL = "MHC_20", wireR = "MHC_20_60", tfunction = "electric", σ = 1, SOC = true, αj = 0)
 
 ξmismatch = Junctions(; name = "ximismatch", wireL = "MHC_20", wireR = "MHC_20_ξ")
 
