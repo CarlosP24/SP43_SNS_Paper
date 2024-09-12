@@ -26,6 +26,6 @@ function calc_Josephson(junction::Junctions, calc_params::Calc_Params)
         params = calc_params,
         junction = junction,
         Js_τs = Js_τs,
-        path = path
+        path = ifelse(SOC, "$(outdir)/$(name)/$(gs)_J_$(αj).jld2", path)
     )
 end
