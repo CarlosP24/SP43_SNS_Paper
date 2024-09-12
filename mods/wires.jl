@@ -27,6 +27,7 @@ wires = Dict(
         μ = 0.75,
         α = 85,
         L = 0,
+        num_mJ = 10,
     ),
     "MHC_20_ξ" => (;
         base_wire...,
@@ -43,6 +44,7 @@ wires = Dict(
         α = 85,
         L = 0,
         R = 60,
+        num_mJ = 10,
     ),
     "SCM" => (;
         base_wire...,
