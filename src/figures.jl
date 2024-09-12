@@ -13,6 +13,7 @@ includet("plotters/plot_LDOS.jl")
 includet("plotters/plot_Ic.jl")
 
 includet("plotters/fig_LDOS_Ic.jl")
+includet("plotters/fig_diode.jl")
 
 ## Figure Rmismatch
 fig = fig_LDOS_Ic("Rmismatch"; disorder = true)
@@ -23,7 +24,12 @@ fig
 fig = fig_LDOS_Ic("ximismatch"; noSOC = false)
 save("Figures/ximismatch.pdf",fig)
 fig
+
 ## Figure Rmismatch_L
 fig = fig_LDOS_Ic("Rmismatch_L"; lth = "finite", noSOC = false) 
 #save("Figures/Rmismatch_finite.pdf",fig)
+fig
+
+## Figure diode 
+fig = fig_LDOS_Ic("Rmismatch_SOC"; noSOC = false)
 fig

@@ -26,8 +26,8 @@ end
     greens_semi(hSC_left, hSC_right, p_left, p_right)
 Obtain Greens function operator for a non-symmetric junction between semi-infinite leads.
 """
-function greens_semi(hSC_left, hSC_right, p_left, p_right; tfunction = "normal")
-    coupling = build_coupling(p_left, p_right; tfunction)
+function greens_semi(hSC_left, hSC_right, p_left, p_right; tfunction = "normal", SOC = false)
+    coupling = build_coupling(p_left, p_right; tfunction, SOC)
     g_right = hSC_right |> greenfunction(GS.Schur(boundary = 0))
     g_left = hSC_left |> greenfunction(GS.Schur(boundary = 0))
     g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
@@ -62,12 +62,12 @@ end
     greens_semi(hSC_left, hSC_right, p_left, p_right)
 Obtain Greens function operator for a non-symmetric junction between finite leads.
 """
-function greens_finite(hSC_left, hSC_right, p_left, p_right; tfunction = "normal")
+function greens_finite(hSC_left, hSC_right, p_left, p_right; tfunction = "normal", SOC = false)
     @unpack L = p_left
     L_left = L
     @unpack L = p_right
     L_right = L
-    coupling = build_coupling(p_left, p_right; tfunction)
+    coupling = build_coupling(p_left, p_right; tfunction, SOC)
     g_right = hSC_right |> attach(onsite(1e9 * σ0τz,), cells = (- L_right,)) |> greenfunction(GS.Schur(boundary = 0))
     g_left = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (- L_left,)) |> greenfunction(GS.Schur(boundary = 0))
     g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))

@@ -2,13 +2,13 @@
     pjosephson(J, Brmg, τs; σ = 0)
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given a junction noise amplitude σ.
 """
-function pjosephson(J, Brng, τs; σ = 0)
+function pjosephson(J, Brng, τs; σ = 0, αj = 0)
     pts = Iterators.product(Brng, τs)
     lg = length(J())
     Jss = @showprogress pmap(pts) do pt
         B, τ = pt
         j = try 
-            J(; B = B, τ = τ, σ = σ)
+            J(; B = B, τ = τ, σ = σ, αj = αj)
         catch
             [NaN for _ in 1:Int(lg)]
         end

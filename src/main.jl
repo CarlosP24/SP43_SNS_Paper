@@ -58,7 +58,7 @@ else
 end
 params = Calc_Params()
 
-# Launch calculations
+#Launch calculations
 # resLDOS = calc_LDOS(junction, params)
 # save(resLDOS.path, Dict("resLDOS" => resLDOS))
 
@@ -72,8 +72,8 @@ end
 save(spath, Dict("resJ" => resJ))
 
 
-resT = calc_transparency(junction, params)
-save(resT.path, Dict("resT" => resT))
+# resT = calc_transparency(junction, params)
+# save(resT.path, Dict("resT" => resT))
 
 
 # Clean up

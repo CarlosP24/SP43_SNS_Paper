@@ -4,6 +4,13 @@ function get_Ic(Js)
     return Ic
 end
 
+function get_Im(Js)
+    J = mapreduce(permutedims, vcat, Js)
+    Im = getindex(findmin(J; dims = 2),1) |> vec
+    return Im
+end
+
+
 function plot_Ic(pos, Brng, Ic, Icσ, model_left, model_right, noSOC)
     nleft, Bleft = get_Bticks(model_left, Brng)
     nright, Bright = get_Bticks(model_right, Brng)
@@ -18,6 +25,17 @@ function plot_Ic(pos, Brng, Ic, Icσ, model_left, model_right, noSOC)
     end
     xlims!(ax, (first(Brng), last(Brng)))
     return ax, lα
+end
+
+function plot_diode(pos, Brng, Ic, Im, model_left, model_right)
+    nleft, Bleft = get_Bticks(model_left, Brng)
+    nright, Bright = get_Bticks(model_right, Brng)
+    η = (Ic .- Im)./(Ic .+ Im)
+    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$η", )
+    vlines!(ax, Bleft[1:end-1], color = (:black, 0.5), linestyle = :dash,)
+    vlines!(ax, Bright[1:end-1], color = (:black, 0.5), linestyle = :dash)
+    scatter!(ax, Brng, η; linewidth = 3, color = first(reverse(ColorSchemes.rainbow)))
+    return ax
 end
 
 function plot_Ic_mm(fig, i::Int, name::String; lth = "semi", path = "Results",  σs = 0.1:0.1:1.0, cs = ColorSchemes.rainbow)
@@ -66,3 +84,4 @@ function plot_Ic_mm(fig, i::Int, name::String; lth = "semi", path = "Results",  
 
     return ax_top, ax_bot
 end
+

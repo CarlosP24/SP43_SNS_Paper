@@ -21,7 +21,7 @@ tfunctions = Dict(
     "electric" => electric_field
 )
 
-function build_coupling(p_left::Params_mm, p_right::Params_mm; tfunction = "normal", kw...)
+function build_coupling(p_left::Params_mm, p_right::Params_mm; tfunction = "normal", SOC = false, kw...)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
     a0 = p_left.a0
     conv = p_left.conv
@@ -50,15 +50,31 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; tfunction = "norm
         round(abs(ΔmJ(r, dr, B) - p * 0.5 * Δn(dr, B)); base = 2, digits = 1), 
         0)
 
+    δSOC(r, dr, B, p) = ifelse(round(abs(ΔmJ(r, dr, B) - p * 0.5 * Δn(dr, B))) == 1,
+        σxτz - 1im * σyτz,
+        0)
+
     δtc(dr, δt) = ifelse(dr[1] > 0, 
         δt, 
         conj(δt))
+
+    δSOCc(dr, δSOC) = ifelse(dr[1] > 0, 
+        δSOC, 
+        transpose(δSOC))
 
     model = @hopping((r, dr; τ = 1, B = p_left.B) ->
         τ * t * c_up * δtc(dr, δt(r, dr, B, 1)); range = 3*num_mJ*a0, 
     ) + @hopping((r, dr; τ = 1, B = p_left.B) ->
         - τ * t * c_down * δtc(dr, δt(r, dr, B, -1)); range = 3*num_mJ*a0, 
-    )
+    ) 
+
+    if SOC 
+        model += @hopping((r, dr; αj = p_left.α, B = p_left.B, τ = 1) ->
+            τ * αj * c_up * im * (dr[1] / (2a0^2)) * δSOCc(dr, δSOC(r, dr, B, 1)); range = 3*num_mJ*a0,
+        ) + @hopping((r, dr; αj = p_left.α, B = p_left.B, τ = 1) ->
+            τ * αj * c_down * im * (dr[1] / (2a0^2)) * δSOCc(dr, δSOC(r, dr, B, -1)); range = 3*num_mJ*a0,
+        )
+    end
 
     return model
 end
