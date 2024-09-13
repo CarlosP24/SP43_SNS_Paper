@@ -14,6 +14,7 @@
     αj = 0
 end
 
+Reference_α = Junctions(; name = "Reference_SOC", wireL = "MHC_20", wireR = "MHC_20", tfunction = "electric", σ = 1, SOC = true, αj = 100)
 
 Rmismatch = Junctions(; name = "Rmismatch", wireL = "MHC_20", wireR = "MHC_20_60")
 
@@ -39,7 +40,7 @@ Lmismatch_σ = Junctions(name = "Lmismatch_s", wireL = "MHC_20", wireR = "MHC_20
 
 Lmismatch_α0 = Junctions(Lmismatch; model_left = (; Lmismatch.model_left..., α = 0), model_right = (; Lmismatch.model_right..., α = 0),  name = "Lmismatch_noSOC",)
 
-junctions_dict = Dict([j.name => j for j in [Rmismatch, Rmismatch_σ, Rmismatch_α0, Rmismatch_L, Rmismatch_α, Rmismatch_αj0, ξmismatch, ξmismatch_σ, ξmismatch_α0, Lmismatch, Lmismatch_σ, Lmismatch_α0]])
+junctions_dict = Dict([j.name => j for j in [Reference_α, Rmismatch, Rmismatch_σ, Rmismatch_α0, Rmismatch_L, Rmismatch_α, Rmismatch_αj0, ξmismatch, ξmismatch_σ, ξmismatch_α0, Lmismatch, Lmismatch_σ, Lmismatch_α0]])
 
 σs = 0.1:0.1:1.0 
 junctions_σ = Dict(

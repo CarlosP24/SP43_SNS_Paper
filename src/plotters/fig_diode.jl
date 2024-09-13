@@ -1,7 +1,7 @@
-function fig_diode(name::String; lth = "semi",  path = "Results",)
+function fig_diode(name::String, α; lth = "semi",  path = "Results",)
     fig = Figure(size = (550, 300), fontsize = 15)
     basepath = "$(path)/$(name)/$(lth)"
-    inJ = "$(basepath)_J.jld2"
+    inJ = "$(basepath)_J_$(α).jld2"
     resJ = load(inJ)["resJ"]
     @unpack params, junction, Js_τs = resJ 
     model_left = junction.model_left
@@ -20,4 +20,4 @@ function fig_diode(name::String; lth = "semi",  path = "Results",)
     rowgap!(fig.layout, 1, 0.5)
     return fig
 end
-fig_diode("Rmismatch_SOC")
+fig_diode("Rmismatch_SOC0", 0; )
