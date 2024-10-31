@@ -1,5 +1,6 @@
 #!/bin/bash
 source config/prologue.sh
+input = $1
 sbatch <<EOT
 #!/bin/bash
 ## Slurm header
@@ -11,5 +12,5 @@ sbatch <<EOT
 #SBATCH --output="logs/%j.out"
 #SBATCH --job-name="${PWD##*/}"
 
-julia --project bin/launcher.jl
+julia --project bin/launcher.jl $input
 EOT
