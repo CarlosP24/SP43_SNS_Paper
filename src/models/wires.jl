@@ -16,7 +16,7 @@ wires = Dict(
     Vmax = 0,
     ishollow = true, 
     L = 0,
-    num_mJ = 10,
+    num_mJ = 5,
     Usadel = true,
     iω = 1e-3
     )
