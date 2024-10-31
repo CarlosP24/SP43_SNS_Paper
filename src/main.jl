@@ -27,7 +27,7 @@ using JLD2
     include("calculations/LDOS.jl")
 end
 ## Run 
-input = "reference_metal_1"
+input = "valve_65"
 
 if input in keys(wires)
     res = calc_LDOS(input, Calc_Params())
