@@ -33,7 +33,7 @@ function plot_LDOS(pos, name::String; basepath = "data", colorrange = (1e-4, 1e-
     R = wire.R
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$\omega$ (meV)")
-    heatmap!(ax, Brng, real.(ωrng), LDOS; colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
+    heatmap!(ax, Brng, real.(ωrng), abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
     add_Bticks(ax, ns, Bs)
     return ax, (; Brng, ns, Bs, R)
 end

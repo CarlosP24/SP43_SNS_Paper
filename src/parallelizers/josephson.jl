@@ -9,7 +9,7 @@ Compute the Josephson current from J::Josephson integrator for a set of magnetic
 function pjosephson(Js, Brng, lg::Int, ipath::Function; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     Jss = @showprogress pmap(Brng) do B
         j = try 
-            sum([J(override = ipath(B); B, τ , hdict, ) for J in Js])
+            sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
         catch
             [NaN for _ in 1:Int(lg)]
         end
