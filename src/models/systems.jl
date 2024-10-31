@@ -7,7 +7,7 @@ end
 # Systems for Valve effect paper
 
 systems_reference = Dict(
-    ["reference_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65"], junction = junctions["J$(i)"]) for i in 1:5]
+    ["reference_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65"], junction = junctions["J$(i)"]) for i in 1:6]
 )
 
 systems_reference_metal = Dict(

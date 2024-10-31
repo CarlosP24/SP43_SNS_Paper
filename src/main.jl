@@ -3,6 +3,7 @@ using JLD2
     using Quantica
     using FullShell
     using ProgressMeter, Parameters
+    using Interpolations, SpecialFunctions, Roots
 
     # Load models
     include("models/params.jl")
