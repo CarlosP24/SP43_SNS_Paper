@@ -8,7 +8,7 @@ sbatch <<EOT
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=3G
 #SBATCH --output="logs/%j.out"
-#SBATCH --job-name="${PWD##*/}"
+#SBATCH --job-name="${PWD##*/}_$1"
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT_80
 
