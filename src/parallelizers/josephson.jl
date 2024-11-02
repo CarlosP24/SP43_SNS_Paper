@@ -24,13 +24,19 @@ Compute the Josephson current from J::Josephson integrator for a set of magnetic
 """
 function pjosephson(Js, Brng, lg::Int, ipath::Function; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1), time_limit = 60*10)
     Jss = @showprogress pmap(Brng) do B
-        t0 = time()
-        j = @async sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
-        while !istaskdone(j) && time() - t0 < time_limit
-            sleep(1)
+        # t0 = time()
+        # j = @async sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
+        # while !istaskdone(j) && time() - t0 < time_limit
+        #     sleep(1)
+        # end
+        # istaskdone(j) && (return fetch(j))
+        # return [NaN for _ in 1:Int(lg)]
+        j = try
+            sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
+        catch
+            [NaN for _ in 1:Int(lg)]
         end
-        istaskdone(j) && (return fetch(j))
-        return [NaN for _ in 1:Int(lg)]
+        return j
     end
     return reshape(Jss, size(Brng)...)
 end
