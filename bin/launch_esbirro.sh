@@ -10,6 +10,8 @@ sbatch <<EOT
 ##SBATCH --mem-per-cpu=2G
 #SBATCH --output="logs/%j.out"
 #SBATCH --job-name="${PWD##*/}_$1"
+#SBATCH --mail-user=carlos.paya@csic.es
+#SBATCH --mail-type=END,FAIL
 
 julia --project bin/launcher.jl "$@"
 EOT
