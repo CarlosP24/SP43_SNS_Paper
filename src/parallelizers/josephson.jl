@@ -31,6 +31,7 @@ function pjosephson(Js, Brng, lg::Int, ipath::Function; τ = 1,  hdict = Dict(0 
         # end
         # istaskdone(j) && (return fetch(j))
         # return [NaN for _ in 1:Int(lg)]
+        @show B
         j = try
             sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
         catch
