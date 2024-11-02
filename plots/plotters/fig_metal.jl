@@ -47,6 +47,6 @@ function fig_metal(LDOS_left, LDOS_right, Is)
     return fig
 end
 
-fig = fig_metal("valve_65", "valve_65", "reference_metal_6")
+fig = fig_metal("valve_65_metal", "valve_65_metal", "reference_metal_1")
 #save("Figures/fig_metal.pdf", fig)
 fig

@@ -7,6 +7,12 @@ function calc_Josephson(name::String, calc_params::Calc_Params)
     # Load parameters
     @unpack Brng, φrng, outdir, imshift = calc_params 
 
+    # Remove possible pathological points
+    replace!(Brng, 0 => (Brng[2] - Brng[1])/2)
+    replace!(φrng, 0 => (φrng[2] - φrng[1])/2)
+    replace!(φrng, 2π => 2π-(φrng[2] - φrng[1])/2)    
+    calc_params2 = Calc_Params(calc_params; Brng, φrng)
+
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
     # Setup output path
     path = "$(outdir)/Js/$(name).jld2"
@@ -38,8 +44,6 @@ function calc_Josephson(name::String, calc_params::Calc_Params)
     J1 = josephson(g[attach_link[gs]], ipath(0); omegamap = ω -> (; ω), phases = φrng, atol = 1e-7, maxevals = 10^6, order = 21, )
 
     # Compute Josephson current
-    deleteat!(Brng, findall(B -> B == 0, Brng))     # Remove B = 0 to avoid ill definitions
-    calc_params2 = Calc_Params(calc_params; Brng)
     Js = pjosephson([J1], Brng, length(φrng), ipath; τ, hdict)
 
     return Results(;
