@@ -4,6 +4,7 @@ using JLD2
     using FullShell
     using ProgressMeter, Parameters
     using Interpolations, SpecialFunctions, Roots
+    using Logging
 
     # Load models
     include("models/params.jl")
@@ -38,7 +39,7 @@ else
 end
 
 for key in ks
-        println("Computing system/wire $key...")
+        @info "Computing system/wire $key..."
     if key in keys(wires)
         res = calc_LDOS(key, Calc_Params())
         save(res.path, "res", res)
@@ -46,7 +47,7 @@ for key in ks
         res = calc_Josephson(key, Calc_Params())
         save(res.path, "res", res)
     else
-        println("System/wire $key not found")
+        @info "System/wire $key not found"
     end
-        println("System/wire $key done.")
+        @info "System/wire $key done."
 end
