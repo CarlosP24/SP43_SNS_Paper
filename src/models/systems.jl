@@ -38,4 +38,13 @@ systems_RLmismatch = Dict(
     ["RLmismatch_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = junctions["J$(i)"]) for i in 1:4]
 )
 
-systems = merge(systems_reference, systems_reference_metal, systems_metal, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+systems = merge(systems_reference, systems_reference_metal, systems_reference_dep, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+
+systems_ref = merge(systems_reference, systems_reference_metal, systems_reference_dep)
+systems_valve = merge(systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+
+systems_dict = Dict(
+    "systems_ref" => systems_ref,
+    "systems_valve" => systems_valve,
+    "systems_ref_metal" => systems_reference_metal,
+)

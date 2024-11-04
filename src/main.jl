@@ -29,12 +29,24 @@ end
 ## Run 
 input = ARGS[1]
 
-if input in keys(wires)
-    res = calc_LDOS(input, Calc_Params())
-    save(res.path, "res", res)
-elseif input in keys(systems)
-    res = calc_Josephson(input, Calc_Params())
-    save(res.path, "res", res)
+if input in keys(systems_dict)
+    ks = keys(systems_dict[input]) |> collect 
+elseif input == "wires"
+    ks = keys(wires) |> collect
 else
-    println("Model not found")
+    ks = [input]
+end
+
+for key in ks
+        println("Computing system/wire $key...")
+    if key in keys(wires)
+        res = calc_LDOS(key, Calc_Params())
+        save(res.path, "res", res)
+    elseif key in keys(systems)
+        res = calc_Josephson(key, Calc_Params())
+        save(res.path, "res", res)
+    else
+        println("System/wire $key not found")
+    end
+        println("System/wire $key done.")
 end

@@ -1,3 +1,10 @@
+function filter_πs(φrng)
+    φrng1 = φrng[findall(x -> x > 0 && x < π, φrng)]
+    φrng2 = φrng[findall(x -> x > π && x < 2π, φrng)]
+    deleteat!(φrng1, findall(x -> isapprox(x, π), φrng1))
+    deleteat!(φrng2, findall(x -> isapprox(x, 2π), φrng2))
+    return φrng1, φrng2
+end
 function calc_Josephson(name::String, calc_params::Calc_Params)
     system = systems[name]
     # Load system 
@@ -8,10 +15,9 @@ function calc_Josephson(name::String, calc_params::Calc_Params)
     @unpack Brng, φrng, outdir, imshift = calc_params 
 
     # Remove possible pathological points
-    replace!(Brng, 0 => (Brng[2] - Brng[1])/2)
-    replace!(φrng, 0 => (φrng[2] - φrng[1])/2)
-    replace!(φrng, 2π => 2π-(φrng[2] - φrng[1])/2)    
-    calc_params2 = Calc_Params(calc_params; Brng, φrng)
+    deleteat!(Brng, findall(x -> isapprox(x, 0), Brng))
+    φrng1, φrng2 = filter_πs(φrng)
+    calc_params2 = Calc_Params(calc_params; Brng, φrng = vcat(φrng1, φrng2))
 
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
     # Setup output path
@@ -40,12 +46,14 @@ function calc_Josephson(name::String, calc_params::Calc_Params)
     itipL = get_itip(; wireL...)
     itipR = get_itip(; wireR...)
     itip(B) = minimum([itipL(B), itipR(B)])
-    ipath(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(B)*1im, 0] .+ imshift*1im
-    J1 = josephson(g[attach_link[gs]], ipath(0); omegamap = ω -> (; ω), phases = φrng, atol = 1e-7, maxevals = 10^6, order = 21,)
+    ipath1(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(B)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
+    ipath2(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 - itip(B)*1im, 0] .- imshift*1im      # - imshift means advanced Greens. Retarded have a branch cut.
 
+    J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol = 1e-7, maxevals = 10^6, order = 21,)
+    J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol = 1e-7, maxevals = 10^6, order = 21,)
     # Compute Josephson current
-    Js = pjosephson([J1], Brng, length(φrng), ipath; τ, hdict)
-
+    Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
+    #Js = pjosephson_g(g[attach_link[gs]], Brng, φrng, ipath; τ, hdict)
     return Results(;
         params = calc_params2,
         system = system,

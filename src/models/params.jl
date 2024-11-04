@@ -1,8 +1,8 @@
 @with_kw struct Calc_Params
-    Brng = subdiv(0.0, 0.25, 50)
+    Brng = subdiv(0.0, 0.25, 100)
     ωrng = subdiv(-.26, 0,  101) .+ 1e-3im
     φrng = subdiv(0, 2π, 51)
-    imshift = 1e-5
+    imshift = 1e-4
     outdir = "data"
 end
 
