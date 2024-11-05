@@ -1,6 +1,11 @@
 using Pkg
 using TOML
 
+function is_package_installed(pkg_name::String)
+    installed_packages = keys(Pkg.installed())  # Get list of installed packages
+    return pkg_name in installed_packages
+end
+
 function ensure_package(url::String, pkg_name::String)
     # Read Project.toml to check if the package is listed
     project_file = "Project.toml"
@@ -10,8 +15,14 @@ function ensure_package(url::String, pkg_name::String)
         
         # Check if package is in Project.toml
         if haskey(project_data["deps"], pkg_name)
-            println("$pkg_name found in Project.toml. Ensuring it is added from URL...")
-            Pkg.add(url = url)
+            println("$pkg_name found in Project.toml.")
+            # Check if the package is already installed
+            if is_package_installed(pkg_name)
+                println("$pkg_name is already installed. Skipping addition.")
+            else
+                println("$pkg_name is not installed. Adding it from URL...")
+                Pkg.add(url = url)  # Only add if it is not installed
+            end
         else
             println("$pkg_name is not listed in Project.toml, skipping addition.")
         end
@@ -21,8 +32,8 @@ function ensure_package(url::String, pkg_name::String)
 end
 
 function setup_environment()
-    # Ensure FullShell.jl is added only if listed in Project.toml
-    ensure_package("https://github.com/CarlosP24/FullShell.jl.git", "FullShell")
+    # Ensure non-registered package is added only if listed in Project.toml and not installed
+    ensure_package("https://github.com/username/non_registered_pkg.jl", "NonRegisteredPkg")
 
     # Proceed with instantiation, resolve, and precompile as before
     try
@@ -48,9 +59,8 @@ function setup_environment()
 end
 
 # Run the setup process
-try
+try 
     setup_environment()
-catch e
-    exit(1)  # Explicitly set non-zero exit code
+catch
+    exit(1)
 end
-

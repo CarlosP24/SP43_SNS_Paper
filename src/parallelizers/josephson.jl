@@ -35,7 +35,7 @@ function pjosephson(Js, Brng, lg::Int, ipaths::Vector{Function}; τ = 1,  hdict 
             jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); B, τ , hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
         catch e 
-            @warn "An error ocurred at B=$B - $e. Output is NaN."
+            @warn "An error ocurred at B=$B. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]
         end
         return j
