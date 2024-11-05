@@ -2,3 +2,4 @@ Manifest.toml
 data/
 figures/
 local_tests/
+.julia_depot/

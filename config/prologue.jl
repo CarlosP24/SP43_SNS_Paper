@@ -48,4 +48,10 @@ function setup_environment()
 end
 
 # Run the setup process
-setup_environment()
+try
+    setup_environment()
+catch e
+    println("An error occurred in the Julia script: ", e)
+    exit(1)  # Explicitly set non-zero exit code
+end
+
