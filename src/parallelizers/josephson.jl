@@ -36,7 +36,7 @@ function pjosephson(Js, Brng, lg::Int, ipaths::Vector{Function}; τ = 1,  hdict 
             return vcat(jvec...)
         catch e 
             @warn "An error ocurred at B=$B - $e"
-            [NaN for _ in 1:Int(lg)]
+            return [NaN for _ in 1:Int(lg)]
         end
         return j
     end
