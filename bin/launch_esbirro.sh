@@ -5,7 +5,7 @@ sbatch <<EOT
 ## Slurm header
 #SBATCH --partition=esbirro
 #SBATCH --ntasks-per-node=32
-#SBATCH --nodes=6
+#SBATCH --nodes=3
 #SBATCH --cpus-per-task=1
 ##SBATCH --mem-per-cpu=2G
 #SBATCH --output="logs/%j.out"
