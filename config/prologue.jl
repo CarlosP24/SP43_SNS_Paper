@@ -11,7 +11,7 @@ function ensure_package(url::String, pkg_name::String)
         # Check if package is in Project.toml
         if haskey(project_data["deps"], pkg_name)
             println("$pkg_name found in Project.toml. Ensuring it is added from URL...")
-            Pkg.add(url)
+            Pkg.add(url = url)
         else
             println("$pkg_name is not listed in Project.toml, skipping addition.")
         end
