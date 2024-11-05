@@ -1,19 +1,3 @@
-# Timeout macro
-macro timeout(seconds, expr, fail)
-    quote
-        tsk = @task $expr
-        schedule(tsk)
-        Timer($seconds) do timer
-            istaskdone(tsk) || Base.throwto(tsk, InterruptException())
-        end
-        try
-            fetch(tsk)
-        catch _
-            $fail
-        end
-    end
-end
-
 """
     pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields, given a transmission coefficient τ and noise harmonics hdict.
@@ -31,6 +15,7 @@ function pjosephson(Js, Brng, lg::Int, ipaths::Vector{Function}; τ = 1,  hdict 
         # end
         # istaskdone(j) && (return fetch(j))
         # return [NaN for _ in 1:Int(lg)]
+        @info "Phases are $(J1.phases)"
         j = try
             jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); B, τ , hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
