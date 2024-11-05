@@ -1,28 +1,17 @@
 using Pkg
 using TOML
 
-function is_package_installed(pkg_name::String)
-    installed_packages = keys(Pkg.dependencies())  # Get list of installed packages
-    return pkg_name in installed_packages
-end
-
 function ensure_package(url::String, pkg_name::String)
     # Read Project.toml to check if the package is listed
     project_file = "Project.toml"
     
     if isfile(project_file)
         project_data = TOML.parsefile(project_file)
-        
         # Check if package is in Project.toml
         if haskey(project_data["deps"], pkg_name)
             println("$pkg_name found in Project.toml.")
             # Check if the package is already installed
-            if is_package_installed(pkg_name)
-                println("$pkg_name is already installed. Skipping addition.")
-            else
-                println("$pkg_name is not installed. Adding it from URL...")
-                Pkg.add(url = url)  # Only add if it is not installed
-            end
+            Pkg.add(url = url)
         else
             println("$pkg_name is not listed in Project.toml, skipping addition.")
         end
@@ -33,7 +22,6 @@ end
 
 function setup_environment()
     # Ensure non-registered package is added only if listed in Project.toml and not installed
-    ensure_package("https://github.com/CarlosP24/FullShell.jl.git", "FullShell")
 
     # Proceed with instantiation, resolve, and precompile as before
     try
@@ -44,6 +32,7 @@ function setup_environment()
         println("Attempting to resolve dependencies...")
 
         try
+            ensure_package("https://github.com/CarlosP24/FullShell.jl.git", "FullShell")
             Pkg.resolve()
             println("Dependencies resolved. Re-attempting instantiation...")
             Pkg.instantiate()
