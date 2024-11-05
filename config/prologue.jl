@@ -26,6 +26,7 @@ function setup_environment()
     try
         println("Attempting to instantiate environment...")
         Pkg.instantiate()
+        println("Instantiation successful.")
     catch e
         println("Instantiation failed: ", e)
         println("Attempting to resolve dependencies...")
