@@ -33,7 +33,7 @@ end
 
 function setup_environment()
     # Ensure non-registered package is added only if listed in Project.toml and not installed
-    ensure_package("https://github.com/username/non_registered_pkg.jl", "NonRegisteredPkg")
+    ensure_package("https://github.com/CarlosP24/FullShell.jl.git", "FullShell")
 
     # Proceed with instantiation, resolve, and precompile as before
     try
@@ -49,6 +49,7 @@ function setup_environment()
             Pkg.instantiate()
         catch resolve_error
             println("Resolve also failed. Check Project.toml and Manifest.toml files.")
+            exit(1)
             return
         end
     end
