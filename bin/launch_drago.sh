@@ -3,8 +3,9 @@ source config/prologue.sh
 sbatch <<EOT
 #!/bin/bash
 ## Slurm header
-#SBATCH --partition=long
-#SBATCH --ntasks=400
+#SBATCH --partition=special
+#SBATCH --ntasks-per-node=48
+#SBATCH --nodes=2
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=2G
 #SBATCH --output="logs/%j.out"
