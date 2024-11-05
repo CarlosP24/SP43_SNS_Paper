@@ -52,7 +52,7 @@ function calc_Josephson(name::String, calc_params::Calc_Params)
     J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol = 1e-4, maxevals = 1e4, order = 21,)
     J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol = 1e-4, maxevals = 1e4, order = 21,)
     # Compute Josephson current
-    Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
+    Js = pjosephson([J1], Brng, length(calc_params2.φrng), [ipath1]; τ, hdict)
     #Js = pjosephson_g(g[attach_link[gs]], Brng, φrng, ipath; τ, hdict)
     return Results(;
         params = calc_params2,
