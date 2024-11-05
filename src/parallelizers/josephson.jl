@@ -15,7 +15,7 @@ function pjosephson(Js, Brng, lg::Int, ipaths::Vector{Function}; τ = 1,  hdict 
         # end
         # istaskdone(j) && (return fetch(j))
         # return [NaN for _ in 1:Int(lg)]
-        @info "Phases are $(J1.phases)"
+        @info "Phases are $(integrand(J1).phaseshifts)"
         j = try
             jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); B, τ , hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
