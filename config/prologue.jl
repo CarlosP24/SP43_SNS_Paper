@@ -2,7 +2,7 @@ using Pkg
 using TOML
 
 function is_package_installed(pkg_name::String)
-    installed_packages = keys(Pkg.installed())  # Get list of installed packages
+    installed_packages = keys(Pkg.dependencies())  # Get list of installed packages
     return pkg_name in installed_packages
 end
 
@@ -48,7 +48,7 @@ function setup_environment()
             println("Dependencies resolved. Re-attempting instantiation...")
             Pkg.instantiate()
         catch resolve_error
-            println("Resolve also failed. Check Project.toml and Manifest.toml files.")
+            println("Resolve also failed. Check Project.toml and Manifest.toml files.", resolve_error)
             exit(1)
             return
         end
