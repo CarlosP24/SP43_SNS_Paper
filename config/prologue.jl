@@ -21,7 +21,6 @@ function ensure_package(url::String, pkg_name::String)
 end
 
 function setup_environment()
-    # Ensure non-registered package is added only if listed in Project.toml and not installed
 
     # Proceed with instantiation, resolve, and precompile as before
     try
@@ -32,6 +31,7 @@ function setup_environment()
         println("Attempting to resolve dependencies...")
 
         try
+            # Ensure non-registered package is added only if listed in Project.toml and not installed
             ensure_package("https://github.com/CarlosP24/FullShell.jl.git", "FullShell")
             Pkg.resolve()
             println("Dependencies resolved. Re-attempting instantiation...")
