@@ -4,7 +4,11 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 # Define parameters array
-PARAMS=("$@")
+if [ -f "$1" ]; then
+  PARAMS=($(cat "$1"))
+else
+  PARAMS=("$@")
+fi
 ARRAY_SIZE=${#PARAMS[@]}
 
 if [ $ARRAY_SIZE -eq 0 ]; then
