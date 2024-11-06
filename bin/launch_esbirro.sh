@@ -4,8 +4,6 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 # Store all command-line arguments in an array
-export PARAMS=("$@")
-
 sbatch <<EOT
 #!/bin/bash
 ## Slurm header
@@ -20,9 +18,10 @@ sbatch <<EOT
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
 
+PARAMS=("$@")
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
 PARAM="${$PARAMS[$SLURM_ARRAY_TASK_ID]}"
 
 julia --project bin/launcher.jl "$PARAM"
 
-EOT
+EOT "$@"
