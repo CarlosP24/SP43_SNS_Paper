@@ -38,7 +38,7 @@ else
     ks = [input]
 end
 
-for key in ks
+pmap(s; batch_size = 1) do
         @info "Computing system/wire $key..."
     if key in keys(wires)
         res = calc_LDOS(key, Calc_Params())
@@ -50,4 +50,18 @@ for key in ks
         @info "System/wire $key not found"
     end
         @info "System/wire $key done."
-end
+end 
+
+# for key in ks
+#         @info "Computing system/wire $key..."
+#     if key in keys(wires)
+#         res = calc_LDOS(key, Calc_Params())
+#         save(res.path, "res", res)
+#     elseif key in keys(systems)
+#         res = calc_Josephson(key, Calc_Params())
+#         save(res.path, "res", res)
+#     else
+#         @info "System/wire $key not found"
+#     end
+#         @info "System/wire $key done."
+# end

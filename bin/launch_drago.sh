@@ -6,9 +6,9 @@ fi
 sbatch <<EOT
 #!/bin/bash
 ## Slurm header
-#SBATCH --partition=special
+#SBATCH --partition=long
 #SBATCH --ntasks-per-node=48
-#SBATCH --nodes=2
+#SBATCH --nodes=8
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=2G
 #SBATCH --output="logs/%j.out"

@@ -8,14 +8,6 @@ Compute the Josephson current from J::Josephson integrator for a set of magnetic
 """
 function pjosephson(Js, Brng, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     Jss = @showprogress pmap(Brng) do B
-        # t0 = time()
-        # j = @async sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
-        # while !istaskdone(j) && time() - t0 < time_limit
-        #     sleep(1)
-        # end
-        # istaskdone(j) && (return fetch(j))
-        # return [NaN for _ in 1:Int(lg)]
-        @info "Phases are $(Quantica.integrand(Js[1]).phaseshifts)"
         j = try
             jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); B, τ , hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
