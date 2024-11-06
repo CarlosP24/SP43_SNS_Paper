@@ -17,14 +17,9 @@ sbatch <<EOT
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
 
-if [[ $SLURM_ARRAY_TASK_ID -eq 1 ]]; then
-    ARG=$1
-elif [[ $SLURM_ARRAY_TASK_ID -eq 2 ]]; then
-    ARG=$2
-fi
+PARAMS = ("$@")
+PARAM=${PARAMS[$SLURM_ARRAY_TASK_ID]}
 
-echo $ARG
-
-julia --project bin/launcher.jl $ARG
+julia --project bin/launcher.jl $PARAM
 
 EOT
