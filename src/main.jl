@@ -38,7 +38,7 @@ else
     ks = [input]
 end
 
-pmap(s; batch_size = 1) do
+pmap(ks; batch_size = 1) do
         @info "Computing system/wire $key..."
     if key in keys(wires)
         res = calc_LDOS(key, Calc_Params())
