@@ -4,7 +4,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 # Store all command-line arguments in an array
-sbatch "$@" <<- 'EOT'
+sbatch <<EOT
 #!/bin/bash
 ## Slurm header
 #SBATCH --partition=esbirro
@@ -17,6 +17,8 @@ sbatch "$@" <<- 'EOT'
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
+
+echo "$@"
 
 PARAMS=("$@")
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
