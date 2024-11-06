@@ -23,9 +23,6 @@ PARAMS=("$@")
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
 PARAM="${PARAMS[$SLURM_ARRAY_TASK_ID]}"
 
-# Run the program with the selected parameter
-srun my_program "$PARAM"
-
 julia --project bin/launcher.jl $PARAM
 
 EOT
