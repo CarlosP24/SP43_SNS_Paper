@@ -3,8 +3,14 @@ source config/prologue.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi
+# Define the array
+PARAMS=("reference_metal_1" "reference_dep_1")
+
+# Serialize the array into a string
+PARAMS_STR=$(IFS=,; echo "${PARAMS[*]}")
+
 # Store all command-line arguments in an array
-sbatch <<EOT
+sbatch --export=ALL <<EOT
 #!/bin/bash
 ## Slurm header
 #SBATCH --partition=esbirro
@@ -18,11 +24,12 @@ sbatch <<EOT
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
 
-PARAMS=("reference_metal_1" "reference_dep_1")
-echo ${PARAMS}
-# Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
-PARAM="${PARAMS[$SLURM_ARRAY_TASK_ID]}"
+IFS=, read -r -a PARAMS <<< "\$PARAMS_STR"
 
-julia --project bin/launcher.jl "$PARAM"
+PARAM="\${PARAMS[\$SLURM_ARRAY_TASK_ID-1]}"
+
+echo "Running with PARAM: \$PARAM"
+
+julia --project bin/launcher.jl "\$PARAM"
 
 EOT
