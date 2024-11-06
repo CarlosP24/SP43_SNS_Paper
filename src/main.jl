@@ -1,10 +1,11 @@
-using JLD2
+
 @everywhere begin
     using Quantica
     using FullShell
     using ProgressMeter, Parameters
     using Interpolations, SpecialFunctions, Roots
     using Logging
+    using JLD2
 
     # Load models
     include("models/params.jl")
