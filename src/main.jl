@@ -29,7 +29,7 @@ using JLD2
 end
 ## Run
 @everywhere begin
-    input = ARGS[1]
+    input = $ARGS[1]
 
     if input in keys(systems_dict)
         ks = keys(systems_dict[input]) |> collect 
