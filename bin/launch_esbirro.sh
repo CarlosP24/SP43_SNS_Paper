@@ -4,7 +4,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 # Store all command-line arguments in an array
-sbatch <<EOT
+sbatch "$@" <<- 'EOT'
 #!/bin/bash
 ## Slurm header
 #SBATCH --partition=esbirro
@@ -24,4 +24,4 @@ PARAM="${PARAMS[$SLURM_ARRAY_TASK_ID]}"
 
 julia --project bin/launcher.jl "$PARAM"
 
-EOT "$@"
+EOT
