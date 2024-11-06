@@ -17,8 +17,7 @@ sbatch <<EOT
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
 
-PARAMS = ("$@")
-PARAM=${PARAMS[$SLURM_ARRAY_TASK_ID]}
+PARAM=${!SLURM_ARRAY_TASK_ID+1}
 
 julia --project bin/launcher.jl $PARAM
 
