@@ -19,7 +19,7 @@ sbatch <<EOT
 #SBATCH --array=1-2
 
 PARAMS=("reference_metal_1" "reference_dep_1")
-echo $PARAMS
+echo ${PARAMS}
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
 PARAM="${PARAMS[$SLURM_ARRAY_TASK_ID]}"
 
