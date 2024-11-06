@@ -6,7 +6,7 @@ lg is the length of the φrng inside J. Needed for error handling purposes.
     pjosephson(J, Brng, τs; hdict = Dict(0 => 1, 1 => 0.1))
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given noise harmonics hdict.
 """
-function pjosephson(Js::Vector{Any}, Brng, lg::Int, ipaths::Vector{Function}; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+function pjosephson(Js, Brng, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     Jss = @showprogress pmap(Brng) do B
         # t0 = time()
         # j = @async sum([J(override_path = ipath(B); B, τ , hdict, ) for J in Js])
