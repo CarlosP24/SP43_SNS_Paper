@@ -23,6 +23,8 @@ elif [ "$SLURM_ARRAY_TASK_ID" -eq "2" ]; then
     ARG="$2"
 fi
 
+echo $ARG
+
 julia --project bin/launcher.jl $ARG
 
 EOT
