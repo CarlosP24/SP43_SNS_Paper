@@ -27,15 +27,17 @@ using JLD2
     include("calculations/Josephson.jl")
     include("calculations/LDOS.jl")
 end
-## Run 
-input = ARGS[1]
+## Run
+@everywhere begin
+    input = ARGS[1]
 
-if input in keys(systems_dict)
-    ks = keys(systems_dict[input]) |> collect 
-elseif input == "wires"
-    ks = keys(wires) |> collect
-else
-    ks = [input]
+    if input in keys(systems_dict)
+        ks = keys(systems_dict[input]) |> collect 
+    elseif input == "wires"
+        ks = keys(wires) |> collect
+    else
+        ks = [input]
+    end
 end
 
 pmap(ks; batch_size = 1) do
