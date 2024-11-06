@@ -15,9 +15,14 @@ sbatch <<EOT
 #SBATCH --job-name="${PWD##*/}_$1"
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=END,FAIL
+#SBATCH --array=1-2
 
-julia --project bin/launcher.jl $1 &
-julia --project bin/launcher.jl $2 &
+if [ "$SLURM_ARRAY_TASK_ID" -eq "1" ]; then
+    ARG="$1"
+elif [ "$SLURM_ARRAY_TASK_ID" -eq "2" ]; then
+    ARG="$2"
+fi
 
-wait
+julia --project bin/launcher.jl $ARG
+
 EOT
