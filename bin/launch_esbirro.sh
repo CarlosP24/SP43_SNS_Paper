@@ -21,7 +21,7 @@ sbatch <<EOT
 PARAMS="$@"
 echo $PARAMS
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
-PARAM="${$SLURM_ARRAY_TASK_ID}"
+PARAM="${@[$SLURM_ARRAY_TASK_ID]}"
 
 julia --project bin/launcher.jl "$PARAM"
 
