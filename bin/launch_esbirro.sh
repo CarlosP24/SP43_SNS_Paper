@@ -3,6 +3,9 @@ source config/prologue.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi
+# Store all command-line arguments in an array
+PARAMS=("$@")
+
 sbatch <<EOT
 #!/bin/bash
 ## Slurm header
@@ -16,9 +19,6 @@ sbatch <<EOT
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
-
-# Store all command-line arguments in an array
-PARAMS=("$@")
 
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
 PARAM="${PARAMS[$SLURM_ARRAY_TASK_ID]}"
