@@ -28,8 +28,9 @@ using JLD2
     include("calculations/LDOS.jl")
 end
 ## Run
+@everywhere pARGS = $ARGS
 @everywhere begin
-    input = $ARGS[1]
+    input = pARGS[1]
 
     if input in keys(systems_dict)
         ks = keys(systems_dict[input]) |> collect 
