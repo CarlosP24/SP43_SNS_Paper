@@ -9,6 +9,7 @@ PARAMS=("reference_metal_1" "reference_dep_1")
 # Serialize the array into a string
 PARAMS_STR=$(IFS=,; echo "${PARAMS[*]}")
 
+export PARAMS_STR
 # Store all command-line arguments in an array
 sbatch --export=ALL <<EOT
 #!/bin/bash
