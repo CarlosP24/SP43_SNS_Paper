@@ -47,4 +47,5 @@ systems_dict = Dict(
     "systems_ref" => systems_ref,
     "systems_valve" => systems_valve,
     "systems_ref_metal" => systems_reference_metal,
+    "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_metal_2" => systems_reference_metal["reference_metal_2"])
 )

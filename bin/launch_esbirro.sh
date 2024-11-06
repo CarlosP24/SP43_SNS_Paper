@@ -8,7 +8,7 @@ sbatch <<EOT
 ## Slurm header
 #SBATCH --partition=esbirro
 #SBATCH --ntasks-per-node=32
-#SBATCH --nodes=4
+#SBATCH --nodes=3
 #SBATCH --cpus-per-task=1
 ##SBATCH --mem-per-cpu=2G
 #SBATCH --output="logs/%j.out"
@@ -16,5 +16,8 @@ sbatch <<EOT
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=END,FAIL
 
-julia --project bin/launcher.jl "$@"
+julia --project bin/launcher.jl $1 &
+julia --project bin/launcher.jl $2 &
+
+wait
 EOT
