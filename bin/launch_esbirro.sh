@@ -18,9 +18,8 @@ sbatch <<EOT
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-2
 
-echo "$@"
-
 PARAMS=("$@")
+echo $PARAMS
 # Access the parameter for this specific job based on SLURM_ARRAY_TASK_ID
 PARAM="${PARAMS[$SLURM_ARRAY_TASK_ID]}"
 
