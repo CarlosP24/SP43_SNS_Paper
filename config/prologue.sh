@@ -13,10 +13,6 @@ if [ $? -ne 0 ]; then
   echo "prologue.jl failed."
   exit 1
 fi
-
-if [ $? -ne 0 ]; then
-  exit 1
-fi
 # Define parameters array
 if [ -f "$1" ]; then
   PARAMS=($(cat "$1"))
