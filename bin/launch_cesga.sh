@@ -15,7 +15,7 @@ sbatch --export=ALL <<EOT
 #SBATCH --job-name="${PWD##*/}_$ARRAY_SIZE"
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT_80
-#SBATCH --array=1-$ARRAY_SIZE%4
+#SBATCH --array=1-$ARRAY_SIZE
 
 # Deserialize
 IFS=, read -r -a PARAMS <<< "\$PARAMS_STR"
