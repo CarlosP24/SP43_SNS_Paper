@@ -50,8 +50,8 @@ function calc_Josephson(name::String, calc_params::Calc_Params)
     ipath1(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(B)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
     ipath2(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 - itip(B)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
-    J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol = 1e-4, maxevals = 1e4, order = 21,)
-    J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol = 1e-4, maxevals = 1e4, order = 21,)
+    J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol = 1e-6, maxevals = 1e5, order = 21,)
+    J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol = 1e-6, maxevals = 1e5, order = 21,)
     # Compute Josephson current
     Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
 
