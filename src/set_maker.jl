@@ -1,4 +1,4 @@
-using Parameters
+using Parameters, Quantica
 include("models/wires.jl")
 include("models/junctions.jl")
 include("models/params.jl")
