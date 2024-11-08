@@ -1,5 +1,5 @@
-wires = Dict(
-    "base_wire" => (;
+wires = Dict{String, NamedTuple}()
+wires["base_wire"]=(;
     R = 70,
     w = 0,
     d = 10,
@@ -20,7 +20,7 @@ wires = Dict(
     Usadel = true,
     iω = 1e-3
     )
-)
+
 
 # Wires for Valve effect paper
 
@@ -74,4 +74,20 @@ wires["valve_65_500"] = (;
 wires["valve_60_100"] = (;
     wires["valve_60"]...,
     L = 100
+)
+
+# Zed wires wires
+wires["valve_65_Z"] = merge(
+    wires["valve_65"], 
+    (Zs = -20:20,)
+)
+
+wires["valve_65_metal_Z"] = merge(
+    wires["valve_65_metal"], 
+    (Zs = -20:20,)
+)
+
+wires["valve_65_dep_Z"] = merge(
+    wires["valve_65_dep"], 
+    (Zs = -20:20,)
 )

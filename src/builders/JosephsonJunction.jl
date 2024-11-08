@@ -43,3 +43,16 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm;  kw...)
 
     return model
 end
+
+function build_coupling(p_left::Params, p_right::Params;  kw...)
+    p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
+    a0 = p_left.a0
+    t = p_left.t
+    α = (p_left.α + p_right.α) / 2
+    wire_hopping(dr) = - t * σ0τz + α * (im * dr[1] / (2a0^2)) * σyτz;
+    model = @hopping((r, dr; τ = 1, B = 0, hdict = Dict(0 => 1, 1 => 0.1) ) ->
+        wire_hopping(dr) * τ;
+        range = 2*a0
+    )
+    return model
+end

@@ -7,7 +7,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     @unpack junction = system
     @unpack TN, δτ = junction
 
-    J = mapreduce(permutedims, vcat, Js)
+    if Js isa Dict
+        J = mapreduce(permutedims, vcat, sum(values(Js)))
+    else
+        J = mapreduce(permutedims, vcat, Js)
+    end
     Ic = getindex(findmax(J; dims = 2),1) |> vec
 
     lines!(ax, Brng, Ic ./ first(Ic); color, label = L"\delta \tau = %$(δτ)")

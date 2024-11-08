@@ -20,6 +20,25 @@ function pjosephson(Js, Brng, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 =
     return reshape(Jss, size(Brng)...)
 end
 
+
+function pjosephson(Js, Brng, Zs, Φf, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+    pts = Iterators.product(Brng, Zs)
+    Jss = @showprogress pmap(pts) do pt
+        B, Z = pt
+        j = try
+            Φ = Φf(B)
+            jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
+            return vcat(jvec...)
+        catch e 
+            @warn "An error ocurred at B=$B, Z=$Z. \n$e \nOutput is NaN."
+            return [NaN for _ in 1:Int(lg)]
+        end
+        return j
+    end
+    Jss_array = reshape(Jss, size(pts)...)
+    return Dict([Z => Jss_array[:, i] for (i, Z) in enumerate(Zs)])
+end
+
 # function pjosephson(J, Brng, τs;  hdict = Dict(0 => 1, 1 => 0.1))
 #     pts = Iterators.product(Brng, τs)
 #     lg = length(J())

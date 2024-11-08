@@ -8,7 +8,7 @@ end
 function calc_Josephson(name::String)
     system = systems[name]
     # Load system 
-    @unpack wireL, wireR, junction, calc_params= system
+    @unpack wireL, wireR, junction, calc_params = system
     # Load junction params
     @unpack TN, hdict = junction
     # Load parameters
@@ -25,8 +25,20 @@ function calc_Josephson(name::String)
     mkpath(dirname(path))
 
     # Build nanowires
-    hSM_left, hSC_left, params_left = build_cyl_mm(; wireL..., )
-    hSM_right, hSC_right, params_right = build_cyl_mm(; wireR...,)
+    if haskey(wireL, :Zs) && haskey(wireR, :Zs)
+        hSM_left, hSC_left, params_left = build_cyl(; wireL..., )
+        hSM_right, hSC_right, params_right = build_cyl(; wireR...,)
+        Zed = true
+        Zs = union(wireL.Zs, wireR.Zs)
+
+    elseif !haskey(wireL, :Zs) && !haskey(wireR, :Zs)
+        hSM_left, hSC_left, params_left = build_cyl_mm(; wireL..., )
+        hSM_right, hSC_right, params_right = build_cyl_mm(; wireR...,)
+        Zed = false
+    else
+        @error "Mismatched wire types."
+    end
+
 
     # Get Greens
     gSM_right, gSM_left, gSM = greens_dict[gs](hSM_left, hSM_right, params_left, params_right;)
@@ -42,9 +54,9 @@ function calc_Josephson(name::String)
 
     # Build Josephson integrator
     #bw = maximum([wireL.Δ0, wireR.Δ0]) * 50
-    bw = maximum([bandwidth(; wireL...), bandwidth(; wireR...)])
-    itipL = get_itip(; wireL...)
-    itipR = get_itip(; wireR...)
+    bw = maximum([bandwidth(params_left), bandwidth(params_right)])
+    itipL = get_itip(params_left)
+    itipR = get_itip(params_right)
     itip(B) = minimum([itipL(B), itipR(B)])
 
     ipath1(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(B)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
@@ -52,8 +64,14 @@ function calc_Josephson(name::String)
 
     J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol = 1e-6, maxevals = 1e5, order = 21,)
     J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol = 1e-6, maxevals = 1e5, order = 21,)
+
     # Compute Josephson current
-    Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
+    if Zed 
+        Φf = get_Φ(params_left)
+        Js = pjosephson([J1, J2], Brng, Zs, Φf, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
+    else
+        Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
+    end
 
     return Results(;
         params = calc_params2,
