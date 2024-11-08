@@ -51,7 +51,7 @@ systems_RLmismatch = Dict(
     ["RLmismatch_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = junctions["J$(i)"]) for i in 1:4]
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_dep, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
 
 systems_ref = merge(systems_reference, systems_reference_metal, systems_reference_dep)
 systems_ref_Z = merge(systems_reference_Z, systems_reference_metal_Z, systems_reference_dep_Z)
