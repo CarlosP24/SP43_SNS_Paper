@@ -5,10 +5,10 @@ function filter_πs(φrng)
     deleteat!(φrng2, findall(x -> isapprox(x, 2π), φrng2))
     return φrng1, φrng2
 end
-function calc_Josephson(name::String, calc_params::Calc_Params)
+function calc_Josephson(name::String)
     system = systems[name]
     # Load system 
-    @unpack wireL, wireR, junction = system
+    @unpack wireL, wireR, junction, calc_params= system
     # Load junction params
     @unpack TN, hdict = junction
     # Load parameters

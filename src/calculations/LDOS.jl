@@ -1,11 +1,10 @@
-function calc_LDOS(name::String, calc_params::Calc_Params)
+function calc_LDOS(name::String)
     # Load parameters
+    wire_system = wire_systems[name]
+    @unpack wire, calc_params = wire_system
     @unpack Brng, ωrng, outdir = calc_params 
 
-    # Load model
-    model = wires[name]
-
-    if model.L == 0
+    if wire.L == 0
         gs = "semi"
     else
         gs = "finite"
@@ -16,17 +15,17 @@ function calc_LDOS(name::String, calc_params::Calc_Params)
     mkpath(dirname(path))
 
     # Build nanowires
-    hSM, hSC, params = build_cyl_mm(; model..., )
+    hSM, hSC, params = build_cyl_mm(; wire..., )
 
     # Get Greens
     g_right, g = greens_dict[gs](hSC, params)
 
     # Compute LDOS
-    LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng .+ model.iω;)
+    LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng .+ wire.iω;)
 
     return Results(;
         params = calc_params,
-        wire = model,
+        wire = wire,
         LDOS = LDOS,
         path = path
     )

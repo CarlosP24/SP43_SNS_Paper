@@ -11,6 +11,7 @@ using JLD2
     include("models/wires.jl")
     include("models/junctions.jl")
     include("models/systems.jl")
+    include("models/wire_systems.jl")
 
     # Load builders
     include("builders/JosephsonJunction.jl")
@@ -40,15 +41,17 @@ end
 
 
 for key in ks
-        @info "Computing system/wire $key..."
-    if key in keys(wires)
-        res = calc_LDOS(key, Calc_Params())
+    if key in keys(wire_systems)
+        @info "Computing wire $key LDOS..."
+        res = calc_LDOS(key)
         save(res.path, "res", res)
+        @info "Wire $key done."
     elseif key in keys(systems)
-        res = calc_Josephson(key, Calc_Params())
+        @info "Computing system $key Josephson current..."
+        res = calc_Josephson(key)
         save(res.path, "res", res)
+        @info "System $key done."
     else
         @info "System/wire $key not found"
-    end
-        @info "System/wire $key done."
+    end   
 end
