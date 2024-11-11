@@ -62,5 +62,6 @@ systems_dict = Dict(
     "systems_ref_Z" => systems_ref_Z,
     "systems_valve" => systems_valve,
     "systems_ref_metal" => systems_reference_metal,
-    "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_dep_1" => systems_reference_dep["reference_dep_1"])
+    "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_dep_1" => systems_reference_dep["reference_dep_1"]),
+    "systems_ref_dep_Z" => systems_reference_dep_Z,
 )
