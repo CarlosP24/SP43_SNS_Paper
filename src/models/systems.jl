@@ -3,6 +3,7 @@
     wireR::NamedTuple
     junction::Junction
     calc_params = Calc_Params()
+    j_params = J_Params()
 end
 
 # Systems for Valve effect paper
