@@ -49,7 +49,7 @@ wires["valve_65_ξ"] = (;
 # Depleaded
 wires["valve_65_dep"] = (;
     wires["valve_65"]...,
-    μ = -20
+    μ = -200
 )
 wires["valve_60_dep"] = (;
     wires["valve_60"]...,
