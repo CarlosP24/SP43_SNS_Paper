@@ -13,5 +13,6 @@ junctions = Dict(
     "J4" => Junction(; TN = 0.05, δτ = 0.5),
     "J5" => Junction(; TN = 1e-5),
     "J6" => Junction(; TN = 1),
+    "J7" => Junction(; TN = 1e-6),
 )
 

@@ -33,7 +33,6 @@ end
 
 rcot(α) = ifelse(α in [0, π], NaN, cot(α))
 
-
 function KO1(name::String; basepath = "data")
     path = "$(basepath)/Js/$(name).jld2"
     res = load(path)["res"]
@@ -59,7 +58,6 @@ function KO1(name::String; basepath = "data")
 
     ΔL, ΦL = get_Δ(wireL)
     ΔR, ΦR = get_Δ(wireR)
-
 
     function zubkov(B)
         Δ1 = minimum([ΔL(B), ΔR(B)])

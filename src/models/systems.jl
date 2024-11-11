@@ -29,7 +29,7 @@ systems_reference_dep = Dict(
 )
 
 systems_reference_dep_Z = Dict(
-    ["reference_dep_Z_$(i)" => System(; wireL = wires["valve_65_dep_Z"], wireR = wires["valve_65_dep_Z"], junction = junctions["J$(i)"]) for i in 1:5]
+    ["reference_dep_Z_$(i)" => System(; wireL = wires["valve_65_dep_Z"], wireR = wires["valve_65_dep_Z"], junction = junctions["J$(i)"]) for i in 1:7]
 )
 
 systems_metal = Dict(
