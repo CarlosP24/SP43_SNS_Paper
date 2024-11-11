@@ -29,7 +29,7 @@ function fig_metal(LDOS_left, LDOS_right, Is)
 
     #cross_Δ = find_zeros(B -> gap_L(B) - gap_R(B), 0, 0.26)
 
-    #lines!(ax, tleft.Brng, ianalytic.(tleft.Brng)./ianalytic.(0); linestyle = :dash, color = :navyblue, label = L"\text{Sherril}")
+    lines!(ax, tleft.Brng, ianalytic.(tleft.Brng)./ianalytic.(0); linestyle = :dash, color = :navyblue, label = L"\text{Sherril}")
 
         #vlines!(ax, cross_Δ; linestyle = :dash, color = :black)
 
