@@ -24,12 +24,12 @@ function fig_metal(LDOS_left, LDOS_right, Is)
 
     ianalytic,  gap_L, gap_R = KO1(Is)
 
-    lines!(ax, tleft.Brng, gap_L.(tleft.Brng).^2; color = :lightblue, label = L"\Delta_L / \Delta_{L0}")
+    lines!(ax, tleft.Brng, gap_L.(tleft.Brng).^2; linestyle = :dash, color = :navyblue, label = L"\Delta_L / \Delta_{L0}")
     #lines!(ax, tright.Brng, gap_R.(tright.Brng); linestyle = :dash, color = :orange, label = L"\Delta_R / \Delta_{R0}")
 
     #cross_Δ = find_zeros(B -> gap_L(B) - gap_R(B), 0, 0.26)
 
-    lines!(ax, tleft.Brng, ianalytic.(tleft.Brng)./ianalytic.(0); linestyle = :dash, color = :navyblue, label = L"\text{Sherril}")
+    #lines!(ax, tleft.Brng, ianalytic.(tleft.Brng)./ianalytic.(0); linestyle = :dash, color = :navyblue, label = L"\text{Sherril}")
     #lines!(ax, tleft.Brng, gap_L.(tleft.Brng).^2 ./ gap_L(0)^2)
         #vlines!(ax, cross_Δ; linestyle = :dash, color = :black)
 
