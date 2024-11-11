@@ -1,6 +1,6 @@
 # Header
 using CairoMakie, Revise, Parameters, JLD2, ColorSchemes
-using FullShell 
+using FullShell, Quantica
 
 
 global conv = 1.5193e-3 # Magnetic field in T to flux prefactor
