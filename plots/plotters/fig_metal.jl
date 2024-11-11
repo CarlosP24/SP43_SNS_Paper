@@ -24,7 +24,7 @@ function fig_metal(LDOS_left, LDOS_right, Is)
 
     ianalytic,  gap_L, gap_R = KO1(Is)
 
-    lines!(ax, tleft.Brng, gap_L.(tleft.Brng); color = :lightblue, label = L"\Delta_L / \Delta_{L0}")
+    lines!(ax, tleft.Brng, gap_L.(tleft.Brng).^2; color = :lightblue, label = L"\Delta_L / \Delta_{L0}")
     #lines!(ax, tright.Brng, gap_R.(tright.Brng); linestyle = :dash, color = :orange, label = L"\Delta_R / \Delta_{R0}")
 
     #cross_Δ = find_zeros(B -> gap_L(B) - gap_R(B), 0, 0.26)
@@ -35,7 +35,7 @@ function fig_metal(LDOS_left, LDOS_right, Is)
 
     #Label(fig[3, 1, Top()], L"T_N = 0.8",  padding = (-350, 0, -25, 0);color = :black)
 
-    style = (font = "CMU Serif Bold", fontsize = 20)
+    style = (font = "CMU Serif Bold", fontsize   = 20)
     Label(fig[1, 1, TopLeft()], "a",  padding = (-40, 0, -30, 0); style...)
     Label(fig[2, 1, TopLeft()], "b",  padding = (-40, 0, -30, 0); style...)
     Label(fig[3, 1, TopLeft()], "c",  padding = (-40, 0, -30, 0); style...)
@@ -46,6 +46,6 @@ function fig_metal(LDOS_left, LDOS_right, Is)
     return fig
 end
 
-fig = fig_metal("valve_65_dep", "valve_65_dep", "reference_dep_Z_1")
+fig = fig_metal("valve_65_dep", "valve_65_dep", "reference_dep_Z_7")
 #save("Figures/fig_metal.pdf", fig)
 fig

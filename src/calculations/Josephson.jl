@@ -54,7 +54,6 @@ function calc_Josephson(name::String)
 
     τ = find_zeros(τ -> Tτ(τ) - TN, 0, 1) |> first
 
-    println(τ)
     # Build Josephson integrator
     #bw = maximum([wireL.Δ0, wireR.Δ0]) * 50
     bw = maximum([bandwidth(params_left), bandwidth(params_right)])
