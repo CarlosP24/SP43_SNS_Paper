@@ -14,7 +14,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     end
     
     Ic = getindex(findmax(J; dims = 2),1) |> vec
-    lines!(ax, Brng, Ic ./ first(Ic); color, label = L"\delta \tau = %$(δτ)")
+    lines!(ax, Brng, Ic ./ first(Ic); color, label = "")
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")
 end
 
