@@ -2,7 +2,7 @@
     Brng = subdiv(0.0, 0.25, 200)
     ωrng = subdiv(-.26, 0,  101) .+ 1e-3im
     φrng = subdiv(0, 2π, 101)
-    imshift = 1e-6
+    imshift = 1e-4
     outdir = "data"
 end
 
