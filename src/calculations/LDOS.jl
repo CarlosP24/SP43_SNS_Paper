@@ -21,7 +21,7 @@ function calc_LDOS(name::String)
     g_right, g = greens_dict[gs](hSC, params)
 
     # Compute LDOS
-    LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng .+ wire.iω;)
+    LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng;)
 
     return Results(;
         params = calc_params,
