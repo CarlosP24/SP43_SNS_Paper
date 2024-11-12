@@ -37,7 +37,7 @@ systems_metal = Dict(
 )
 
 systems_dep = Dict(
-    ["dep_$(i)" => System(; wireL = wires["valve_65_dep"], wireR = wires["valve_60_dep"], junction = junctions["J$(i)"]) for i in 1:5]
+    ["dep_$(i)" => System(; wireL = wires["valve_65_dep"], wireR = wires["valve_60_dep"], junction = junctions["J$(i)"]) for i in 1:7]
 )
 
 systems_Rmismatch = Dict(
