@@ -7,7 +7,7 @@ end
 
 @with_kw struct J_Params
     imshift = 1e-4
-    atol = 1e-10
+    atol = 0
     maxevals = 1e9  
     order = 21
 end
