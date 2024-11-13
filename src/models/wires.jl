@@ -49,11 +49,11 @@ wires["valve_65_ξ"] = (;
 # Depleaded
 wires["valve_65_dep"] = (;
     wires["valve_65"]...,
-    μ = -200
+    μ = -200,
 )
 wires["valve_60_dep"] = (;
     wires["valve_60"]...,
-    μ = -20
+    μ = -200,
 )
 
 # Metalized
@@ -89,5 +89,11 @@ wires["valve_65_metal_Z"] = merge(
 
 wires["valve_65_dep_Z"] = merge(
     wires["valve_65_dep"], 
-    (Zs = -1:1,)
+    (Zs = 0,
+    Usadel = false)
+)
+
+wires["valve_60_dep_Z"] = merge(
+    wires["valve_60_dep"], 
+    (Zs = 0)
 )
