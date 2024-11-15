@@ -26,12 +26,12 @@ function fig_phase(name::String; i = 10)
     hlines!(ax, Brng[i]; linestyle = :dash, color = :red)
     hidexdecorations!(ax; ticks = false)
 
-    TN = 0.5
+    #TN = 0.1
     ax = Axis(fig[2, 1]; xlabel, ylabel = L"I_s/I_c", xticks)
     scatter!(ax, φrng, J[:, i] ./ maximum(J[:, i]); label = L"B = %$(round(Brng[i], digits = 2)) T")
     lines!(ax, φrng, beenaker.(φrng; TN ) ./ maximum(beenaker.(φrng; TN )); color = :red, label = L"\text{Beenaker,} T_N = %$(TN)")
     axislegend(ax)
     return fig
 end
-fig = fig_phase("reference_1"; i = 40)
+fig = fig_phase("reference_dep_Z_1"; i = 70)
 fig
