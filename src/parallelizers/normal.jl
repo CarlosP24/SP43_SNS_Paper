@@ -11,7 +11,7 @@ end
 
 function add_Δ0(h, params)
     @unpack τΓ, Δ0 = params
-    ΣS! = @onsite!((o, r; ) -> o - Δ0 * τΓ * im)
+    ΣS! = @onsite!((o, r; ) -> o - Δ0 * τΓ * im * σ0τ0)
     return h |> ΣS!
 end
 
