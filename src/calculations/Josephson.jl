@@ -43,7 +43,7 @@ function calc_Josephson(name::String)
 
 
     # Get Greens
-    gSM_right, gSM_left, gSM = greens_dict[gs](hSM_left, hSM_right, params_left, params_right;)
+    #gSM_right, gSM_left, gSM = greens_dict[gs](hSM_left, hSM_right, params_left, params_right;)
     g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right;)
 
     # Get τ v T 
