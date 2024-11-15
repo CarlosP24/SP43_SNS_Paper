@@ -49,11 +49,12 @@ function calc_Josephson(name::String)
     # Get τ v T 
     τrng = subdiv(0, 1, 100)
     #Gτs = get_TN(conductance(g[1, 1]), τrng; B = 0, Δ0 = 0, hdict)
-    Gτs = get_TN(hSM_left, hSM_right, params_left, params_right, gs, τrng; B = 0, Δ0 = 0, hdict)
+    Gτs = get_TN(hSM_left, hSM_right, params_left, params_right, gs, τrng; B = 0, hdict)
     Gτs = Gτs ./ maximum(Gτs)
     Tτ = linear_interpolation(τrng, Gτs) # gives TN as a function of τ
 
     τ = find_zeros(τ -> Tτ(τ) - TN, 0, 1) |> first
+    println("τ = $τ")
 
     # Build Josephson integrator
     #bw = maximum([wireL.Δ0, wireR.Δ0]) * 50
