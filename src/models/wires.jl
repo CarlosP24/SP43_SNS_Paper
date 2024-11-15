@@ -17,7 +17,7 @@ wires["base_wire"]=(;
     ishollow = true, 
     L = 0,
     num_mJ = 10,
-    Usadel = true,
+    shell = "Usadel",
     iω = 1e-3
     )
 
@@ -90,7 +90,7 @@ wires["valve_65_metal_Z"] = merge(
 )
 
 wires["valve_65_dep_Z"] = merge(
-    (; wires["valve_65_dep"]..., ξd = 0), 
+    (; wires["valve_65_dep"]..., shell = "Ballistic"), 
     ( Zs = -10:10, )
 )
 
