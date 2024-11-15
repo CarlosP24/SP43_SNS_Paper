@@ -50,10 +50,12 @@ wires["valve_65_ξ"] = (;
 wires["valve_65_dep"] = (;
     wires["valve_65"]...,
     μ = -200,
+    τΓ = 20,
 )
 wires["valve_60_dep"] = (;
     wires["valve_60"]...,
     μ = -200,
+    τΓ = 20,
 )
 
 # Metalized

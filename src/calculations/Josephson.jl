@@ -69,7 +69,7 @@ function calc_Josephson(name::String)
 
     # Compute Josephson current
     if Zed 
-        Φf = get_Φ(params_left)
+        Φf = get_Φ(params_left) 
         Js = pjosephson([J1, J2], Brng, Zs, Φf, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
     else
         Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
@@ -81,4 +81,4 @@ function calc_Josephson(name::String)
         Js = Js,
         path = path
     )
-end
+end  

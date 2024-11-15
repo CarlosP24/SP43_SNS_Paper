@@ -20,7 +20,7 @@ function fig_metal(LDOS_left, LDOS_right, Is)
     vlines!(ax, tright.Bs; linestyle = :dash, color = (:orange, 0.5) )
     #axislegend(ax; position = (1, 1.2), framevisible = false, fontsize = 10, rowgap = 0)
     xlims!(ax, (first(tleft.Brng), last(tleft.Brng)))
-    ylims!(ax, (0, 1.5))
+    ylims!(ax, (0, 1.2))
 
     ianalytic,  gap_L, gap_R = KO1(Is)
 
@@ -29,7 +29,7 @@ function fig_metal(LDOS_left, LDOS_right, Is)
     #axislegend(ax)
     #cross_Δ = find_zeros(B -> gap_L(B) - gap_R(B), 0, 0.26)
 
-    lines!(ax, tleft.Brng, (gap_L.(tleft.Brng)).^2 ./(gap_L.(0).^2); linestyle = :dash, color = :green, label = L"\text{Sherril}")
+    lines!(ax, tleft.Brng, (gap_L.(tleft.Brng)) ./(gap_L.(0)); linestyle = :dash, color = :green, label = L"\text{Sherril}")
     #lines!(ax, tleft.Brng, ianalytic.(tleft.Brng)./ianalytic.(0); linestyle = :dash, color = :green, label = L"\text{Sherril}")
     #lines!(ax, tleft.Brng, gap_L.(tleft.Brng).^2 ./ gap_L(0)^2)
         #vlines!(ax, cross_Δ; linestyle = :dash, color = :black)

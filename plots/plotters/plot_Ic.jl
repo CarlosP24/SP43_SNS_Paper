@@ -53,7 +53,7 @@ function KO1(name::String; basepath = "data")
         Λ(B) = pairbreaking(Φ(B), n(Φ(B)), Δ0, ξd, R, d)
         Δd(B) = ΔΛ(real(Λ(B)), real(Δ0))
         Ω(B) = (Δd(B)^(2/3) - Λ(B)^(2/3))^(3/2)
-        return Δd, Φ
+        return Ω, Φ
     end
 
     ΔL, ΦL = get_Δ(wireL)
