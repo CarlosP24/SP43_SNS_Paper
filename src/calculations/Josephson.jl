@@ -43,12 +43,12 @@ function calc_Josephson(name::String)
 
 
     # Get Greens
-    gSM_right, gSM_left, gSM = greens_dict[gs](hSM_left, hSM_right, params_left, params_right;)
+    # gSM_right, gSM_left, gSM = greens_dict[gs](hSM_left, hSM_right, params_left, params_right;)
     g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right;)
 
     # Get τ v T 
     τrng = subdiv(0, 1, 100)
-    Gτs = get_TN(conductance(gSM[1, 1]), τrng; B = 0, hdict)
+    Gτs = get_TN(conductance(g[1, 1]), τrng; B = 0, Δ0 = 0, hdict)
     Gτs = Gτs ./ maximum(Gτs)
     Tτ = linear_interpolation(τrng, Gτs) # gives TN as a function of τ
 
