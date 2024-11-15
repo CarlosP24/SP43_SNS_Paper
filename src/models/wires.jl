@@ -90,7 +90,7 @@ wires["valve_65_metal_Z"] = merge(
 )
 
 wires["valve_65_dep_Z"] = merge(
-    (; wires["valve_65_dep"]..., Usadel = true), 
+    (; wires["valve_65_dep"]..., ξd = 0), 
     ( Zs = -10:10, )
 )
 
