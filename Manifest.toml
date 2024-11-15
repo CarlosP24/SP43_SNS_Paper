@@ -183,7 +183,7 @@ version = "0.1.2"
 
 [[deps.FullShell]]
 deps = ["Parameters", "Quantica", "Roots"]
-git-tree-sha1 = "2dc403bdc3d481bfc182c70736e8478585876ac0"
+git-tree-sha1 = "729dfd18af62025e165228267c527d0b3e5664dd"
 repo-rev = "main"
 repo-url = "https://github.com/CarlosP24/FullShell.jl.git"
 uuid = "7d6ffa35-d0d1-47cf-a89d-5cba1c019934"
