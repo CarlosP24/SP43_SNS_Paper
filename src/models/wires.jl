@@ -136,3 +136,7 @@ wires["jos_scm"] = (; wires["jos_hc"]...,
     Zs = -20:20,
     ishollow = false
 )
+
+wires["jos_scm_triv"] = (; wires["jos_scm"]...,
+    preα = 0,
+)
