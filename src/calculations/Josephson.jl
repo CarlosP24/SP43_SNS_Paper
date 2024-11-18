@@ -12,7 +12,7 @@ function calc_Josephson(name::String)
     # Load junction params
     @unpack TN, hdict = junction
     # Load parameters
-    @unpack Brng, φrng, outdir = calc_params 
+    @unpack Brng, Φrng, φrng, outdir = calc_params 
     # Load Josephson integrator parameters
     @unpack imshift, atol, maxevals, order = j_params
 
@@ -61,8 +61,8 @@ function calc_Josephson(name::String)
     itipR = get_itip(params_right)
     itip(x) = minimum([itipL(x), itipR(x)])     
 
-    ipath1(x) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
-    ipath2(x) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
+    ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
+    ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
     J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol, maxevals, order,)
     J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol, maxevals, order,)
