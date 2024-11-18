@@ -6,7 +6,7 @@
     j_params = J_Params()
 end
 
-# Systems for Valve effect paper
+# Study systems
 
 systems_reference = Dict(
     ["reference_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65"], junction = junctions["J$(i)"]) for i in 1:6]
@@ -52,11 +52,40 @@ systems_RLmismatch = Dict(
     ["RLmismatch_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = junctions["J$(i)"]) for i in 1:4]
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+# Systems for josephson paper
+Ts = [1e-4, 1e-3, 5e-3, 1e-2, 2.5e-2, 5e-2, 7.5e-2, 0.1, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8]
+
+systems_hc_triv = Dict(
+    ["hc_triv_$(i)" => System(; wireL = wires["jos_hc_triv"], wireR = wires["jos_hc_triv"], junction = Junction(; TN = i)) for i in Ts]
+)
+
+systems_hc = Dict(
+    ["hc_$(i)" => System(; wireL = wires["jos_hc"], wireR = wires["jos_hc"], junction = Junction(; TN = i)) for i in Ts]
+)
+
+systems_mhc_triv = Dict(
+    ["mhc_triv_$(i)" => System(; wireL = wires["jos_mhc_triv"], wireR = wires["jos_mhc_triv"], junction = Junction(; TN = i)) for i in Ts]
+)
+
+systems_mhc = Dict(
+    ["mhc_$(i)" => System(; wireL = wires["jos_mhc"], wireR = wires["jos_mhc"], junction = Junction(; TN = i)) for i in Ts]
+)
+
+systems_scm_triv = Dict(
+    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i)) for i in Ts]
+)
+
+systems_scm = Dict(
+    ["scm_$(i)" => System(; wireL = wires["jos_scm"], wireR = wires["jos_scm"], junction = Junction(; TN = i)) for i in Ts]
+)
+
 
 systems_ref = merge(systems_reference, systems_reference_metal, systems_reference_dep)
 systems_ref_Z = merge(systems_reference_Z, systems_reference_metal_Z, systems_reference_dep_Z)
 systems_valve = merge(systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+
+systems_jos_triv = merge(systems_hc_triv, systems_mhc_triv, systems_scm_triv)
+systems_jos_topo = merge(systems_hc, systems_mhc, systems_scm)
 
 systems_dict = Dict(
     "systems_ref" => systems_ref,
@@ -65,4 +94,9 @@ systems_dict = Dict(
     "systems_ref_metal" => systems_reference_metal,
     "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_dep_1" => systems_reference_dep["reference_dep_1"]),
     "systems_ref_dep_Z" => systems_reference_dep_Z,
+    "systems_jos_triv" => systems_jos_triv,
+    "systems_jos_topo" => systems_jos_topo
 )
+
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm)
+
