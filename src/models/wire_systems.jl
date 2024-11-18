@@ -18,4 +18,5 @@ wire_systems = Dict(
     "jos_mhc" => wire_system(; wire = wires["jos_mhc"]),
     "jos_mhc_triv" => wire_system(; wire = wires["jos_mhc_triv"]),
     "jos_scm" => wire_system(; wire = wires["jos_scm"]),
+    "jos_scm_triv" => wire_system(; wire = wires["jos_scm_triv"]),
 )
