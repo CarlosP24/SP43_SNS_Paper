@@ -1,5 +1,6 @@
 @with_kw struct Calc_Params
     Brng = subdiv(0.0, 0.25, 200)
+    Φrng = subdiv(0, 2.499, 200)
     ωrng = subdiv(-.26, 0,  101) .+ 1e-3im
     φrng = subdiv(0, 2π, 201)
     outdir = "data"
@@ -20,3 +21,6 @@ end
     Js = nothing
     path = nothing
 end
+
+
+####################################################################################################

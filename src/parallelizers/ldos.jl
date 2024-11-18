@@ -9,7 +9,7 @@ function pldos(ρ, Bs, ωs; τ = 1, φ = 0)
         ld = try 
             ρ(ω; ω = ω, B = B, τ = τ, phase = φ)
         catch
-            0.0
+            NaN
         end
         return ld
     end
@@ -17,6 +17,20 @@ function pldos(ρ, Bs, ωs; τ = 1, φ = 0)
     return sum.(LDOSarray)
 end
 
+function pldos(ρ, Φrng, ωs, Zs; τ = 1, φ = 0)
+    pts = Iterators.product(Φrng, ωs, Zs)
+    LDOS = @showprogress pmap(pts) do pt
+        Φ, ω, Z = pt 
+        ld = try 
+            ρ(ω; ω, Φ, Z, τ, phase = φ)
+        catch
+            NaN
+        end
+        return ld
+    end
+    LDOSarray = reshape(LDOS, size(pts)...)
+    return Dict([Z => LDOSarray[:, :, i] for (i, Z) in enumerate(Zs)])
+end
 """
     pandreev(ρ, φrng, ωrng; τ = 0.1)
 Compute the Andreev spectrukm given by ρ::LocalSpectralDensitySlice for a set of phaseshifts and energies, given a junction transmission τ.

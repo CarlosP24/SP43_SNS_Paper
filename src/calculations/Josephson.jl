@@ -30,13 +30,11 @@ function calc_Josephson(name::String)
     if haskey(wireL, :Zs) && haskey(wireR, :Zs)
         hSM_left, hSC_left, params_left = build_cyl(; wireL..., )
         hSM_right, hSC_right, params_right = build_cyl(; wireR...,)
-        Zed = true
         Zs = union(wireL.Zs, wireR.Zs)
 
     elseif !haskey(wireL, :Zs) && !haskey(wireR, :Zs)
         hSM_left, hSC_left, params_left = build_cyl_mm(; wireL..., )
         hSM_right, hSC_right, params_right = build_cyl_mm(; wireR...,)
-        Zed = false
     else
         @error "Mismatched wire types."
     end
@@ -59,20 +57,19 @@ function calc_Josephson(name::String)
     # Build Josephson integrator
     #bw = maximum([wireL.Δ0, wireR.Δ0]) * 50
     bw = maximum([bandwidth(params_left), bandwidth(params_right)])
-    itipL = get_itip(params_left)
+    itipL = get_itip(params_left)               # This is a function of Φ if the wire is Zed, B if not
     itipR = get_itip(params_right)
-    itip(B) = minimum([itipL(B), itipR(B)])
+    itip(x) = minimum([itipL(x), itipR(x)])     
 
-    ipath1(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(B)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
-    ipath2(B) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 - itip(B)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
+    ipath1(x) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
+    ipath2(x) = [-bw, -wireL.Δ0,  -wireL.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
     J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol, maxevals, order,)
     J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol, maxevals, order,)
 
     # Compute Josephson current
-    if Zed 
-        Φf = get_Φ(params_left) 
-        Js = pjosephson([J1, J2], Brng, Zs, Φf, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
+    if @isdefined Zs
+        Js = pjosephson([J1, J2], Φrng, Zs, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
     else
         Js = pjosephson([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2]; τ, hdict)
     end

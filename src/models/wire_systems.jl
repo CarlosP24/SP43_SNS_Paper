@@ -12,5 +12,10 @@ wire_systems = Dict(
     "valve_65_ξ" => wire_system(; wire = wires["valve_65_ξ"]),
     "valve_60_dep" => wire_system(; wire = wires["valve_60_dep"]),
     "valve_60_metal" => wire_system(; wire = wires["valve_60_metal"]),
-    "valve_60_100" => wire_system(; wire = wires["valve_60_100"])
+    "valve_60_100" => wire_system(; wire = wires["valve_60_100"]),
+    "jos_hc" => wire_system(; wire = wires["jos_hc"]),
+    "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"]),
+    "jos_mhc" => wire_system(; wire = wires["jos_mhc"]),
+    "jos_mhc_triv" => wire_system(; wire = wires["jos_mhc_triv"]),
+    "jos_scm" => wire_system(; wire = wires["jos_scm"]),
 )

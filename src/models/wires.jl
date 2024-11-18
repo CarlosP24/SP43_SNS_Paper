@@ -98,3 +98,41 @@ wires["valve_60_dep_Z"] = merge(
     wires["valve_60_dep"], 
     (Zs = 0, )
 )
+
+#######################
+# Wires for Josephson paper
+wires["jos_hc"] = (;
+    R = 65,
+    w = 0,
+    d = 0,
+    μ = 0.87,
+    α = 100,
+    g = 0,
+    L = 0,
+    Zs = -5:5,
+)
+
+wires["jos_hc_triv"] = (; wires["jos_hc"]..., 
+    µ = 1.5,
+)
+
+wires["jos_mhc"] = (;
+    wires["jos_hc"]...,
+    w = 20,
+)
+
+wires["jos_mhc_triv"] = (; wires["jos_mhc"]..., 
+    µ = 2,
+)
+
+wires["jos_scm"] = (; wires["jos_hc"]...,
+    w = 65,
+    μ = 2,
+    α = 0,
+    preα = 21.66,
+    Vmax = 0,
+    Vmin = -30,
+    τΓ = 40,
+    Zs = -20:20,
+    ishollow = false
+)

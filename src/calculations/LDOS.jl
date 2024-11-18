@@ -2,7 +2,7 @@ function calc_LDOS(name::String)
     # Load parameters
     wire_system = wire_systems[name]
     @unpack wire, calc_params = wire_system
-    @unpack Brng, ωrng, outdir = calc_params 
+    @unpack Brng, Φrng, ωrng, outdir = calc_params 
 
     if wire.L == 0
         gs = "semi"
@@ -15,13 +15,22 @@ function calc_LDOS(name::String)
     mkpath(dirname(path))
 
     # Build nanowires
-    hSM, hSC, params = build_cyl_mm(; wire..., )
+    if haskey(wire, :Zs)
+        hSM, hSC, params = build_cyl(; wire..., )
+        Zs = wire.Zs
+    else
+        hSM, hSC, params = build_cyl_mm(; wire..., )
+    end
 
     # Get Greens
     g_right, g = greens_dict[gs](hSC, params)
 
     # Compute LDOS
-    LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng;)
+    if @isdefined Zs
+        LDOS = pldos(ldos(g[cells = (-1,)]), Φrng, ωrng, Zs;)
+    else
+        LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng;)
+    end
 
     return Results(;
         params = calc_params,
@@ -29,4 +38,4 @@ function calc_LDOS(name::String)
         LDOS = LDOS,
         path = path
     )
-end
+end 

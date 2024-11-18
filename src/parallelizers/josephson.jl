@@ -21,13 +21,12 @@ function pjosephson(Js, Brng, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 =
 end
 
 
-function pjosephson(Js, Brng, Zs, Φf, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
-    pts = Iterators.product(Brng, Zs)
+function pjosephson(Js, Φrng, Zs, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+    pts = Iterators.product(Φrng, Zs)
     Jss = @showprogress pmap(pts) do pt
-        B, Z = pt
+        Φ, Z = pt
         j = try
-            Φ = Φf(B)
-            jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
+            jvec = [sign(imag(ipath(Φ) |> first)) * J(override_path = ipath(Φ); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
         catch e 
             @warn "An error ocurred at B=$B, Z=$Z. \n$e \nOutput is NaN."
