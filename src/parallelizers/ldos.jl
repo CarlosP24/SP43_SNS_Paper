@@ -29,7 +29,7 @@ function pldos(ρ, Φrng, ωs, Zs; τ = 1, φ = 0)
         return ld
     end
     LDOSarray = reshape(LDOS, size(pts)...)
-    return Dict([Z => LDOSarray[:, :, i] for (i, Z) in enumerate(Zs)])
+    return Dict([Z => sum.(LDOSarray[:, :, i]) for (i, Z) in enumerate(Zs)])
 end
 """
     pandreev(ρ, φrng, ωrng; τ = 0.1)
