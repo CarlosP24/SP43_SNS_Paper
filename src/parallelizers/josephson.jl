@@ -29,7 +29,7 @@ function pjosephson(Js, Φrng, Zs, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1
             jvec = [sign(imag(ipath(Φ) |> first)) * J(override_path = ipath(Φ); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
         catch e 
-            @warn "An error ocurred at B=$B, Z=$Z. \n$e \nOutput is NaN."
+            @warn "An error ocurred at Φ=$Φ, Z=$Z. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]
         end
         return j
