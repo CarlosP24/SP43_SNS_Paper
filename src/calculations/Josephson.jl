@@ -18,6 +18,7 @@ function calc_Josephson(name::String)
 
     # Remove possible pathological points
     deleteat!(Brng, findall(x -> isapprox(x, 0), Brng))
+    deleteat!(Φrng, findall(x -> isapprox(x, 0), Φrng))
     φrng1, φrng2 = filter_πs(φrng)
     calc_params2 = Calc_Params(calc_params; Brng, φrng = vcat(φrng1, φrng2))
 
