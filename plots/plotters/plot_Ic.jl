@@ -1,34 +1,40 @@
 function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
-    path = "$(basepath)/Js/$(name).jld2"
+    path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
     @unpack params, system, Js = res
-    @unpack Brng, φrng = params
+    @unpack Brng, Φrng, φrng = params
     @unpack junction = system
     @unpack TN, δτ = junction
 
+
     if Js isa Dict
         J = mapreduce(permutedims, vcat, sum(values(Js)))
+        xrng = Φrng
+        ax.xlabel = L"$\Phi / \Phi_0$"
     else
         J = mapreduce(permutedims, vcat, Js)
+        xrng = Brng
+        ax.xlabel = L"$B$ (T)"
     end
     
     Ic = getindex(findmax(J; dims = 2),1) |> vec
-    lines!(ax, Brng, Ic ./ first(Ic); color, label = "")
+    #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
+    scatter!(ax, xrng, Ic; color, label = "")
+    xlims!(ax, (first(xrng), last(xrng)))
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")
 end
 
 function plot_Ics(pos, names::Array; basepath = "data", cs = reverse(ColorSchemes.rainbow))
 
-    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c / I_c (B=0)$")
+    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     lth = size(names) |> first
     colors = lth == 1 ? [:red] : get(cs, range(0, 1, lth))
     for (name, color) in zip(names, colors)
         plot_Ic(ax, name; basepath, color)
     end
-    
-    return ax
 
+    return ax
 end
 
 rcot(α) = ifelse(α in [0, π], NaN, cot(α))
