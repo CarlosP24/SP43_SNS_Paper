@@ -49,6 +49,9 @@ function build_coupling(p_left::Params, p_right::Params;  kw...)
     a0 = p_left.a0
     t = p_left.t
     α = (p_left.α + p_right.α) / 2
+    preα = (p_left.preα + p_right.preα) / 2
+    Vmax = (p_left.Vmax + p_right.Vmax) / 2
+    Vmin = (p_left.Vmin + p_right.Vmin) / 2
     wire_hopping(r, dr) = - t * σ0τz * ifelse(iszero(dr[1]), r[2]/sqrt(r[2]^2 - 0.25*dr[2]^2), 1) + (α + preα * dϕ(r[2], Vmax, Vmin)) * (im * dr[1] / (2 * a0^2)) * σyτz;
     model = @hopping((r, dr; τ = 1) ->
         wire_hopping(r, dr/2) * τ * iszero(dr[2]);
