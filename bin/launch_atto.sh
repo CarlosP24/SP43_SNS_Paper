@@ -8,7 +8,7 @@ sbatch --export=ALL <<EOT
 #!/bin/bash
 ## Slurm header
 #SBATCH --partition=most
-#SBATCH --ntasks-per-node=196
+#SBATCH --ntasks-per-node=192
 #SBATCH --nodes=1
 #SBATCH -w a5
 #SBATCH --cpus-per-task=1
