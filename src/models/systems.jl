@@ -88,6 +88,7 @@ systems_jos_triv = merge(systems_hc_triv, systems_mhc_triv, systems_scm_triv)
 systems_jos_topo = merge(systems_hc, systems_mhc, systems_scm)
 
 systems_jos_hc = merge(systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc)
+systems_jos_scm = merge(systems_scm_triv, systems_scm)
 
 systems_dict = Dict(
     "systems_ref" => systems_ref,
@@ -98,7 +99,8 @@ systems_dict = Dict(
     "systems_ref_dep_Z" => systems_reference_dep_Z,
     "systems_jos_triv" => systems_jos_triv,
     "systems_jos_topo" => systems_jos_topo,
-    "systems_jos_hc" => systems_jos_hc
+    "systems_jos_hc" => systems_jos_hc,
+    "systems_jos_scm" => systems_jos_scm
 )
 
 systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm)

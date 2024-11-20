@@ -32,7 +32,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm;  kw...)
     # wire_hopping(dr) = - t * σ0τz;
 
     model = @hopping((r, dr; τ = 1, B = p_left.B, hdict = Dict(0 => 1, 1 => 0.1) ) ->
-        wire_hopping(dr) * τ * (δτc(dr, δτ(hdict, r, dr, B, 1)) * c_up + (δτc(dr, δτ(hdict, r, dr, B, -1)) * c_down));
+        wire_hopping(dr/2) * τ * (δτc(dr, δτ(hdict, r, dr, B, 1)) * c_up + (δτc(dr, δτ(hdict, r, dr, B, -1)) * c_down));
         range = 3*num_mJ*a0
     )
 
@@ -49,9 +49,9 @@ function build_coupling(p_left::Params, p_right::Params;  kw...)
     a0 = p_left.a0
     t = p_left.t
     α = (p_left.α + p_right.α) / 2
-    wire_hopping(dr) = - t * σ0τz + α * (im * dr[1] / (2a0^2)) * σyτz;
-    model = @hopping((r, dr; τ = 1, B = 0, hdict = Dict(0 => 1, 1 => 0.1) ) ->
-        wire_hopping(dr) * τ;
+    wire_hopping(dr) = - t * σ0τz * ifelse(iszero(dr[1]), r[2]/sqrt(r[2]^2 - 0.25*dr[2]^2), 1) + (α + preα * dϕ(r[2], Vmax, Vmin)) * (im * dr[1] / (2 * a0^2)) * σyτz;
+    model = @hopping((r, dr; τ = 1) ->
+        wire_hopping(dr/2) * τ * iszero(dr[2]);
         range = 2*a0
     )
     return model
