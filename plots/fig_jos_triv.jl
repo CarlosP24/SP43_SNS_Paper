@@ -2,7 +2,7 @@ function plot(fig, (i, j), name; jspath = "data/Js", kw...)
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; kw...)
     else
-        pattern = Regex("^$(name)_.*\\.jld2")
+        pattern = Regex("^$(name)_0.?\\d*\\.jld2")
         filenames = readdir(jspath)
         paths = filter(x -> occursin(pattern, x), filenames)
         ax = plot_Ics(fig[i, j], paths; kw...)

@@ -1,5 +1,6 @@
 function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     path = "$(basepath)/Js/$(name)"
+    println(path)
     res = load(path)["res"]
 
     @unpack params, system, Js = res
@@ -20,7 +21,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     
     Ic = getindex(findmax(J; dims = 2),1) |> vec
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    scatter!(ax, xrng, Ic; color, label = "")
+    lines!(ax, xrng, Ic; color, label = "")
     xlims!(ax, (0, last(xrng)))
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")
 end
