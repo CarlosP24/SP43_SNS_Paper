@@ -10,11 +10,11 @@ sbatch --export=ALL <<EOT
 #SBATCH --partition=most
 #SBATCH --ntasks-per-node=192
 #SBATCH --nodes=1
-#SBATCH -w a5
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=2G
 #SBATCH --output="logs/%A_%a.out"
-#SBATCH --job-name="${PWD##*/}_$ARRAY_SIZE"
+##SBATCH --job-name="${PWD##*/}_$ARRAY_SIZE"
+#SBATCH --job-name="sorry for the invasion"
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT_80
 #SBATCH --array=1-$ARRAY_SIZE
