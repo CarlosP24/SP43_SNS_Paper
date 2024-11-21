@@ -168,9 +168,15 @@ version = "0.1.10"
 
 [[deps.FileIO]]
 deps = ["Pkg", "Requires", "UUIDs"]
-git-tree-sha1 = "91e0e5c68d02bcdaae76d3c8ceb4361e8f28d2e9"
+git-tree-sha1 = "2dd20384bf8c6d411b5c7370865b1e9b26cb2ea3"
 uuid = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
-version = "1.16.5"
+version = "1.16.6"
+
+    [deps.FileIO.extensions]
+    HTTPExt = "HTTP"
+
+    [deps.FileIO.weakdeps]
+    HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 
 [[deps.FileWatching]]
 uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -183,7 +189,7 @@ version = "0.1.2"
 
 [[deps.FullShell]]
 deps = ["Parameters", "Quantica", "Roots"]
-git-tree-sha1 = "8dbb8a8d9ae65703d901d6c99217165a2ae7e908"
+git-tree-sha1 = "625f5ff50dd206e746811791918886c3ec4dc4f0"
 repo-rev = "main"
 repo-url = "https://github.com/CarlosP24/FullShell.jl.git"
 uuid = "7d6ffa35-d0d1-47cf-a89d-5cba1c019934"
@@ -241,9 +247,9 @@ version = "0.2.2"
 
 [[deps.JLD2]]
 deps = ["FileIO", "MacroTools", "Mmap", "OrderedCollections", "PrecompileTools", "Requires", "TranscodingStreams"]
-git-tree-sha1 = "ce5737c0d4490b0e0040b5dc77fbb6a351ddf188"
+git-tree-sha1 = "14030aa1cb6b5551f425b0e6d0f3cb749a152965"
 uuid = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
-version = "0.5.8"
+version = "0.5.9"
 
 [[deps.JLLWrappers]]
 deps = ["Artifacts", "Preferences"]
@@ -423,7 +429,7 @@ version = "2.11.1"
 
 [[deps.Quantica]]
 deps = ["Compat", "DelimitedFiles", "Dictionaries", "ExprTools", "FrankenTuples", "FunctionWrappers", "IntervalTrees", "LinearAlgebra", "NearestNeighbors", "ProgressMeter", "QuadGK", "Random", "SparseArrays", "SpecialFunctions", "StaticArrays", "Statistics", "SuiteSparse"]
-git-tree-sha1 = "2d01b779d4e99e99c858ae2c67c2e3f4fed60f99"
+git-tree-sha1 = "81166e02f1c610b64e3da6bab7df287cede4ea28"
 repo-rev = "master"
 repo-url = "https://github.com/pablosanjose/Quantica.jl.git"
 uuid = "ae5ea0c6-3f5e-46a2-bc28-a7c4c7a4773c"
