@@ -1,6 +1,5 @@
 function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     path = "$(basepath)/Js/$(name)"
-    println(path)
     res = load(path)["res"]
 
     @unpack params, system, Js = res

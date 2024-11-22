@@ -26,6 +26,7 @@ function fig_jos_triv(layout, kws; jspath = "data/Js")
         if i == 2
             ax.xticks = ([0.01, 1, 2], [L"0", L"1", L"2"])
         end
+        j == 3 && vlines!(ax, [ 0.66,  1, 1.23]; color = :black)
     end
 
 
@@ -59,6 +60,7 @@ kws = [
     () () ();
 ]
 fig = fig_jos_triv(layout, kws)
+#save("figures/fig_jos_triv.pdf", fig)
 fig
 
 ## topo 
@@ -72,4 +74,5 @@ kws = [
     () () ();
 ]
 fig = fig_jos_triv(layout, kws)
+save("figures/fig_jos_topo.pdf", fig)
 fig
