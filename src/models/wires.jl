@@ -17,7 +17,7 @@ wires["base_wire"]=(;
     ishollow = true, 
     L = 0,
     num_mJ = 10,
-    shell = "Ballistic",
+    shell = "Usadel",
     iω = 1e-3
     )
 
