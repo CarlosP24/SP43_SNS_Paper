@@ -25,7 +25,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", cs = reverse(ColorSchemes.rainbow))
+function plot_Ics(pos, names::Array; basepath = "data", cs = reverse(ColorSchemes.rainbow), color = :red)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     lth = size(names) |> first
