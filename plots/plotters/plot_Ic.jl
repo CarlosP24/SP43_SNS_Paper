@@ -1,4 +1,4 @@
-function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -23,15 +23,20 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue,)
     lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
     xlims!(ax, (0, last(xrng)))
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")
+    if point !== nothing 
+        for p in point
+            x = p[1]
+            xi = findmin(abs.(xrng .- x))[2]
+            scatter!(ax, x, Ic[xi]; color = (color, 0.5), marker = p[2], markersize = 10)
+        end
+    end
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", cs = reverse(ColorSchemes.rainbow), color = :red)
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
-    lth = size(names) |> first
-    colors = lth == 1 ? [:red] : get(cs, range(0, 1, lth))
-    for (name, color) in zip(names, colors)
-        plot_Ic(ax, name; basepath, color)
+    for (i, name) in enumerate(names)
+        plot_Ic(ax, name; basepath, color = colors[i], point = point_dict[name])
     end
 
     return ax
