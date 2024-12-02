@@ -26,6 +26,7 @@ function pjosephson(Js, Φrng, Zs, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1
     Jss = @showprogress pmap(pts) do pt
         Φ, Z = pt
         j = try
+            @info "Computing Josephson current for Φ=$Φ, Z=$Z."
             jvec = [sign(imag(ipath(Φ) |> first)) * J(override_path = ipath(Φ); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
         catch e 
