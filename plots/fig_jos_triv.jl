@@ -1,5 +1,5 @@
 
-function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
+function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; kw...)
     else
@@ -150,18 +150,18 @@ kwsL = [
 layoutC = [
     ("hc_triv", 1e-4, 1) ("hc_triv", 0.8, 1);
     ("mhc_triv", 1e-4, 1) ("mhc_triv", 0.8, 1);
-    ("scm_triv", 1e-4, 1) ("scm_triv", 0.1, 1);
-    ("scm_triv", 1e-4, 0.66) ("scm_triv", 0.1, 0.69);
+    ("scm_triv", 1e-4, 1) ("scm_triv", 0.2, 1);
+    ("scm_triv", 1e-4, 0.66) ("scm_triv", 0.2, 0.69);
 ]
 
-TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.5, 0.8]
+TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.5, 0.8]
 
 layoutR = [
-    (1e-3, 1e-6, 1e-4), (5e-2, 1e-4, 1e-2), (1e-1, 5e-4, 1e-2), (1e-1, 5e-4, 1e-2)
+    (1e-3, 1e-6, 1e-4), (5e-2, 1e-4, 1e-2), (1e-1, 5e-4, 1e-2), (2e-1, 5e-4, 1e-2)
 ]
 
 fig = fig_jos_triv(layoutL, kwsL, TNS, layoutC, layoutR)
-save("figures/fig_jos_triv.pdf", fig)
+#save("figures/fig_jos_triv.pdf", fig)
 fig
 
 ## topo 
