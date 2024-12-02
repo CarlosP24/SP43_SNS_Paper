@@ -2,7 +2,8 @@
     Brng = subdiv(0.0, 0.25, 100)
     Φrng = subdiv(0.03, 2.499, 100)
     ωrng = subdiv(-.26, 0,  101) .+ 1e-3im
-    φrng = subdiv(0, 2π, 101)
+    #φrng = subdiv(0, 2π, 101)
+    φrng = subdiv(0, 2π, 51)
     outdir = "data"
 end
 

@@ -28,6 +28,11 @@ using JLD2
     include("calculations/Josephson.jl")
     include("calculations/LDOS.jl")
 end
+
+@everywhere begin
+    global_logger(ConsoleLogger(stderr, Logging.Info))
+end
+
 ## Run
 
 input = ARGS[1]
