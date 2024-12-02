@@ -3,7 +3,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; kw...)
     else
-        pattern = Regex("^$(name)_0.?\\d*\\.jld2")
+        pattern = Regex("^$(name)_[01].?\\d*\\.jld2")
         filenames = readdir(jspath)
         paths = filter(x -> occursin(pattern, x), filenames)
         tpaths = map(x -> "$(name)_$(x).jld2", TNS)
@@ -49,7 +49,7 @@ function fig_jos_triv(layoutL, kwsL, TNS, layoutC, layoutR; jspath = "data/Js", 
     add_colorbar(figL[1, 4]; limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -5)
     limits = (minimum(TNS), maximum(TNS))
 
-    ticks = ([10^-4, 10^-3, 10^-1, 0.8], [L"10^{-4}", L"10^{-3}", L"10^{-1}", L"0.8"])
+    ticks = ([10^-4, 10^-3, 10^-1, 1.0], [L"10^{-4}", L"10^{-3}", L"10^{-1}", L"1.0"])
     Colorbar(figL[2:3, 4]; colormap, label = L"T_N", limits, ticks, labelpadding = -20, ticksize = 2, ticklabelpad = 0, labelsize = 15, scale = log10 )
 
     style = (font = "CMU Serif Bold", fontsize   = 20)
@@ -148,20 +148,20 @@ kwsL = [
 ]
 
 layoutC = [
-    ("hc_triv", 1e-4, 1) ("hc_triv", 0.8, 1);
-    ("mhc_triv", 1e-4, 1) ("mhc_triv", 0.8, 1);
+    ("hc_triv", 1e-4, 1) ("hc_triv", 1.0, 1);
+    ("mhc_triv", 1e-4, 1) ("mhc_triv", 1.0, 1);
     ("scm_triv", 1e-4, 1) ("scm_triv", 0.2, 1);
     ("scm_triv", 1e-4, 0.66) ("scm_triv", 0.2, 0.69);
 ]
 
-TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.5, 0.8]
-
+TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 1.0]
+#TNS = [1e-4, 1.0]
 layoutR = [
     (1e-3, 1e-6, 1e-4), (5e-2, 1e-4, 1e-2), (1e-1, 5e-4, 1e-2), (2e-1, 5e-4, 1e-2)
 ]
 
 fig = fig_jos_triv(layoutL, kwsL, TNS, layoutC, layoutR)
-#save("figures/fig_jos_triv.pdf", fig)
+save("figures/fig_jos_triv.pdf", fig)
 fig
 
 ## topo 
