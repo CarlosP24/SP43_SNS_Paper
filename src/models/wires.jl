@@ -133,7 +133,7 @@ wires["jos_scm"] = (; wires["jos_hc"]...,
     Vmax = 0,
     Vmin = -30,
     τΓ = 40,
-    Zs = -20:20,
+    Zs = -10:10,
     ishollow = false
 )
 
