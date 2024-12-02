@@ -25,14 +25,15 @@ function pjosephson(Js, Φrng, Zs, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1
     pts = Iterators.product(Φrng, Zs)
     Jss = @showprogress pmap(pts) do pt
         Φ, Z = pt
+        @info "Worker $(Distributed.myid()): starting computation at Φ=$Φ, Z=$Z."
         j = try
-            println("Computing Josephson current for Φ=$Φ, Z=$Z.")
             jvec = [sign(imag(ipath(Φ) |> first)) * J(override_path = ipath(Φ); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
             return vcat(jvec...)
         catch e 
             @warn "An error ocurred at Φ=$Φ, Z=$Z. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]
         end
+        @info "Worker $(Distributed.myid()): Φ=$Φ, Z=$Z done."
         return j
     end
     Jss_array = reshape(Jss, size(pts)...)
