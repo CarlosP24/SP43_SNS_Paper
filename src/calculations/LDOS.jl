@@ -26,11 +26,19 @@ function calc_LDOS(name::String)
     g_right, g = greens_dict[gs](hSC, params)
 
     # Compute LDOS
-    if @isdefined Zs
-        LDOS = pldos(ldos(g[cells = (-1,)]), Φrng, ωrng, Zs;)
+    # if @isdefined Zs
+    #     LDOS = pldos(ldos(g[cells = (-1,)]), Φrng, ωrng, Zs;)
+    # else
+    #     LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng;)
+    # end
+
+    args = if @isdefined Zs
+        (Φrng, ωrng, Zs)
     else
-        LDOS = pldos(ldos(g[cells = (-1,)]), Brng, ωrng;)
+        (Brng, ωrng)
     end
+
+    LDOS = plods(ldos(g[cells = (-1,)]), args...)
 
     return Results(;
         params = calc_params,

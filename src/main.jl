@@ -27,6 +27,7 @@ using JLD2
     # Load calculations
     include("calculations/Josephson.jl")
     include("calculations/LDOS.jl")
+    include("calculations/Andreev.jl")
 end
 
 @everywhere begin
@@ -54,6 +55,12 @@ for key in ks
     elseif key in keys(systems)
         @info "Computing system $key Josephson current..."
         res = calc_Josephson(key)
+        save(res.path, "res", res)
+        @info "System $key done."
+    elseif key in collect(keys(systems)) .* "_andreev"
+        @info "Computing system $key spectra..."
+        key_modified = replace(key, "_andreev" => "")
+        res = calc_Andreev(key_modified)
         save(res.path, "res", res)
         @info "System $key done."
     else

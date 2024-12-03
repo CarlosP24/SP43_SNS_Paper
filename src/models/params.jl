@@ -3,6 +3,9 @@
     Φrng = subdiv(0.03, 2.499, 100)
     ωrng = subdiv(-.26, 0,  101) .+ 1e-3im
     φrng = subdiv(0, 2π, 51)
+    Φs = [0.55, 1, 1.45]
+    φs = [0, π/2, π, 3π/2, 2π]
+    Bs = []
     outdir = "data"
 end
 
@@ -20,6 +23,8 @@ end
     LDOS = nothing
     Js = nothing
     path = nothing
+    LDOS_phases = nothing
+    LDOS_xs = nothing
 end
 
 
