@@ -148,16 +148,16 @@ kwsL = [
 ]
 
 layoutC = [
-    ("hc_triv", 1e-4, 1) ("hc_triv", 1.0, 1);
-    ("mhc_triv", 1e-4, 1) ("mhc_triv", 1.0, 1);
-    ("scm_triv", 1e-4, 0.66) ("scm_triv", 0.6, 0.69);
-    ("scm_triv", 1e-4, 1) ("scm_triv", 0.6, 1);
+    ("hc_triv", 1e-4, 1) ("hc_triv", 0.9, 1);
+    ("mhc_triv", 1e-4, 1) ("mhc_triv", 0.9, 1);
+    ("scm_triv", 1e-4, 0.66) ("scm_triv", 0.9, 0.69);
+    ("scm_triv", 1e-4, 1) ("scm_triv", 0.9, 1);
 ]
 
-TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1.0]
+TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 #TNS = [1e-4, 1.0]
 layoutR = [
-    (1e-3, 1e-6, 1e-4), (5e-2, 1e-4, 1e-2), (1e-1, 5e-4, 1e-2), (0.6, 5e-4, 1e-2)
+    (1e-3, 1e-6, 1e-4), (5e-2, 1e-4, 1e-2), (1e-1, 5e-4, 1e-2), (0.9, 5e-4, 1e-2)
 ]
 
 fig = fig_jos_triv(layoutL, kwsL, TNS, layoutC, layoutR)
