@@ -7,6 +7,9 @@ function calc_Andreev(name::String)
     # Load parameters
     @unpack Brng, Φrng, ωrng, φrng, Φs, φs, Bs, outdir = calc_params
 
+    φrng = range(first(φrng), last(φrng), length = 2 * length(φrng))
+
+    calc_params2 = Calc_Params(calc_params; φrng)
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
     # Setup output path
     path = "$(outdir)/Andreev/$(name).jld2"
@@ -45,13 +48,12 @@ function calc_Andreev(name::String)
         (Brng, (ωrng), [(B = x,) for x in Bs])
     end
 
-    LDOS_phases = Dict([phase => pldos(ldos(g[attach_link[gs]]), xrng, args...; τ, phase) for phase in φs])
+    #LDOS_phases = Dict([phase => pldos(ldos(g[attach_link[gs]]), xrng, args...; τ, phase) for phase in φs])
     LDOS_xs = Dict([x[1] => pandreev(ldos(g[attach_link[gs]]), φrng, args...; τ, x...) for x in xs])
 
     return Results(;
-        params = calc_params,
+        params = calc_params2,
         system = system,
-        LDOS_phases = LDOS_phases,
         LDOS_xs = LDOS_xs,
         path = path
     )
