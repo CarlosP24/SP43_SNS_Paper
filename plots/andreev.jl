@@ -68,3 +68,6 @@ for T in [0.001, 0.05, 0.1, 1.0]
     fig = andreev("scm_triv_$(T)")
     save("figures/andreev/scm_triv_$(T).pdf", fig)
 end
+
+
+##
