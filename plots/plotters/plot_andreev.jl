@@ -9,8 +9,15 @@ function plot_andreev(pos, name::String; TN = 0.1, ωlims = nothing, Φ = 1, Zs 
     ωrng = real.(ωrng)
 
     LDOS = LDOS_xs[Φ]
-    LDOS = isnothing(Zs) ? sum.(sum(values(LDOS))) : sum.(sum([LDOS[Z] for Z in Zs]))
-    LDOS = cat(LDOS, reverse(LDOS, dims = 2)[:, 2:end], dims = 2)
+    if isnothing(Zs)
+        LDOS = sum.(sum(values(LDOS)))
+        LDOS = cat(LDOS, reverse(LDOS, dims = 2)[:, 2:end], dims = 2)
+    else
+        LDOSn = sum.(sum([LDOS[Z] for Z in Zs]))
+        LDOSp = sum.(sum([LDOS[-Z] for Z in Zs]))
+        LDOS = cat(LDOSn, reverse(LDOSp, dims = 2)[:, 2:end], dims = 2)
+    end
+
 
     yticks = ([-0.2, 0, 0.2], ["-0.2", "", "0.2"])
     if ωlims !== nothing

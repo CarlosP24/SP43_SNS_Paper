@@ -13,9 +13,9 @@ function get_Φticks(Φs)
     return range(round(Int, first(Φs)), round(Int, last(Φs)))
 end
 
-function add_Bticks(ax, ns, Bs)
-    for (n, B) in zip(ns, Bs[1:end-1])
-        text!(ax, B - 0.005, -0.23 + 0.01; text =  L"$%$(n)$", fontsize = 15, color = :white, align = (:center, :center))
+function add_xticks(ax, ns, xs; xshift = 0.005, pre = "")
+    for (n, x) in zip(ns, xs)
+        text!(ax, x - xshift, -0.23 + 0.01; text =  L"%$(pre)$%$(n)$", fontsize = 15, color = :white, align = (:center, :center))
     end
 end
 
@@ -49,6 +49,6 @@ function plot_LDOS(pos, name::String; basepath = "data", colorrange = (1e-4, 1e-
     R = wire.R
     ax = Axis(pos; xlabel, ylabel = L"$\omega$ (meV)")
     heatmap!(ax, xrng, real.(ωrng), abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
-    add_Bticks(ax, ns, xs)
-    return ax, (; Brng, ns, xs, R)
+    #add_Bticks(ax, ns, xs)
+    return ax, (; xrng, ns, xs, R)
 end
