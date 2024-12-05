@@ -36,7 +36,7 @@ function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.ra
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = point_dict[name])
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing))
     end
 
     return ax
