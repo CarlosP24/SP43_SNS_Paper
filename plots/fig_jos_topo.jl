@@ -79,4 +79,5 @@ kws_currents = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 fig = fig_jos_topo(layout_currents, kws_currents, TNS)
+save("figures/fig_jos_topo.pdf", fig)
 fig
