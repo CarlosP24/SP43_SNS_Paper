@@ -19,7 +19,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
     return ax, ts, TNS
 end
 
-function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr; colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8],)
+function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs; colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8],)
     fig = Figure(size = (1100, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[1, 1] = GridLayout()
@@ -108,7 +108,31 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr; colormap =
     rowgap!(fig_cpr, 2, 5)
     rowgap!(fig_cpr, 3, 5)
 
-    fig_T = fig[1, 3] = GridLayout()
+    fig_andreev = fig[1, 3] = GridLayout()
+
+    for (i, args) in enumerate(layout_andreevs)
+        ax = plot_andreev(fig_andreev[i, 1], "mhc"; args...)
+ 
+        ax.ylabelpadding = -25
+        hlines!(ax, 0; color = :white, linestyle = :dash)
+        i != 3 && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
+ 
+        add_colorbar(fig_andreev[i, 2]; limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -5)
+     end
+ 
+     Label(fig_andreev[1, 1, TopLeft()], "ñ",  padding = (-50, 0, -35, 0); style...)
+     Label(fig_andreev[1, 1, Top()], print_T(layout_andreevs[1].TN), padding = (50, 0, -50, 0), color = :white, fontsize = 12)
+     Label(fig_andreev[2, 1, TopLeft()], "o",  padding = (-50, 0, -25, 0); style...)
+     Label(fig_andreev[2, 1, Top()], L"$m_J = %$(layout_andreevs[2].Zs[1])$", padding = (0, 0, -40, 0), color = :white)
+     Label(fig_andreev[3, 1, TopLeft()], "p",  padding = (-50, 0, -25, 0); style...)
+     Label(fig_andreev[3, 1, Top()], L"$m_J = %$(layout_andreevs[3].Zs[1])$", padding = (0, 0, -40, 0), color = :white)
+ 
+     Label(fig_andreev[1:2, 1, Top()], "Andreevs", padding = (-15, 0, 0, 0))
+     Label(fig_andreev[1:2, 1, Top()], "✸", padding = (70, 0, 0, 0), color = (colors[findmin(abs.(layout_andreevs[1].TN .- TNS))[2]], 0.5))
+ 
+     colgap!(fig_andreev, 1, 5)
+     rowgap!(fig_andreev, 1, 8)
+     rowgap!(fig_andreev, 2, 8)
 
     fig_phases = fig[2, 1:3] = GridLayout()
 
@@ -145,6 +169,10 @@ layout_cpr = [
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
-fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr)
+layout_andreevs = [
+    (TN = 1e-4, Φ = 0.6, colorrange = (0, 3e-1), ωlims = [-0.1, 0.1] ), (TN = 1e-4, Φ = 0.6, Zs = [0], ωlims = [-1e-2, 1e-2], colorrange = (2e-3, 5e-2)), (TN = 1e-4, Φ = 0.6, Zs = [0], colorrange = (2e-3, 5e-2), ωlims = [-0.1, 0.1], )
+]
+
+fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs)
 save("figures/fig_jos_topo.pdf", fig)
 fig
