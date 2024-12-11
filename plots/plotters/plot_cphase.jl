@@ -18,6 +18,8 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
 
     ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$J_S$", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
 
+    J = sum(values(JZ))
+    lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")
     lab1 = true
     lab2 = true
 
@@ -27,8 +29,8 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
         icol = ceil(Int, φM/π)
         color = colors[icol]
         if (Z == 0) && showmajo
-            linewidth = 2
-            color = :red 
+            linewidth = 2 * lw
+            color = :magenta 
         else
             linewidth = lw
         end
@@ -54,8 +56,7 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
         end
         lines!(ax, φrng, JZ[Z]; label, color, linewidth)
     end
-    J = sum(values(JZ))
-    lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")
+
     xlims!(ax, (first(φrng), last(φrng)))
     #axislegend(ax, position = :rb, framevisible = false, fontsize = 15)
     #Label(fig[1, 1, Top()], L"$\Phi = %$(Φ) \Phi_0$, $T_N = %$(TN)$", fontsize = 15)
@@ -93,9 +94,9 @@ fig
 ##
 
 dest = "figures/cphases"
-name = "scm_triv"
-TNS = [1e-4, 1e-2, 0.1] 
-ΦS = [0.55, 1, 1.45]
+name = "scm"
+TNS = [1e-4, 1e-2, 0.1, 0.2] 
+ΦS = [0.55, 1, 1.45, 2]
 pts = Iterators.product(TNS, ΦS)
 map(pts) do (TN, Φ)
     fig = fig_cpr(name, TN, Φ; lw = 2, showmajo = true)
@@ -120,7 +121,7 @@ fig
 ##
 dest = "figures/checkerboards"
 name = "scm"
-TNS = [1e-4, 1e-2, 0.1]
+TNS = [1e-4, 1e-2, 0.1, 0.2]
 map(TNS) do TN
     fig = fig_checker(name, TN; Jmax = 0.2 * TN, atol = 1e-7)
     save("$(dest)/$(name)_$(TN).pdf", fig)

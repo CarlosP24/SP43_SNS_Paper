@@ -1,11 +1,12 @@
 @with_kw struct Calc_Params
     Brng = subdiv(0.0, 0.25, 400)
-    Φrng = subdiv(0.03, 2.499, 100)
+    Φrng = subdiv(0.03, 2.499, 200)
     ωrng = subdiv(-.26, 0,  201) .+ 1e-3im
-    φrng = subdiv(0, 2π, 51)
-    Φs = [0.75, 1, 1.25]
+    φrng = subdiv(0, 2π, 101)
+    Φs = [0.6, 1, 1.4]
     φs = [0, π/2, π, 3π/2, 2π]
     Bs = []
+    Trng = 10 .^ range(-5, stop=0, length=50)
     outdir = "data"
 end
 

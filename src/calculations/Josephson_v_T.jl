@@ -1,30 +1,17 @@
-function filter_πs(φrng)
-    φrng1 = φrng[findall(x -> x > 0 && x < π, φrng)]
-    φrng2 = φrng[findall(x -> x > π && x < 2π, φrng)]
-    deleteat!(φrng1, findall(x -> isapprox(x, π), φrng1))
-    deleteat!(φrng2, findall(x -> isapprox(x, 2π), φrng2))
-    return φrng1, φrng2
-end
-function calc_Josephson(name::String)
+function calc_jos_v_T(name::String)
     system = systems[name]
-    # Load system 
+
     @unpack wireL, wireR, junction, calc_params, j_params = system
-    # Load junction params
-    @unpack TN, hdict = junction
-    # Load parameters
-    @unpack Brng, Φrng, φrng, outdir = calc_params 
-    # Load Josephson integrator parameters
+    @unpack φrng, Φs, Bs, Trng, outdir = calc_params 
     @unpack imshift, atol, maxevals, order = j_params
 
-    # Remove possible pathological points
-    deleteat!(Brng, findall(x -> isapprox(x, 0), Brng))
-    deleteat!(Φrng, findall(x -> isapprox(x, 0), Φrng))
     φrng1, φrng2 = filter_πs(φrng)
-    calc_params2 = Calc_Params(calc_params; Brng, φrng = vcat(φrng1, φrng2))
+    calc_params2 = Calc_Params(calc_params; φrng = vcat(φrng1, φrng2))
 
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
+   
     # Setup output path
-    path = "$(outdir)/Js/$(name).jld2"
+    path = "$(outdir)/Ts/$(split(name, "_")[1]).jld2"
     mkpath(dirname(path))
 
     # Build nanowires
@@ -32,31 +19,25 @@ function calc_Josephson(name::String)
         hSM_left, hSC_left, params_left = build_cyl(; wireL..., )
         hSM_right, hSC_right, params_right = build_cyl(; wireR...,)
         Zs = union(wireL.Zs, wireR.Zs)
-
+        xs = Φs
     elseif !haskey(wireL, :Zs) && !haskey(wireR, :Zs)
         hSM_left, hSC_left, params_left = build_cyl_mm(; wireL..., )
         hSM_right, hSC_right, params_right = build_cyl_mm(; wireR...,)
+        xs = Bs
     else
         @error "Mismatched wire types."
     end
 
-
     # Get Greens
-    # gSM_right, gSM_left, gSM = greens_dict[gs](hSM_left, hSM_right, params_left, params_right;)
     g_right, g_left, g = greens_dict[gs](hSC_left, hSC_right, params_left, params_right;)
 
-    # Get τ v T 
-    τrng = subdiv(0, 1, 100)
-    #Gτs = get_TN(conductance(g[1, 1]), τrng; B = 0, Δ0 = 0, hdict)
-    Gτs = get_TN(hSM_left, hSM_right, params_left, params_right, gs, τrng; B = 0, hdict)
-    Gτs = Gτs ./ maximum(Gτs)
-    Tτ = linear_interpolation(τrng, Gτs) # gives TN as a function of τ
+    hc_left = add_Δ0(hSM_left, params_left)
+    hc_right = add_Δ0(hSM_right, params_right)
+    g_SM_right, g_SM_left, gSM = greens_dict[gs](hc_left, hc_right, params_left, params_right;)
+    
+    τrng = subdiv(0, 1, 10*length(Trng))
+    G = conductance(gSM[1, 1])
 
-    τ = find_zeros(τ -> Tτ(τ) - TN, 0, 1) |> first
-    println("τ = $τ")
-
-    # Build Josephson integrator
-    #bw = maximum([wireL.Δ0, wireR.Δ0]) * 50
     bw = maximum([bandwidth(params_left), bandwidth(params_right)])
     itipL = get_itip(params_left)               # This is a function of Φ if the wire is Zed, B if not
     itipR = get_itip(params_right)
@@ -68,19 +49,18 @@ function calc_Josephson(name::String)
     J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol, maxevals, order,)
     J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol, maxevals, order,)
 
-    # Compute Josephson current
     args = if @isdefined Zs
-        ([J1, J2], Φrng,  Zs, length(calc_params2.φrng), [ipath1, ipath2])
+        (xs, Zs, )
     else
-        ([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2])
+        (xs,)
     end
-    
-    Js = pjosephson(args...; τ, hdict)
+
+    Js = ptrans(G, τrng, [J1, J2],args..., Trng, length(calc_params2.φrng), [ipath1, ipath2])
 
     return Results(;
         params = calc_params2,
         system = system,
         Js = Js,
-        path = path
+        path = path,
     )
-end  
+end

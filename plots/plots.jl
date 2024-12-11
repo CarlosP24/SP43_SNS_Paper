@@ -1,4 +1,6 @@
 # Header
+using Pkg
+Pkg.activate("plots")
 using CairoMakie, Revise, Parameters, JLD2, ColorSchemes
 #using FullShell, Quantica
 using Glob

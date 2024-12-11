@@ -23,11 +23,13 @@ using JLD2
     include("parallelizers/ldos.jl")
     include("parallelizers/josephson.jl")
     include("parallelizers/normal.jl")
+    include("parallelizers/transparency.jl")
 
     # Load calculations
     include("calculations/Josephson.jl")
     include("calculations/LDOS.jl")
     include("calculations/Andreev.jl")
+    include("calculations/Josephson_v_T.jl")
 end
 
 @everywhere begin
@@ -61,6 +63,12 @@ for key in ks
         @info "Computing system $key spectra..."
         key_modified = replace(key, "_andreev" => "")
         res = calc_Andreev(key_modified)
+        save(res.path, "res", res)
+        @info "System $key done."
+    elseif key in collect(keys(systems)) .* "_trans"
+        @info "Computing system $key current v transparency at fixed flux..."
+        key_modified = replace(key, "_trans" => "")
+        res = calc_jos_v_T(key_modified)
         save(res.path, "res", res)
         @info "System $key done."
     else
