@@ -25,11 +25,12 @@ function ptrans(G, τrng, Js, Brng, Ts, lg::Int, ipaths; hdict = Dict(0 => 1, 1 
     return reshape(Jss, size(pts)...)
 end
 
-function ptrans(G, τrng, Js, Φrng, Zs, Ts, lg::Int, ipath; hdict = Dict(0 => 1, 1 => 0))
+function ptrans(G, τrng, J, Φrng, Zs, Ts, lg::Int; hdict = Dict(0 => 1, 1 => 0))
     pts = Iterators.product(Φrng, Zs, τrng)
-    GΦτ = @showprogress pmap(pts) do pt
+    GΦτ = @showprogress pmap(pts) do pt 
         Φ, Z, τ = pt
-        return G(0; Φ, Z, τ, hdict)
+        @show G(0; Φ, Z, τ, hdict)
+        #return G(0; Φ, Z, τ, hdict)
     end
     Gτs = reshape(GΦτ, size(pts)...)
     Gτs = sum(Gτs, dims = 2)
@@ -42,8 +43,7 @@ function ptrans(G, τrng, Js, Φrng, Zs, Ts, lg::Int, ipath; hdict = Dict(0 => 1
         Φ, Z, T = pt
         τ = find_zeros(τ -> Tτ_dict[Φ](τ) - T, 0, 1) |> first
         j = try
-            jvec = [sign(imag(ipath(Φ) |> first)) * J(override_path = ipath(Φ); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipath)]
-            return vcat(jvec...)
+            return J(; Φ, Z, τ, hdict, )
         catch e 
             @warn "An error ocurred at Φ=$Φ, Z=$Z, τ=$τ. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]

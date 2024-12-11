@@ -6,7 +6,8 @@ function calc_jos_v_T(name::String)
     @unpack imshift, atol, maxevals, order = j_params
 
     φrng1, φrng2 = filter_πs(φrng)
-    calc_params2 = Calc_Params(calc_params; φrng = vcat(φrng1, φrng2))
+    φrng = vcat(φrng1, φrng2)
+    calc_params2 = Calc_Params(calc_params; φrng)
 
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
    
@@ -38,17 +39,22 @@ function calc_jos_v_T(name::String)
     τrng = subdiv(0, 1, 10*length(Trng))
     G = conductance(gSM[1, 1])
 
+    pts = Iterators.product(Φs, Zs)
+    map(pts) do (Φ, Z)
+        @show G(0; Φ, Z)
+    end
+
     bw = maximum([bandwidth(params_left), bandwidth(params_right)])
     itipL = get_itip(params_left)               # This is a function of Φ if the wire is Zed, B if not
     itipR = get_itip(params_right)
     itip(x) = minimum([itipL(x), itipR(x)])     
 
-    ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
-    ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
+    #ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
+    #ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
+    ipath1 = Paths.polygon((mu, kBT; Φ = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift*1im)     
 
-    J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol, maxevals, order,)
-    J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol, maxevals, order,)
+    J = josephson(g[attach_link[gs]], ipath1; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 
     args = if @isdefined Zs
         (xs, Zs, )
@@ -56,7 +62,7 @@ function calc_jos_v_T(name::String)
         (xs,)
     end
 
-    Js = ptrans(G, τrng, [J1, J2],args..., Trng, length(calc_params2.φrng), [ipath1, ipath2])
+    Js = ptrans(G, τrng, J, args..., Trng, length(calc_params2.φrng),)
 
     return Results(;
         params = calc_params2,
