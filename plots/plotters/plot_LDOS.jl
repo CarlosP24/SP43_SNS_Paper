@@ -34,7 +34,7 @@ function plot_LDOS(pos, name::String; basepath = "data", colorrange = (1e-4, 1e-
     ωrng = vcat(ωrng, -reverse(ωrng)[2:end])
 
     if haskey(wire, :Zs)
-        LDOS = isnothing(Zs) ? sum.(sum(values(LDOS))) : sum.(sum(LDOS[Zs]))
+        LDOS = isnothing(Zs) ? sum.(sum(values(LDOS))) : sum.(sum(values(Dict([Z => LDOS[Z] for Z in Zs]))))
         xrng = Φrng
         ns = get_Φticks(Φrng)
         xs = ns .+ 0.5

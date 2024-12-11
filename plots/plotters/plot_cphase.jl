@@ -78,17 +78,22 @@ tnames = Dict(
     "scm" => "SC",
     "scm_triv" => "SC, trivial"
 )
-function fig_cpr(name::String, TN, Φ; Φsmajo = Φsmajo, tnames = tnames, kw...)
+function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw...)
     fig = Figure()
-    ax, ts = cphase(fig[1, 1], name, TN, Φ; kw...)
-    ismajo = ifelse((Φ < Φsmajo[name][1]) || (Φ >= Φsmajo[name][2]), "Topological", "Trivial")
-    Label(fig[1, 1, Top()], L"%$(tnames[name]), $\Phi = %$(Φ) \Phi_0$, $%$(print_T(TN))$, %$(ismajo)", fontsize = 15)
-    axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+    for (i, Φ) in enumerate(Φs)
+        ax, ts = cphase(fig[1, i], name, TN, Φ; kw...)
+        ismajo = ifelse((Φ < Φsmajo[name][1]) || (Φ >= Φsmajo[name][2]), "Topological", "Trivial")
+        Label(fig[1, i, Top()], L"$\Phi = %$(Φ) \Phi_0$", fontsize = 15)
+        ylims!(ax, (-3e-4, 3e-4))
+        #axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+        i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
+    end
     return fig 
 end
 
 
-fig = fig_cpr("hc", 1e-4, 1; lw = 2, showmajo = true )
+fig = fig_cpr("mhc", 1e-4, [0.55, 0.65, 0.75]; lw = 2, showmajo = true )
+save("test_cpr.pdf", fig)
 fig
 
 ##
