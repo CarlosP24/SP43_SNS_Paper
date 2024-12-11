@@ -1,0 +1,76 @@
+slurmstepd: info: Setting TMPDIR to /scratch/9367068. Previous errors about TMPDIR can be discarded
+Running scm_triv_0.075
+slurmstepd: error: TMPDIR [/scratch/9367068] is not writeable
+slurmstepd: error: Setting TMPDIR to /tmp
+slurmstepd: error: Detected 2 oom-kill event(s) in StepId=9367068.0. Some of your processes may have been killed by the cgroup out-of-memory handler.
+srun: error: ilk-133: task 70: Out Of Memory
+srun: launch/slurm: _step_signal: Terminating StepId=9367068.0
+slurmstepd: error: *** STEP 9367068.0 ON ilk-111 CANCELLED AT 2024-11-25T08:13:42 ***
+srun: error: ilk-111: tasks 0-4: Terminated
+srun: error: ilk-134: tasks 77-78: Terminated
+srun: error: ilk-116: tasks 33-36: Terminated
+srun: error: ilk-114: tasks 16-24: Terminated
+srun: error: ilk-131: tasks 55-62: Terminated
+srun: error: ilk-113: tasks 5-15: Terminated
+srun: error: ilk-115: tasks 25-32: Terminated
+srun: error: ilk-117: tasks 37-45: Terminated
+srun: error: ilk-118: tasks 46-54: Terminated
+srun: error: ilk-144: tasks 79-99: Terminated
+srun: Force Terminated StepId=9367068.0
+ERROR: LoadError: TaskFailedException
+
+    nested task error: IOError: connect: connection refused (ECONNREFUSED)
+    Stacktrace:
+     [1] worker_from_id(pg::Distributed.ProcessGroup, i::Int64)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:1093
+     [2] worker_from_id
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:1090 [inlined]
+     [3] remote_do
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:557 [inlined]
+     [4] kill
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/managers.jl:731 [inlined]
+     [5] create_worker(manager::SlurmManager, wconfig::WorkerConfig)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:604
+     [6] setup_launched_worker(manager::SlurmManager, wconfig::WorkerConfig, launched_q::Vector{Int64})
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:545
+     [7] (::Distributed.var"#45#48"{SlurmManager, Vector{Int64}, WorkerConfig})()
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:501
+    
+    caused by: IOError: connect: connection refused (ECONNREFUSED)
+    Stacktrace:
+     [1] wait_connected(x::Sockets.TCPSocket)
+       @ Sockets /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Sockets/src/Sockets.jl:528
+     [2] connect
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Sockets/src/Sockets.jl:563 [inlined]
+     [3] connect_to_worker(host::String, port::Int64)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/managers.jl:695
+     [4] connect(manager::SlurmManager, pid::Int64, config::WorkerConfig)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/managers.jl:622
+     [5] create_worker(manager::SlurmManager, wconfig::WorkerConfig)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:600
+     [6] setup_launched_worker(manager::SlurmManager, wconfig::WorkerConfig, launched_q::Vector{Int64})
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:545
+     [7] (::Distributed.var"#45#48"{SlurmManager, Vector{Int64}, WorkerConfig})()
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:501
+
+...and 85 more exceptions.
+
+Stacktrace:
+ [1] sync_end(c::Channel{Any})
+   @ Base ./task.jl:466
+ [2] macro expansion
+   @ ./task.jl:499 [inlined]
+ [3] addprocs_locked(manager::SlurmManager; kwargs::@Kwargs{})
+   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:490
+ [4] addprocs_locked
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:456 [inlined]
+ [5] addprocs(manager::SlurmManager; kwargs::@Kwargs{})
+   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:450
+ [6] addprocs
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:443 [inlined]
+ [7] macro expansion
+   @ ./timing.jl:581 [inlined]
+ [8] top-level scope
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:315
+in expression starting at /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:7
+Error launching Slurm job:

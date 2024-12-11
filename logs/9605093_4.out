@@ -1,0 +1,62 @@
+slurmstepd: info: Setting TMPDIR to /scratch/9698293. Previous errors about TMPDIR can be discarded
+Running scm_0.5
+ERROR: LoadError: TaskFailedException
+Stacktrace:
+ [1] wait(t::Task)
+   @ Base ./task.jl:370
+ [2] addprocs_locked(manager::SlurmManager; kwargs::@Kwargs{})
+   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:507
+ [3] addprocs_locked
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:456 [inlined]
+ [4] addprocs(manager::SlurmManager; kwargs::@Kwargs{})
+   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:450
+ [5] addprocs
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:443 [inlined]
+ [6] macro expansion
+   @ ./timing.jl:581 [inlined]
+ [7] top-level scope
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:315
+
+    nested task error: TaskFailedException
+    Stacktrace:
+     [1] wait(t::Task)
+       @ Base ./task.jl:370
+     [2] launch(manager::SlurmManager, params::Dict{Symbol, Any}, instances_arr::Vector{WorkerConfig}, c::Condition)
+       @ SlurmClusterManager ~/SP43_SNS_Paper/.julia_depot/packages/SlurmClusterManager/R0zin/src/slurmmanager.jl:79
+     [3] (::Distributed.var"#43#46"{SlurmManager, Condition, Vector{WorkerConfig}, Dict{Symbol, Any}})()
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:488
+    
+        nested task error: launch_timeout exceeded
+        Stacktrace:
+          [1] try_yieldto(undo::typeof(Base.ensure_rescheduled))
+            @ Base ./task.jl:958
+          [2] wait()
+            @ Base ./task.jl:1022
+          [3] wait(c::Base.GenericCondition{Base.Threads.SpinLock}; first::Bool)
+            @ Base ./condition.jl:130
+          [4] wait
+            @ ./condition.jl:125 [inlined]
+          [5] wait_readnb(x::Base.PipeEndpoint, nb::Int64)
+            @ Base ./stream.jl:416
+          [6] eof(s::Base.PipeEndpoint)
+            @ Base ./stream.jl:106
+          [7] iterate (repeats 2 times)
+            @ ./io.jl:1382 [inlined]
+          [8] _copyuntil(out::IOBuffer, s::Base.PipeEndpoint, delim::UInt8, keep::Bool)
+            @ Base ./io.jl:1001
+          [9] #copyuntil#498
+            @ ./io.jl:996 [inlined]
+         [10] copyuntil(out::IOBuffer, io::Base.Process, arg::UInt8; kw::@Kwargs{keep::Bool})
+            @ Base ./io.jl:464
+         [11] copyuntil
+            @ ./io.jl:464 [inlined]
+         [12] #copyline#522
+            @ ./iobuffer.jl:597 [inlined]
+         [13] copyline
+            @ ./iobuffer.jl:596 [inlined]
+         [14] readline(s::Base.Process; keep::Bool)
+            @ Base ./io.jl:619
+         [15] (::SlurmClusterManager.var"#3#8"{SlurmManager, Vector{WorkerConfig}, Condition})()
+            @ SlurmClusterManager ~/SP43_SNS_Paper/.julia_depot/packages/SlurmClusterManager/R0zin/src/slurmmanager.jl:62
+in expression starting at /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:7
+Error launching Slurm job:

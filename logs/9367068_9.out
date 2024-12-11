@@ -1,0 +1,4 @@
+slurmstepd: info: Setting TMPDIR to /scratch/9462124. Previous errors about TMPDIR can be discarded
+Running scm_triv_0.5
+/var/spool/slurmd/job9462124/slurm_script: line 21: 2874245 Killed                  julia --project bin/launcher.jl "$PARAM"
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=9462124.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.

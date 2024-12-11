@@ -7,9 +7,9 @@ fi
 sbatch --export=ALL <<EOT
 #!/bin/bash
 ## Slurm header
-#SBATCH --ntasks=200
+#SBATCH --ntasks=100
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=1G
+#SBATCH --mem-per-cpu=500M
 #SBATCH --time=7-00:00:00
 #SBATCH --output="logs/%A_%a.out"
 #SBATCH --job-name="${PWD##*/}_$ARRAY_SIZE"

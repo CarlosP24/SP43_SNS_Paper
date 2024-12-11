@@ -1,0 +1,427 @@
+slurmstepd: info: Setting TMPDIR to /scratch/9698685. Previous errors about TMPDIR can be discarded
+Running scm_0.9
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=9698685.0. Some of your processes may have been killed by the cgroup out-of-memory handler.
+srun: error: ilk-58: task 34: Out Of Memory
+srun: launch/slurm: _step_signal: Terminating StepId=9698685.0
+slurmstepd: error: *** STEP 9698685.0 ON ilk-57 CANCELLED AT 2024-12-10T01:16:19 ***
+srun: error: ilk-59: task 54: Terminated
+srun: error: ilk-235: tasks 93-94: Terminated
+srun: error: ilk-114: tasks 55-56: Terminated
+srun: error: ilk-120: tasks 61-64: Terminated
+srun: error: ilk-117: tasks 57-60: Terminated
+srun: error: ilk-240: tasks 95-99: Terminated
+srun: error: ilk-217: tasks 79-92: Terminated
+srun: error: ilk-121: tasks 65-78: Terminated
+srun: error: ilk-57: tasks 0-26: Terminated
+
+[3503051] signal 15: Terminated
+
+[3503060] signal 15: Terminated
+
+[3503061] signal 15: Terminated
+
+[3503062] signal 15: Terminated
+
+[3503063] signal 15: Terminated
+
+[3503067] signal 15: Terminated
+
+[3503058] signal 15: Terminated
+
+[3503068] signal 15: Terminated
+
+[3503069] signal 15: Terminated
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+in expression starting at none:0
+get_item_for_reloc at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:1862 [inlined]
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2018
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2004
+get_item_for_reloc at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:1862 [inlined]
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2018
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2004
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2019
+get_item_for_reloc at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:1862 [inlined]
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2018
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2021
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2019
+jl_read_reloclist at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:2004
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+jl_restore_system_image_from_stream_ at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3239
+jl_restore_system_image_from_stream at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3694 [inlined]
+ijl_restore_system_image_data at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3759
+jl_load_sysimg_so at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:624 [inlined]
+ijl_restore_system_image at /cache/build/builder-demeter6-6/julialang/julia-master/src/staticdata.c:3730
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+_finish_julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:861
+julia_init at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:843
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+jl_repl_entrypoint at /cache/build/builder-demeter6-6/julialang/julia-master/src/jlapi.c:1053
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+main at /cache/build/builder-demeter6-6/julialang/julia-master/cli/loader_exe.c:58
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+unknown function (ip: 0x4010b8)
+unknown function (ip: (nil))
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503058] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503060] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503067] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503069] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503051] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503061] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503062] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503063] signal 11 (1): Segmentation fault
+in expression starting at none:0
+
+[3503068] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503060] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503068] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503069] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503051] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503058] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503061] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503062] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503063] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+
+[3503067] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_smallintset_lookup at /cache/build/builder-demeter6-6/julialang/julia-master/src/smallintset.c:123
+jl_get_module_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:722
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_resolve_owner at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:376 [inlined]
+ijl_get_binding at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:454
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_get_global at /cache/build/builder-demeter6-6/julialang/julia-master/src/module.c:774
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+ijl_atexit_hook at /cache/build/builder-demeter6-6/julialang/julia-master/src/init.c:261
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+jl_exit_thread0_cb at /cache/build/builder-demeter6-6/julialang/julia-master/src/signals-unix.c:491
+Allocations: 0 (Pool: 0; Big: 0); GC: 0
+srun: Force Terminated StepId=9698685.0
+ERROR: LoadError: TaskFailedException
+
+    nested task error: IOError: connect: connection refused (ECONNREFUSED)
+    Stacktrace:
+     [1] worker_from_id(pg::Distributed.ProcessGroup, i::Int64)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:1093
+     [2] worker_from_id
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:1090 [inlined]
+     [3] remote_do
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:557 [inlined]
+     [4] kill
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/managers.jl:731 [inlined]
+     [5] create_worker(manager::SlurmManager, wconfig::WorkerConfig)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:604
+     [6] setup_launched_worker(manager::SlurmManager, wconfig::WorkerConfig, launched_q::Vector{Int64})
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:545
+     [7] (::Distributed.var"#45#48"{SlurmManager, Vector{Int64}, WorkerConfig})()
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:501
+    
+    caused by: IOError: connect: connection refused (ECONNREFUSED)
+    Stacktrace:
+     [1] wait_connected(x::Sockets.TCPSocket)
+       @ Sockets /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Sockets/src/Sockets.jl:528
+     [2] connect
+       @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Sockets/src/Sockets.jl:563 [inlined]
+     [3] connect_to_worker(host::String, port::Int64)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/managers.jl:695
+     [4] connect(manager::SlurmManager, pid::Int64, config::WorkerConfig)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/managers.jl:622
+     [5] create_worker(manager::SlurmManager, wconfig::WorkerConfig)
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:600
+     [6] setup_launched_worker(manager::SlurmManager, wconfig::WorkerConfig, launched_q::Vector{Int64})
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:545
+     [7] (::Distributed.var"#45#48"{SlurmManager, Vector{Int64}, WorkerConfig})()
+       @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:501
+
+...and 38 more exceptions.
+
+Stacktrace:
+ [1] sync_end(c::Channel{Any})
+   @ Base ./task.jl:466
+ [2] macro expansion
+   @ ./task.jl:499 [inlined]
+ [3] addprocs_locked(manager::SlurmManager; kwargs::@Kwargs{})
+   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:490
+ [4] addprocs_locked
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:456 [inlined]
+ [5] addprocs(manager::SlurmManager; kwargs::@Kwargs{})
+   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:450
+ [6] addprocs
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/cluster.jl:443 [inlined]
+ [7] macro expansion
+   @ ./timing.jl:581 [inlined]
+ [8] top-level scope
+   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:315
+in expression starting at /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:7
+Error launching Slurm job:
