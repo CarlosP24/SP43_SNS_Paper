@@ -170,9 +170,9 @@ layout_cpr = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 layout_andreevs = [
-    (TN = 1e-4, Φ = 0.6, colorrange = (0, 3e-1), ωlims = [-0.1, 0.1] ), (TN = 1e-4, Φ = 0.6, Zs = [0], ωlims = [-1e-2, 1e-2], colorrange = (2e-3, 5e-2)), (TN = 1e-4, Φ = 0.6, Zs = [0], colorrange = (2e-3, 5e-2), ωlims = [-0.1, 0.1], )
+    (TN = 1e-4, Φ = 1, colorrange = (0, 3e-1), ωlims = [-5e-4, 5e-4] ), (TN = 1e-4, Φ = 1, Zs = [0], ωlims = [-5e-4, 5e-4], colorrange = (2e-3, 5e-2)), (TN = 1e-4, Φ = 1, Zs = [0], colorrange = (2e-3, 5e-2), ωlims = [-5e-4, 5e-4], )
 ]
 
 fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs)
-save("figures/fig_jos_topo.pdf", fig)
+#save("figures/fig_jos_topo.pdf", fig)
 fig

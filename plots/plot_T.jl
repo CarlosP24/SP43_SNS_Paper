@@ -55,6 +55,18 @@ fig
 
 ##
 fig = Figure()
+
+Tspath = "data/Ts"
+name = "mhc"
+path = "$(Tspath)/$(name).jld2"
+res = load(path)["res"]
+@unpack params, Js = res
+@unpack Trng = params
+
+Jdict = Dict([Z => mapreduce(permutedims, vcat, Js[Z]) for Z in keys(Js)])
+Icdict = Dict([Z => getindex(findmax(Jdict[Z]; dims = 2),1) |> vec for Z in keys(Js)])
+Ictrue = getindex(findmax(mapreduce(permutedims, vcat, sum(values(Js))); dims = 2),1) |> vec
+
 ax = Axis(fig[2, 1]; xlabel = L"$T_N$", ylabel = L"$I_c$", xscale = log10, yscale = log10)
 lines!(ax, Trng, Icdict[0]; color = :red, label = L"$m_J = 0$")
 lines!(ax, Trng, sum([Icdict[Z] for Z in keys(Icdict) if Z != 0]); color = :green, label = L"$m_J \neq 0$")
@@ -69,6 +81,7 @@ i2 = 20
 c2 = Icdict[0][i2] / Trng[i2]
 lines!(ax, Trng,  2*Trng; color = :orange, linestyle = :dot, label = L"\propto T_N")
 Legend(fig[1, 1], ax; position = :rb, orientation = :horizontal)
+Label(fig[1, 1, Top()], "Full, vertical integration path")
 # hidexdecorations!(ax; ticks = false, minorticks = false)
 # ax = Axis(fig[2, 1]; xlabel = L"$T_N$", ylabel = L"$I_c$", xscale = log10, )
 # lines!(ax, Trng, Icdict[0]; color = :red, label = L"$m_J = 0$")
