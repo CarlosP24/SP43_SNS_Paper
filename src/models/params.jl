@@ -2,7 +2,7 @@
     Brng = subdiv(0.0, 0.25, 400)
     Φrng = subdiv(0.03, 2.499, 200)
     #ωrng = subdiv(-.26, 0,  201) .+ 1e-3im
-    ωrng = subdiv(-0.01, 0, 500) .+ 1e-7im
+    ωrng = subdiv(-0.01, 0, 501) .+ 1e-7im
     φrng = subdiv(0, 2π, 101)
     Φs = [1]
     φs = [0, π/2, π, 3π/2, 2π]
