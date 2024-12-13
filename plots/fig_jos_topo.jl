@@ -18,7 +18,13 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
     return ax, ts, TNS
 end
 
-function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr; colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8],)
+true_names = Dict(
+    "hc" => "HC",
+    "mhc" => "TC",
+    "scm" => "SC",
+)
+
+function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_trans, layout_phases; colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8], cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme)
     fig = Figure(size = (1100, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[1, 1] = GridLayout()
@@ -73,17 +79,17 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr; colormap =
         T = args[2]
         ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; showmajo = ((args[3] > 0.5) && (args[3] < 1.5)))
         color = colors[findmin(abs.(T .- TNS))[2]]
-        pos_text = 0.8
-        text!(ax, 3π/2, pos_text*mJ; text = print_T(T), color, fontsize = 9, align = (:center, :center),)
-        scatter!(ax, π-0.2, 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
+        pos_text = ifelse(((i == 1) || (i == 2)) &&j == 1, 0.5, 0)
+        text!(ax, 3π/2, 0.8*mJ; text = print_T(T), color, fontsize = 9, align = (:center, :center),)
+        scatter!(ax, π - pos_text, 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
         ax.yticks = [0]
         j != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
         i != 4 && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
         #i == 2 && j == 1 && text!(ax, π/2, -0.7*mJ; text = L"m_J", align = (:center, :center), fontsize = 10) 
         i == 2 && j == 1 && text!(ax, π/2, -0.5*mJ; text = L"m_J \neq 0", align = (:center, :center), fontsize = 10)
         i == 2 && j == 1 && arrows!(ax, [π/2], [-0.4*mJ], [0], [0.2*mJ])
-        i == 2 && j == 1 && text!(ax, 3π/2, 0.2*mJ; text = L"m_J=0", align = (:center, :center), fontsize = 10, color = :magenta)
-        i == 2 && j == 1 && arrows!(ax, [3π/2 - 1], [0.2*mJ], [-0.5], [0], color = :magenta)
+        i == 2 && j == 1 && text!(ax, 3π/2 + 0.5, 0.2*mJ; text = L"m_J=0", align = (:center, :center), fontsize = 10, color = :magenta)
+        i == 2 && j == 1 && arrows!(ax, [3π/2 - 0.5], [0.2*mJ], [-0.5], [0], color = :magenta)
         i == 2 && j == 2 && text!(ax, π/2, -0.5*mJ; text = "Total", align = (:center, :center), fontsize = 10)
         i == 2 && j == 2 && arrows!(ax, [π/2 + 1], [-0.5*mJ], [0.5], [0])
     end
@@ -107,17 +113,63 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr; colormap =
     rowgap!(fig_cpr, 2, 5)
     rowgap!(fig_cpr, 3, 5)
 
-    fig_andreev = fig[1, 3] = GridLayout()
+    fig_trans = fig[1, 3] = GridLayout()
 
-   
+    for (i, kwargs) in enumerate(layout_trans)
+        ax = TvI(fig_trans[i, 1]; kwargs...)
+        ylims!(ax, (1e-4, 1e1))
+        ax.xticks = ([10^-4, 10^-2, 1], [L"10^{-4}", L"10^{-2}", L"1"])
+        ax.yticks = ([10^-4, 1], [L"10^{-4}", L"1"])
+        ax.yminorticksvisible = true
+        ax.yminorticks = [10^-3, 10^-2, 10^-1]
+        ax.ylabelpadding = -30
+        text!(ax, 10^-1, 5*10^-3; text = true_names[kwargs.name], fontsize = 10, align = (:center, :center))
+        text!(ax, 10^-1, 5*10^-4; text = L"\frac{\Phi}{\Phi_0} = %$(kwargs.x)", fontsize = 10, align = (:center, :center))
+        i == 2 && axislegend(position = :lt, framevisible = false, labelsize = 10, linewidth = 1)
+        i != Int(length(layout_trans)) && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
+        i != 1 && rowgap!(fig_trans, i - 1, 5)
+    end
+
+    Label(fig_trans[1, 1, TopLeft()], "ñ",  padding = (-30, 0, -35, 0); style...)
+    Label(fig_trans[2, 1, TopLeft()], "o",  padding = (-30, 0, -25, 0); style...)
+    Label(fig_trans[3, 1, TopLeft()], "p",  padding = (-30, 0, -25, 0); style...)
+    Label(fig_trans[4, 1, TopLeft()], "q",  padding = (-30, 0, -25, 0); style...)
+
+    Label(fig_trans[1, 1, Top()], "Transparency", padding = (0, 0, 0, 0))
+
 
     fig_phases = fig[2, 1:3] = GridLayout()
 
+    for (i, kwargs) in enumerate(layout_phases)
+        ax = plot_checker(fig_phases[1, i], kwargs.name, kwargs.TN; kwargs.atol, colorrange = (-kwargs.Jmax, kwargs.Jmax), cmap)
+        ax.yticks = ([-π, 0, π], [L"-\pi","", L"\pi"])
+        ax.xticks = ([0.05, 1, 2], [L"0", L"1", L"2"])
+        ax.xminorticks = [0.5, 1.5]
+        ax.xminorticksvisible = true
+        ax.yminorticks = [-π/2, π/2]
+        ax.yminorticksvisible = true
+        i != 1 && hideydecorations!(ax, ticks = false, minorticks = false, grid = false)
+        i != 1 && colgap!(fig_phases, i - 1, 15)
+        Label(fig_phases[1, i, Top()],L"%$(true_names[kwargs.name]), %$(print_T(kwargs.TN))"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0))
+
+    end
+
+    Colorbar(fig_phases[1, 7]; colormap = cmap, label = L"$J_S$ (arb. units)", limits = (-1, 1),  ticks = [-1, 1], labelpadding = -15, labelsize = 12)
+    colgap!(fig_phases, 6, 5)
+
+    Label(fig_phases[1, 1, TopLeft()], "r",  padding = (-30, 0, -10, 0); style...)
+    Label(fig_phases[1, 2, TopLeft()], "s",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 3, TopLeft()], "t",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 4, TopLeft()], "u",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 5, TopLeft()], "v",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 6, TopLeft()], "w",  padding = (-15, 0, -10, 0); style...)
+
+    Label(fig_phases[1, 1, Left()], "Junction phases", rotation = π/2, padding = (-80, 0, 0, 0))
 
     colsize!(fig.layout, 1, Relative(0.6))
     colsize!(fig.layout, 2, Relative(0.25))
     colsize!(fig.layout, 3, Relative(0.15))
-    
+        
     colgap!(fig.layout, 1, 5)
     colgap!(fig.layout, 2, 25)
 
@@ -133,20 +185,32 @@ layout_currents = [
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), );
+    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), highlight_majo = 20);
     () () ();
 ]
 
 layout_cpr = [
     ("hc", 1e-4, 0.6) ("hc", 0.9, 0.6);
-    ("mhc", 1e-4, 0.55) ("mhc", 0.9, 1);
+    ("mhc", 1e-4, 1) ("mhc", 0.9, 1);
     ("scm", 1e-4, 1) ("scm", 0.1, 1);
     ("scm", 1e-4, 2) ("scm", 0.1, 2);
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
+layout_trans = [
+    (name = "hc", x = 1, br = 0, bl = 0.3) (name = "hc", x = 0.65) (name = "mhc", x = 0.65) (name = "scm", x = 0.65);
+]
 
-fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr)
+layout_phases = [
+    (name = "mhc", TN = 1e-3, atol = 1e-6, Jmax = 1e-3),
+    (name = "mhc", TN = 0.9, atol = 1e-6, Jmax = 1),
+    (name = "scm", TN = 1e-3, atol = 1e-6, Jmax = 1e-4),
+    (name = "scm", TN = 5e-2, atol = 1e-4, Jmax = 1e-2),
+    (name = "scm", TN = 1e-1, atol = 5e-4, Jmax = 1e-2),
+    (name = "scm", TN = 0.9, atol = 5e-4, Jmax = 0.1)
+]
+
+fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_trans, layout_phases)
 save("figures/fig_jos_topo.pdf", fig)
 fig

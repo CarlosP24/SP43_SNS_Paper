@@ -72,11 +72,11 @@ systems_mhc = Dict(
 )
 
 systems_scm_triv = Dict(
-    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4)) for i in Ts]
+    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
 )
 
 systems_scm = Dict(
-    ["scm_$(i)" => System(; wireL = wires["jos_scm"], wireR = wires["jos_scm"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4)) for i in Ts]
+    ["scm_$(i)" => System(; wireL = wires["jos_scm"], wireR = wires["jos_scm"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
 )
 
 
