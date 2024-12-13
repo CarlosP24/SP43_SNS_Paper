@@ -7,7 +7,6 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         paths = filter(x -> occursin(pattern, x), filenames)
         tpaths = map(x -> "$(name)_$(x).jld2", TNS)
         cpaths = intersect(paths, tpaths)
-        println(cpaths)
         colorscale = log10.(TNS)
         colorscale .-= minimum(colorscale)
         colorscale /= maximum(colorscale)

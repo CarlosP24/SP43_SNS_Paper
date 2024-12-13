@@ -3,9 +3,9 @@
     #Φrng = subdiv(0.03, 2.499, 200) 
     Φrng = subdiv(0.03, 2.499, 100) 
     ωrng = subdiv(-.26, 0,  201) .+ 1e-3im
-    #φrng = subdiv(0, 2π, 51)
+    #φrng = subdiv(0, 2π, 101)
     φrng = subdiv(0, 2π, 51)
-    Φs = [1]
+    Φs = [0.65, 1, 1.45]
     φs = [0, π/2, π, 3π/2, 2π]
     Bs = []
     Trng = 10 .^ range(-5, stop=0, length=50)
