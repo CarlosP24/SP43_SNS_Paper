@@ -1,21 +1,18 @@
 function ptrans(G, τrng, Js, Brng, Ts, lg::Int, ipaths; hdict = Dict(0 => 1, 1 => 0))
-    pts = Iterators.product(Brng, τrng)
-    GBτ = @showprogress pmap(pts) do pt
-        B, τ = pt
-        return G(0; B, τ, hdict)
+    GBτ = @showprogress pmap(τrng) do τ
+        return G(0; B = 0, τ, hdict)
     end
-    Gτs = reshape(GBτ, size(pts)...)
-    Gτs = Gτs ./ maximum(Gτs, dims = 2)
-    Tτ_dict = Dict([B => linear_interpolation(τrng, Gτs[i, :]) for (i, B) in enumerate(Brng)])
+    Gτs = reshape(GBτ, size(τrng)...)
+    Gτs = Gτs ./ maximum(Gτs,)
+    Tτ = linear_interpolation(τrng, Gτs)
 
 
     pts = Iterators.product(Brng, Ts)
     Jss = @showprogress pmap(pts) do pt
         B, T = pt
-        τ = find_zeros(τ -> Tτ_dict[B](τ) - T, 0, 1) |> first
+        τ = find_zeros(τ -> Tτ(τ) - T, 0, 1) |> first
         j = try
-            jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); B, τ , hdict, ) for (J, ipath) in zip(Js, ipaths)]
-            return vcat(jvec...)
+            return J(; B, τ, hdict, )
         catch e 
             @warn "An error ocurred at B=$B, τ=$τ. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]
@@ -26,22 +23,17 @@ function ptrans(G, τrng, Js, Brng, Ts, lg::Int, ipaths; hdict = Dict(0 => 1, 1 
 end
 
 function ptrans(G, τrng, J, Φrng, Zs, Ts, lg::Int; hdict = Dict(0 => 1, 1 => 0))
-    pts = Iterators.product(Φrng, Zs, τrng)
-    GΦτ = @showprogress pmap(pts) do pt 
-        Φ, Z, τ = pt
-        @show G(0; Φ, Z, τ, hdict)
-        #return G(0; Φ, Z, τ, hdict)
+    Gτs = @showprogress pmap(τrng) do τ 
+        return G(0; Φ = 0, Z = 0, τ, hdict)
     end
-    Gτs = reshape(GΦτ, size(pts)...)
-    Gτs = sum(Gτs, dims = 2)
-    Gτs = reshape(Gτs, length(Φrng), length(τrng))
-    Gτs = Gτs ./ maximum(Gτs, dims=2)
-    Tτ_dict = Dict([Φ => linear_interpolation(τrng, Gτs[i, :]) for (i, Φ) in enumerate(Φrng)])
+    Gτs = reshape(Gτs, size(τrng)...)
+    Gτs = Gτs ./ maximum(Gτs)
+    Tτ = linear_interpolation(τrng, Gτs)
 
     pts = Iterators.product(Φrng, Zs, Ts)
     Jss = @showprogress pmap(pts) do pt
         Φ, Z, T = pt
-        τ = find_zeros(τ -> Tτ_dict[Φ](τ) - T, 0, 1) |> first
+        τ = find_zeros(τ -> Tτ(τ) - T, 0, 1) |> first
         j = try
             return J(; Φ, Z, τ, hdict, )
         catch e 

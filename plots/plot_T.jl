@@ -6,7 +6,7 @@ function TvI(pos, name::String, x::Real; Tspath = "data/Ts")
     @unpack Trng, Bs, Φs = params
 
     if Js isa Dict
-        J = mapreduce(permutedims, vcat, Js)
+        J = mapreduce(permutedims, vcat, sum(values(Js)))
         xs = Φs
     else
         J = mapreduce(permutedims, vcat, Js)

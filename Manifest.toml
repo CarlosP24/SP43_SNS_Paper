@@ -433,7 +433,7 @@ version = "2.11.1"
 
 [[deps.Quantica]]
 deps = ["Compat", "DelimitedFiles", "Dictionaries", "ExprTools", "FrankenTuples", "FunctionWrappers", "IntervalTrees", "LinearAlgebra", "NearestNeighbors", "ProgressMeter", "QuadGK", "Random", "SparseArrays", "SpecialFunctions", "StaticArrays", "Statistics", "SuiteSparse"]
-git-tree-sha1 = "d80409d15d2d18878f555c10916304d71394e01d"
+git-tree-sha1 = "0de1e35b12b8ff3d38c5ed2a9ef8d515e86695b8"
 repo-rev = "master"
 repo-url = "https://github.com/pablosanjose/Quantica.jl.git"
 uuid = "ae5ea0c6-3f5e-46a2-bc28-a7c4c7a4773c"

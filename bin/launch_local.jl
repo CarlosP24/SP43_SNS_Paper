@@ -1,5 +1,5 @@
 using Distributed
-addprocs(1)
+addprocs(8)
 
 @everywhere begin
     using Pkg; Pkg.activate(".");

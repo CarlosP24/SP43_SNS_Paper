@@ -39,11 +39,6 @@ function calc_jos_v_T(name::String)
     τrng = subdiv(0, 1, 10*length(Trng))
     G = conductance(gSM[1, 1])
 
-    pts = Iterators.product(Φs, Zs)
-    map(pts) do (Φ, Z)
-        @show G(0; Φ, Z)
-    end
-
     bw = maximum([bandwidth(params_left), bandwidth(params_right)])
     itipL = get_itip(params_left)               # This is a function of Φ if the wire is Zed, B if not
     itipR = get_itip(params_right)
@@ -52,9 +47,9 @@ function calc_jos_v_T(name::String)
     #ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
     #ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
-    ipath1 = Paths.polygon((mu, kBT; Φ = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift*1im)     
+    ipath = Paths.polygon((mu, kBT; Φ = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift*1im)     
 
-    J = josephson(g[attach_link[gs]], ipath1; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
+    J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 
     args = if @isdefined Zs
         (xs, Zs, )
