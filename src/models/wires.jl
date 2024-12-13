@@ -104,9 +104,9 @@ wires["valve_60_dep_Z"] = merge(
 wires["jos_hc"] = (;
     R = 65,
     w = 0,
-    d = 5,
+    d = 0,
     μ = 0.87,
-    α = 100,
+    α = 80,
     g = 0,
     L = 0,
     Zs = -5:5,
@@ -119,14 +119,17 @@ wires["jos_hc_triv"] = (; wires["jos_hc"]...,
 wires["jos_mhc"] = (;
     wires["jos_hc"]...,
     w = 20,
+    d = 5,
 )
 
 wires["jos_mhc_triv"] = (; wires["jos_mhc"]..., 
     µ = 2,
+    d = 5,
 )
 
 wires["jos_scm"] = (; wires["jos_hc"]...,
     w = 65,
+    d = 5,
     μ = 2,
     α = 0,
     preα = 21.66,
@@ -139,4 +142,5 @@ wires["jos_scm"] = (; wires["jos_hc"]...,
 
 wires["jos_scm_triv"] = (; wires["jos_scm"]...,
     preα = 0,
+    d = 5,
 )

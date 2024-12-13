@@ -92,8 +92,8 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("mhc", 1e-4, [0.55, 0.65, 0.75]; lw = 2, showmajo = true )
-save("test_cpr.pdf", fig)
+fig = fig_cpr("mhc", 1e-4, [0.55, 0.67, 0.75]; lw = 2, showmajo = true )
+#save("test_cpr.pdf", fig)
 fig
 
 ##
