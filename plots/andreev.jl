@@ -78,5 +78,5 @@ function fig_andreev(name::String, TN; colorrange = (0, 1e-2), Φ = 1)
     return fig
 end
 
-fig = fig_andreev("scm_test", 1e-4; colorrange = (0, 1), Φ = 1)
+fig = fig_andreev("scm_test", 1e-1; colorrange = (0, 1e-1), Φ = 1.45)
 fig

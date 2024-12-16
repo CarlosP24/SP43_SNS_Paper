@@ -1,4 +1,4 @@
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -19,6 +19,10 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
     
     Ic = getindex(findmax(J; dims = 2),1) |> vec
+    if xcut !== nothing
+        xrng = xrng[xcut:end]
+        Ic = Ic[xcut:end]
+    end
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
     lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
     xlims!(ax, (0, last(xrng)))
@@ -32,11 +36,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing))
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut)
     end
 
     return ax

@@ -1,6 +1,6 @@
 function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
     if i == 1
-        ax, ts = plot_LDOS(fig[i, j], name; kw...)     
+        ax, ts = plot_LDOS(fig[i, j], name;  kw...)     
         add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
         j == 1 && text!(ax, 1, 0; text = "MZM", align = (:center, :center), color = :white, fontsize = 10, justification = :center)
         j == 1 && arrows!(ax, [0.8, 1.2], [0, 0], [-0.1, 0.1], [0, 0]; color = :white, arrowsize = 5)
@@ -217,8 +217,8 @@ layout_currents = [
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), highlight_majo = 20);
-    () () ();
+    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), highlight_majo = 20,);
+    () () ( xcut = 3,);
 ]
 
 layout_cpr = [
