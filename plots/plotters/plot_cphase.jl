@@ -54,8 +54,8 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
                 end
             end
         end
-        lines!(ax, φrng, JZ[Z]; label, color, linewidth)
-        #scatter!(ax,φrng, JZ[Z]; label, color, )
+        #lines!(ax, φrng, JZ[Z]; label, color, linewidth)
+        scatter!(ax,φrng, JZ[Z]; label, color, )
     end
 
     xlims!(ax, (first(φrng), last(φrng)))
@@ -87,7 +87,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
         ax, ts = cphase(fig[1, i], name, TN, Φ; kw...)
         ismajo = ifelse((Φ < Φsmajo[name][1]) || (Φ >= Φsmajo[name][2]), "Topological", "Trivial")
         Label(fig[1, i, Top()], L"$\Phi = %$(Φ) \Phi_0$", fontsize = 15)
-        ylims!(ax, (-3e-4, 3e-4))
+        #ylims!(ax, (-5e-4, 5e-4))
         #axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
         i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
     end
@@ -95,7 +95,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("scm", 1e-4, [0.65]; lw = 2, showmajo = true )
+fig = fig_cpr("scm_test", 1e-4, [1]; lw = 2, showmajo = true )
 #save("test_cpr.pdf", fig)
 fig
 
