@@ -47,15 +47,25 @@ function calc_jos_v_T(name::String)
     #ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
     #ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
-    ipath = Paths.polygon((mu, kBT; Φ = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift*1im)     
+
+
+    if @isdefined Zs
+        args = (xs, Zs, )
+        if imshift0 != false
+            imshift_dict = Dict([Z => imshift for Z in Zs if Z != 0])
+            imshift_dict[0] = imshift0
+        else
+            imshift_dict = Dict([Z => imshift for Z in Zs])
+        end
+        ipath = Paths.polygon((mu, kBT; Φ = 0, Z = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift_dict[Z]*1im)     
+    else
+        args = (xs,)
+        ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(B)*1im, 0) .+ imshift*1im)     
+
+    end
 
     J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 
-    args = if @isdefined Zs
-        (xs, Zs, )
-    else
-        (xs,)
-    end
 
     Js = ptrans(G, τrng, J, args..., Trng, length(calc_params2.φrng),)
 
