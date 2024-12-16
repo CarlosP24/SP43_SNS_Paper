@@ -14,6 +14,7 @@ end
 
 @with_kw struct J_Params
     imshift = 1e-6
+    imshift0 = false
     atol = 1e-7
     maxevals = 1e7  
     order = 21

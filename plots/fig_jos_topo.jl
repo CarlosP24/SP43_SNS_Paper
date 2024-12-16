@@ -1,6 +1,9 @@
 function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; kw...)     
+        add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
+        j == 1 && text!(ax, 1, 0; text = "MZM", align = (:center, :center), color = :white, fontsize = 10, justification = :center)
+        j == 1 && arrows!(ax, [0.8, 1.2], [0, 0], [-0.1, 0.1], [0, 0]; color = :white, arrowsize = 5)
     else
         pattern = Regex("^$(name)_[01].?\\d*\\.jld2")
         filenames = readdir(jspath)
@@ -14,6 +17,15 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
         ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, kw...)
         ts = colors
+        if j == 1
+            text!(ax, 1, 1.9e-5; text = "Majorana fins", align = (:center, :center), fontsize = 12)
+            false_ax = Axis(fig[i:(i+1), j])
+            xlims!(false_ax, (0, 2.5))
+            ylims!(false_ax, (0, 1))
+            arrows!(false_ax, [1, 1], [0.25, 0.25], [0.3, -0.3], [0.08, 0.08])
+            hidedecorations!(false_ax)
+            hidespines!(false_ax)
+        end
     end
     return ax, ts, TNS
 end
@@ -44,6 +56,8 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i == 1 && hidexdecorations!(ax; ticks = false, minorticks = false)
         j != 1 && hideydecorations!(ax; ticks = false, grid = false, minorticks = false)
         i == 2 && ylims!(ax, (5e-7, 1e1))
+        i == 2 && vlines!(ax, [0.5, 1.5]; linestyle = :dash, color = (:gray, 0.5) )
+
     end
 
     add_colorbar(fig_currents[1, 4]; limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -5)
@@ -92,6 +106,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i == 2 && j == 1 && arrows!(ax, [3π/2 - 0.5], [0.2*mJ], [-0.5], [0], color = :magenta)
         i == 2 && j == 2 && text!(ax, π/2, -0.5*mJ; text = "Total", align = (:center, :center), fontsize = 10)
         i == 2 && j == 2 && arrows!(ax, [π/2 + 1], [-0.5*mJ], [0.5], [0])
+        xlims!(ax, (0, 2π))
     end
 
     Label(fig_cpr[1, 1, TopLeft()], "g",  padding = (-30, 0, -35, 0); style...)
@@ -118,13 +133,15 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
     for (i, kwargs) in enumerate(layout_trans)
         ax = TvI(fig_trans[i, 1]; kwargs...)
         ylims!(ax, (1e-4, 1e1))
+        i == 4 && ylims!(ax, (1e-6, 1e1))
         ax.xticks = ([10^-4, 10^-2, 1], [L"10^{-4}", L"10^{-2}", L"1"])
-        ax.yticks = ([10^-4, 1], [L"10^{-4}", L"1"])
+        ax.yticks = ([10^-6, 10^-4, 1], [L"10^{-6}",L"10^{-4}", L"1"])
         ax.yminorticksvisible = true
         ax.yminorticks = [10^-3, 10^-2, 10^-1]
         ax.ylabelpadding = -30
-        text!(ax, 10^-1, 5*10^-3; text = true_names[kwargs.name], fontsize = 10, align = (:center, :center))
-        text!(ax, 10^-1, 5*10^-4; text = L"\frac{\Phi}{\Phi_0} = %$(kwargs.x)", fontsize = 10, align = (:center, :center))
+        text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 4, 3); text = true_names[kwargs.name], fontsize = 10, align = (:center, :center))
+        text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 5.5, 4); text = L"\frac{\Phi}{\Phi_0} = %$(kwargs.x)", fontsize = 10, align = (:center, :center))
+
         i == 2 && axislegend(position = :lt, framevisible = false, labelsize = 10, linewidth = 1)
         i != Int(length(layout_trans)) && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
         i != 1 && rowgap!(fig_trans, i - 1, 5)
@@ -151,7 +168,23 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i != 1 && hideydecorations!(ax, ticks = false, minorticks = false, grid = false)
         i != 1 && colgap!(fig_phases, i - 1, 15)
         Label(fig_phases[1, i, Top()],L"%$(true_names[kwargs.name]), %$(print_T(kwargs.TN))"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0))
-
+        if i ∈ 1:2
+            text!(ax, 0.7, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1.1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+        end
+        if i == 3
+            text!(ax, 0.6, π/2; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            arrows!(ax, [1.4], [π/2], [0.2], [0]; color = :white)
+        end
+        if i == 4
+            text!(ax, 0.6, π/2 + π/6; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1.0, π/2 +π/6; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            arrows!(ax, [1.4], [π/2 + π/6], [0.2], [0]; color = :white)
+            text!(ax, 0.6,  π/6; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1.1, π/6; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            arrows!(ax, [1.5], [π/6], [0.8], [0]; color = :white)
+        end
     end
 
     Colorbar(fig_phases[1, 7]; colormap = cmap, label = L"$J_S$ (arb. units)", limits = (-1, 1),  ticks = [-1, 1], labelpadding = -15, labelsize = 12)
@@ -169,7 +202,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
     colsize!(fig.layout, 1, Relative(0.6))
     colsize!(fig.layout, 2, Relative(0.25))
     colsize!(fig.layout, 3, Relative(0.15))
-        
+
     colgap!(fig.layout, 1, 5)
     colgap!(fig.layout, 2, 25)
 
@@ -199,7 +232,7 @@ layout_cpr = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 layout_trans = [
-    (name = "hc", x = 1, br = 0, bl = 0.3) (name = "hc", x = 0.65) (name = "mhc", x = 0.65) (name = "scm", x = 0.65);
+    (name = "hc", x = 1, br = 0, bl = 0.3) (name = "hc", x = 0.65) (name = "mhc", x = 0.65) (name = "scm", x = 0.65, br = 0, bl = 0.3);
 ]
 
 layout_phases = [

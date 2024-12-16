@@ -14,7 +14,7 @@ function calc_Josephson(name::String)
     # Load parameters
     @unpack Brng, Φrng, φrng, outdir = calc_params 
     # Load Josephson integrator parameters
-    @unpack imshift, atol, maxevals, order = j_params
+    @unpack imshift, imshift0, atol, maxevals, order = j_params
 
     # Remove possible pathological points
     deleteat!(Brng, findall(x -> isapprox(x, 0), Brng))
@@ -66,8 +66,14 @@ function calc_Josephson(name::String)
     #ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
     if @isdefined Zs
-        args = (Φrng,  Zs, )
-        ipath = Paths.polygon((mu, kBT; Φ = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift*1im)     
+        args = (Φrng,  Zs,)
+        if imshift0 != false
+            imshift_dict = Dict([Z => imshift for Z in Zs if Z != 0])
+            imshift_dict[0] = imshift0
+        else
+            imshift_dict = Dict([Z => imshift for Z in Zs])
+        end
+        ipath = Paths.polygon((mu, kBT; Φ = 0, Z = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift_dict[Z]*1im)     
     else
         args = (Brng, )
         ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(B)*1im, 0) .+ imshift*1im)     

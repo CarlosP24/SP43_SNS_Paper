@@ -71,3 +71,12 @@ end
 
 
 ##
+
+function fig_andreev(name::String, TN; colorrange = (0, 1e-2), Φ = 1)
+    fig = Figure()
+    ax = plot_andreev(fig[1, 1], name; TN,  colorrange, Φ)
+    return fig
+end
+
+fig = fig_andreev("scm_test", 1e-4; colorrange = (0, 1), Φ = 1)
+fig
