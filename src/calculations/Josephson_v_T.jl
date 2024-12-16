@@ -3,7 +3,7 @@ function calc_jos_v_T(name::String)
 
     @unpack wireL, wireR, junction, calc_params, j_params = system
     @unpack φrng, Φs, Bs, Trng, outdir = calc_params 
-    @unpack imshift, atol, maxevals, order = j_params
+    @unpack imshift, imshift0, atol, maxevals, order = j_params
 
     φrng1, φrng2 = filter_πs(φrng)
     φrng = vcat(φrng1, φrng2)
