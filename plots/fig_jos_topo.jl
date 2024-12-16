@@ -141,7 +141,6 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         ax.ylabelpadding = -30
         text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 4, 3); text = true_names[kwargs.name], fontsize = 10, align = (:center, :center))
         text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 5.5, 4); text = L"\frac{\Phi}{\Phi_0} = %$(kwargs.x)", fontsize = 10, align = (:center, :center))
-
         i == 2 && axislegend(position = :lt, framevisible = false, labelsize = 10, linewidth = 1)
         i != Int(length(layout_trans)) && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
         i != 1 && rowgap!(fig_trans, i - 1, 5)
@@ -232,7 +231,7 @@ layout_cpr = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 layout_trans = [
-    (name = "hc", x = 1, br = 0, bl = 0.3) (name = "hc", x = 0.65) (name = "mhc", x = 0.65) (name = "scm", x = 0.65, br = 0, bl = 0.3);
+    (name = "hc", x = 1, br = 0, bl = 0.3) (name = "hc", x = 0.65) (name = "mhc", x = 0.65) (name = "scm", x = 0.65, bl = 0.3, br = 0.5);
 ]
 
 layout_phases = [

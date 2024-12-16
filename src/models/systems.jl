@@ -72,7 +72,7 @@ systems_mhc = Dict(
 )
 
 systems_scm_triv = Dict(
-    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5)) for i in Ts]
+    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
 )
 
 systems_scm = Dict(
@@ -80,7 +80,7 @@ systems_scm = Dict(
 )
 
 system_test_scm = Dict(
-    ["scm_test_$(i)" => System(; wireL = (; wires["jos_scm"]..., Zs = 0), wireR = (; wires["jos_scm"]..., Zs = 0), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6), calc_params = Calc_Params(Calc_Params(); ωrng = subdiv(-5e-5, 0, 51) .+ 1e-6im, Φs = [1])) for i in Ts]
+    ["scm_test_$(i)" => System(; wireL = (; wires["jos_scm"]..., Zs = 0, d = 10), wireR = (;wires["jos_scm"]..., Zs = 0, d = 10), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5)) for i in Ts]
 )
 
 

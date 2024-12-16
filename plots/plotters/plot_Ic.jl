@@ -94,3 +94,14 @@ function KO1(name::String; basepath = "data")
 
     return zubkov, gap_L, gap_R
 end
+
+## Test plots 
+function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
+    fig = Figure()
+    ax = Axis(fig[1, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", yscale = log10)
+    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing))
+    return fig
+end
+
+fig = fig_Ics("scm_test_0.0001.jld2")
+fig

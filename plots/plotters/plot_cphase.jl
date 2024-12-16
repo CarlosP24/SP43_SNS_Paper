@@ -70,12 +70,14 @@ end
     "hc" => [0.7, 1.3],
     "mhc" => [1.1, 1.5],
     "scm" => [1, 1],
-    "scm_triv" => [0.5, 1.5]
+    "scm_triv" => [0.5, 1.5],
+    "scm_test" => [0.5, 1.5]
 )
 tnames = Dict(
     "hc" => "HC",
     "mhc" => "TC",
     "scm" => "SC",
+    "scm_test" => "SC, test",
     "scm_triv" => "SC, trivial"
 )
 function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw...)
@@ -92,7 +94,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("mhc", 1e-4, [0.55, 0.67, 0.75]; lw = 2, showmajo = true )
+fig = fig_cpr("scm_test", 1e-4, [0.65]; lw = 2, showmajo = true )
 #save("test_cpr.pdf", fig)
 fig
 
