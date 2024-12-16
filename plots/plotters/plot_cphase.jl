@@ -55,6 +55,7 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
             end
         end
         lines!(ax, φrng, JZ[Z]; label, color, linewidth)
+        #scatter!(ax,φrng, JZ[Z]; label, color, )
     end
 
     xlims!(ax, (first(φrng), last(φrng)))
@@ -94,7 +95,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("scm_test", 1e-4, [0.65]; lw = 2, showmajo = true )
+fig = fig_cpr("scm", 1e-4, [0.65]; lw = 2, showmajo = true )
 #save("test_cpr.pdf", fig)
 fig
 
