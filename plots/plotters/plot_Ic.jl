@@ -107,5 +107,5 @@ function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow,
     return fig
 end
 
-fig = fig_Ics("scm_test_0.0001.jld2")
+fig = fig_Ics("mhc_30_L_0.0001.jld2")
 fig
