@@ -72,7 +72,7 @@ systems_mhc = Dict(
 )
 
 systems_scm_triv = Dict(
-    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), v) for i in Ts]
+    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i),) for i in Ts]
 )
 
 systems_scm = Dict(
