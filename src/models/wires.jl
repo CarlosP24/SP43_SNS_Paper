@@ -143,3 +143,12 @@ wires["jos_scm"] = (; wires["jos_hc"]...,
 wires["jos_scm_triv"] = (; wires["jos_scm"]...,
     preα = 0,
 )
+
+wires["jos_mhc_30"] = (; wires["jos_mhc"]...,
+    w = 30,
+    d = 5,
+)
+
+wires["jos_mhc_30_L"] = (; wires["jos_mhc_30"]...,
+    L = 100,
+)

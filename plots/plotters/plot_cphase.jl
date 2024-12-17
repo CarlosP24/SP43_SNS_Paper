@@ -95,10 +95,14 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("scm_test", 1e-4, [1]; lw = 2, showmajo = true )
+fig = fig_cpr("scm_test", 0.9, [1]; lw = 2, showmajo = true )
 #save("test_cpr.pdf", fig)
 fig
 
+for TN in [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
+    fig = fig_cpr("scm_test", TN, [1]; lw = 2, showmajo = true)
+    save("figures/cphases/scm_majo_$(TN).pdf", fig)
+end
 ##
 
 dest = "figures/cphases"

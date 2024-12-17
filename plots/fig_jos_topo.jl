@@ -224,8 +224,8 @@ kws_currents = [
 layout_cpr = [
     ("hc", 1e-4, 0.6) ("hc", 0.9, 0.6);
     ("mhc", 1e-4, 1) ("mhc", 0.9, 1);
-    ("scm", 1e-4, 1) ("scm", 0.9, 1);
-    ("scm", 1e-4, 2) ("scm", 0.9, 2);
+    ("scm", 1e-4, 1) ("scm", 0.1, 1);
+    ("scm", 1e-4, 2) ("scm", 0.1, 2);
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
@@ -244,5 +244,5 @@ layout_phases = [
 ]
 
 fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_trans, layout_phases)
-save("figures/fig_jos_topo.pdf", fig)
+save("figures/fig_jos_topo_old.pdf", fig)
 fig
