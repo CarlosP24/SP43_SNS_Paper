@@ -84,15 +84,15 @@ system_test_scm = Dict(
 )
 
 systems_mhc_30 = Dict(
-    ["mhc_30_$(i)" => System(; wireL = wires["jos_mhc_30"], wireR = wires["jos_mhc_30"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-5, maxevals = 1e6)) for i in Ts]
+    ["mhc_30_$(i)" => System(; wireL = wires["jos_mhc_30"], wireR = wires["jos_mhc_30"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-5, maxevals = 1e5)) for i in Ts]
 )
 
 systems_mhc_30_L = Dict(
-    ["mhc_30_L_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-5, maxevals = 1e6)) for i in Ts]
+    ["mhc_30_L_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-5, maxevals = 1e5)) for i in Ts]
 )
 
 systems_mhc_30_Lmismatch = Dict(
-    ["mhc_30_Lmismatch_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L2"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-5, maxevals = 1e6)) for i in Ts]
+    ["mhc_30_Lmismatch_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L2"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-5, maxevals = 1e5)) for i in Ts]
 )
 
 
