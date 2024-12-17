@@ -102,8 +102,12 @@ end
 ## Test plots 
 function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
     fig = Figure()
-    ax = Axis(fig[1, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", yscale = log10)
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30_L"; Zs = [-2, 2])
+    hidexdecorations!(ax, ticks = false)
+    xlims!(ax, (0, 2.5))
+    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", yscale = log10)
     plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing))
+    xlims!(ax, (0, 2.5))
     return fig
 end
 
