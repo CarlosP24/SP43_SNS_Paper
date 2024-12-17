@@ -150,5 +150,9 @@ wires["jos_mhc_30"] = (; wires["jos_mhc"]...,
 )
 
 wires["jos_mhc_30_L"] = (; wires["jos_mhc_30"]...,
-    L = 100,
+    L = 50,
+)
+
+wires["jos_mhc_30_L2"] = (; wires["jos_mhc_30"]...,
+    L = 55,
 )

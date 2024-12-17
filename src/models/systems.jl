@@ -72,7 +72,7 @@ systems_mhc = Dict(
 )
 
 systems_scm_triv = Dict(
-    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
+    ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i), v) for i in Ts]
 )
 
 systems_scm = Dict(
@@ -81,6 +81,18 @@ systems_scm = Dict(
 
 system_test_scm = Dict(
     ["scm_test_$(i)" => System(; wireL = (; wires["jos_scm"]..., Zs = 0), wireR = (;wires["jos_scm"]..., Zs = 0), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5), calc_params = Calc_Params(Calc_Params(); φrng = vcat(subdiv(0, π - 1e-2, 50), subdiv(π - 1e-2, π + 1e-2, 51), subdiv(π + 1e-2, 2π, 50)), Φrng = [1])) for i in Ts]
+)
+
+systems_mhc_30 = Dict(
+    ["mhc_30_$(i)" => System(; wireL = wires["jos_mhc_30"], wireR = wires["jos_mhc_30"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
+)
+
+systems_mhc_30_L = Dict(
+    ["mhc_30_L_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
+)
+
+systems_mhc_30_Lmismatch = Dict(
+    ["mhc_30_Lmismatch_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L2"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-4, maxevals = 1e6)) for i in Ts]
 )
 
 
@@ -94,6 +106,8 @@ systems_jos_topo = merge(systems_hc, systems_mhc, systems_scm)
 systems_jos_hc = merge(systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc)
 systems_jos_scm = merge(systems_scm_triv, systems_scm)
 
+systems_length = merge(systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch)
+
 systems_dict = Dict(
     "systems_ref" => systems_ref,
     "systems_ref_Z" => systems_ref_Z,
@@ -104,8 +118,12 @@ systems_dict = Dict(
     "systems_jos_triv" => systems_jos_triv,
     "systems_jos_topo" => systems_jos_topo,
     "systems_jos_hc" => systems_jos_hc,
-    "systems_jos_scm" => systems_jos_scm
+    "systems_jos_scm" => systems_jos_scm,
+    "systems_jos_mhc_30" => systems_mhc_30,
+    "systems_jos_mhc_30_L" => systems_mhc_30_L,
+    "systems_jos_mhc_30_Lmismatch" => systems_mhc_30_Lmismatch,
+    "systems_jos_length" => systems_length
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm )
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch)
 

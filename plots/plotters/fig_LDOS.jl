@@ -4,5 +4,5 @@ function fig_LDOS(name; kw...)
     return fig
 end
 
-fig = fig_LDOS("jos_mhc"; colorrange = (1e-3, 1e-2), Zs = [0])
+fig = fig_LDOS("jos_mhc_30_L2"; colorrange = (0, 3e-2), )
 fig
