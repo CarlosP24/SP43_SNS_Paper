@@ -85,13 +85,18 @@ fig
 
 ## Caroli vs. Majorana crossing
 
-function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5))
-    fig = Figure(size = (1700, 700))
-    for (i, Φ) in enumerate(ΦsC)
-        ax = plot_andreev(fig[1, i], name; TN, colorrange = colorrangeC, Φ, Zs = [-2, 2])
+function fig_andreev_crossings(name::String, name0::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.92, 0.93, 21), colorrange0 = (0, 1), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5))
+    fig = Figure(size = (1700, 1100))
+    for (i, Φ) in enumerate(Φs0)
+        ax = plot_andreev(fig[1, i], name0; TN, colorrange = colorrange0, Φ,)
         hidexdecorations!(ax; ticks = false)
         i != 1 && hideydecorations!(ax, ticks = false)
         i != 1 && colgap!(fig.layout, i-1, 0)
+    end
+    for (i, Φ) in enumerate(ΦsC)
+        ax = plot_andreev(fig[2, i], name; TN, colorrange = colorrangeC, Φ, Zs = [-2, 2])
+        hidexdecorations!(ax; ticks = false)
+        i != 1 && hideydecorations!(ax, ticks = false)
         if i == 6
             text!(ax, π, 5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
             arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
@@ -106,7 +111,7 @@ function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), 
         end
     end
     for (i, Φ) in enumerate(ΦsM)
-        ax = plot_andreev(fig[2, i], name; TN, colorrange = colorrangeM, Φ, Zs = [0])
+        ax = plot_andreev(fig[3, i], name; TN, colorrange = colorrangeM, Φ, Zs = [0])
         i != 1 && hideydecorations!(ax, ticks = false)   
         ax.xticks = ([0, π, 2π], [" ", L"\pi", " "]) 
         ax.xlabel = ifelse(i == ceil(Int, length(ΦsM)/2), L"\varphi", "")
@@ -115,5 +120,5 @@ function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), 
     return fig 
 end
 
-fig = fig_andreev_crossings("mhc_30_L", 1e-4)
+fig = fig_andreev_crossings("mhc_30_L", "mhc_30", 1e-4)
 fig
