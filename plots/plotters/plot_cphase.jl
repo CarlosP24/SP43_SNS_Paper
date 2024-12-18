@@ -57,8 +57,8 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
                 end
             end
         end
-        lines!(ax, φrng, JZ[Z]; label, color, linewidth)
-        #scatter!(ax,φrng, JZ[Z]; label, color, )
+        #lines!(ax, φrng, JZ[Z]; label, color, linewidth)
+        scatter!(ax,φrng, JZ[Z]; label, color, )
     end
 
     xlims!(ax, (first(φrng), last(φrng)))
