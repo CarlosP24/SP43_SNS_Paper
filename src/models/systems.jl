@@ -107,7 +107,7 @@ systems_mhc_30_L = Dict(
         junction = Junction(; TN = i), 
         j_params = J_Params(; 
             imshift = 1e-7, 
-            maxevals = 1e5
+            maxevals = 1e6
         ), 
         calc_params = Calc_Params(Calc_Params(); 
             Φs = vcat(subdiv(0.57, 0.59, 21), subdiv(0.95, 0.97, 21)), 
