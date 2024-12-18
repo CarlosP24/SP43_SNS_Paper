@@ -53,7 +53,7 @@ systems_RLmismatch = Dict(
 )
 
 # Systems for josephson paper
-Ts = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+Ts = [1e-5, 1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
 systems_hc_triv = Dict(
     ["hc_triv_$(i)" => System(; wireL = wires["jos_hc_triv"], wireR = wires["jos_hc_triv"], junction = Junction(; TN = i)) for i in Ts]
@@ -112,10 +112,10 @@ systems_mhc_30_L = Dict(
             order = 21
         ), 
         calc_params = Calc_Params(Calc_Params(); 
-            Φs = vcat(subdiv(0.57, 0.59, 21), subdiv(0.95, 0.97, 21)), 
+            Φs = vcat(subdiv(0.57, 0.59, 21)), 
             ωrng = subdiv(1e-3, 0, 101) .+ 1e-4im, 
-            Φrng = subdiv(0.501, 0.6, 400),  
-            φrng = vcat(subdiv(0, π - 0.1, 51), subdiv(π-0.1, π+0.1, 51), subdiv(π+0.1, 2π, 51))
+            Φrng = subdiv(0.501, 0.6, 100),  
+            φrng = subdiv(0, 2π, 51)
         ) 
     ) 
     for i in Ts]
