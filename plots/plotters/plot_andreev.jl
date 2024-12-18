@@ -1,4 +1,4 @@
-function plot_andreev(pos, name::String; TN = 0.1, ωlims = nothing, Φ = 1, Zs = nothing, basepath = "data", colorrange = (0, 1e-1))
+function plot_andreev(pos, name::String; TN = 0.1, ωlims = nothing, Φ = 1, Zs = nothing, basepath = "data", colorrange = (0, 1e-1), kw...)
     path = "$(basepath)/Andreev/$(name)_$(TN).jld2"
     res = load(path)["res"]
 
@@ -28,7 +28,7 @@ function plot_andreev(pos, name::String; TN = 0.1, ωlims = nothing, Φ = 1, Zs 
         yticks = ([ωlims[1], 0, ωlims[2]], ["$(ωlims[1])", "", "$(ωlims[2])"])
     end
 
-    ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$\omega$ (meV)", yticks, xticks = ([0, π,  2π], [L"0", L"\pi",  L"2\pi"]), xminorticks = [π/2, 3π/2], xminorticksvisible = true)
+    ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$\omega$ (meV)", yticks, xticks = ([0, π,  2π], [L"0", L"\pi",  L"2\pi"]), xminorticks = [π/2, 3π/2], xminorticksvisible = true, kw...)
     heatmap!(ax, φrng, ωrng, abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
 
     return ax
