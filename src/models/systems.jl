@@ -106,13 +106,13 @@ systems_mhc_30_L = Dict(
         wireR = wires["jos_mhc_30_L"], 
         junction = Junction(; TN = i), 
         j_params = J_Params(; 
-            imshift = 1e-6, 
+            imshift = 1e-7, 
             maxevals = 1e5
         ), 
         calc_params = Calc_Params(Calc_Params(); 
             Φs = vcat(subdiv(0.57, 0.59, 21), subdiv(0.95, 0.97, 21)), 
             ωrng = subdiv(1e-3, 0, 101) .+ 1e-4im, 
-            Φrng = subdiv(0.501, 1.499, 400),  
+            Φrng = subdiv(0.501, 0.6, 400),  
             φrng = vcat(subdiv(0, π - 0.1, 21), subdiv(π-0.1, π+0.1, 21), subdiv(π+0.1, 2π, 21))
         ) 
     ) 

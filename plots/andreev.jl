@@ -85,49 +85,49 @@ fig
 
 ## Caroli vs. Majorana crossing
 
-function fig_andreev_crossings(name::String, name0::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.927, 0.947, 21), colorrange0 = (0, 3e-2), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5))
-    fig = Figure(size = (1700, 1100))
-    for (i, Φ) in enumerate(Φs0)
-        ax = plot_andreev(fig[1, i], name0; TN, colorrange = colorrange0, Φ, Zs = [2], alignmode = Outside())
-        hidexdecorations!(ax; ticks = false)
-        i != 1 && hideydecorations!(ax, ticks = false)
-        i != 1 && colgap!(fig.layout, i-1, 0)
-        hlines!(ax, 0; color = :white, linestyle = :dash)
+function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.927, 0.947, 21), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5), Zs = [-2, 2])
+    fig = Figure(size = (1700, 700))
+    for (i, Φ) in enumerate(ΦsC)
+        ax, ts = cphase(fig[1, i], name, TN, Φ; Zs, total = false, lw = 5)
+        ylims!(ax, (-5e-3, 5e-3))
+        i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
+        hidexdecorations!(ax, ticks = false, grid = false, minorticks = false)
     end
     for (i, Φ) in enumerate(ΦsC)
-        ax = plot_andreev(fig[2, i], name; TN, colorrange = colorrangeC, Φ, Zs = [2], alignmode = Outside())
+        ax = plot_andreev(fig[2, i], name; TN, colorrange = colorrangeC, Φ, Zs, )
         hidexdecorations!(ax; ticks = false)
+        ylims!(ax, high = 0)
         i != 1 && hideydecorations!(ax, ticks = false)
-        if i == 6
-            text!(ax, π, 5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
-            arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
-            text!(ax, π, -5e-4; text = "2", color = :white, align = (:center, :center), fontsize = 25)
-            arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
-        end
-        if i == 16
-            text!(ax, π, 5e-4; text = "2", color = :white, align = (:center, :center), fontsize = 25)
-            arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
-            text!(ax, π, -5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
-            arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
-        end
-        hlines!(ax, 0; color = :white, linestyle = :dash)
+        # if i == 6
+        #     text!(ax, π, 5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
+        #     arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
+        #     text!(ax, π, -5e-4; text = "2", color = :white, align = (:center, :center), fontsize = 25)
+        #     arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
+        # end
+        # if i == 16
+        #     text!(ax, π, 5e-4; text = "2", color = :white, align = (:center, :center), fontsize = 25)
+        #     arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
+        #     text!(ax, π, -5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
+        #     arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
+        # end
+        hlines!(ax, -2e-4; color = :white, linestyle = :dash)
     end
-    for (i, Φ) in enumerate(ΦsM)
-        ax = plot_andreev(fig[3, i], name; TN, colorrange = colorrangeM, Φ, Zs = [0], alignmode = Outside())
-        i != 1 && hideydecorations!(ax, ticks = false)   
-        ax.xticks = ([0, π, 2π], [" ", L"\pi", " "]) 
-        ax.xlabel = L"\varphi"
-        ax.xlabelcolor = ifelse(i == ceil(Int, length(ΦsM)/2),:black, :white)
-        hlines!(ax, 0; color = :white, linestyle = :dash)
-    end
-    ax = Axis(fig[1:3, 1:21], xticks = ([2, 5, 8], [L"\Phi < \Phi_{crossing}", L"\Phi_{crossing}", L"\Phi > \Phi_{crossing}"]))
-    hidespines!(ax)
-    hideydecorations!(ax)
-    hidexdecorations!(ax, ticklabels = false)
+    # for (i, Φ) in enumerate(ΦsM)
+    #     ax = plot_andreev(fig[3, i], name; TN, colorrange = colorrangeM, Φ, Zs = [0], )
+    #     i != 1 && hideydecorations!(ax, ticks = false)   
+    #     ax.xticks = ([0, π, 2π], [" ", L"\pi", " "]) 
+    #     ax.xlabel = L"\varphi"
+    #     ax.xlabelcolor = ifelse(i == ceil(Int, length(ΦsM)/2),:black, :white)
+    #     hlines!(ax, 0; color = :white, linestyle = :dash)
+    # end
+    # ax = Axis(fig[1:3, 1:21], xticks = ([2, 5, 8], [L"\Phi < \Phi_{crossing}", L"\Phi_{crossing}", L"\Phi > \Phi_{crossing}"]))
+    # hidespines!(ax)
+    # hideydecorations!(ax)
+    # hidexdecorations!(ax, ticklabels = false)
     
     rowgap!(fig.layout, 1, 5)
     return fig 
 end
 
-fig = fig_andreev_crossings("mhc_30_L", "mhc_30", 1e-4)
+fig = fig_andreev_crossings("mhc_30_L",  1e-4; Zs = [2])
 fig
