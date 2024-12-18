@@ -85,10 +85,10 @@ fig
 
 ## Caroli vs. Majorana crossing
 
-function fig_andreev_crossings(name::String, name0::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.92, 0.93, 21), colorrange0 = (0, 1), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5))
+function fig_andreev_crossings(name::String, name0::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.927, 0.947, 21), colorrange0 = (0, 1e-1), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5))
     fig = Figure(size = (1700, 1100))
     for (i, Φ) in enumerate(Φs0)
-        ax = plot_andreev(fig[1, i], name0; TN, colorrange = colorrange0, Φ,)
+        ax = plot_andreev(fig[1, i], name0; TN, colorrange = colorrange0, Φ, Zs = [-2, 2])
         hidexdecorations!(ax; ticks = false)
         i != 1 && hideydecorations!(ax, ticks = false)
         i != 1 && colgap!(fig.layout, i-1, 0)
