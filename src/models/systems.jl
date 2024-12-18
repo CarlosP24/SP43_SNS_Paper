@@ -106,7 +106,7 @@ systems_mhc_30_L = Dict(
         wireR = wires["jos_mhc_30_L"], 
         junction = Junction(; TN = i), 
         j_params = J_Params(; 
-            imshift = 1e-4, 
+            imshift = 1e-9, 
             maxevals = 1e5,
             atol = 1e-7,
             order = 21
