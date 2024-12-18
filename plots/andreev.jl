@@ -110,7 +110,7 @@ function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), 
         #     text!(ax, π, -5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
         #     arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
         # end
-        hlines!(ax, -2e-4; color = :white, linestyle = :dash)
+        #hlines!(ax, -2e-4; color = :white, linestyle = :dash)
     end
     # for (i, Φ) in enumerate(ΦsM)
     #     ax = plot_andreev(fig[3, i], name; TN, colorrange = colorrangeM, Φ, Zs = [0], )
@@ -129,5 +129,5 @@ function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), 
     return fig 
 end
 
-fig = fig_andreev_crossings("mhc_30_L",  1e-4; Zs = [2])
+fig = fig_andreev_crossings("mhc_30_L",  1e-4; Zs = [-2, 2])
 fig
