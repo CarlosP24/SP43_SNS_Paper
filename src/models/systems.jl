@@ -84,11 +84,11 @@ system_test_scm = Dict(
 )
 
 systems_mhc_30 = Dict(
-    ["mhc_30_$(i)" => System(; wireL = (; wires["jos_mhc_30"]..., Zs = [-2, 0, 2]), wireR = (; wires["jos_mhc_30"]...,  Zs = [-2, 0, 2]), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-6, maxevals = 1e5), calc_params = Calc_Params(Calc_Params(); Φs = vcat(subdiv(0.927, 0.947, 21), [0.96]), ωrng = subdiv(1e-3, 0, 51) .+ 1e-4im, Φrng = subdiv(0.03, 2.499, 200),  φrng = subdiv(0, 2π, 101))) for i in Ts]
+    ["mhc_30_$(i)" => System(; wireL = (; wires["jos_mhc_30"]..., Zs = [-2, 0, 2]), wireR = (; wires["jos_mhc_30"]...,  Zs = [-2, 0, 2]), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-6, maxevals = 1e5), calc_params = Calc_Params(Calc_Params(); Φs = vcat(subdiv(0.927, 0.947, 21), [0.96]), ωrng = subdiv(1e-3, 0, 51) .+ 1e-4im, )) for i in Ts]
 )
 
 systems_mhc_30_L = Dict(
-    ["mhc_30_L_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-6, maxevals = 1e7), calc_params = Calc_Params(Calc_Params(); Φs = vcat(subdiv(0.57, 0.59, 21), subdiv(0.95, 0.97, 21)), ωrng = subdiv(1e-3, 0, 101) .+ 1e-4im,) ) for i in Ts]
+    ["mhc_30_L_$(i)" => System(; wireL = wires["jos_mhc_30_L"], wireR = wires["jos_mhc_30_L"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-6, maxevals = 1e7), calc_params = Calc_Params(Calc_Params(); Φs = vcat(subdiv(0.57, 0.59, 21), subdiv(0.95, 0.97, 21)), ωrng = subdiv(1e-3, 0, 101) .+ 1e-4im, Φrng = subdiv(0.03, 2.499, 200),  φrng = subdiv(0, 2π, 101)) ) for i in Ts]
 )
 
 systems_mhc_30_Lmismatch = Dict(
