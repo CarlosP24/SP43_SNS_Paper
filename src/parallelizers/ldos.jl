@@ -35,32 +35,32 @@ end
     pandreev(ρ, φrng, ωrng; kw...)
 Compute the Andreev spectrukm given by ρ::LocalSpectralDensitySlice for a set of phaseshifts and energies, given a junction transmission τ.
 """
-function pandreev(ρ, φrng, ωrng; kw...)
-    pts = Iterators.product(φrng, ωrng)
+function pandreev(ρ, φrng, ωrng, Bs; kw...)
+    pts = Iterators.product(φrng, ωrng, Bs)
     Andreev = @showprogress pmap(pts) do pt 
-        φ, ω = pt
+        φ, ω, B = pt
         ld = try 
-            ρ(ω; ω = ω, phase = φ, kw...)
+            ρ(ω; ω = ω, phase = φ, B, kw...)
         catch
             NaN
         end
         return ld 
     end
     Andreevarray = reshape(Andreev, size(pts)...)
-    return sum.(Andreevarray)
+    return Dict([B => sum.(Andreevarray[:, :, i]) for (i, B) in enumerate(Bs)])
 end
 
-function pandreev(ρ, φrng, ωrng, Zs; kw...)
-    pts = Iterators.product(φrng, ωrng, Zs)
+function pandreev(ρ, φrng, ωrng, Zs, Φs; kw...)
+    pts = Iterators.product(φrng, ωrng, Zs, Φs)
     Andreev = @showprogress pmap(pts) do pt 
-        φ, ω, Z = pt
+        φ, ω, Z, Φ = pt
         ld = try 
-            ρ(ω; ω = ω, phase = φ, Z, kw...)
+            ρ(ω; ω, phase = φ, Z, Φ, kw...)
         catch
             NaN
         end
         return ld 
     end
     Andreevarray = reshape(Andreev, size(pts)...)
-    return Dict([Z => sum.(Andreevarray[:, :, i]) for (i, Z) in enumerate(Zs)])
+    return Dict([Φ => Dict([Z => sum.(Andreevarray[:, :, i, j]) for (i, Z) in enumerate(Zs)]) for (j, Φ) in enumerate(Φs)])
 end

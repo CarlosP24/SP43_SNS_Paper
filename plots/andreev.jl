@@ -75,8 +75,9 @@ end
 function fig_andreev(name::String, TN; colorrange = (0, 1e-2), Φ = 1)
     fig = Figure()
     ax = plot_andreev(fig[1, 1], name; TN,  colorrange, Φ)
+    #ax.yticks = [-1e-2, -5e-3, 0, 5e-3, 1e-2]
     return fig
 end
 
-fig = fig_andreev("scm_test", 1e-1; colorrange = (0, 1e-1), Φ = 1.45)
+fig = fig_andreev("mhc_30_L", 1e-4; colorrange = (0, 1), Φ = 0.587)
 fig

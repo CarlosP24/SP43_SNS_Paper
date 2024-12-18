@@ -42,14 +42,14 @@ function calc_Andreev(name::String)
     println("τ = $τ")
 
     # Compute LDOS
-    (xrng, args, xs) = if @isdefined Zs
-        (Φrng, (ωrng, Zs), [(Φ = x,) for x in Φs])
+    (xrng, args) = if @isdefined Zs
+        (Φrng, (ωrng, Zs, Φs))
     else
-        (Brng, (ωrng), [(B = x,) for x in Bs])
+        (Brng, (ωrng, Bs))
     end
 
     #LDOS_phases = Dict([phase => pldos(ldos(g[attach_link[gs]]), xrng, args...; τ, phase) for phase in φs])
-    LDOS_xs = Dict([x[1] => pandreev(ldos(g[attach_link[gs]]), φrng, args...; τ, x...) for x in xs])
+    LDOS_xs = pandreev(ldos(g[attach_link[gs]]), φrng, args...; τ)
 
     return Results(;
         params = calc_params2,
