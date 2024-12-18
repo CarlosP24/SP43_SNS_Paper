@@ -113,7 +113,7 @@ systems_mhc_30_L = Dict(
             Φs = vcat(subdiv(0.57, 0.59, 21), subdiv(0.95, 0.97, 21)), 
             ωrng = subdiv(1e-3, 0, 101) .+ 1e-4im, 
             Φrng = subdiv(0.03, 2.499, 200),  
-            φrng = subdiv(0, 2π, 101)
+            φrng = vcat(subdiv(0, π - 0.1, 21), subdiv(π-0.1, π+0.1, 21), subdiv(π+0.1, 2π, 21))
         ) 
     ) 
     for i in Ts]
