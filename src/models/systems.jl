@@ -102,8 +102,8 @@ systems_mhc_30 = Dict(
 
 systems_mhc_30_L = Dict(
     ["mhc_30_L_$(i)" => System(; 
-        wireL = wires["jos_mhc_30_L"], 
-        wireR = wires["jos_mhc_30_L"], 
+        wireL = (; wires["jos_mhc_30_L"]..., Zs = [-2, 0, 2]), 
+        wireR = (; wires["jos_mhc_30_L"]..., Zs = [-2, 0, 2]), 
         junction = Junction(; TN = i), 
         j_params = J_Params(; 
             imshift = 1e-9, 
