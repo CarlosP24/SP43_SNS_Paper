@@ -75,9 +75,45 @@ end
 function fig_andreev(name::String, TN; colorrange = (0, 1e-2), Φ = 1)
     fig = Figure()
     ax = plot_andreev(fig[1, 1], name; TN,  colorrange, Φ)
+    Label(fig[1, 1, Top()], L"$\Phi = %$(Φ) \Phi_0$")
     #ax.yticks = [-1e-2, -5e-3, 0, 5e-3, 1e-2]
     return fig
 end
 
-fig = fig_andreev("mhc_30_L", 1e-4; colorrange = (0, 1), Φ = 0.587)
+fig = fig_andreev("mhc_30", 1e-4; colorrange = (0, 1), Φ = 0.96)
+fig
+
+## Caroli vs. Majorana crossing
+
+function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), colorrangeC = (0, 0.9), colorrangeM = (0, 0.5))
+    fig = Figure(size = (1700, 700))
+    for (i, Φ) in enumerate(ΦsC)
+        ax = plot_andreev(fig[1, i], name; TN, colorrange = colorrangeC, Φ, Zs = [-2, 2])
+        hidexdecorations!(ax; ticks = false)
+        i != 1 && hideydecorations!(ax, ticks = false)
+        i != 1 && colgap!(fig.layout, i-1, 0)
+        if i == 6
+            text!(ax, π, 5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
+            arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
+            text!(ax, π, -5e-4; text = "2", color = :white, align = (:center, :center), fontsize = 25)
+            arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
+        end
+        if i == 16
+            text!(ax, π, 5e-4; text = "2", color = :white, align = (:center, :center), fontsize = 25)
+            arrows!(ax, [π], [4e-4], [0], [-1.5e-4]; color = :white)
+            text!(ax, π, -5e-4; text = "-2", color = :white, align = (:center, :center), fontsize = 25)
+            arrows!(ax, [π], [-4e-4], [0], [1.5e-4]; color = :white)
+        end
+    end
+    for (i, Φ) in enumerate(ΦsM)
+        ax = plot_andreev(fig[2, i], name; TN, colorrange = colorrangeM, Φ, Zs = [0])
+        i != 1 && hideydecorations!(ax, ticks = false)   
+        ax.xticks = ([0, π, 2π], [" ", L"\pi", " "]) 
+        ax.xlabel = ifelse(i == ceil(Int, length(ΦsM)/2), L"\varphi", "")
+    end
+    rowgap!(fig.layout, 1, 5)
+    return fig 
+end
+
+fig = fig_andreev_crossings("mhc_30_L", 1e-4)
 fig

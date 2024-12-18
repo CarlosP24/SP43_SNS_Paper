@@ -104,8 +104,8 @@ end
 ## Test plots 
 function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
     fig = Figure()
-    xs = [0.96,  0.58, 1.39,  0.75, 0.575 ]
-    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30_L"; colorrange = (0, 3e-2))
+    xs = [0.96,  0.58, 1.39,  0.75, 0.575, 0.93 ]
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30"; colorrange = (0, 3e-2), Zs = [-2, 2])
     hidexdecorations!(ax, ticks = false)
     xlims!(ax, (0.5, 1.5))
     [vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
@@ -117,5 +117,5 @@ function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow,
     return fig
 end
 
-fig = fig_Ics("mhc_30_L_0.0001.jld2")
+fig = fig_Ics("mhc_30_0.0001.jld2")
 fig
