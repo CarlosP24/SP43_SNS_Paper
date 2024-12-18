@@ -129,5 +129,5 @@ function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), 
     return fig 
 end
 
-fig = fig_andreev_crossings("mhc_30_L",  1e-4; Zs = [-2, 2])
+fig = fig_andreev_crossings("mhc_30_L",  1e-4; Zs = [-2])
 fig
