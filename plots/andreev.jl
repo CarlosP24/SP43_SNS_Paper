@@ -85,18 +85,18 @@ fig
 
 ## Caroli vs. Majorana crossing
 
-function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.927, 0.947, 21), colorrangeC = (0.5, 1), colorrangeM = (0, 0.5), Zs = [-2, 2], cmaps = [:amp, :algae])
+function fig_andreev_crossings(name::String; ΦsC = subdiv(0.57, 0.59, 21), ΦsM = subdiv(0.95, 0.97, 21), Φs0 = subdiv(0.927, 0.947, 21), colorrangeC = (0.5, 1), colorrangeM = (0, 0.5), Zs = [-2, 2], cmaps = [:amp, :algae])
     fig = Figure(size = (1700, 700))
-    for (i, Φ) in enumerate(ΦsC)
-        ax, ts = cphase(fig[1, i], name, TN, Φ; Zs, total = true, lw = 5)
-        ylims!(ax, (-5e-3, 5e-3))
-        i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
-        hidexdecorations!(ax, ticks = false, grid = false, minorticks = false)
-        i != 1 && colgap!(fig.layout, i-1, 0)
-    end
+    # for (i, Φ) in enumerate(ΦsC)
+    #     ax, ts = cphase(fig[1, i], name, TN, Φ; Zs, total = true, lw = 5)
+    #     ylims!(ax, (-5e-3, 5e-3))
+    #     i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
+    #     hidexdecorations!(ax, ticks = false, grid = false, minorticks = false)
+    #     i != 1 && colgap!(fig.layout, i-1, 0)
+    # end
     for (i, Φ) in enumerate(ΦsC)
         for (j,Z) in enumerate(Zs)
-            ax = plot_andreev(fig[2, i], name; TN, colorrange = colorrangeC, Φ, Zs = [Z], colormap = cmaps[j] )
+            ax = plot_andreev(fig[1, i], name; colorrange = colorrangeC, Φ, Zs = [Z], colormap = cmaps[j] )
             i != 1 && hideydecorations!(ax, ticks = false)
             ax.backgroundcolor = :black
             j == 2 && hlines!(ax, 0; color = :white, linestyle = :dash)
@@ -129,9 +129,9 @@ function fig_andreev_crossings(name::String, TN; ΦsC = subdiv(0.57, 0.59, 21), 
     # hideydecorations!(ax)
     # hidexdecorations!(ax, ticklabels = false)
     
-    rowgap!(fig.layout, 1, 5)
+    #rowgap!(fig.layout, 1, 5)
     return fig 
 end
 
-fig = fig_andreev_crossings("mhc_30_L",  1e-4; Zs = [-2, 2])
+fig = fig_andreev_crossings("mhc_30_L_1.0e-5"; Zs = [-2, 2])
 fig
