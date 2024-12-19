@@ -22,12 +22,14 @@ function add_colorbar(pos; colormap = :thermal, label = L"$$ LDOS (arb. units)",
     Colorbar(pos; colormap, label, limits,  ticklabelsvisible = true, ticks = [limits...], labelpadding,  width = 15,  ticksize = 2, ticklabelpad = 5, labelsize) 
 end
 
-function plot_LDOS(pos, name::String; basepath = "data", colorrange = (1e-4, 1e-2), Zs = nothing, highlight_majo = false, xcut = nothing)
-    path = "$(basepath)/LDOS/$(name).jld2"
+function plot_LDOS(pos, name::String; basepath = "data/LDOS", colorrange = (1e-4, 1e-2), Zs = nothing, highlight_majo = false, xcut = nothing)
+    path = "$(basepath)/$(name).jld2"
     res = load(path)["res"]
 
     @unpack params, wire, LDOS = res
-
+    if wire === nothing
+        wire = res.system.wireL
+    end
     @unpack Brng, Φrng, ωrng = params
 
     if haskey(wire, :Zs)

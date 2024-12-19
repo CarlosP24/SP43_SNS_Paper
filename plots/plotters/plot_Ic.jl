@@ -24,8 +24,8 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         Ic = Ic[xcut:end]
     end
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    #lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
-    scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
 
     xlims!(ax, (0, last(xrng)))
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")

@@ -126,7 +126,7 @@ systems_mhc_30_Lmismatch = Dict(
         wireL = wires["jos_mhc_30_L"], 
         wireR = wires["jos_mhc_30_L2"], 
         junction = Junction(; TN = i), 
-        j_params = J_Params(; 
+        j_params = J_Params(;
             imshift = 1e-6, 
             maxevals = 1e5
         )
