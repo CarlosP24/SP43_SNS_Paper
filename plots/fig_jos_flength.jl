@@ -11,7 +11,8 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         colorscale = log10.(TNS)
         colorscale .-= minimum(colorscale)
         colorscale /= maximum(colorscale)
-        global colors = get(colormap, colorscale)
+        println(colorscale)
+        global colors = length(TNS) == 1 ? [:red] : get(colormap, colorscale)
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
         println(point_dict)
         ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, kw...)
@@ -137,7 +138,7 @@ kws_currents = [
     (Zs = -5:5,) (Zs = 0,) (Zs = filter!(Z -> Z != 0, collect(-5:5)),)
 ]
 
-TNS = [1e-4, 1e-3]
+TNS = [1e-4]
 
 layout_cpr = [
     ("mhc_30_Long", 1e-4, 0.6);
@@ -153,5 +154,5 @@ layout_phases = [
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
-save("figures/fig_jos_flength_1000.pdf", fig)
+save("figures/fig_jos_flength_500.pdf", fig)
 fig
