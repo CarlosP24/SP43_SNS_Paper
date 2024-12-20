@@ -79,7 +79,7 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_
 
     for (i, kwargs) in enumerate(layout_phases)
         ax = plot_checker(fig_phases[1, i], kwargs.name, kwargs.TN; kwargs.atol, colorrange = (-kwargs.Jmax, kwargs.Jmax), cmap, kwargs.Zfunc)
-        vlines!(ax, [0.95, 1.12]; color = :white, linestyle = :dash)
+        #vlines!(ax, [0.95, 1.12]; color = :white, linestyle = :dash)
         ax.yticks = ([-π, 0, π], [L"-\pi","", L"\pi"])
         ax.xticks = ([0.05, 1, 2], [L"0", L"1", L"2"])
         ax.xminorticks = [0.5, 1.5]
@@ -153,4 +153,5 @@ layout_phases = [
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
+save("figures/fig_jos_flength_1000.pdf", fig)
 fig
