@@ -1,4 +1,4 @@
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -9,7 +9,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
 
     if Js isa Dict
-        J = mapreduce(permutedims, vcat, sum(values(Js)))
+        if Zs !== nothing
+            J = mapreduce(permutedims, vcat, sum([Js[Z] for Z in Zs]))
+        else
+            J = mapreduce(permutedims, vcat, sum(values(Js)))
+        end
         xrng = Φrng
         ax.xlabel = L"$\Phi / \Phi_0$"
     else
@@ -38,11 +42,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing)
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut)
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs)
     end
 
     return ax

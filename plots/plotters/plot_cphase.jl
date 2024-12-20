@@ -57,8 +57,8 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
                 end
             end
         end
-        #lines!(ax, φrng, JZ[Z]; label, color, linewidth)
-        scatter!(ax,φrng, JZ[Z]; label, color, )
+        lines!(ax, φrng, JZ[Z]; label, color, linewidth)
+        #scatter!(ax,φrng, JZ[Z]; label, color, )
     end
 
     xlims!(ax, (first(φrng), last(φrng)))
@@ -76,7 +76,8 @@ end
     "scm" => [1, 1],
     "scm_triv" => [0.5, 1.5],
     "scm_test" => [0.5, 1.5],
-    "mhc_30_L" => [0.96, 0.96]
+    "mhc_30_L" => [0.96, 0.96],
+    "mhc_30_Lmismatch" => [0.5, 1.5]
 )
 tnames = Dict(
     "hc" => "HC",
@@ -84,7 +85,8 @@ tnames = Dict(
     "scm" => "SC",
     "scm_test" => "SC, test",
     "scm_triv" => "SC, trivial",
-    "mhc_30_L" => "Finite length"
+    "mhc_30_L" => "Finite length",
+    "mhc_30_Lmismatch" => "Mismatch"
 )
 function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw...)
     fig = Figure(size = (1700, 1100))
@@ -92,7 +94,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
         ax, ts = cphase(fig[1, i], name, TN, Φ; kw...)
         ismajo = ifelse((Φ < Φsmajo[name][1]) || (Φ >= Φsmajo[name][2]), "Topological", "Trivial")
         Label(fig[1, i, Top()], L"$\Phi = %$(Φ) \Phi_0$", fontsize = 15)
-        ylims!(ax, (-5e-3, 5e-3))
+        ylims!(ax, (-3e-4, 3e-4))
         #axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
         i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
     end
@@ -100,7 +102,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("mhc_30_L", 1e-4, subdiv(0.57, 0.59, 21); lw = 2, showmajo = false )
+fig = fig_cpr("mhc_30_Lmismatch", 1e-4, subdiv(0.501, 1.499, 11); lw = 2, showmajo = true )
 #save("test_cpr.pdf", fig)
 fig
 
