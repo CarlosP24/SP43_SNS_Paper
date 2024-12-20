@@ -128,28 +128,28 @@ fig
 
 ##
 layout_currents = [
-    "mhc_30_L_0.0001" "mhc_30_L_0.0001" "mhc_30_L_0.0001";
-    "mhc_30_L" "mhc_30_L" "mhc_30_L"
+    "mhc_30_Long_0.0001" "mhc_30_Long_0.0001" "mhc_30_L_0.0001";
+    "mhc_30_Long" "mhc_30_Long" "mhc_30_Long"
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 1), Zs = -5:5 ) (colorrange = (1e-4, 2e-1), Zs = 0 ) (colorrange = (1e-4, 3e-1), Zs = [-3, 3] );
-    (Zs = -5:5,) (Zs = 0,) (Zs = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5],)
+    (colorrange = (5e-4, 5e-2), Zs = -5:5 ) (colorrange = (5e-4, 7e-3), Zs = 0 ) (colorrange = (5e-4, 5e-2), Zs = filter!(Z -> Z != 0, collect(-5:5)) );
+    (Zs = -5:5,) (Zs = 0,) (Zs = filter!(Z -> Z != 0, collect(-5:5)),)
 ]
 
 TNS = [1e-4, 1e-3]
 
 layout_cpr = [
-    ("mhc_30_L", 1e-4, 0.6);
-    ("mhc_30_L", 1e-4, 0.9);
-    ("mhc_30_L", 1e-4, 1.07);
-    ("mhc_30_L", 1e-4, 1.4);
+    ("mhc_30_Long", 1e-4, 0.6);
+    ("mhc_30_Long", 1e-4, 0.9);
+    ("mhc_30_Long", 1e-4, 1.07);
+    ("mhc_30_Long", 1e-4, 1.4);
 ]
 
 layout_phases = [
-    (name = "mhc_30_L", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in -5:5), Zs)),
-    (name = "mhc_30_L", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [0]), Zs)),
-    (name = "mhc_30_L", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> !(Z in [0]), Zs)),
+    (name = "mhc_30_Long", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in -5:5), Zs)),
+    (name = "mhc_30_Long", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [0]), Zs)),
+    (name = "mhc_30_Long", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> !(Z in [0]), Zs)),
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
