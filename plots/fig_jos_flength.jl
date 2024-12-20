@@ -154,5 +154,5 @@ layout_phases = [
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
-save("figures/fig_jos_flength_500.pdf", fig)
+#save("figures/fig_jos_flength_400.pdf", fig)
 fig

@@ -11,11 +11,11 @@ fig
 ## border vs junction
 
 function fig_border_vs_junction(name, TN; kw...)
-    fig = Figure(size = (600, 600))
-    ax, ts = plot_LDOS(fig[1, 1], "jos_$(name)"; colorrange = (0, 7e-3), kw...)
-    hidexdecorations!(ax, ticks = false)
-    plot_LDOS(fig[2, 1], "$(name)_$(TN)"; basepath = "data/LDOS_junction", colorrange = (0, 7e-3), kw...)
-    rowgap!(fig.layout, 1, 5)
+    fig = Figure()
+    #ax, ts = plot_LDOS(fig[1, 1], "jos_$(name)"; colorrange = (0, 7e-3), kw...)
+    #hidexdecorations!(ax, ticks = false)
+    plot_LDOS(fig[1, 1], "$(name)_$(TN)"; basepath = "data/LDOS_junction", colorrange = (0, 7e-3), kw...)
+    #rowgap!(fig.layout, 1, 5)
     return fig
 end
 
