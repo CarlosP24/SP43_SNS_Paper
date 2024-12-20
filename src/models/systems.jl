@@ -102,22 +102,14 @@ systems_mhc_30 = Dict(
 
 systems_mhc_30_L = Dict(
     ["mhc_30_L_$(i)" => System(; 
-        wireL = (; wires["jos_mhc_30_L"]..., Zs = [-2, 0, 2]), 
-        wireR = (; wires["jos_mhc_30_L"]..., Zs = [-2, 0, 2]), 
-        junction = Junction(; TN = i), 
-        j_params = J_Params(; 
-            imshift = 1e-9, 
-            maxevals = 1e5,
-            atol = 1e-7,
-            order = 21
-        ), 
-        calc_params = Calc_Params(Calc_Params(); 
-            Φs = vcat(subdiv(0.57, 0.59, 21)), 
-            ωrng = subdiv(1e-3, 0, 101) .+ 1e-4im, 
-            Φrng = subdiv(0.501, 0.6, 100),  
-            φrng = subdiv(0, 2π, 51)
-        ) 
-    ) 
+    wireL = wires["jos_mhc_30_L"], 
+    wireR = wires["jos_mhc_30_L"], 
+    junction = Junction(; TN = i), 
+    j_params = J_Params(;
+        imshift = 1e-6, 
+        maxevals = 1e5
+    )
+) 
     for i in Ts]
 )
 
