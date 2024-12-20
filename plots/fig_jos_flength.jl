@@ -13,6 +13,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         colorscale /= maximum(colorscale)
         global colors = get(colormap, colorscale)
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
+        println(point_dict)
         ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, kw...)
         ts = colors
     end
@@ -31,9 +32,15 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_
     cells = Iterators.product(1:is, 1:js)
 
     map(cells) do (i, j)
-        ax, ts = plot(fig_currents, (i, j), layout_currents[i, j]; TNS,  kws_currents[i, j]...)
-        vlines!(ax, [0.95, 1.12]; color = :green, linestyle = :dash)
-        i == 1 && vlines!(ax, [1.07]; color = :white, linestyle = :dash)
+        if j == 1 
+            point_dict = Dict(layout_cpr[j][2] => [(layout_cpr[j + k][3], symbols[j + k]) for k in 0:3] )
+        else
+            point_dict = Dict()
+        end
+        ax, ts = plot(fig_currents, (i, j), layout_currents[i, j]; TNS,  point_dict, kws_currents[i, j]...)
+
+        #vlines!(ax, [1.8]; color = :green, linestyle = :dash)
+        #i == 1 && vlines!(ax, [1.07]; color = :white, linestyle = :dash)
         ax.xticks = ([0.01, 1, 2], [L"0", L"1", L"2"])
         ax.xminorticks = [0.5, 1.5]
         ax.xminorticksvisible = true
@@ -96,25 +103,54 @@ layout_currents = [
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 1), Zs = -5:5 ) (colorrange = (1e-4, 2e-1), Zs = 0 ) (colorrange = (1e-4, 3e-1), Zs = [-3, 3] );
-    (Zs = -5:5,) (Zs = 0,) (Zs = [-3, 3],)
+    (colorrange = (1e-4, 1), Zs = -5:5 ) (colorrange = (1e-4, 2e-1), Zs = 0 ) (colorrange = (1e-4, 0.8), Zs = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5] );
+    (Zs = -5:5,) (Zs = 0,) (Zs = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5],)
 ]
 
 TNS = [1e-4, 1e-3,]
 
 layout_cpr = [
     ("mhc_30_Lmismatch", 1e-4, 0.6);
-    ("mhc_30_Lmismatch", 1e-4, 0.9);
-    ("mhc_30_Lmismatch", 1e-4, 1.07);
+    ("mhc_30_Lmismatch", 1e-4, 1);
     ("mhc_30_Lmismatch", 1e-4, 1.4);
+    ("mhc_30_Lmismatch", 1e-4, 1.79);
 ]
 
 layout_phases = [
     (name = "mhc_30_Lmismatch", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in -5:5), Zs)),
     (name = "mhc_30_Lmismatch", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [0]), Zs)),
-    (name = "mhc_30_Lmismatch", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [-3, 3]), Zs)),
+    (name = "mhc_30_Lmismatch", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> !(Z in [0]), Zs)),
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
 #save("figures/fig_jos_flength.pdf", fig)
+fig
+
+##
+layout_currents = [
+    "mhc_30_L_0.0001" "mhc_30_L_0.0001" "mhc_30_L_0.0001";
+    "mhc_30_L" "mhc_30_L" "mhc_30_L"
+]
+
+kws_currents = [
+    (colorrange = (1e-4, 1), Zs = -5:5 ) (colorrange = (1e-4, 2e-1), Zs = 0 ) (colorrange = (1e-4, 3e-1), Zs = [-3, 3] );
+    (Zs = -5:5,) (Zs = 0,) (Zs = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5],)
+]
+
+TNS = [1e-4, 1e-3]
+
+layout_cpr = [
+    ("mhc_30_L", 1e-4, 0.6);
+    ("mhc_30_L", 1e-4, 0.9);
+    ("mhc_30_L", 1e-4, 1.07);
+    ("mhc_30_L", 1e-4, 1.4);
+]
+
+layout_phases = [
+    (name = "mhc_30_L", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in -5:5), Zs)),
+    (name = "mhc_30_L", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [0]), Zs)),
+    (name = "mhc_30_L", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> !(Z in [0]), Zs)),
+]
+
+fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
 fig

@@ -23,5 +23,6 @@ wire_systems = Dict(
     "jos_mhc_30_L_zoom" => wire_system(; wire = wires["jos_mhc_30_L"], calc_params = Calc_Params(Calc_Params();  ωrng = subdiv(1e-4, 0, 201) .+ 1e-5im, Φrng = subdiv(0.501, 1.499, 200))),
     "jos_mhc_30_L" => wire_system(; wire = wires["jos_mhc_30_L"]),
     "jos_mhc_30_L2" => wire_system(; wire = wires["jos_mhc_30_L2"]),
+    "jos_mhc_30_Long" => wire_system(; wire = wires["jos_mhc_30_Long"]),
 )
 

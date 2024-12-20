@@ -1,0 +1,14 @@
+mhc_30_Long_0.01
+mhc_30_Long_0.1
+mhc_30_Long_0.8
+mhc_30_Long_0.0001
+mhc_30_Long_0.7
+mhc_30_Long_0.9
+mhc_30_Long_1.0e-5
+mhc_30_Long_0.001
+mhc_30_Long_0.5
+mhc_30_Long_0.6
+mhc_30_Long_0.3
+mhc_30_Long_0.4
+mhc_30_Long_0.2
+mhc_30_Long_1.0

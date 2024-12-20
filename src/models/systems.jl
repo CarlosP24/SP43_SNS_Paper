@@ -85,17 +85,13 @@ system_test_scm = Dict(
 
 systems_mhc_30 = Dict(
     ["mhc_30_$(i)" => System(; 
-        wireL = (; wires["jos_mhc_30"]..., Zs = [-2, 0, 2]), 
-        wireR = (; wires["jos_mhc_30"]...,  Zs = [-2, 0, 2]), 
+        wireL = wires["jos_mhc_30"], 
+        wireR = wires["jos_mhc_30"],
         junction = Junction(; TN = i), 
-        j_params = J_Params(; 
+        j_params = J_Params(;
             imshift = 1e-6, 
             maxevals = 1e5
-        ), 
-        calc_params = Calc_Params(Calc_Params(); 
-            Φs = vcat(subdiv(0.927, 0.947, 21), [0.96]), 
-            ωrng = subdiv(1e-3, 0, 51) .+ 1e-4im,
-        )
+        ),
     ) 
     for i in Ts]
 )
@@ -126,6 +122,20 @@ systems_mhc_30_Lmismatch = Dict(
     for i in Ts]
 )
 
+systems_mhc_30_Long = Dict(
+    ["mhc_30_Long_$(i)" => System(; 
+    wireL = wires["jos_mhc_30_Long"], 
+    wireR = wires["jos_mhc_30_Long"], 
+    junction = Junction(; TN = i), 
+    j_params = J_Params(;
+        imshift = 1e-6, 
+        maxevals = 1e5
+    )
+) 
+    for i in Ts]
+)
+
+
 
 systems_ref = merge(systems_reference, systems_reference_metal, systems_reference_dep)
 systems_ref_Z = merge(systems_reference_Z, systems_reference_metal_Z, systems_reference_dep_Z)
@@ -153,8 +163,9 @@ systems_dict = Dict(
     "systems_jos_mhc_30" => systems_mhc_30,
     "systems_jos_mhc_30_L" => systems_mhc_30_L,
     "systems_jos_mhc_30_Lmismatch" => systems_mhc_30_Lmismatch,
-    "systems_jos_length" => systems_length
+    "systems_jos_length" => systems_length,
+    "systems_jos_mhc_30_Long" => systems_mhc_30_Long,
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch)
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long)
 

@@ -12,12 +12,12 @@ function calc_LDOS_junction(name::String)
     # Build nanowires
     if haskey(wireL, :Zs) && haskey(wireR, :Zs)
         hSM_left, hSC_left, params_left = build_cyl(; wireL..., )
-        hSM_right, hSC_right, params_right = build_cyl(; wireR...,)
+        hSM_right, hSC_right, params_right = build_cyl(; wireR..., phaseshifted = true)
         Zs = union(wireL.Zs, wireR.Zs)
 
     elseif !haskey(wireL, :Zs) && !haskey(wireR, :Zs)
         hSM_left, hSC_left, params_left = build_cyl_mm(; wireL..., )
-        hSM_right, hSC_right, params_right = build_cyl_mm(; wireR...,)
+        hSM_right, hSC_right, params_right = build_cyl_mm(; wireR..., phaseshifted = true)
     else
         @error "Mismatched wire types."
     end
@@ -39,7 +39,7 @@ function calc_LDOS_junction(name::String)
         (Brng, ωrng)
     end
 
-    LDOS = pldos(ldos(g[attach_link[gs]]), args...)
+    LDOS = pldos(ldos(g[attach_link[gs]]), args...; phase = 0, τ)
 
     return Results(;
         params = calc_params,
