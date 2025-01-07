@@ -200,7 +200,7 @@ systems_jos_scm = merge(systems_scm_triv, systems_scm)
 
 systems_length_30 = merge(systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch)
 
-systems_length = merge(systems_mhc, systems_mhc_L, systems_mhc_Long, systems_mhc_short, systems_mhc_Lmismatch)
+systems_length = merge(systems_mhc_L, systems_mhc_Long, systems_mhc_short, systems_mhc_Lmismatch)
 
 systems_dict = Dict(
     "systems_ref" => systems_ref,
@@ -220,7 +220,7 @@ systems_dict = Dict(
     "systems_jos_mhc_L" => systems_mhc_L,
     "systems_jos_mhc_Lmismatch" => systems_mhc_Lmismatch,
     "systems_jos_length" => systems_length,
-    "systems_jos_length_30" => systems_length,
+    "systems_jos_length" => systems_length,
     "systems_jos_mhc_Long" => systems_mhc_Long,
     "systems_jos_mhc_short" => systems_mhc_short,
 )
