@@ -1,4 +1,4 @@
-function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
+function fplot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; basepath = "data/LDOS_junction", kw...)
         add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
@@ -38,9 +38,9 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_
         else
             point_dict = Dict()
         end
-        ax, ts = plot(fig_currents, (i, j), layout_currents[i, j]; TNS,  point_dict, kws_currents[i, j]...)
+        ax, ts = fplot(fig_currents, (i, j), layout_currents[i, j]; TNS,  point_dict, kws_currents[i, j]...)
 
-        #vlines!(ax, [1.8]; color = :green, linestyle = :dash)
+        vlines!(ax, [1.25]; color = :green, linestyle = :dash)
         #i == 1 && vlines!(ax, [1.07]; color = :white, linestyle = :dash)
         ax.xticks = ([0.01, 1, 2], [L"0", L"1", L"2"])
         ax.xminorticks = [0.5, 1.5]
@@ -104,11 +104,11 @@ layout_currents = [
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 1), Zs = -5:5 ) (colorrange = (1e-4, 2e-1), Zs = 0 ) (colorrange = (1e-4, 0.8), Zs = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5] );
-    (Zs = -5:5,) (Zs = 0,) (Zs = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5],)
+    (colorrange = (5e-4, 5e-2), Zs = -5:5 ) (colorrange = (5e-4, 7e-3), Zs = 0 ) (colorrange = (5e-4, 5e-2), Zs = filter!(Z -> Z != 0, collect(-5:5)) );
+    (Zs = -5:5,) (Zs = 0,) (Zs = filter!(Z -> Z != 0, collect(-5:5)),)
 ]
 
-TNS = [1e-4, 1e-3,]
+TNS = [1e-4,]
 
 layout_cpr = [
     ("mhc_30_Lmismatch", 1e-4, 0.6);
