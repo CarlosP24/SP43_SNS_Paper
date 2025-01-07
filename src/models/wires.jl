@@ -172,3 +172,7 @@ wires["jos_mhc_L2"] = (; wires["jos_mhc"]...,
 wires["jos_mhc_Long"] = (; wires["jos_mhc"]...,
     L = 500,
 )
+
+wires["jos_mhc_short"] = (; wires["jos_mhc"]...,
+    L = 200,
+)
