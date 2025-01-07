@@ -6,11 +6,10 @@ lg is the length of the φrng inside J. Needed for error handling purposes.
     pjosephson(J, Brng, τs; hdict = Dict(0 => 1, 1 => 0.1))
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given noise harmonics hdict.
 """
-function pjosephson(Js, Brng, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     Jss = @showprogress pmap(Brng) do B
         j = try
-            jvec = [sign(imag(ipath(B) |> first)) * J(override_path = ipath(B); B, τ , hdict, ) for (J, ipath) in zip(Js, ipaths)]
-            return vcat(jvec...)
+            return J(; B, τ, hdict, )
         catch e 
             @warn "An error ocurred at B=$B. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]
@@ -21,14 +20,13 @@ function pjosephson(Js, Brng, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 =
 end
 
 
-function pjosephson(Js, Φrng, Zs, lg::Int, ipaths; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+function pjosephson(J, Φrng, Zs, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     pts = Iterators.product(Φrng, Zs)
     Jss = @showprogress pmap(pts) do pt
         Φ, Z = pt
         #@info "Worker $(Distributed.myid()): starting computation at Φ=$Φ, Z=$Z."
         j = try
-            jvec = [sign(imag(ipath(Φ) |> first)) * J(override_path = ipath(Φ); Φ, Z, τ, hdict, ) for (J, ipath) in zip(Js, ipaths)]
-            return vcat(jvec...)
+            return J(; Φ, Z, τ, hdict, )
         catch e 
             @warn "An error ocurred at Φ=$Φ, Z=$Z. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]

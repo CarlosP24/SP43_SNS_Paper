@@ -41,7 +41,7 @@ Obtain Greens function operator for a symmetric junction between finite leads
 function greens_finite(hSC, p)
     @unpack a0, t, L = p 
     coupling = @hopping((; τ = 1) -> - τ * t * σ0τz; range = 2*a0)
-    g_right = hSC |> attach(onsite(1e9 * σ0τz,), cells = (- L,)) |> greenfunction(GS.Schur(boundary = 0))
+    g_right = hSC |> attach(onsite(1e9 * σ0τz,), cells = (-L,)) |> greenfunction(GS.Schur(boundary = 0))
     g = hSC |> attach(onsite(1e9 * σ0τz,), cells = (L,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
     return g_right, g
 end

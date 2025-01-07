@@ -30,8 +30,10 @@ using JLD2
     include("calculations/LDOS.jl")
     include("calculations/Andreev.jl")
     include("calculations/Josephson_v_T.jl")
+    include("calculations/LDOS_junction.jl")
 end
 
+##
 @everywhere begin
     global_logger(ConsoleLogger(stderr, Logging.Info))
 end
@@ -47,6 +49,7 @@ else
     ks = [input]
 end
 
+ksys = systems |> keys |> collect
 
 for key in ks
     if key in keys(wire_systems)
@@ -59,16 +62,22 @@ for key in ks
         res = calc_Josephson(key)
         save(res.path, "res", res)
         @info "System $key done."
-    elseif key in collect(keys(systems)) .* "_andreev"
+    elseif key in ksys .* "_andreev"
         @info "Computing system $key spectra..."
         key_modified = replace(key, "_andreev" => "")
         res = calc_Andreev(key_modified)
         save(res.path, "res", res)
         @info "System $key done."
-    elseif key in collect(keys(systems)) .* "_trans"
+    elseif key in ksys .* "_trans"
         @info "Computing system $key current v transparency at fixed flux..."
         key_modified = replace(key, "_trans" => "")
         res = calc_jos_v_T(key_modified)
+        save(res.path, "res", res)
+        @info "System $key done."
+    elseif key in ksys .* "_ldos"
+        @info "Computing system $key LDOS in the junction as a function of magnetic field/flux..."
+        key_modified = replace(key, "_ldos" => "")
+        res = calc_LDOS_junction(key_modified)
         save(res.path, "res", res)
         @info "System $key done."
     else

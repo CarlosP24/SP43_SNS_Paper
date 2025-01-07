@@ -14,13 +14,14 @@ function calc_Josephson(name::String)
     # Load parameters
     @unpack Brng, Φrng, φrng, outdir = calc_params 
     # Load Josephson integrator parameters
-    @unpack imshift, atol, maxevals, order = j_params
+    @unpack imshift, imshift0, atol, maxevals, order = j_params
 
     # Remove possible pathological points
     deleteat!(Brng, findall(x -> isapprox(x, 0), Brng))
     deleteat!(Φrng, findall(x -> isapprox(x, 0), Φrng))
     φrng1, φrng2 = filter_πs(φrng)
-    calc_params2 = Calc_Params(calc_params; Brng, φrng = vcat(φrng1, φrng2))
+    φrng =  vcat(φrng1, φrng2)
+    calc_params2 = Calc_Params(calc_params; Brng, Φrng, φrng)
 
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
     # Setup output path
@@ -47,8 +48,7 @@ function calc_Josephson(name::String)
 
     # Get τ v T 
     τrng = subdiv(0, 1, 100)
-    #Gτs = get_TN(conductance(g[1, 1]), τrng; B = 0, Δ0 = 0, hdict)
-    Gτs = get_TN(hSM_left, hSM_right, params_left, params_right, gs, τrng; B = 0, hdict)
+    Gτs = get_TN(hSM_left, hSM_right, params_left, params_right, gs, τrng; B = 0, Φ = 0, hdict)
     Gτs = Gτs ./ maximum(Gτs)
     Tτ = linear_interpolation(τrng, Gτs) # gives TN as a function of τ
 
@@ -62,20 +62,27 @@ function calc_Josephson(name::String)
     itipR = get_itip(params_right)
     itip(x) = minimum([itipL(x), itipR(x)])     
 
-    ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
-    ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
+    #ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
+    #ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
 
-    J1 = josephson(g[attach_link[gs]], ipath1(0); omegamap = ω -> (; ω), phases = φrng1, atol, maxevals, order,)
-    J2 = josephson(g[attach_link[gs]], ipath2(0); omegamap = ω -> (; ω), phases = φrng2, atol, maxevals, order,)
+    if @isdefined Zs
+        args = (Φrng,  Zs,)
+        if imshift0 != false
+            imshift_dict = Dict([Z => imshift for Z in Zs if Z != 0])
+            imshift_dict[0] = imshift0
+        else
+            imshift_dict = Dict([Z => imshift for Z in Zs])
+        end
+        ipath = Paths.polygon((mu, kBT; Φ = 0, Z = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift_dict[Z]*1im)     
+    else
+        args = (Brng, )
+        ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(B)*1im, 0) .+ imshift*1im)     
+    end
+
+    J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 
     # Compute Josephson current
-    args = if @isdefined Zs
-        ([J1, J2], Φrng,  Zs, length(calc_params2.φrng), [ipath1, ipath2])
-    else
-        ([J1, J2], Brng, length(calc_params2.φrng), [ipath1, ipath2])
-    end
-    
-    Js = pjosephson(args...; τ, hdict)
+    Js = pjosephson(J, args..., length(calc_params2.φrng); τ, hdict)
 
     return Results(;
         params = calc_params2,
@@ -83,4 +90,5 @@ function calc_Josephson(name::String)
         Js = Js,
         path = path
     )
+    
 end  

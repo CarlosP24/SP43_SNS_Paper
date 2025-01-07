@@ -4,5 +4,20 @@ function fig_LDOS(name; kw...)
     return fig
 end
 
-fig = fig_LDOS("jos_scm"; colorrange = (1e-4, 1e-1))
+fig = fig_LDOS("mhc_short_0.0001"; basepath = "data/LDOS_junction", colorrange = (0, 7e-3), Zs = [0])
+fig
+
+
+## border vs junction
+
+function fig_border_vs_junction(name, TN; kw...)
+    fig = Figure()
+    #ax, ts = plot_LDOS(fig[1, 1], "jos_$(name)"; colorrange = (0, 7e-3), kw...)
+    #hidexdecorations!(ax, ticks = false)
+    plot_LDOS(fig[1, 1], "$(name)_$(TN)"; basepath = "data/LDOS_junction", colorrange = (0, 7e-3), kw...)
+    #rowgap!(fig.layout, 1, 5)
+    return fig
+end
+
+fig = fig_border_vs_junction("mhc_30_Long", 0.0001; Zs = [0])
 fig

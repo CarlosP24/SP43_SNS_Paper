@@ -1,4 +1,4 @@
-function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgrad(:BuGn), 0.9), :orange], lw = 0.5, showmajo = false)
+function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgrad(:BuGn), 0.9), :orange], lw = 0.5, showmajo = false, Zs = nothing, total = true)
     path = "$(basepath)/Js/$(name)_$(TN).jld2"
     res = load(path)["res"]
 
@@ -8,18 +8,21 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
     @unpack TN, δτ = junction
 
     iΦ = findmin(abs.(Φrng .- Φ))[2]
-    JZ = Dict([Z => mapreduce(permutedims, vcat, Js[Z])[iΦ, :] |> vcat for Z in keys(Js)])
 
-    Zs = keys(JZ) |> collect |> sort
-    if 0 in Zs
-        deleteat!(Zs, findfirst(==(0), Zs))
-        push!(Zs, 0)
+    if Zs === nothing
+        Zs = keys(Js) |> collect |> sort
+        if 0 in Zs
+            deleteat!(Zs, findfirst(==(0), Zs))
+            push!(Zs, 0)
+        end
     end
+
+    JZ = Dict([Z => mapreduce(permutedims, vcat, Js[Z])[iΦ, :] |> vcat for Z in Zs])
 
     ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$J_S$", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
 
     J = sum(values(JZ))
-    lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")
+    total && lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")
     lab1 = true
     lab2 = true
 
@@ -55,6 +58,7 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
             end
         end
         lines!(ax, φrng, JZ[Z]; label, color, linewidth)
+        #scatter!(ax,φrng, JZ[Z]; label, color, )
     end
 
     xlims!(ax, (first(φrng), last(φrng)))
@@ -70,27 +74,43 @@ end
     "hc" => [0.7, 1.3],
     "mhc" => [1.1, 1.5],
     "scm" => [1, 1],
-    "scm_triv" => [0.5, 1.5]
+    "scm_triv" => [0.5, 1.5],
+    "scm_test" => [0.5, 1.5],
+    "mhc_30_L" => [0.96, 0.96],
+    "mhc_30_Lmismatch" => [0.5, 1.5]
 )
 tnames = Dict(
     "hc" => "HC",
     "mhc" => "TC",
     "scm" => "SC",
-    "scm_triv" => "SC, trivial"
+    "scm_test" => "SC, test",
+    "scm_triv" => "SC, trivial",
+    "mhc_30_L" => "Finite length",
+    "mhc_30_Lmismatch" => "Mismatch"
 )
-function fig_cpr(name::String, TN, Φ; Φsmajo = Φsmajo, tnames = tnames, kw...)
-    fig = Figure()
-    ax, ts = cphase(fig[1, 1], name, TN, Φ; kw...)
-    ismajo = ifelse((Φ < Φsmajo[name][1]) || (Φ >= Φsmajo[name][2]), "Topological", "Trivial")
-    Label(fig[1, 1, Top()], L"%$(tnames[name]), $\Phi = %$(Φ) \Phi_0$, $%$(print_T(TN))$, %$(ismajo)", fontsize = 15)
-    axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw...)
+    fig = Figure(size = (1700, 1100))
+    for (i, Φ) in enumerate(Φs)
+        ax, ts = cphase(fig[1, i], name, TN, Φ; kw...)
+        ismajo = ifelse((Φ < Φsmajo[name][1]) || (Φ >= Φsmajo[name][2]), "Topological", "Trivial")
+        Label(fig[1, i, Top()], L"$\Phi = %$(Φ) \Phi_0$", fontsize = 15)
+        ylims!(ax, (-3e-4, 3e-4))
+        #axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+        i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
+    end
     return fig 
 end
 
 
-fig = fig_cpr("hc", 1e-4, 1; lw = 2, showmajo = true )
+fig = fig_cpr("mhc_30_Lmismatch", 1e-4, subdiv(0.501, 1.499, 11); lw = 2, showmajo = true )
+#save("test_cpr.pdf", fig)
 fig
 
+##
+for TN in [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
+    fig = fig_cpr("scm_test", TN, [1]; lw = 2, showmajo = true)
+    save("figures/cphases/scm_majo_$(TN).pdf", fig)
+end
 ##
 
 dest = "figures/cphases"
@@ -126,3 +146,4 @@ map(TNS) do TN
     fig = fig_checker(name, TN; Jmax = 0.2 * TN, atol = 1e-7)
     save("$(dest)/$(name)_$(TN).pdf", fig)
 end
+

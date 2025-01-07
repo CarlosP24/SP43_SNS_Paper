@@ -38,7 +38,7 @@ function calc_LDOS(name::String)
         (Brng, ωrng)
     end
 
-    LDOS = plods(ldos(g[cells = (-1,)]), args...)
+    LDOS = pldos(ldos(g_right[cells = (-1,)]), args...)
 
     return Results(;
         params = calc_params,

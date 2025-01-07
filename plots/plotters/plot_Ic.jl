@@ -1,4 +1,4 @@
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -9,7 +9,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
 
     if Js isa Dict
-        J = mapreduce(permutedims, vcat, sum(values(Js)))
+        if Zs !== nothing
+            J = mapreduce(permutedims, vcat, sum([Js[Z] for Z in Zs]))
+        else
+            J = mapreduce(permutedims, vcat, sum(values(Js)))
+        end
         xrng = Φrng
         ax.xlabel = L"$\Phi / \Phi_0$"
     else
@@ -19,8 +23,14 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
     
     Ic = getindex(findmax(J; dims = 2),1) |> vec
+    if xcut !== nothing
+        xrng = xrng[xcut:end]
+        Ic = Ic[xcut:end]
+    end
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
     lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+
     xlims!(ax, (0, last(xrng)))
     #lines!(ax, Brng, Ic ; color, label = L"\delta \tau = %$(δτ)")
     if point !== nothing 
@@ -32,11 +42,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing))
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs)
     end
 
     return ax
@@ -94,3 +104,22 @@ function KO1(name::String; basepath = "data")
 
     return zubkov, gap_L, gap_R
 end
+
+## Test plots 
+function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
+    fig = Figure()
+    xs = [0.96,  0.58, 1.39,  0.75, ]
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30_L"; colorrange = (0, 3e-2))
+    hidexdecorations!(ax, ticks = false)
+    xlims!(ax, (0.5, 1.5))
+    [vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
+    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", yscale = log10)
+    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing))
+    xlims!(ax, (0.5, 1.5))
+    [vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]
+
+    return fig
+end
+
+fig = fig_Ics("mhc_30_L_0.0001.jld2")
+fig

@@ -37,19 +37,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
     return ax, ts, TNS
 end
 
-function print_T(T::Float64;)
-    if T < 1e-1
-        exp = ceil(Int, abs(log10(T)))
-        c = round(Int, T * 10^exp)
-        if c == 1
-            return L"$\mathbf{T_N = 10^{%$(-exp)}}$"
-        else
-            return L"$\mathbf{T_N = %$(c) \cdot 10^{%$(-exp)}}$"
-        end
-    else
-        return L"$\mathbf{T_N = %$(T)}$"
-    end
-end
+
 
 function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs; jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8],  cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme)
     fig = Figure(size = (1100, 250 * 3), fontsize = 16,)
