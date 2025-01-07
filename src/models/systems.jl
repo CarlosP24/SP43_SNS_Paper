@@ -175,7 +175,7 @@ systems_mhc_Long = Dict(
 )
 
 systems_mhc_short = Dict(
-    ["mhc_Long_$(i)" => System(; 
+    ["mhc_short_$(i)" => System(; 
     wireL = wires["jos_mhc_short"], 
     wireR = wires["jos_mhc_short"], 
     junction = Junction(; TN = i), 
