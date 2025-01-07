@@ -4,7 +4,7 @@ function fig_LDOS(name; kw...)
     return fig
 end
 
-fig = fig_LDOS("jos_mhc_30"; colorrange = (0, 7e-3), Zs = [0])
+fig = fig_LDOS("mhc_L_0.0001"; basepath = "data/LDOS_junction", colorrange = (0, 7e-3), Zs = [0])
 fig
 
 
