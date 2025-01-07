@@ -14,9 +14,10 @@ function fplot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspa
         println(colorscale)
         global colors = length(TNS) == 1 ? [:red] : get(colormap, colorscale)
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
-        println(point_dict)
+        #println(point_dict)
         ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, kw...)
         ts = colors
+        ylims!(ax, 10^-5, 10^-2)
     end
     return ax, ts, TNS
 end
@@ -40,7 +41,7 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_
         end
         ax, ts = fplot(fig_currents, (i, j), layout_currents[i, j]; TNS,  point_dict, kws_currents[i, j]...)
 
-        vlines!(ax, [1.25]; color = :green, linestyle = :dash)
+        #vlines!(ax, [1.25]; color = :green, linestyle = :dash)
         #i == 1 && vlines!(ax, [1.07]; color = :white, linestyle = :dash)
         ax.xticks = ([0.01, 1, 2], [L"0", L"1", L"2"])
         ax.xminorticks = [0.5, 1.5]
@@ -128,9 +129,10 @@ fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_pha
 fig
 
 ##
+name = "mhc_Lmismatch"
 layout_currents = [
-    "mhc_30_Long_0.0001" "mhc_30_Long_0.0001" "mhc_30_L_0.0001";
-    "mhc_30_Long" "mhc_30_Long" "mhc_30_Long"
+    "$(name)_0.0001" "$(name)_0.0001" "$(name)_0.0001";
+    "$(name)" "$(name)" "$(name)"
 ]
 
 kws_currents = [
@@ -141,18 +143,18 @@ kws_currents = [
 TNS = [1e-4]
 
 layout_cpr = [
-    ("mhc_30_Long", 1e-4, 0.6);
-    ("mhc_30_Long", 1e-4, 0.9);
-    ("mhc_30_Long", 1e-4, 1.07);
-    ("mhc_30_Long", 1e-4, 1.4);
+    ("$(name)", 1e-4, 0.6);
+    ("$(name)", 1e-4, 0.9);
+    ("$(name)", 1e-4, 1.07);
+    ("$(name)", 1e-4, 1.4);
 ]
 
 layout_phases = [
-    (name = "mhc_30_Long", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in -5:5), Zs)),
-    (name = "mhc_30_Long", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [0]), Zs)),
-    (name = "mhc_30_Long", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> !(Z in [0]), Zs)),
+    (name = "$(name)", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in -5:5), Zs)),
+    (name = "$(name)", TN = 1e-4, Jmax = 1e-5, atol = 1e-7, Zfunc = Zs -> filter!(Z -> (Z in [0]), Zs)),
+    (name = "$(name)", TN = 1e-4, Jmax = 1e-6, atol = 1e-7, Zfunc = Zs -> filter!(Z -> !(Z in [0]), Zs)),
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr, layout_phases)
-#save("figures/fig_jos_flength_400.pdf", fig)
+save("figures/fig_jos_flength_$(name).pdf", fig)
 fig
