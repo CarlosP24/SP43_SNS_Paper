@@ -167,5 +167,5 @@ layout_cpr = [
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr)
-#save("figures/fig_jos_flength_$(name).pdf", fig)
+save("figures/fig_jos_flength.pdf", fig)
 fig

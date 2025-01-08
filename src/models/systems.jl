@@ -168,7 +168,7 @@ systems_mhc_Long = Dict(
     junction = Junction(; TN = i), 
     j_params = J_Params(;
         imshift = 1e-6, 
-        maxevals = 1e5
+        maxevals = 1e6
     )
 ) 
     for i in Ts]
@@ -181,7 +181,7 @@ systems_mhc_short = Dict(
     junction = Junction(; TN = i), 
     j_params = J_Params(;
         imshift = 1e-6, 
-        maxevals = 1e5
+        maxevals = 1e6
     )
 ) 
     for i in Ts]
