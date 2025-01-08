@@ -116,9 +116,9 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colorma
         else
             ltext = L"$L = 2.5 \mu$m"
         end
-        text!(ax, 3π/2, 0.8*mJ; text = ltext, color, fontsize = 10, align = (:center, :center),)
+        text!(ax, 3π/2, 0.85*mJ; text = ltext, color, fontsize = 10, align = (:center, :center),)
         text!(ax, 3π/2, 0.6*mJ; text = print_T(T), color, fontsize = 10, align = (:center, :center),)
-        text!(ax, 3π/2, 0.4*mJ; text = L"$\Phi = %$(args[3])\Phi_0$", color, fontsize = 12, align = (:center, :center),)
+        text!(ax, 3π/2, 0.35*mJ; text = L"$\Phi = %$(args[3])\Phi_0$", color, fontsize = 12, align = (:center, :center),)
         scatter!(ax, π , 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
         ax.yticks = [0]
 
@@ -154,7 +154,7 @@ layout_currents = [
 
 kws_currents = [
     (colorrange = (5e-4, 5e-2), Zs = -5:5 ) (colorrange = (5e-4, 7e-3), Zs = 0 ) (colorrange = (5e-4, 5e-2), Zs = -5:5 ) (colorrange = (5e-4, 7e-3), Zs = 0 );
-    (showmajo = true, Zs = -5:5,) (showmajo = true, Zs = 0,) (showmajo = true, Zs = -5:5,) (showmajo = true, Zs = 0,)
+    (Zs = -5:5,) (Zs = 0,) ( Zs = -5:5,) ( Zs = 0,)
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
