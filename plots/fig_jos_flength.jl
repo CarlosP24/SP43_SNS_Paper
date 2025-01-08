@@ -160,10 +160,10 @@ kws_currents = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 layout_cpr = [
-    ("$(nameL)", 1e-4, 0.6) ;
-    ("$(nameL)", 1e-4, 1) ;
-    ("$(nameR)", 1e-4, 0.6);
-    ("$(nameR)", 1e-4, 1);
+    ("$(nameL)", 1e-4, 0.7) ;
+    ("$(nameL)", 1e-4, 1.3) ;
+    ("$(nameR)", 1e-4, 0.7);
+    ("$(nameR)", 1e-4, 1.3);
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr)
