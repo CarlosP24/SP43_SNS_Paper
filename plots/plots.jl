@@ -3,7 +3,7 @@ using Pkg
 Pkg.activate("plots")
 using CairoMakie, Revise, Parameters, JLD2, ColorSchemes
 #using FullShell, Quantica
-using Glob
+using Glob, Interpolations
 
 # Utilities
 global conv = 1.5193e-3 # Magnetic field in T to flux prefactor
