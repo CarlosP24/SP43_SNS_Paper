@@ -182,7 +182,7 @@ systems_mhc_short = Dict(
     j_params = J_Params(;
         imshift = 1e-6, 
         atol = 1e-8,
-        maxevals = 1e5
+        maxevals = 1e6
     )
 ) 
     for i in Ts]
