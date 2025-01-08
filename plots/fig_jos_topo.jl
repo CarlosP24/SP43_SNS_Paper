@@ -218,7 +218,7 @@ layout_currents = [
 
 kws_currents = [
     (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), highlight_majo = 20,);
-    () () ( xcut = 3,);
+    (showmajo = true,) (showmajo = true,) (showmajo = true, xcut = 3,);
 ]
 
 layout_cpr = [
@@ -244,5 +244,5 @@ layout_phases = [
 ]
 
 fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_trans, layout_phases)
-#save("figures/fig_jos_topo_old.pdf", fig)
+save("figures/fig_jos_topo.pdf", fig)
 fig

@@ -1,4 +1,19 @@
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing)
+function interpolate_jump(φrng, J; φtol = 1e-6)
+    iπ1, iπ2 = sortperm(abs.(φrng .- π))
+    iπ = (iπ1, iπ2)[findmin([φrng[iπ1], φrng[iπ2]])[2]]
+    while abs(φrng[iπ] - π) < φtol
+        iπ -= 1
+    end
+    I = map(axes(J)[1]) do i 
+        Jφ = J[i, :]
+        Jinter = Jφ[iπ-3:iπ]
+        φinter = φrng[iπ-3:iπ]
+        Jfunc = linear_interpolation(φinter, Jinter, extrapolation_bc=Line())
+        return Jfunc(π)
+    end
+    return I
+end
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -15,20 +30,34 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
             J = mapreduce(permutedims, vcat, sum(values(Js)))
         end
         xrng = Φrng
+        xa = findmin(abs.(Φrng .- 0.5))[2]
+        xb = findmin(abs.(Φrng .- 1.5))[2]
+        xrng1 = Φrng[xa:xb]
         ax.xlabel = L"$\Phi / \Phi_0$"
     else
         J = mapreduce(permutedims, vcat, Js)
         xrng = Brng
+        xrng1 = Brng
+        xa, xb = first(Brng), last(Brng)
         ax.xlabel = L"$B$ (T)"
     end
     
+    φtol = system.j_params.imshift / 0.23
+
+    Imajo = interpolate_jump(φrng, J; φtol)
+
     Ic = getindex(findmax(J; dims = 2),1) |> vec
     if xcut !== nothing
         xrng = xrng[xcut:end]
         Ic = Ic[xcut:end]
+        Imajo = Imajo[xcut:end]
     end
+
+    Ibase = Ic .- Imajo
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
     lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
+    showmajo && band!(ax, xrng1, Ibase[xa:xb], Ic[xa:xb]; color, alpha = 0.2)
     #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
 
     xlims!(ax, (0, last(xrng)))
@@ -42,11 +71,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing)
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs)
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo = (showmajo && (i == 1)))
     end
 
     return ax
@@ -109,17 +138,17 @@ end
 function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
     fig = Figure()
     xs = [0.96,  0.58, 1.39,  0.75, ]
-    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30_L"; colorrange = (0, 3e-2))
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc"; colorrange = (0, 3e-2))
     hidexdecorations!(ax, ticks = false)
     xlims!(ax, (0.5, 1.5))
     [vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
     ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", yscale = log10)
-    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing))
+    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = true)
     xlims!(ax, (0.5, 1.5))
     [vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]
 
     return fig
 end
 
-fig = fig_Ics("mhc_30_L_0.0001.jld2")
+fig = fig_Ics("mhc_0.0001.jld2")
 fig

@@ -141,7 +141,7 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colorma
     Label(fig_cpr[3, 1, TopLeft()], "k",  padding = (-30, 0, -25, 0); style...)
     Label(fig_cpr[4, 1, TopLeft()], "l",  padding = (-30, 0, -25, 0); style...)
 
-    colsize!(fig.layout, 1, Relative(0.85))
+    colsize!(fig.layout, 1, Relative(0.8))
     return fig
 end
 
@@ -154,7 +154,7 @@ layout_currents = [
 
 kws_currents = [
     (colorrange = (5e-4, 5e-2), Zs = -5:5 ) (colorrange = (5e-4, 7e-3), Zs = 0 ) (colorrange = (5e-4, 5e-2), Zs = -5:5 ) (colorrange = (5e-4, 7e-3), Zs = 0 );
-    (Zs = -5:5,) (Zs = 0,) (Zs = -5:5,) (Zs = 0,)
+    (showmajo = true, Zs = -5:5,) (showmajo = true, Zs = 0,) (showmajo = true, Zs = -5:5,) (showmajo = true, Zs = 0,)
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
@@ -162,7 +162,7 @@ TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 layout_cpr = [
     ("$(nameL)", 1e-4, 0.6) ;
     ("$(nameL)", 1e-4, 1) ;
-    ("$(nameR)", 1e-4, 0.6);
+    ("$(nameR)", 1e-4, 0.8);
     ("$(nameR)", 1e-4, 1);
 ]
 
