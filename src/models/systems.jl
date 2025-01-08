@@ -180,7 +180,7 @@ systems_mhc_short = Dict(
     wireR = wires["jos_mhc_short"], 
     junction = Junction(; TN = i), 
     j_params = J_Params(;
-        imshift = 1e-6, 
+        imshift = 1e-7, 
         maxevals = 1e6
     )
 ) 
