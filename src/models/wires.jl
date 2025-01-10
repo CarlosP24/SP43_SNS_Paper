@@ -16,7 +16,7 @@ wires["base_wire"]=(;
     Vmax = 0,
     ishollow = true, 
     L = 0,
-    num_mJ = 10,
+    num_mJ = 5,
     shell = "Usadel",
     iω = 1e-3
     )
