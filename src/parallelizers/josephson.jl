@@ -7,16 +7,13 @@ lg is the length of the φrng inside J. Needed for error handling purposes.
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given noise harmonics hdict.
 """
 function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
-    prog = Progress(length(Brng); showspeed = true)
-    Jss = pmap(Brng) do B
-        update!(prog, length(Brng); showvalues = [(:B, B)])
+    Jss = @showprogress pmap(Brng) do B
         j = try
             return J(; B, τ, hdict, )
         catch e 
             @warn "An error ocurred at B=$B. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]
         end
-
         return j
     end
     return reshape(Jss, size(Brng)...)
