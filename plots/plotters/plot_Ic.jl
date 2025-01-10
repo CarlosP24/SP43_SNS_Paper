@@ -138,17 +138,19 @@ end
 function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
     fig = Figure()
     xs = [0.96,  0.58, 1.39,  0.75, ]
-    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc"; colorrange = (0, 3e-2))
+    ax, ts = plot_LDOS(fig[1, 1], "valve_65"; colorrange = (0, 1e-2))
     hidexdecorations!(ax, ticks = false)
-    xlims!(ax, (0.5, 1.5))
+    #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
-    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", yscale = log10)
-    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = true)
-    xlims!(ax, (0.5, 1.5))
+    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", )
+    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false)
+    #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]
 
     return fig
 end
 
-fig = fig_Ics("mhc_0.0001.jld2")
+fig = fig_Ics("ξmismatch_0.0001.jld2")
 fig
+
+## Test vale
