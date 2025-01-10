@@ -4,7 +4,14 @@
 end
 
 wire_systems = Dict(
-    "valve_65" => wire_system(; wire = wires["valve_65"]),
+    "valve_65" => wire_system(; 
+        wire = (; wires["valve_65"]...,
+            Zs = -5:5),
+        calc_params = Calc_Params(
+            Calc_Params();
+            Φrng = subdiv(0, 5.43, 400),
+        )
+    ),
     "valve_65_metal" => wire_system(; wire = wires["valve_65_metal"]),
     "valve_65_dep" => wire_system(; wire = wires["valve_65_dep"]),
     "valve_65_500" => wire_system(; wire = wires["valve_65_500"]),
@@ -29,4 +36,3 @@ wire_systems = Dict(
     "jos_mhc_Long" => wire_system(; wire = wires["jos_mhc_Long"]),
     "jos_mhc_short" => wire_system(; wire = wires["jos_mhc_short"]),
 )
-

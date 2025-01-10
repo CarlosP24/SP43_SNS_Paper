@@ -32,6 +32,7 @@ wires["valve_65"] = (;
     μ = 0.5,
     α = 20,
     L = 0,
+    d = 5,
 )
 
 # Rmismatch
