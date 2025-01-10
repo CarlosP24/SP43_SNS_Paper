@@ -47,6 +47,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     Imajo = interpolate_jump(φrng, J; φtol)
 
     Ic = getindex(findmax(J; dims = 2),1) |> vec
+    Ic = replace!(Ic, NaN => 0)
     if xcut !== nothing
         xrng = xrng[xcut:end]
         Ic = Ic[xcut:end]

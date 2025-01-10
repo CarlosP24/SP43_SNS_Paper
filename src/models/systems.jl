@@ -8,7 +8,7 @@ end
 
 
 # Study systems
-Ts_valve = [1e-4, 1e-3, 1e-2, 0.1, 0.5, 0.9]
+Ts_valve = [1e-4, 0.1, 0.9]
 
 systems_reference = Dict(
     ["reference_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65"], junction = junctions["J$(i)"]) for i in 1:6]
