@@ -1,2259 +1,0 @@
-slurmstepd: info: Setting TMPDIR to /scratch/9697895. Previous errors about TMPDIR can be discarded
-Running scm_0.3
-slurmstepd: error: Detected 1 oom-kill event(s) in StepId=9697895.0. Some of your processes may have been killed by the cgroup out-of-memory handler.
-slurmstepd: error: Detected 1 oom-kill event(s) in StepId=9697895.0. Some of your processes may have been killed by the cgroup out-of-memory handler.
-srun: error: ilk-113: task 44: Out Of Memory
-srun: launch/slurm: _step_signal: Terminating StepId=9697895.0
-slurmstepd: error: *** STEP 9697895.0 ON ilk-45 CANCELLED AT 2024-12-09T23:10:30 ***
-srun: error: ilk-90: tasks 3-4: Terminated
-srun: error: ilk-109: tasks 19-22: Terminated
-srun: error: ilk-45: tasks 0-2: Terminated
-srun: error: ilk-114: tasks 51-56: Terminated
-srun: error: ilk-167: tasks 71-76: Terminated
-srun: error: ilk-171: tasks 77-90: Terminated
-srun: error: ilk-236: tasks 91-99: Terminated
-srun: error: ilk-111: tasks 23-36: Terminated
-srun: error: ilk-106: tasks 5-18: Terminated
-srun: Force Terminated StepId=9697895.0
-Worker 34 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 16 terminated.
-Worker 81 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 79 terminated.
-Worker 3 terminated.
-Worker 33 terminated.
-Worker 36 terminated.
-Worker 37 terminated.
-Worker 45 terminated.
-Worker 25 terminated.
-Worker 38 terminated.
-Worker 35 terminated.
-Worker 4 terminated.
-Worker 43 terminated.
-Worker 39 terminated.
-Worker 41 terminated.
-Worker 40 terminated.
-Worker 44 terminated.
-Worker 42 terminated.
-Worker 48 terminated.
-Worker 7 terminated.
-Worker 9 terminated.
-Worker 26 terminated.
-Worker 28 terminated.
-Worker 52 terminated.
-Worker 49 terminated.
-Worker 51 terminated.
-Worker 50 terminated.
-Worker 46 terminated.
-Worker 47 terminated.
-Worker 18 terminated.
-Worker 20 terminated.
-Worker 8 terminated.
-Worker 21 terminated.
-Worker 19 terminated.
-Worker 17 terminated.
-Worker 31 terminated.
-Worker 32 terminated.
-Worker 69 terminated.
-Worker 71 terminated.
-Worker 80 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 2 terminated.
-Worker 68 terminated.
-Worker 6 terminated.
-Worker 5 terminated.
-IOError: stream is closed or unusable
-Stacktrace:
-  [1] check_open
-    @ ./stream.jl:388 [inlined]
-  [2] uv_write_async(s::Sockets.TCPSocket, p::Ptr{UInt8}, n::UInt64)
-    @ Base ./stream.jl:1099
-  [3] uv_write(s::Sockets.TCPSocket, p::Ptr{UInt8}, n::UInt64)
-    @ Base ./stream.jl:1060
-  [4] uv_write
-    @ ./stream.jl:1056 [inlined]
-  [5] flush(s::Sockets.TCPSocket)
-    @ Base ./stream.jl:1154
-  [6] send_msg_(w::Distributed.Worker, header::Distributed.MsgHeader, msg::Distributed.RemoteDoMsg, now::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:187
-  [7] send_msg(w::Distributed.Worker, header::Distributed.MsgHeader, msg::Distributed.RemoteDoMsg)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:122
-  [8] #remote_do#169
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:532 [inlined]
-  [9] remote_do
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:531 [inlined]
- [10] flush_gc_msgs(w::Distributed.Worker)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:150
- [11] flush_gc_msgs()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:198
- [12] #invokelatest#2
-    @ ./essentials.jl:1055 [inlined]
- [13] invokelatest
-    @ ./essentials.jl:1052 [inlined]
- [14] (::Distributed.var"#137#139")()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/remotecall.jl:286UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 23 terminated.
-Worker 22 terminated.
-Worker 24 terminated.
-Worker 78 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 89 terminated.
-Worker 13 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 10 terminated.
-Worker 11 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 72 terminated.
-Worker 67 terminated.
-Worker 15 terminated.
-Worker 76 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 77 terminated.
-Worker 12 terminated.
-Worker 14 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 29 terminated.
-Worker 30 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 27 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 64 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 66 terminated.
-Worker 61 terminated.
-Worker 63 terminated.
-Worker 60 terminated.
-Worker 65 terminated.
-Worker 62 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 56 terminated.
-Worker 58 terminated.
-Worker 57 terminated.
-Worker 54 terminated.
-Worker 53 terminated.
-Worker 59 terminated.
-Worker 55 terminated.
-Worker 100 terminated.
-Worker 91 terminated.
-Worker 90 terminated.
-Worker 92 terminated.
-Worker 87 terminated.
-Worker 88 terminated.
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: IOError: read: connection reset by peer (ECONNRESET)
-Stacktrace:
-  [1] wait_readnb(x::Sockets.TCPSocket, nb::Int64)
-    @ Base ./stream.jl:410
-  [2] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-    @ Base ./stream.jl:972
-  [3] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-    @ Base ./stream.jl:978
-  [4] unsafe_read
-    @ ./io.jl:891 [inlined]
-  [5] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-    @ Base ./io.jl:890
-  [6] read!
-    @ ./io.jl:895 [inlined]
-  [7] deserialize_hdr_raw
-    @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
-  [8] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
-  [9] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [10] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-    @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 95 terminated.
-Worker 93 terminated.
-Worker 98 terminated.
-Worker 97 terminated.
-Worker 99 terminated.
-Worker 94 terminated.
-Worker 101 terminated.
-Worker 96 terminated.
-Worker 83 terminated.
-Worker 74 terminated.
-Worker 75 terminated.
-Worker 73 terminated.
-Worker 70 terminated.
-Worker 85 terminated.
-Worker 82 terminated.
-Worker 84 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-Worker 86 terminated.
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-┌ Error: Error during package callback
-│   exception =
-│    1-element ExceptionStack:
-│    ProcessExitedException(8)
-│    
-│    ...and 27 more exceptions.
-│    
-│    Stacktrace:
-│      [1] sync_end(c::Channel{Any})
-│        @ Base ./task.jl:466
-│      [2] macro expansion
-│        @ ./task.jl:499 [inlined]
-│      [3] _require_callback(mod::Base.PkgId)
-│        @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/Distributed.jl:77
-│      [4] #invokelatest#2
-│        @ ./essentials.jl:1055 [inlined]
-│      [5] invokelatest
-│        @ ./essentials.jl:1052 [inlined]
-│      [6] run_package_callbacks(modkey::Base.PkgId)
-│        @ Base ./loading.jl:1360
-│      [7] __require_prelocked(uuidkey::Base.PkgId, env::String)
-│        @ Base ./loading.jl:2326
-│      [8] #invoke_in_world#3
-│        @ ./essentials.jl:1089 [inlined]
-│      [9] invoke_in_world
-│        @ ./essentials.jl:1086 [inlined]
-│     [10] _require_prelocked(uuidkey::Base.PkgId, env::String)
-│        @ Base ./loading.jl:2302
-│     [11] macro expansion
-│        @ ./loading.jl:2241 [inlined]
-│     [12] macro expansion
-│        @ ./lock.jl:273 [inlined]
-│     [13] __require(into::Module, mod::Symbol)
-│        @ Base ./loading.jl:2198
-│     [14] #invoke_in_world#3
-│        @ ./essentials.jl:1089 [inlined]
-│     [15] invoke_in_world
-│        @ ./essentials.jl:1086 [inlined]
-│     [16] require(into::Module, mod::Symbol)
-│        @ Base ./loading.jl:2191
-│     [17] top-level scope
-│        @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/macros.jl:200
-│     [18] include(fname::String)
-│        @ Main ./sysimg.jl:38
-│     [19] top-level scope
-│        @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/SP43_SNS_Paper/bin/launcher.jl:10
-│     [20] include(mod::Module, _path::String)
-│        @ Base ./Base.jl:557
-│     [21] exec_options(opts::Base.JLOptions)
-│        @ Base ./client.jl:323
-│     [22] _start()
-│        @ Base ./client.jl:531
-└ @ Base loading.jl:1365
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-UNHANDLED TASK ERROR: EOFError: read end of file
-Stacktrace:
- [1] (::Base.var"#wait_locked#832")(s::Sockets.TCPSocket, buf::IOBuffer, nb::Int64)
-   @ Base ./stream.jl:970
- [2] unsafe_read(s::Sockets.TCPSocket, p::Ptr{UInt8}, nb::UInt64)
-   @ Base ./stream.jl:978
- [3] unsafe_read
-   @ ./io.jl:891 [inlined]
- [4] unsafe_read(s::Sockets.TCPSocket, p::Base.RefValue{NTuple{4, Int64}}, n::Int64)
-   @ Base ./io.jl:890
- [5] read!
-   @ ./io.jl:895 [inlined]
- [6] deserialize_hdr_raw
-   @ /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/messages.jl:167 [inlined]
- [7] message_handler_loop(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:172
- [8] process_tcp_streams(r_stream::Sockets.TCPSocket, w_stream::Sockets.TCPSocket, incoming::Bool)
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:133
- [9] (::Distributed.var"#103#104"{Sockets.TCPSocket, Sockets.TCPSocket, Bool})()
-   @ Distributed /mnt/netapp2/Home_FT2/home/csic/toq/cph/.julia/juliaup/julia-1.11.1+0.x64.linux.gnu/share/julia/stdlib/v1.11/Distributed/src/process_messages.jl:121
-[ Info: Computing system scm_0.3 Josephson current...
-┌ Warning: Renamed repeated sublattice :A to :B
-└ @ Quantica ~/SP43_SNS_Paper/.julia_depot/packages/Quantica/vRiJH/src/types.jl:62
-┌ Warning: Renamed repeated sublattice :A to :B
-└ @ Quantica ~/SP43_SNS_Paper/.julia_depot/packages/Quantica/vRiJH/src/types.jl:62
-Progress:   0%|                                         |  ETA: 12.39 days[KProgress:   0%|                                         |  ETA: 11.54 days[KProgress:   0%|▏                                        |  ETA: 11.07 days[KProgress:   0%|▏                                        |  ETA: 10.64 days[KProgress:   0%|▏                                        |  ETA: 10.29 days[KProgress:   0%|▏                                        |  ETA: 10.08 days[KProgress:   0%|▏                                        |  ETA: 9 days, 21:00:45[KProgress:   0%|▏                                        |  ETA: 9 days, 17:17:52[KProgress:   0%|▎                                        |  ETA: 9 days, 13:21:57[KProgress:   1%|▎                                        |  ETA: 9 days, 10:56:09[KProgress:   1%|▎                                        |  ETA: 9 days, 8:12:05[KProgress:   1%|▎                                        |  ETA: 9 days, 5:51:49[KProgress:   1%|▎                                        |  ETA: 9 days, 2:34:31[KProgress:   1%|▎                                        |  ETA: 8 days, 23:42:27[KProgress:   1%|▎                                        |  ETA: 8 days, 21:09:35[KProgress:   1%|▍                                        |  ETA: 8 days, 18:53:08[KProgress:   1%|▍                                        |  ETA: 8 days, 16:52:34[KProgress:   1%|▍                                        |  ETA: 8 days, 14:36:24[KProgress:   1%|▍                                        |  ETA: 8 days, 12:58:35[KProgress:   1%|▍                                        |  ETA: 8 days, 11:01:26[KProgress:   1%|▍                                        |  ETA: 8 days, 9:14:19[KProgress:   1%|▌                                        |  ETA: 8 days, 7:59:03[KProgress:   1%|▌                                        |  ETA: 8 days, 6:26:32[KProgress:   1%|▌                                        |  ETA: 8 days, 5:21:24[KProgress:   1%|▌                                        |  ETA: 8 days, 4:21:20[KProgress:   1%|▌                                        |  ETA: 8 days, 3:45:48[KProgress:   1%|▌                                        |  ETA: 8 days, 2:52:49[KProgress:   1%|▋                                        |  ETA: 8 days, 2:21:59[KProgress:   1%|▋                                        |  ETA: 8 days, 2:11:45[KProgress:   1%|▋                                        |  ETA: 8 days, 2:01:41[KProgress:   2%|▋                                        |  ETA: 8 days, 2:08:57[KProgress:   2%|▋                                        |  ETA: 8 days, 2:32:27[KProgress:   2%|▋                                        |  ETA: 8 days, 2:54:44[KProgress:   2%|▋                                        |  ETA: 8 days, 3:14:11[KProgress:   2%|▊                                        |  ETA: 8 days, 3:46:25[KProgress:   2%|▊                                        |  ETA: 8 days, 4:18:29[KProgress:   2%|▊                                        |  ETA: 8 days, 5:16:45[KProgress:   2%|▊                                        |  ETA: 8 days, 6:32:35[KProgress:   2%|▊                                        |  ETA: 8 days, 6:57:21[KProgress:   2%|▊                                        |  ETA: 8 days, 8:33:40[KProgress:   2%|▉                                        |  ETA: 8 days, 9:31:27[KProgress:   2%|▉                                        |  ETA: 8 days, 10:01:53[KProgress:   2%|▉                                        |  ETA: 8 days, 10:16:05[KProgress:   2%|▉                                        |  ETA: 8 days, 10:16:42[KProgress:   2%|▉                                        |  ETA: 8 days, 9:55:01[KProgress:   2%|▉                                        |  ETA: 8 days, 9:47:32[KProgress:   2%|▉                                        |  ETA: 8 days, 9:39:39[KProgress:   2%|█                                        |  ETA: 8 days, 9:21:11[KProgress:   2%|█                                        |  ETA: 8 days, 9:02:23[KProgress:   2%|█                                        |  ETA: 8 days, 8:34:11[KProgress:   2%|█                                        |  ETA: 8 days, 8:07:15[KProgress:   3%|█                                        |  ETA: 8 days, 7:30:50[KProgress:   3%|█                                        |  ETA: 8 days, 6:46:15[KProgress:   3%|█▏                                       |  ETA: 8 days, 6:10:58[KProgress:   3%|█▏                                       |  ETA: 8 days, 5:27:19[KProgress:   3%|█▏                                       |  ETA: 8 days, 4:44:43[KProgress:   3%|█▏                                       |  ETA: 8 days, 4:12:27[KProgress:   3%|█▏                                       |  ETA: 8 days, 3:32:02[KProgress:   3%|█▏                                       |  ETA: 8 days, 3:01:30[KProgress:   3%|█▎                                       |  ETA: 8 days, 2:23:20[KProgress:   3%|█▎                                       |  ETA: 8 days, 1:54:59[KProgress:   3%|█▎                                       |  ETA: 8 days, 1:27:26[KProgress:   3%|█▎                                       |  ETA: 8 days, 0:52:17[KProgress:   3%|█▎                                       |  ETA: 8 days, 0:26:02[KProgress:   3%|█▎                                       |  ETA: 7 days, 23:51:02[KProgress:   3%|█▎                                       |  ETA: 7 days, 23:39:44[KProgress:   3%|█▍                                       |  ETA: 7 days, 23:21:08[KProgress:   3%|█▍                                       |  ETA: 7 days, 23:10:50[KProgress:   3%|█▍                                       |  ETA: 7 days, 22:53:10[KProgress:   3%|█▍                                       |  ETA: 7 days, 22:42:53[KProgress:   3%|█▍                                       |  ETA: 7 days, 22:33:02[KProgress:   3%|█▍                                       |  ETA: 7 days, 22:30:23[KProgress:   4%|█▌                                       |  ETA: 7 days, 22:34:36[KProgress:   4%|█▌                                       |  ETA: 7 days, 22:32:05[KProgress:   4%|█▌                                       |  ETA: 7 days, 22:29:05[KProgress:   4%|█▌                                       |  ETA: 7 days, 22:39:18[KProgress:   4%|█▌                                       |  ETA: 7 days, 22:42:51[KProgress:   4%|█▌                                       |  ETA: 7 days, 22:58:52[KProgress:   4%|█▌                                       |  ETA: 7 days, 23:21:01[KProgress:   4%|█▋                                       |  ETA: 7 days, 23:35:54[KProgress:   4%|█▋                                       |  ETA: 7 days, 23:43:55[KProgress:   4%|█▋                                       |  ETA: 7 days, 23:51:40[KProgress:   4%|█▋                                       |  ETA: 7 days, 23:53:09[KProgress:   4%|█▋                                       |  ETA: 7 days, 23:54:21[KProgress:   4%|█▋                                       |  ETA: 7 days, 23:49:25[KProgress:   4%|█▊                                       |  ETA: 7 days, 23:50:39[KProgress:   4%|█▊                                       |  ETA: 7 days, 23:34:04[KProgress:   4%|█▊                                       |  ETA: 7 days, 23:17:36[KProgress:   4%|█▊                                       |  ETA: 7 days, 22:32:53[KProgress:   4%|█▊                                       |  ETA: 7 days, 22:22:52[KProgress:   4%|█▊                                       |  ETA: 7 days, 22:02:00[KProgress:   4%|█▉                                       |  ETA: 7 days, 21:52:07[KProgress:   4%|█▉                                       |  ETA: 7 days, 21:31:33[KProgress:   5%|█▉                                       |  ETA: 7 days, 21:06:02[KProgress:   5%|█▉                                       |  ETA: 7 days, 20:30:21[KProgress:   5%|█▉                                       |  ETA: 7 days, 19:55:07[KProgress:   5%|█▉                                       |  ETA: 7 days, 19:36:15[KProgress:   5%|█▉                                       |  ETA: 7 days, 19:17:40[KProgress:   5%|██                                       |  ETA: 7 days, 18:59:06[KProgress:   5%|██                                       |  ETA: 7 days, 19:34:32[KProgress:   5%|██                                       |  ETA: 7 days, 20:14:11[KProgress:   5%|██                                       |  ETA: 7 days, 20:30:20[KProgress:   5%|██                                       |  ETA: 7 days, 20:41:14[KProgress:   5%|██                                       |  ETA: 7 days, 20:47:03[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:52:28[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:57:54[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:58:34[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:54:06[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:45:58[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:43:03[KProgress:   5%|██▏                                      |  ETA: 7 days, 20:35:30[KProgress:   5%|██▎                                      |  ETA: 7 days, 20:32:29[KProgress:   5%|██▎                                      |  ETA: 7 days, 20:15:52[KProgress:   5%|██▎                                      |  ETA: 7 days, 20:03:59[KProgress:   6%|██▎                                      |  ETA: 7 days, 19:47:45[KProgress:   6%|██▎                                      |  ETA: 7 days, 19:32:02[KProgress:   6%|██▎                                      |  ETA: 7 days, 19:20:37[KProgress:   6%|██▍                                      |  ETA: 7 days, 19:00:40[KProgress:   6%|██▍                                      |  ETA: 7 days, 18:48:47[KProgress:   6%|██▍                                      |  ETA: 7 days, 18:28:48[KProgress:   6%|██▍                                      |  ETA: 7 days, 18:12:55[KProgress:   6%|██▍                                      |  ETA: 7 days, 17:57:22[KProgress:   6%|██▍                                      |  ETA: 7 days, 17:41:34[KProgress:   6%|██▌                                      |  ETA: 7 days, 17:30:02[KProgress:   6%|██▌                                      |  ETA: 7 days, 17:18:42[KProgress:   6%|██▌                                      |  ETA: 7 days, 17:07:25[KProgress:   6%|██▌                                      |  ETA: 7 days, 16:52:17[KProgress:   6%|██▌                                      |  ETA: 7 days, 16:44:59[KProgress:   6%|██▌                                      |  ETA: 7 days, 16:37:49[KProgress:   6%|██▌                                      |  ETA: 7 days, 16:34:36[KProgress:   6%|██▋                                      |  ETA: 7 days, 16:31:07[KProgress:   6%|██▋                                      |  ETA: 7 days, 16:35:37[KProgress:   6%|██▋                                      |  ETA: 7 days, 16:36:02[KProgress:   6%|██▋                                      |  ETA: 7 days, 16:39:59[KProgress:   6%|██▋                                      |  ETA: 7 days, 16:47:32[KProgress:   7%|██▋                                      |  ETA: 7 days, 16:55:01[KProgress:   7%|██▊                                      |  ETA: 7 days, 17:05:44[KProgress:   7%|██▊                                      |  ETA: 7 days, 17:23:17[KProgress:   7%|██▊                                      |  ETA: 7 days, 17:26:39[KProgress:   7%|██▊                                      |  ETA: 7 days, 17:51:10[KProgress:   7%|██▊                                      |  ETA: 7 days, 18:04:32[KProgress:   7%|██▊                                      |  ETA: 7 days, 18:10:50[KProgress:   7%|██▊                                      |  ETA: 7 days, 18:16:32[KProgress:   7%|██▉                                      |  ETA: 7 days, 18:18:47[KProgress:   7%|██▉                                      |  ETA: 7 days, 18:10:33[KProgress:   7%|██▉                                      |  ETA: 7 days, 18:06:00[KProgress:   7%|██▉                                      |  ETA: 7 days, 18:01:24[KProgress:   7%|██▉                                      |  ETA: 7 days, 17:56:28[KProgress:   7%|██▉                                      |  ETA: 7 days, 17:48:20[KProgress:   7%|███                                      |  ETA: 7 days, 17:37:05[KProgress:   7%|███                                      |  ETA: 7 days, 17:25:10[KProgress:   7%|███                                      |  ETA: 7 days, 17:13:11[KProgress:   7%|███                                      |  ETA: 7 days, 16:58:06[KProgress:   7%|███                                      |  ETA: 7 days, 16:46:20[KProgress:   7%|███                                      |  ETA: 7 days, 16:31:26[KProgress:   7%|███▏                                     |  ETA: 7 days, 16:16:38[KProgress:   8%|███▏                                     |  ETA: 7 days, 16:05:15[KProgress:   8%|███▏                                     |  ETA: 7 days, 15:48:04[KProgress:   8%|███▏                                     |  ETA: 7 days, 15:37:33[KProgress:   8%|███▏                                     |  ETA: 7 days, 15:20:58[KProgress:   8%|███▏                                     |  ETA: 7 days, 15:10:38[KProgress:   8%|███▏                                     |  ETA: 7 days, 14:57:29[KProgress:   8%|███▎                                     |  ETA: 7 days, 14:44:22[KProgress:   8%|███▎                                     |  ETA: 7 days, 14:34:26[KProgress:   8%|███▎                                     |  ETA: 7 days, 14:21:28[KProgress:   8%|███▎                                     |  ETA: 7 days, 14:14:26[KProgress:   8%|███▎                                     |  ETA: 7 days, 14:07:26[KProgress:   8%|███▎                                     |  ETA: 7 days, 14:03:31[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:56:30[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:51:52[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:47:27[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:42:56[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:43:51[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:41:59[KProgress:   8%|███▍                                     |  ETA: 7 days, 13:37:15[KProgress:   8%|███▌                                     |  ETA: 7 days, 13:40:44[KProgress:   8%|███▌                                     |  ETA: 7 days, 13:38:29[KProgress:   9%|███▌                                     |  ETA: 7 days, 13:41:51[KProgress:   9%|███▌                                     |  ETA: 7 days, 13:47:55[KProgress:   9%|███▌                                     |  ETA: 7 days, 13:50:51[KProgress:   9%|███▌                                     |  ETA: 7 days, 13:53:50[KProgress:   9%|███▋                                     |  ETA: 7 days, 13:56:46[KProgress:   9%|███▋                                     |  ETA: 7 days, 13:56:59[KProgress:   9%|███▋                                     |  ETA: 7 days, 13:57:02[KProgress:   9%|███▋                                     |  ETA: 7 days, 13:54:29[KProgress:   9%|███▋                                     |  ETA: 7 days, 13:51:59[KProgress:   9%|███▋                                     |  ETA: 7 days, 13:44:14[KProgress:   9%|███▊                                     |  ETA: 7 days, 13:33:51[KProgress:   9%|███▊                                     |  ETA: 7 days, 13:13:17[KProgress:   9%|███▊                                     |  ETA: 7 days, 13:05:39[KProgress:   9%|███▊                                     |  ETA: 7 days, 12:53:02[KProgress:   9%|███▊                                     |  ETA: 7 days, 12:47:59[KProgress:   9%|███▊                                     |  ETA: 7 days, 12:37:56[KProgress:   9%|███▊                                     |  ETA: 7 days, 12:25:24[KProgress:   9%|███▉                                     |  ETA: 7 days, 12:08:04[KProgress:   9%|███▉                                     |  ETA: 7 days, 11:50:47[KProgress:   9%|███▉                                     |  ETA: 7 days, 11:41:01[KProgress:   9%|███▉                                     |  ETA: 7 days, 11:28:49[KProgress:  10%|███▉                                     |  ETA: 7 days, 11:16:35[KProgress:  10%|███▉                                     |  ETA: 7 days, 11:31:53[KProgress:  10%|████                                     |  ETA: 7 days, 11:46:55[KProgress:  10%|████                                     |  ETA: 7 days, 11:51:57[KProgress:  10%|████                                     |  ETA: 7 days, 11:56:49[KProgress:  10%|████                                     |  ETA: 7 days, 11:56:50[KProgress:  10%|████                                     |  ETA: 7 days, 11:56:41[KProgress:  10%|████                                     |  ETA: 7 days, 11:58:53[KProgress:  10%|████                                     |  ETA: 7 days, 11:58:43[KProgress:  10%|████▏                                    |  ETA: 7 days, 11:56:01[KProgress:  10%|████▏                                    |  ETA: 7 days, 11:48:46[KProgress:  10%|████▏                                    |  ETA: 7 days, 11:43:42[KProgress:  10%|████▏                                    |  ETA: 7 days, 11:38:42[KProgress:  10%|████▏                                    |  ETA: 7 days, 11:33:42[KProgress:  10%|████▏                                    |  ETA: 7 days, 11:24:05[KProgress:  10%|████▎                                    |  ETA: 7 days, 11:16:51[KProgress:  10%|████▎                                    |  ETA: 7 days, 11:07:20[KProgress:  10%|████▎                                    |  ETA: 7 days, 10:58:00[KProgress:  10%|████▎                                    |  ETA: 7 days, 10:48:41[KProgress:  10%|████▎                                    |  ETA: 7 days, 10:37:06[KProgress:  10%|████▎                                    |  ETA: 7 days, 10:27:36[KProgress:  11%|████▍                                    |  ETA: 7 days, 10:13:46[KProgress:  11%|████▍                                    |  ETA: 7 days, 10:04:20[KProgress:  11%|████▍                                    |  ETA: 7 days, 9:53:06[KProgress:  11%|████▍                                    |  ETA: 7 days, 9:41:44[KProgress:  11%|████▍                                    |  ETA: 7 days, 9:32:28[KProgress:  11%|████▍                                    |  ETA: 7 days, 9:25:12[KProgress:  11%|████▍                                    |  ETA: 7 days, 9:16:03[KProgress:  11%|████▌                                    |  ETA: 7 days, 9:04:45[KProgress:  11%|████▌                                    |  ETA: 7 days, 8:59:47[KProgress:  11%|████▌                                    |  ETA: 7 days, 8:54:54[KProgress:  11%|████▌                                    |  ETA: 7 days, 8:51:55[KProgress:  11%|████▌                                    |  ETA: 7 days, 8:50:57[KProgress:  11%|████▌                                    |  ETA: 7 days, 8:49:57[KProgress:  11%|████▋                                    |  ETA: 7 days, 8:48:58[KProgress:  11%|████▋                                    |  ETA: 7 days, 8:47:53[KProgress:  11%|████▋                                    |  ETA: 7 days, 8:50:52[KProgress:  11%|████▋                                    |  ETA: 7 days, 8:51:39[KProgress:  11%|████▋                                    |  ETA: 7 days, 8:56:26[KProgress:  11%|████▋                                    |  ETA: 7 days, 9:02:59[KProgress:  11%|████▋                                    |  ETA: 7 days, 9:01:42[KProgress:  11%|████▊                                    |  ETA: 7 days, 9:11:20[KProgress:  12%|████▊                                    |  ETA: 7 days, 9:15:44[KProgress:  12%|████▊                                    |  ETA: 7 days, 9:19:58[KProgress:  12%|████▊                                    |  ETA: 7 days, 9:20:14[KProgress:  12%|████▊                                    |  ETA: 7 days, 9:18:29[KProgress:  12%|████▊                                    |  ETA: 7 days, 9:10:53[KProgress:  12%|████▉                                    |  ETA: 7 days, 9:07:09[KProgress:  12%|████▉                                    |  ETA: 7 days, 9:01:34[KProgress:  12%|████▉                                    |  ETA: 7 days, 8:57:54[KProgress:  12%|████▉                                    |  ETA: 7 days, 8:52:26[KProgress:  12%|████▉                                    |  ETA: 7 days, 8:45:01[KProgress:  12%|████▉                                    |  ETA: 7 days, 8:35:43[KProgress:  12%|█████                                    |  ETA: 7 days, 8:26:32[KProgress:  12%|█████                                    |  ETA: 7 days, 8:15:30[KProgress:  12%|█████                                    |  ETA: 7 days, 8:08:09[KProgress:  12%|█████                                    |  ETA: 7 days, 7:57:14[KProgress:  12%|█████                                    |  ETA: 7 days, 7:46:18[KProgress:  12%|█████                                    |  ETA: 7 days, 7:37:17[KProgress:  12%|█████                                    |  ETA: 7 days, 7:26:25[KProgress:  12%|█████▏                                   |  ETA: 7 days, 7:17:33[KProgress:  12%|█████▏                                   |  ETA: 7 days, 7:06:58[KProgress:  12%|█████▏                                   |  ETA: 7 days, 6:58:04[KProgress:  13%|█████▏                                   |  ETA: 7 days, 6:49:19[KProgress:  13%|█████▏                                   |  ETA: 7 days, 6:40:34[KProgress:  13%|█████▏                                   |  ETA: 7 days, 6:33:38[KProgress:  13%|█████▎                                   |  ETA: 7 days, 6:24:59[KProgress:  13%|█████▎                                   |  ETA: 7 days, 6:17:59[KProgress:  13%|█████▎                                   |  ETA: 7 days, 6:11:03[KProgress:  13%|█████▎                                   |  ETA: 7 days, 6:05:50[KProgress:  13%|█████▎                                   |  ETA: 7 days, 5:58:54[KProgress:  13%|█████▎                                   |  ETA: 7 days, 5:53:52[KProgress:  13%|█████▎                                   |  ETA: 7 days, 5:49:04[KProgress:  13%|█████▍                                   |  ETA: 7 days, 5:44:01[KProgress:  13%|█████▍                                   |  ETA: 7 days, 5:44:07[KProgress:  13%|█████▍                                   |  ETA: 7 days, 5:42:34[KProgress:  13%|█████▍                                   |  ETA: 7 days, 5:37:39[KProgress:  13%|█████▍                                   |  ETA: 7 days, 5:37:47[KProgress:  13%|█████▍                                   |  ETA: 7 days, 5:36:09[KProgress:  13%|█████▌                                   |  ETA: 7 days, 5:37:46[KProgress:  13%|█████▌                                   |  ETA: 7 days, 5:41:09[KProgress:  13%|█████▌                                   |  ETA: 7 days, 5:42:48[KProgress:  13%|█████▌                                   |  ETA: 7 days, 5:42:36[KProgress:  13%|█████▌                                   |  ETA: 7 days, 5:42:21[KProgress:  14%|█████▌                                   |  ETA: 7 days, 5:40:31[KProgress:  14%|█████▋                                   |  ETA: 7 days, 5:38:45[KProgress:  14%|█████▋                                   |  ETA: 7 days, 5:35:22[KProgress:  14%|█████▋                                   |  ETA: 7 days, 5:33:35[KProgress:  14%|█████▋                                   |  ETA: 7 days, 5:28:30[KProgress:  14%|█████▋                                   |  ETA: 7 days, 5:20:08[KProgress:  14%|█████▋                                   |  ETA: 7 days, 5:05:26[KProgress:  14%|█████▋                                   |  ETA: 7 days, 4:58:44[KProgress:  14%|█████▊                                   |  ETA: 7 days, 4:50:34[KProgress:  14%|█████▊                                   |  ETA: 7 days, 4:45:33[KProgress:  14%|█████▊                                   |  ETA: 7 days, 4:37:23[KProgress:  14%|█████▊                                   |  ETA: 7 days, 4:30:46[KProgress:  14%|█████▊                                   |  ETA: 7 days, 4:21:01[KProgress:  14%|█████▊                                   |  ETA: 7 days, 4:08:11[KProgress:  14%|█████▉                                   |  ETA: 7 days, 4:01:40[KProgress:  14%|█████▉                                   |  ETA: 7 days, 3:53:41[KProgress:  14%|█████▉                                   |  ETA: 7 days, 3:45:36[KProgress:  14%|█████▉                                   |  ETA: 7 days, 3:55:03[KProgress:  14%|█████▉                                   |  ETA: 7 days, 4:03:43[KProgress:  14%|█████▉                                   |  ETA: 7 days, 4:05:13[KProgress:  14%|█████▉                                   |  ETA: 7 days, 4:06:29[KProgress:  15%|██████                                   |  ETA: 7 days, 4:06:18[KProgress:  15%|██████                                   |  ETA: 7 days, 4:06:01[KProgress:  15%|██████                                   |  ETA: 7 days, 4:05:39[KProgress:  15%|██████                                   |  ETA: 7 days, 4:03:53[KProgress:  15%|██████                                   |  ETA: 7 days, 4:00:20[KProgress:  15%|██████                                   |  ETA: 7 days, 3:56:45[KProgress:  15%|██████▏                                  |  ETA: 7 days, 3:53:10[KProgress:  15%|██████▏                                  |  ETA: 7 days, 3:49:34[KProgress:  15%|██████▏                                  |  ETA: 7 days, 3:46:01[KProgress:  15%|██████▏                                  |  ETA: 7 days, 3:38:05[KProgress:  15%|██████▏                                  |  ETA: 7 days, 3:33:07[KProgress:  15%|██████▏                                  |  ETA: 7 days, 3:25:11[KProgress:  15%|██████▎                                  |  ETA: 7 days, 3:17:11[KProgress:  15%|██████▎                                  |  ETA: 7 days, 3:09:12[KProgress:  15%|██████▎                                  |  ETA: 7 days, 3:01:14[KProgress:  15%|██████▎                                  |  ETA: 7 days, 2:54:35[KProgress:  15%|██████▎                                  |  ETA: 7 days, 2:45:05[KProgress:  15%|██████▎                                  |  ETA: 7 days, 2:37:04[KProgress:  15%|██████▎                                  |  ETA: 7 days, 2:27:33[KProgress:  15%|██████▍                                  |  ETA: 7 days, 2:18:10[KProgress:  15%|██████▍                                  |  ETA: 7 days, 2:11:41[KProgress:  16%|██████▍                                  |  ETA: 7 days, 2:06:27[KProgress:  16%|██████▍                                  |  ETA: 7 days, 1:59:48[KProgress:  16%|██████▍                                  |  ETA: 7 days, 1:51:50[KProgress:  16%|██████▍                                  |  ETA: 7 days, 1:47:59[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:42:47[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:40:30[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:39:27[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:38:16[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:35:47[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:33:09[KProgress:  16%|██████▌                                  |  ETA: 7 days, 1:33:25[KProgress:  16%|██████▋                                  |  ETA: 7 days, 1:33:32[KProgress:  16%|██████▋                                  |  ETA: 7 days, 1:34:55[KProgress:  16%|██████▋                                  |  ETA: 7 days, 1:37:29[KProgress:  16%|██████▋                                  |  ETA: 7 days, 1:34:49[KProgress:  16%|██████▋                                  |  ETA: 7 days, 1:40:43[KProgress:  16%|██████▋                                  |  ETA: 7 days, 1:43:16[KProgress:  16%|██████▊                                  |  ETA: 7 days, 1:44:25[KProgress:  16%|██████▊                                  |  ETA: 7 days, 1:42:51[KProgress:  16%|██████▊                                  |  ETA: 7 days, 1:42:33[KProgress:  16%|██████▊                                  |  ETA: 7 days, 1:36:57[KProgress:  17%|██████▊                                  |  ETA: 7 days, 1:33:56[KProgress:  17%|██████▊                                  |  ETA: 7 days, 1:30:52[KProgress:  17%|██████▉                                  |  ETA: 7 days, 1:27:53[KProgress:  17%|██████▉                                  |  ETA: 7 days, 1:22:19[KProgress:  17%|██████▉                                  |  ETA: 7 days, 1:16:41[KProgress:  17%|██████▉                                  |  ETA: 7 days, 1:08:31[KProgress:  17%|██████▉                                  |  ETA: 7 days, 1:00:21[KProgress:  17%|██████▉                                  |  ETA: 7 days, 0:52:14[KProgress:  17%|██████▉                                  |  ETA: 7 days, 0:45:25[KProgress:  17%|███████                                  |  ETA: 7 days, 0:37:25[KProgress:  17%|███████                                  |  ETA: 7 days, 0:29:22[KProgress:  17%|███████                                  |  ETA: 7 days, 0:21:25[KProgress:  17%|███████                                  |  ETA: 7 days, 0:13:19[KProgress:  17%|███████                                  |  ETA: 7 days, 0:07:08[KProgress:  17%|███████                                  |  ETA: 6 days, 23:59:43[KProgress:  17%|███████▏                                 |  ETA: 6 days, 23:52:18[KProgress:  17%|███████▏                                 |  ETA: 6 days, 23:44:58[KProgress:  17%|███████▏                                 |  ETA: 6 days, 23:37:41[KProgress:  17%|███████▏                                 |  ETA: 6 days, 23:32:47[KProgress:  17%|███████▏                                 |  ETA: 6 days, 23:26:36[KProgress:  17%|███████▏                                 |  ETA: 6 days, 23:21:45[KProgress:  18%|███████▏                                 |  ETA: 6 days, 23:16:46[KProgress:  18%|███████▎                                 |  ETA: 6 days, 23:13:05[KProgress:  18%|███████▎                                 |  ETA: 6 days, 23:08:00[KProgress:  18%|███████▎                                 |  ETA: 6 days, 23:04:08[KProgress:  18%|███████▎                                 |  ETA: 6 days, 23:00:14[KProgress:  18%|███████▎                                 |  ETA: 6 days, 22:56:23[KProgress:  18%|███████▎                                 |  ETA: 6 days, 22:54:59[KProgress:  18%|███████▍                                 |  ETA: 6 days, 22:53:32[KProgress:  18%|███████▍                                 |  ETA: 6 days, 22:49:39[KProgress:  18%|███████▍                                 |  ETA: 6 days, 22:49:23[KProgress:  18%|███████▍                                 |  ETA: 6 days, 22:46:39[KProgress:  18%|███████▍                                 |  ETA: 6 days, 22:47:31[KProgress:  18%|███████▍                                 |  ETA: 6 days, 22:48:18[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:47:52[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:47:28[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:46:59[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:45:21[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:43:42[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:40:52[KProgress:  18%|███████▌                                 |  ETA: 6 days, 22:39:12[KProgress:  18%|███████▋                                 |  ETA: 6 days, 22:36:19[KProgress:  19%|███████▋                                 |  ETA: 6 days, 22:31:02[KProgress:  19%|███████▋                                 |  ETA: 6 days, 22:22:17[KProgress:  19%|███████▋                                 |  ETA: 6 days, 22:15:51[KProgress:  19%|███████▋                                 |  ETA: 6 days, 22:08:17[KProgress:  19%|███████▋                                 |  ETA: 6 days, 22:03:00[Kslurmstepd: error: *** JOB 9697895 ON ilk-45 CANCELLED AT 2024-12-11T13:27:04 ***

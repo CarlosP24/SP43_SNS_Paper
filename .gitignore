@@ -3,3 +3,4 @@ figures/
 local_tests/
 .julia_depot/
 time_launcher.sh
+tmp/

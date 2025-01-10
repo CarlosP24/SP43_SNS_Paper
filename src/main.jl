@@ -5,6 +5,7 @@ using JLD2
     using ProgressMeter, Parameters
     using Interpolations, SpecialFunctions, Roots
     using Logging
+    using Sockets
 
     # Load models
     include("models/params.jl")
