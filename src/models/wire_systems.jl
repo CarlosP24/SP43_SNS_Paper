@@ -3,23 +3,63 @@
     calc_params = Calc_Params()
 end
 
+cparams_valve_65 = Calc_Params(
+    Calc_Params();
+    Φrng = subdiv(0, 5.43, 800),
+    ωrng = subdiv(-.26, 0, 301) .+ 1e-3im
+)
+
+cparams_valve_60 = Calc_Params(
+    Calc_Params();
+    Φrng = subdiv(0, 4.66, 800),
+    ωrng = subdiv(-.26, 0, 301) .+ 1e-3im
+)
+
 wire_systems = Dict(
     "valve_65" => wire_system(; 
         wire = (; wires["valve_65"]...,
             Zs = -5:5),
-        calc_params = Calc_Params(
-            Calc_Params();
-            Φrng = subdiv(0, 5.43, 400),
-        )
+        calc_params = cparams_valve_65,
     ),
-    "valve_65_metal" => wire_system(; wire = wires["valve_65_metal"]),
-    "valve_65_dep" => wire_system(; wire = wires["valve_65_dep"]),
-    "valve_65_500" => wire_system(; wire = wires["valve_65_500"]),
-    "valve_60" => wire_system(; wire = wires["valve_60"]),
-    "valve_65_ξ" => wire_system(; wire = wires["valve_65_ξ"]),
-    "valve_60_dep" => wire_system(; wire = wires["valve_60_dep"]),
-    "valve_60_metal" => wire_system(; wire = wires["valve_60_metal"]),
-    "valve_60_100" => wire_system(; wire = wires["valve_60_100"]),
+    "valve_65_metal" => wire_system(; 
+        wire = (; wires["valve_65_metal"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_65,
+    ),
+    "valve_65_dep" => wire_system(; 
+        wire = (; wires["valve_65_dep"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_65,
+    ),
+    "valve_65_500" => wire_system(; 
+        wire = (; wires["valve_65_500"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_65,
+    ),
+    "valve_60" => wire_system(; 
+        wire = (; wires["valve_60"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_60,
+    ),
+    "valve_65_ξ" => wire_system(; 
+        wire = (; wires["valve_65_ξ"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_65,
+    ),
+    "valve_60_dep" => wire_system(; 
+        wire = (;wires["valve_60_dep"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_60,
+    ),
+    "valve_60_metal" => wire_system(; 
+        wire = (;wires["valve_60_metal"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_60,
+    ),
+    "valve_60_100" => wire_system(;
+        wire = (;wires["valve_60_100"]...),
+        calc_params = cparams_valve_60,
+    ),
     "jos_hc" => wire_system(; wire = wires["jos_hc"]),
     "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"]),
     "jos_mhc" => wire_system(; wire = wires["jos_mhc"]),
