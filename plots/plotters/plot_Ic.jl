@@ -13,7 +13,7 @@ function interpolate_jump(φrng, J; φtol = 1e-6)
     end
     return I
 end
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -48,6 +48,10 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
     Ic = getindex(findmax(J; dims = 2),1) |> vec
     Ic = replace!(Ic, NaN => 0)
+
+    Icm = getindex(findmin(J; dims = 2),1) |> vec
+    Icm = replace!(Icm, NaN => 0)
+
     if xcut !== nothing
         xrng = xrng[xcut:end]
         Ic = Ic[xcut:end]
@@ -56,9 +60,10 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
     Ibase = Ic .- Imajo
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
     showmajo && band!(ax, xrng1, Ibase[xa:xb], Ic[xa:xb]; color, alpha = 0.2)
+    diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash, label = L"$%$(TN)$")
     #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
 
     xlims!(ax, (0, last(xrng)))
@@ -136,22 +141,24 @@ function KO1(name::String; basepath = "data")
 end
 
 ## Test plots 
-function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict())
-    fig = Figure()
+function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), diode = false)
+    fig = Figure(size = (600, 800))
     xs = [0.96,  0.58, 1.39,  0.75, ]
     ax, ts = plot_LDOS(fig[1, 1], "valve_65"; colorrange = (0, 1e-2))
     hidexdecorations!(ax, ticks = false)
+    ax, ts = plot_LDOS(fig[2, 1], "valve_60"; colorrange = (0, 1e-2))
+    hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
-    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", )
-    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false)
+    ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", )
+    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]
 
     return fig
 end
 
-fig = fig_Ics("ξmismatch_0.0001.jld2")
+fig = fig_Ics("Rmismatch_0.0001.jld2")
 fig
 
 ## Test vale
