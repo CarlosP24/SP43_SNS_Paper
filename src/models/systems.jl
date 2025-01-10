@@ -6,7 +6,9 @@
     j_params = J_Params()
 end
 
+
 # Study systems
+Ts_valve = [1e-4, 1e-3, 1e-2, 0.1, 0.5, 0.9]
 
 systems_reference = Dict(
     ["reference_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65"], junction = junctions["J$(i)"]) for i in 1:6]
@@ -41,15 +43,39 @@ systems_dep = Dict(
 )
 
 systems_Rmismatch = Dict(
-    ["Rmismatch_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_60"], junction = junctions["J$(i)"]) for i in 1:4]
+    ["Rmismatch_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_60"], junction = Junction(; TN = i)) for i in Ts_valve]
+)
+
+systems_Rmismatch_d1 = Dict(
+    ["Rmismatch_d1_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_60"], junction = Junction(; TN = i, δτ = 0.1)) for i in Ts_valve]
+)
+
+systems_Rmismatch_d2 = Dict(
+    ["Rmismatch_d2_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_60"], junction = Junction(; TN = i, δτ = 0.5)) for i in Ts_valve]
 )
 
 systems_ξmismatch = Dict(
-    ["ξmismatch_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65_ξ"], junction = junctions["J$(i)"]) for i in 1:4]
+    ["ξmismatch_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65_ξ"], junction = Junction(; TN = i)) for i in Ts_valve]
+)
+
+systems_ξmismatch_d1 = Dict(
+    ["ξmismatch_d1_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65_ξ"], junction = Junction(; TN = i, δτ = 0.1)) for i in Ts_valve]
+)
+
+systems_ξmismatch_d2 = Dict(
+    ["ξmismatch_d2_$(i)" => System(; wireL = wires["valve_65"], wireR = wires["valve_65_ξ"], junction = Junction(; TN = i, δτ = 0.5)) for i in Ts_valve]
 )
 
 systems_RLmismatch = Dict(
-    ["RLmismatch_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = junctions["J$(i)"]) for i in 1:4]
+    ["RLmismatch_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = Junction(; TN = i)) for i in Ts_valve]
+)
+
+systems_RLmismatch_d1 = Dict(
+    ["RLmismatch_d1_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = Junction(; TN = i, δτ = 0.1)) for i in Ts_valve]
+)
+
+systems_RLmismatch_d2 = Dict(
+    ["RLmismatch_d2_$(i)" => System(; wireL = wires["valve_65_500"], wireR = wires["valve_60_100"], junction = Junction(; TN = i, δτ = 0.5)) for i in Ts_valve]
 )
 
 # Systems for josephson paper
@@ -204,7 +230,9 @@ systems_mhc_Longmismatch = Dict(
 
 systems_ref = merge(systems_reference, systems_reference_metal, systems_reference_dep)
 systems_ref_Z = merge(systems_reference_Z, systems_reference_metal_Z, systems_reference_dep_Z)
-systems_valve = merge(systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+systems_valve_test = merge(systems_metal, systems_dep)
+systems_valve = merge(systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
+systems_valve_d = merge(systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_RLmismatch_d1, systems_RLmismatch_d2)
 
 systems_jos_triv = merge(systems_hc_triv, systems_mhc_triv, systems_scm_triv)
 systems_jos_topo = merge(systems_hc, systems_mhc, systems_scm)
@@ -219,7 +247,12 @@ systems_length = merge(systems_mhc_L, systems_mhc_Long, systems_mhc_short, syste
 systems_dict = Dict(
     "systems_ref" => systems_ref,
     "systems_ref_Z" => systems_ref_Z,
+    "systems_valve_test" => systems_valve_test,
     "systems_valve" => systems_valve,
+    "systems_valve_d" => systems_valve_d,
+    "systems_valve_R" => systems_Rmismatch,
+    "systems_valve_ξ" => systems_ξmismatch,
+    "systems_valve_RL" => systems_RLmismatch,
     "systems_ref_metal" => systems_reference_metal,
     "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_dep_1" => systems_reference_dep["reference_dep_1"]),
     "systems_ref_dep_Z" => systems_reference_dep_Z,
@@ -240,4 +273,4 @@ systems_dict = Dict(
     "systems_jos_mhc_short" => systems_mhc_short,
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch)
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2,)
