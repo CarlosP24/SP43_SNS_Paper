@@ -281,7 +281,7 @@ systems_ref = merge(systems_reference, systems_reference_metal, systems_referenc
 systems_ref_Z = merge(systems_reference_Z, systems_reference_metal_Z, systems_reference_dep_Z)
 systems_valve_test = merge(systems_metal, systems_dep)
 systems_valve = merge(systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
-systems_valve_d = merge(systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_RLmismatch_d1, systems_RLmismatch_d2)
+systems_valve_Rd = merge(systems_Rmismatch_d1, systems_Rmismatch_d2)
 
 systems_jos_triv = merge(systems_hc_triv, systems_mhc_triv, systems_scm_triv)
 systems_jos_topo = merge(systems_hc, systems_mhc, systems_scm)
@@ -298,7 +298,7 @@ systems_dict = Dict(
     "systems_ref_Z" => systems_ref_Z,
     "systems_valve_test" => systems_valve_test,
     "systems_valve" => systems_valve,
-    "systems_valve_d" => systems_valve_d,
+    "systems_valve_Rd" => systems_valve_Rd,
     "systems_valve_R" => systems_Rmismatch,
     "systems_valve_ξ" => systems_ξmismatch,
     "systems_valve_RL" => systems_RLmismatch,
