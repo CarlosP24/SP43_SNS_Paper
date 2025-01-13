@@ -60,7 +60,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
     Ibase = Ic .- Imajo
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
     showmajo && band!(ax, xrng1, Ibase[xa:xb], Ic[xa:xb]; color, alpha = 0.2)
     diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash, label = L"$%$(TN)$")
