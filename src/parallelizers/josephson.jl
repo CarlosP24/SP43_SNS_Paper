@@ -7,7 +7,7 @@ lg is the length of the φrng inside J. Needed for error handling purposes.
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given noise harmonics hdict.
 """
 function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
-    mkdir("tmp")
+    mkpath("tmp_$(ENV["SLURM_ARRAY_TASK_ID"])")
     Jss = @showprogress pmap(Brng) do B
         report_file = "tmp/worker_$(myid()).txt"
         test_io = open(report_file, "w")
@@ -22,7 +22,7 @@ function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
         rm(report_file)
         return j
     end
-    rm("tmp", recursive = true)
+    rm("tmp_$(ENV["SLURM_ARRAY_TASK_ID"])", recursive = true)
     return reshape(Jss, size(Brng)...)
 end
 
