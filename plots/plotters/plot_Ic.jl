@@ -146,7 +146,7 @@ function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow,
     xs = [0.96,  0.58, 1.39,  0.75, ]
     ax, ts = plot_LDOS(fig[1, 1], "valve_65"; colorrange = (0, 1e-2))
     hidexdecorations!(ax, ticks = false)
-    ax, ts = plot_LDOS(fig[2, 1], "valve_60"; colorrange = (0, 1e-2))
+    ax, ts = plot_LDOS(fig[2, 1], "valve_65_500"; colorrange = (0, 1e-2))
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
