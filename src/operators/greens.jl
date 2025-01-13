@@ -27,10 +27,13 @@ end
 Obtain Greens function operator for a non-symmetric junction between semi-infinite leads.
 """
 function greens_semi(hSC_left, hSC_right, p_left, p_right; tfunction = "normal", SOC = false)
-    coupling = build_coupling(p_left, p_right; tfunction, SOC)
+    coupling = build_coupling(p_left, p_right; zero_site = true, tfunction, SOC)
+    hop = build_hopping(p_left, p_right; zero_site = true)
+    h_central = hSC_right |> supercell()
     g_right = hSC_right |> greenfunction(GS.Schur(boundary = 0))
     g_left = hSC_left |> greenfunction(GS.Schur(boundary = 0))
-    g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    #g = hSC_left |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = h_central |> attach(g_right[cells = (-1)], coupling;) |> attach(g_left[cells = (1)], hop) |> greenfunction()
     return g_right, g_left, g
 end
 
