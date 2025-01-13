@@ -70,10 +70,13 @@ function greens_finite(hSC_left, hSC_right, p_left, p_right; tfunction = "normal
     L_left = L
     @unpack L = p_right
     L_right = L
-    coupling = build_coupling(p_left, p_right; tfunction, SOC)
+    coupling = build_coupling(p_left, p_right; zero_site = true, tfunction, SOC)
+    hop = build_hopping(p_left, p_right; zero_site = true)
+    h_central = hSC_right |> supercell()
     g_right = hSC_right |> attach(onsite(1e9 * σ0τz,), cells = (- L_right,)) |> greenfunction(GS.Schur(boundary = 0))
-    g_left = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (- L_left,)) |> greenfunction(GS.Schur(boundary = 0))
-    g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    g_left = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,)) |> greenfunction(GS.Schur(boundary = 0))
+    #g = hSC_left |> attach(onsite(1e9 * σ0τz,), cells = (L_left,))  |> attach(g_right[cells = (-1,)], coupling; cells = (1,)) |> greenfunction(GS.Schur(boundary = 0))
+    g = h_central |> attach(g_right[cells = (-1)], coupling;) |> attach(g_left[cells = (1)], hop) |> greenfunction()
     return g_right, g_left, g
 end
 
