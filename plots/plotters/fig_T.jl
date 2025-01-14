@@ -26,7 +26,7 @@ Jdict = Dict([Z => mapreduce(permutedims, vcat, Js[Z][i, :]) for Z in keys(Js)])
 Icdict = Dict([Z => getindex(findmax(Jdict[Z]; dims = 2),1) |> vec for Z in keys(Js)])
 Ictrue = getindex(findmax(mapreduce(permutedims, vcat, sum(values(Js))[i, :]); dims = 2),1) |> vec
 
-ax = Axis(fig[2, 1]; xlabel = L"$T_N$", ylabel = L"$I_c$", xscale = log10, yscale = log10)
+ax = Axis(fig[2, 1]; xlabel = L"$T_N$", ylabel = L"$I_c$ $(2e/\hbar)$", xscale = log10, yscale = log10)
 lines!(ax, Trng, Icdict[0]; color = :red, label = L"$m_J = 0$")
 lines!(ax, Trng, sum([Icdict[Z] for Z in keys(Icdict) if Z != 0]); color = :green, label = L"$m_J \neq 0$")
 lines!(ax, Trng, sum(values(Icdict)); color = :blue, label = L"$$Fake Total")

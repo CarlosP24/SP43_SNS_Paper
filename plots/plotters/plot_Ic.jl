@@ -13,7 +13,7 @@ function interpolate_jump(φrng, J; φtol = 1e-6)
     end
     return I
 end
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -34,12 +34,34 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         xb = findmin(abs.(Φrng .- 1.5))[2]
         xrng1 = Φrng[xa:xb]
         ax.xlabel = L"$\Phi / \Phi_0$"
+        xticksL = get_Φticks(Φrng)
+        xticksR = xticksL
+        xindex = xa:xb
+        xindex_groups = [xindex]
     else
         J = mapreduce(permutedims, vcat, Js)
         xrng = Brng
-        xrng1 = Brng
         xa, xb = 1, length(Brng)
         ax.xlabel = L"$B$ (T)"
+        xticksL = get_Bticks(system.wireL, Brng)
+        xticksR = get_Bticks(system.wireR, Brng)
+        xtopoL = filter(x -> isodd(round(Int, get_Φ(Params(; system.wireL...))(x))), xrng)
+        xtopoR = filter(x -> isodd(round(Int, get_Φ(Params(; system.wireR...))(x))), xrng)
+        xrng1 = intersect(xtopoL, xtopoR)
+        xindex = map(x -> findmin(abs.(xrng .- x))[2], xrng1)
+
+        xindex_groups = []
+        current_group = [xindex[1]]
+        for (i, xi) in enumerate(xindex[2:end])
+            i += 1
+            if (xi - xindex[i-1]) > 1
+            push!(xindex_groups, current_group)
+            current_group = [xi]
+            else
+            push!(current_group, xi)
+            end
+        end
+        push!(xindex_groups, current_group)
     end
     
     φtol = system.j_params.imshift / 0.23
@@ -60,9 +82,13 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
     Ibase = Ic .- Imajo
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    lines!(ax, xrng, Ic; color, label = L"$%$(TN)$")
+    lines!(ax, xrng, Ic; color, linestyle, label = L"$%$(TN)$")
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
-    showmajo && band!(ax, xrng1, Ibase[xa:xb], Ic[xa:xb]; color, alpha = 0.2)
+    if showmajo  
+        for xindex in xindex_groups
+            band!(ax, xrng[xindex], Ibase[xindex], Ic[xindex]; color, alpha = 0.2)
+        end
+    end
     diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash, label = L"$%$(TN)$")
     #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
 
@@ -76,12 +102,12 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         end
     end
 
-    Ic, Imajo, Ibase
+    Ic, Imajo, Ibase, xticksL, xticksR, xrng
 end
 
 function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false)
 
-    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$", yscale = log10)
+    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ $(2e/\hbar)$", yscale = log10)
     for (i, name) in enumerate(names)
         plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo = (showmajo && (i == 1)))
     end
@@ -152,7 +178,7 @@ function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow,
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
-    ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$", )
+    ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
     plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]

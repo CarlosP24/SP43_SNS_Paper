@@ -4,7 +4,6 @@ function get_Bticks(model, Brng)
     Φs = Brng .* (π * (R + d/2)^2 * conv)
     ns = range(round(Int, first(Φs)), round(Int, last(Φs)))
     Bs = Brng[map(n -> findmin(abs.(n + 0.5 .- Φs))[2], ns)]
-
     return ns, Bs
 end
 
@@ -22,7 +21,7 @@ function add_colorbar(pos; colormap = :thermal, label = L"$$ LDOS (arb. units)",
     Colorbar(pos; colormap, label, limits,  ticklabelsvisible = true, ticks = [limits...], labelpadding,  width = 15,  ticksize = 2, ticklabelpad = 5, labelsize) 
 end
 
-function plot_LDOS(pos, name::String; basepath = "data/LDOS", colorrange = (1e-4, 1e-2), Zs = nothing, highlight_majo = false, xcut = nothing)
+function plot_LDOS(pos, name::String; Bticks = nothing, basepath = "data/LDOS", colorrange = (1e-4, 1e-2), Zs = nothing, highlight_majo = false, xcut = nothing)
     path = "$(basepath)/$(name).jld2"
     res = load(path)["res"]
 
@@ -58,6 +57,10 @@ function plot_LDOS(pos, name::String; basepath = "data/LDOS", colorrange = (1e-4
     R = wire.R
     ax = Axis(pos; xlabel, ylabel = L"$\omega$ (meV)")
     heatmap!(ax, xrng, real.(ωrng), abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
-    #add_Bticks(ax, ns, xs)
+    
+    if Bticks !== nothing
+        ax.xticks = get_Φ(Params(; wire...)).(Bticks)
+    end
+    
     return ax, (; xrng, ns, xs, R)
 end

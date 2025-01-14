@@ -109,17 +109,17 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         xlims!(ax, (0, 2π))
     end
 
-    Label(fig_cpr[1, 1, TopLeft()], "g",  padding = (-30, 0, -35, 0); style...)
-    Label(fig_cpr[1, 2, TopLeft()], "h",  padding = (-10, 0, -35, 0); style...)
+    Label(fig_cpr[1, 1, TopLeft()], "g",  padding = (-30, 0, -30, 0); style...)
+    Label(fig_cpr[1, 2, TopLeft()], "h",  padding = (-10, 0, -30, 0); style...)
 
-    Label(fig_cpr[2, 1, TopLeft()], "i",  padding = (-30, 0, -25, 0); style...)
-    Label(fig_cpr[2, 2, TopLeft()], "j",  padding = (-10, 0, -25, 0); style...)
+    Label(fig_cpr[2, 1, TopLeft()], "i",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_cpr[2, 2, TopLeft()], "j",  padding = (-10, 0, -20, 0); style...)
 
-    Label(fig_cpr[3, 1, TopLeft()], "k",  padding = (-30, 0, -25, 0); style...)
-    Label(fig_cpr[3, 2, TopLeft()], "l",  padding = (-10, 0, -25, 0); style...)
+    Label(fig_cpr[3, 1, TopLeft()], "k",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_cpr[3, 2, TopLeft()], "l",  padding = (-10, 0, -20, 0); style...)
 
-    Label(fig_cpr[4, 1, TopLeft()], "m",  padding = (-30, 0, -25, 0); style...)
-    Label(fig_cpr[4, 2, TopLeft()], "n",  padding = (-10, 0, -25, 0); style...)
+    Label(fig_cpr[4, 1, TopLeft()], "m",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_cpr[4, 2, TopLeft()], "n",  padding = (-10, 0, -20, 0); style...)
 
     Label(fig_cpr[1, 1:2, Top()], "Current-phase relations", padding = (0, 0, 0, 0))
 
@@ -135,10 +135,10 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         ylims!(ax, (1e-4, 1e1))
         i == 4 && ylims!(ax, (1e-6, 1e1))
         ax.xticks = ([10^-4, 10^-2, 1], [L"10^{-4}", L"10^{-2}", L"1"])
-        ax.yticks = ([10^-6, 10^-4, 1], [L"10^{-6}",L"10^{-4}", L"1"])
+        ax.yticks = i == 4 ? ([10^-6, 1], [L"10^{-6}", L"1"]) : ([10^-4, 1], [L"10^{-4}", L"1"])
         ax.yminorticksvisible = true
         ax.yminorticks = [10^-3, 10^-2, 10^-1]
-        ax.ylabelpadding = -30
+        ax.ylabelpadding = -25
         text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 4, 3); text = true_names[kwargs.name], fontsize = 10, align = (:center, :center))
         text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 5.5, 4); text = L"\frac{\Phi}{\Phi_0} = %$(kwargs.x)", fontsize = 10, align = (:center, :center))
         i == 2 && axislegend(position = :lt, framevisible = false, labelsize = 10, linewidth = 1)
@@ -146,10 +146,10 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i != 1 && rowgap!(fig_trans, i - 1, 5)
     end
 
-    Label(fig_trans[1, 1, TopLeft()], "ñ",  padding = (-30, 0, -35, 0); style...)
-    Label(fig_trans[2, 1, TopLeft()], "o",  padding = (-30, 0, -25, 0); style...)
-    Label(fig_trans[3, 1, TopLeft()], "p",  padding = (-30, 0, -25, 0); style...)
-    Label(fig_trans[4, 1, TopLeft()], "q",  padding = (-30, 0, -25, 0); style...)
+    Label(fig_trans[1, 1, TopLeft()], "ñ",  padding = (-30, 0, -30, 0); style...)
+    Label(fig_trans[2, 1, TopLeft()], "o",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_trans[3, 1, TopLeft()], "p",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_trans[4, 1, TopLeft()], "q",  padding = (-30, 0, -20, 0); style...)
 
     Label(fig_trans[1, 1, Top()], "Transparency", padding = (0, 0, 0, 0))
 

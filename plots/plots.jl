@@ -2,7 +2,7 @@
 using Pkg
 Pkg.activate("plots")
 using CairoMakie, Revise, Parameters, JLD2, ColorSchemes
-#using FullShell, Quantica
+using FullShell
 using Glob, Interpolations
 
 # Utilities
