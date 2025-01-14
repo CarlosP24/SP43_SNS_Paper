@@ -11,7 +11,8 @@ end
 Ts_valve = [1e-4, 0.1, 0.9]
 j_params_valve = J_Params(;
     imshift = 1e-6, 
-    maxevals = 1e6    
+    maxevals = 1e5,
+    atol = 1e-8    
 )
 
 systems_reference = Dict(
