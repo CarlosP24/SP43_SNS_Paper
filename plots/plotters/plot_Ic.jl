@@ -38,7 +38,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         J = mapreduce(permutedims, vcat, Js)
         xrng = Brng
         xrng1 = Brng
-        xa, xb = first(Brng), last(Brng)
+        xa, xb = 1, length(Brng)
         ax.xlabel = L"$B$ (T)"
     end
     
@@ -75,6 +75,8 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
             scatter!(ax, x, Ic[xi]; color = (color, 0.5), marker = p[2], markersize = 10)
         end
     end
+
+    Ic, Imajo, Ibase
 end
 
 function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false)
@@ -146,7 +148,7 @@ function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow,
     xs = [0.96,  0.58, 1.39,  0.75, ]
     ax, ts = plot_LDOS(fig[1, 1], "valve_65"; colorrange = (0, 1e-2))
     hidexdecorations!(ax, ticks = false)
-    ax, ts = plot_LDOS(fig[2, 1], "valve_65_500"; colorrange = (0, 1e-2))
+    ax, ts = plot_LDOS(fig[2, 1], "valve_60"; colorrange = (0, 1e-2))
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
