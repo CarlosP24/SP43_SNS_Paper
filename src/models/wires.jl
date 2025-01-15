@@ -35,6 +35,18 @@ wires["valve_65"] = (;
     d = 5,
 )
 
+wires["valve_MoRe"] = (;
+    wires["valve_65"]...,
+    Δ0 = 0.9,
+    ξd = 50,    
+)
+
+wires["valve_Al"] = (;
+    wires["valve_65"]...,
+    Δ0 = 0.2,
+    ξd = 180,    
+)
+
 # Rmismatch
 wires["valve_60"] = (;
     wires["valve_65"]...,

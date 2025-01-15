@@ -66,4 +66,5 @@ kws_currents = [
 ]
 
 fig = fig_valve_RL(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
+save("figures/fig_valve_RL.pdf", fig)
 fig

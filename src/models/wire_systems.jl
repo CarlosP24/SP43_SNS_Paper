@@ -15,11 +15,27 @@ cparams_valve_60 = Calc_Params(
     ωrng = subdiv(-.26, 0, 301) .+ 1e-3im
 )
 
+cparams_valve_mat = Calc_Params(
+    Calc_Params();
+    Φrng = subdiv(0, 6, 800),
+    ωrng = subdiv(1, 0, 1201) .+ 1e-3im
+)
+
 wire_systems = Dict(
     "valve_65" => wire_system(; 
         wire = (; wires["valve_65"]...,
             Zs = -5:5),
         calc_params = cparams_valve_65,
+    ),
+    "valve_MoRe" => wire_system(; 
+        wire = (; wires["valve_MoRe"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_mat,
+    ),
+    "valve_Al" => wire_system(; 
+        wire = (; wires["valve_Al"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_mat,
     ),
     "valve_65_metal" => wire_system(; 
         wire = (; wires["valve_65_metal"]...,

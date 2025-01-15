@@ -89,9 +89,10 @@ layout_currents = [
 ]
 
 kws_currents = [
-    [(showmajo = true, color = :navyblue, linestyle = :solid), (color = :green, linestyle = :dash), (color = :red, linestyle = :dash)],
-    [(showmajo = true, color = :navyblue, linestyle = :solid), (color = :green, linestyle = :dash), (color = :red, linestyle = :dash)]
+    [(showmajo = true, color = :navyblue, linestyle = :solid), (color = :green, linestyle = :solid), (color = :red, linestyle = :solid)],
+    [(showmajo = true, color = :navyblue, linestyle = :solid), (color = :green, linestyle = :solid), (color = :red, linestyle = :solid)]
 ]
 
 fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
+save("figures/fig_valve_R.pdf", fig)
 fig
