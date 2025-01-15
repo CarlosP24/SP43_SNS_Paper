@@ -17,7 +17,7 @@ cparams_valve_60 = Calc_Params(
 
 cparams_valve_mat = Calc_Params(
     Calc_Params();
-    Φrng = subdiv(0, 6, 800),
+    Φrng = subdiv(0, 5.43, 800),
     ωrng = subdiv(1, 0, 1201) .+ 1e-3im
 )
 
