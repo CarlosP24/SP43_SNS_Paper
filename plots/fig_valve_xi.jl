@@ -27,7 +27,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
         vlines!(ax, xs[1:end-1]; color = vcolors[i], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
         add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
         hidexdecorations!(ax, ticks = false)
-        i == 1 && ylims!(ax, (-0.26, 0.26))
+        #i == 1 && ylims!(ax, (-0.26, 0.26))
     end
 
     rowgap!(fig_LDOS, 1, 5)
@@ -35,8 +35,8 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
     #Label(fig_LDOS[1, 1, Top()], L"$\xi_d = 70$nm", padding = (420, 0, -40, 0), color = :white)
     #Label(fig_LDOS[2, 1, Top()], L"$\xi_d = 140$nm", padding = (420, 0, -40, 0), color = :white)
 
-    Label(fig_LDOS[1, 1, Top()], L"Al, $\xi_d = 180$nm", padding = (380, 0, -40, 0), color = :white)
-    Label(fig_LDOS[2, 1, Top()], L"MoRe, $\xi_d = 50$nm", padding = (380, 0, -40, 0), color = :white)
+    Label(fig_LDOS[1, 1, Top()], L"Al, $\xi_d = 180$nm, $\Delta_0 = 0.2$meV", padding = (280, 0, -40, 0), color = :white)
+    Label(fig_LDOS[2, 1, Top()], L"MoRe, $\xi_d = 50$nm, $\Delta_0 = 0.9$meV", padding = (280, 0, -40, 0), color = :white)
 
     rowgap!(fig.layout, 1, 5)
 
@@ -82,7 +82,7 @@ layout_LDOS = [
 
 kws_LDOS = [
     (colorrange = (9e-5, 1e-2),);
-    (colorrange = (9e-5, 1e-2),)
+    (colorrange = (9e-5, 3e-2),)
 ]
 
 layout_currents = [
@@ -96,5 +96,5 @@ kws_currents = [
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
-#save("figures/fig_valve_mat.pdf", fig)
+save("figures/fig_valve_mat.pdf", fig)
 fig
