@@ -13,7 +13,7 @@ function interpolate_jump(φrng, J; φtol = 1e-6)
     end
     return I
 end
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid, vsΦ = false)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -32,12 +32,17 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         xrng = Φrng
         xa = findmin(abs.(Φrng .- 0.5))[2]
         xb = findmin(abs.(Φrng .- 1.5))[2]
-        xrng1 = Φrng[xa:xb]
+        xrng1 = filter(x -> isodd(round(Int, x)), xrng)
         ax.xlabel = L"$\Phi / \Phi_0$"
         xticksL = get_Φticks(Φrng)
         xticksR = xticksL
-        xindex = xa:xb
-        xindex_groups = [xindex]
+    elseif vsΦ
+        J = mapreduce(permutedims, vcat, Js)
+        xrng = get_Φ(Params(; system.wireL...)).(Brng)
+        xrng1 = filter(x -> isodd(round(Int, x)), xrng)
+        ax.xlabel = L"$\Phi / \Phi_0$"
+        xticksL = get_Φticks(Φrng)
+        xticksR = xticksL
     else
         J = mapreduce(permutedims, vcat, Js)
         xrng = Brng
@@ -48,21 +53,20 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         xtopoL = filter(x -> isodd(round(Int, get_Φ(Params(; system.wireL...))(x))), xrng)
         xtopoR = filter(x -> isodd(round(Int, get_Φ(Params(; system.wireR...))(x))), xrng)
         xrng1 = intersect(xtopoL, xtopoR)
-        xindex = map(x -> findmin(abs.(xrng .- x))[2], xrng1)
-
-        xindex_groups = []
-        current_group = [xindex[1]]
-        for (i, xi) in enumerate(xindex[2:end])
-            i += 1
-            if (xi - xindex[i-1]) > 1
-            push!(xindex_groups, current_group)
-            current_group = [xi]
-            else
-            push!(current_group, xi)
-            end
-        end
-        push!(xindex_groups, current_group)
     end
+    xindex = map(x -> findmin(abs.(xrng .- x))[2], xrng1)
+    xindex_groups = []
+    current_group = [xindex[1]]
+    for (i, xi) in enumerate(xindex[2:end])
+        i += 1
+        if (xi - xindex[i-1]) > 1
+        push!(xindex_groups, current_group)
+        current_group = [xi]
+        else
+        push!(current_group, xi)
+        end
+    end
+    push!(xindex_groups, current_group)
     
     φtol = system.j_params.imshift / 0.23
 

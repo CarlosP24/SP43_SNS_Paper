@@ -91,6 +91,11 @@ wires["valve_60_100"] = (;
     L = 100
 )
 
+wires["valve_65_ξ_100"] = (;
+    wires["valve_65_ξ"]...,
+    L = 100
+)
+
 # Zed wires wires
 wires["valve_65_Z"] = merge(
     wires["valve_65"], 

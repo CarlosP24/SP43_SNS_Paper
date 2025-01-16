@@ -151,6 +151,16 @@ systems_matmismatch = Dict(
     calc_params = calc_params_valve)
     for i in Ts_valve]
 )
+
+systems_ξLmismatch = Dict(
+    ["ξLmismatch_$(i)" => System(; 
+    wireL = (; wires["valve_65_ξ"], Zs = -5:5), 
+    wireR = (; wires["valve_65_ξ_100"], Zs = -5:5),
+    junction = Junction(; TN = i),
+    j_params = j_params_valve,
+    calc_params = calc_params_valve)
+    for i in Ts_valve]
+)
 # Systems for josephson paper
 Ts = [1e-5, 1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
@@ -327,6 +337,7 @@ systems_dict = Dict(
     "systems_valve_ξ" => systems_ξmismatch,
     "systems_valve_RL" => systems_RLmismatch,
     "systems_valve_mat" => systems_matmismatch,
+    "systems_valve_ξL" => systems_ξLmismatch,
     "systems_ref_metal" => systems_reference_metal,
     "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_dep_1" => systems_reference_dep["reference_dep_1"]),
     "systems_ref_dep_Z" => systems_reference_dep_Z,
@@ -347,4 +358,4 @@ systems_dict = Dict(
     "systems_jos_mhc_short" => systems_mhc_short,
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_matmismatch)
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm, system_test_scm, systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_matmismatch, systems_ξLmismatch)
