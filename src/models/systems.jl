@@ -96,7 +96,7 @@ systems_ξmismatch_d1 = Dict(
     ["ξmismatch_d1_$(i)" => System(; 
     wireL = wires["valve_65"], 
     wireR = wires["valve_65_ξ"], 
-    junction = Junction(; TN = i, δτ = 0.1),
+    junction = Junction(; TN = i, δτ = 0.01),
     j_params = j_params_valve,
     calc_params = calc_params_valve)
     for i in Ts_valve]
@@ -106,7 +106,7 @@ systems_ξmismatch_d2 = Dict(
     ["ξmismatch_d2_$(i)" => System(; 
     wireL = wires["valve_65"], 
     wireR = wires["valve_65_ξ"], 
-    junction = Junction(; TN = i, δτ = 0.5),
+    junction = Junction(; TN = i, δτ = 0.1),
     j_params = j_params_valve,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
@@ -126,7 +126,7 @@ systems_RLmismatch_d1 = Dict(
     ["RLmismatch_d1_$(i)" => System(; 
     wireL = wires["valve_65_500"], 
     wireR = wires["valve_60_100"], 
-    junction = Junction(; TN = i, δτ = 0.1),
+    junction = Junction(; TN = i, δτ = 0.01),
     j_params = j_params_valve,
     calc_params = calc_params_valve)
     for i in Ts_valve]
@@ -136,7 +136,7 @@ systems_RLmismatch_d2 = Dict(
     ["RLmismatch_d2_$(i)" => System(; 
     wireL = wires["valve_65_500"], 
     wireR = wires["valve_60_100"], 
-    junction = Junction(; TN = i, δτ = 0.5),
+    junction = Junction(; TN = i, δτ = 0.1),
     j_params = j_params_valve,
     calc_params = calc_params_valve)
     for i in Ts_valve]
@@ -144,8 +144,8 @@ systems_RLmismatch_d2 = Dict(
 
 systems_matmismatch = Dict(
     ["matmismatch_$(i)" => System(; 
-    wireL = wires["valve_MoRe"], 
-    wireR = wires["valve_Al"], 
+    wireL = (; wires["valve_MoRe"]..., Zs = -5:5), 
+    wireR = (; wires["valve_Al"]..., Zs = -5:5), 
     junction = Junction(; TN = i),
     j_params = j_params_valve,
     calc_params = calc_params_valve)

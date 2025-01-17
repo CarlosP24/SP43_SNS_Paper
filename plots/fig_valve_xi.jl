@@ -30,12 +30,16 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
                 plot_Ic(ax, name; vsΦ = true, kw...)
             end
         end
-        vlines!(ax, xs; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
-        vlines!(ax, xs; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
+        vlines!(ax, xs; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 1)
+        vlines!(ax, xs; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 1)
         ys, labs, ylab = set_yticks(Ic)
         ax.yticks = (ys, labs)
         ax.ylabel = ylab
         i == 1 && hidexdecorations!(ax, ticks = false, grid = false)
+        if i == 1
+            axislegend(ax; position = (0.96, 0.9), framevisible = false,)
+        end
+        i == 2 && ylims!(ax, (-1e-4, 4e-3))
         ax.xticks = xticks
     end
 
@@ -66,17 +70,23 @@ kws_LDOS = [
 ]
 
 layout_currents = [
-    ["ξmismatch_0.9.jld2"],
-    ["ξmismatch_0.0001.jld2", "ξmismatch_d1_0.0001.jld2"]
+    ["ξmismatch_0.9.jld2", "ξmismatch_d1_0.9.jld2", "ξmismatch_d2_0.9.jld2", "ξLmismatch_0.9.jld2"],
+    ["ξmismatch_0.0001.jld2", "ξmismatch_d1_0.0001.jld2", "ξmismatch_d2_0.0001.jld2", "ξLmismatch_0.0001.jld2"]
 ]
 
 kws_currents = [
-    [(showmajo = true, color = :navyblue), (showmajo = false, color = :green)],
-    [(showmajo = true, color = :navyblue), (showmajo = false, color = :green)]
+    [(showmajo = true, color = :navyblue, label = L"$\infty$", linewidth = 3), 
+        (showmajo = false, color = (:red, 1), label = L"\delta \tau = 0.1"), 
+        (showmajo = false, color = (:green, 1),  label = L"\delta \tau = 0.5"), 
+        (showmajo = false, color = (:navyblue, 1), linestyle = :dash, label = "Finite length")],
+    [(showmajo = true, color = :navyblue, label = L"\infty", linewidth = 3), 
+        (showmajo = false, color = (:red, 1), label = L"\delta \tau = 0.1"), 
+        (showmajo = false, color = (:green, 1), label = L"\delta \tau = 0.5"),  
+        (showmajo = false, color = (:navyblue, 1), linestyle = :dash, label = "Finite length")]
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
-#save("figures/fig_valve_xi.pdf", fig)
+save("figures/fig_valve_xi.pdf", fig)
 fig
 
 ## Fig material mismatch

@@ -13,7 +13,7 @@ function interpolate_jump(φrng, J; φtol = 1e-6)
     end
     return I
 end
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid, vsΦ = false)
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid, vsΦ = false, label = nothing, linewidth = 1.5)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -86,14 +86,14 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
 
     Ibase = Ic .- Imajo
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    lines!(ax, xrng, Ic; color, linestyle, label = L"$%$(TN)$")
+    lines!(ax, xrng, Ic; color, linestyle, label, linewidth)
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
     if showmajo  
         for xindex in xindex_groups
             band!(ax, xrng[xindex], Ibase[xindex], Ic[xindex]; color, alpha = 0.2)
         end
     end
-    diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash, label = L"$%$(TN)$")
+    diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash,)
     #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
 
     xlims!(ax, (0, last(xrng)))
