@@ -1,5 +1,5 @@
 function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcolors = [:lightblue, :lightblue], xticks = 0:5)
-    fig = Figure(size = (600, 250 * 4), fontsize = 16,)
+    fig = Figure(size = (600, 250 * 3), fontsize = 16,)
 
 
     fig_LDOS = fig[1, 1] = GridLayout()
@@ -46,7 +46,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
     rowgap!(fig_currents, 1, 5)
 
     Label(fig_currents[1, 1, Top()], L"$T_N = 0.9$", padding = (400, 0, -60, 0),) 
-    Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -60, 0), )
+    Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -40, 0), )
 
     rowgap!(fig.layout, 1, 5)
 
@@ -75,14 +75,14 @@ layout_currents = [
 ]
 
 kws_currents = [
-    [(showmajo = true, color = :navyblue, label = L"$\infty$", linewidth = 3), 
-        (showmajo = false, color = (:red, 1), label = L"\delta \tau = 0.1"), 
-        (showmajo = false, color = (:green, 1),  label = L"\delta \tau = 0.5"), 
-        (showmajo = false, color = (:navyblue, 1), linestyle = :dash, label = "Finite length")],
-    [(showmajo = true, color = :navyblue, label = L"\infty", linewidth = 3), 
-        (showmajo = false, color = (:red, 1), label = L"\delta \tau = 0.1"), 
-        (showmajo = false, color = (:green, 1), label = L"\delta \tau = 0.5"),  
-        (showmajo = false, color = (:navyblue, 1), linestyle = :dash, label = "Finite length")]
+    [(showmajo = true, color = :red, label = L"$\infty$", linewidth = 3), 
+        (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
+        (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), 
+        (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length")],
+    [(showmajo = true, color = :red, label = L"\infty", linewidth = 3), 
+        (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
+        (showmajo = false, color = (:navyblue, 0.8), label = L"\delta \tau = 0.1"),  
+        (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length")]
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
@@ -101,13 +101,13 @@ kws_LDOS = [
 ]
 
 layout_currents = [
-    "matmismatch_0.9.jld2";
-    "matmismatch_0.0001.jld2"
-]
+    ["matmismatch_0.9.jld2"],
+    ["matmismatch_0.0001.jld2"]
+]    
 
 kws_currents = [
-    (showmajo = true, color = :navyblue);
-    (showmajo = true, color = :navyblue)
+    [(showmajo = true, color = :navyblue)],
+    [(showmajo = true, color = :navyblue)]
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)

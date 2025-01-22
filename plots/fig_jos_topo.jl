@@ -1,4 +1,4 @@
-function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), kw...)
+function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), showmajo = false, kw...)
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name;  kw...)     
         add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
@@ -15,7 +15,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         colorscale /= maximum(colorscale)
         global colors = get(colormap, colorscale)
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
-        ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, kw...)
+        ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, showmajo, showmajo_excp = (j==3), kw...)
         ts = colors
         if j == 1
             text!(ax, 1, 1.9e-5; text = "Majorana fins", align = (:center, :center), fontsize = 12)

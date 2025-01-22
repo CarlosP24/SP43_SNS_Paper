@@ -12,7 +12,7 @@ function set_yticks(Ic)
     return  ys, labs, ylab
 end
 function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25)
-    fig = Figure(size = (600, 250 * 4), fontsize = 16,)
+    fig = Figure(size = (600, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
 
@@ -30,9 +30,7 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcolo
         ax.xticks = xticks
         if i == 1
             axislegend(ax,
-                [LineElement(color = kws_currents[i][1].color, linestyle = kws_currents[i][1].linestyle), LineElement(color = kws_currents[i][2].color, linestyle = kws_currents[i][2].linestyle), LineElement(color = kws_currents[i][3].color, linestyle = kws_currents[i][3].linestyle)],
-                [L"\delta \tau = 0", L"\delta \tau = 0.1", L"\delta \tau = 0.5"],
-                position = (0.5, 0.96),
+                position = (0.6, 0.96),
                 framevisible = false,
                 orientation = :horizontal
             )
@@ -89,8 +87,8 @@ layout_currents = [
 ]
 
 kws_currents = [
-    [(showmajo = true, color = :navyblue, linestyle = :solid), (color = :green, linestyle = :solid), (color = :red, linestyle = :solid)],
-    [(showmajo = true, color = :navyblue, linestyle = :solid), (color = :green, linestyle = :solid), (color = :red, linestyle = :solid)]
+    [(showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, label = L"\delta \tau = 0.1")],
+    [(showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, label = L"\delta \tau = 0.1")]
 ]
 
 fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents)

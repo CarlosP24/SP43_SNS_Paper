@@ -109,11 +109,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     Ic, Imajo, Ibase, xticksL, xticksR, xrng
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false)
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false, showmajo_excp = false)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ $(2e/\hbar)$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo = (showmajo && (i == 1)))
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo = showmajo && !(showmajo_excp && i == 6))
     end
 
     return ax

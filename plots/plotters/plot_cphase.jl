@@ -19,7 +19,7 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
 
     JZ = Dict([Z => mapreduce(permutedims, vcat, Js[Z])[iΦ, :] |> vcat for Z in Zs])
 
-    ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$J_S$", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
+    ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$J_S$ (a. u.)", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
 
     J = sum(values(JZ))
     total && lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")

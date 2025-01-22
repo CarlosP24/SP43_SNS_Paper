@@ -88,7 +88,7 @@ wires["valve_65_500"] = (;
 )
 wires["valve_60_100"] = (;
     wires["valve_60"]...,
-    L = 100
+    L = 100 
 )
 
 wires["valve_65_ξ_100"] = (;
