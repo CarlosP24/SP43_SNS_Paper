@@ -175,25 +175,34 @@ end
 
 ## Test plots 
 function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), diode = false)
-    fig = Figure(size = (600, 800))
+    fig = Figure(size = (600, 700))
     xs = [0.96,  0.58, 1.39,  0.75, ]
-    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30"; colorrange = (0, 1e-1))
-    hidexdecorations!(ax, ticks = false)
-    ax, ts = plot_LDOS(fig[2, 1], "jos_mhc_30"; colorrange = (0, 1e-1))
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30"; colorrange = (0, 5e-2))
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
+    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
+    plot_Ic(ax, "mhc_test_0.9.jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Corrected self-energy")
+    plot_Ic(ax, "mhc_0.9.jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Old calculation")
+    hidexdecorations!(ax, ticks = false, grid = false)
+    axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+    Label(fig[2, 1, Top()], L"T_N = 0.9", padding = (300, 0, -150, 0))
+
     ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
-    plot_Ic(ax, "mhc_30_test_0.9.jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode)
-    plot_Ic(ax, "mhc_30_0.9.jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode)
+    plot_Ic(ax, "mhc_test_0.0001.jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Corrected self-energy")
+    plot_Ic(ax, "mhc_0.0001.jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Old calculation")
+    axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+    Label(fig[3, 1, Top()], L"T_N \rightarrow 0", padding = (300, 0, -200, 0))
 
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]
-
+    rowgap!(fig.layout, 1, 5)
+    rowgap!(fig.layout, 2, 5)
     return fig
 end
 
 fig = fig_Ics("mhc_30_test_0.0001.jld2")
+save("corrected_self-energy.pdf", fig)
 fig
 
 ## Test vale
