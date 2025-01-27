@@ -177,7 +177,7 @@ end
 function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), diode = false)
     fig = Figure(size = (600, 700))
     xs = [0.96,  0.58, 1.39,  0.75, ]
-    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc_30"; colorrange = (0, 5e-2))
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc"; colorrange = (0, 5e-2))
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]

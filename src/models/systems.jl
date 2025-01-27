@@ -196,9 +196,9 @@ systems_scm_test = Dict(
     ["scm_test_$(i)" => System(; wireL = wires["jos_scm"], wireR = wires["jos_scm"], junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5)) for i in Ts]
 )
 
-system_test_scm = Dict(
-    ["scm_test_$(i)" => System(; wireL = (; wires["jos_scm"]..., Zs = 0), wireR = (;wires["jos_scm"]..., Zs = 0), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5), calc_params = Calc_Params(Calc_Params(); φrng = vcat(subdiv(0, π - 1e-2, 50), subdiv(π - 1e-2, π + 1e-2, 51), subdiv(π + 1e-2, 2π, 50)), Φrng = [1])) for i in Ts]
-)
+# system_test_scm = Dict(
+#     ["scm_test_$(i)" => System(; wireL = (; wires["jos_scm"]..., Zs = 0), wireR = (;wires["jos_scm"]..., Zs = 0), junction = Junction(; TN = i), j_params = J_Params(; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5), calc_params = Calc_Params(Calc_Params(); φrng = vcat(subdiv(0, π - 1e-2, 50), subdiv(π - 1e-2, π + 1e-2, 51), subdiv(π + 1e-2, 2π, 50)), Φrng = [1])) for i in Ts]
+# )
 
 systems_mhc_30 = Dict(
     ["mhc_30_$(i)" => System(; 

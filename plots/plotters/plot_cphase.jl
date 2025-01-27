@@ -136,7 +136,7 @@ function fig_checker(name::String, TN; Jmax = 1e-2, tnames = tnames, kw...)
     return fig
 end
 
-fig = fig_checker("mhc_test", 0.9; Jmax = 5e-1)
+fig = fig_checker("scm_test", 1e-4; Jmax = 5e-6)
 fig
 
 
