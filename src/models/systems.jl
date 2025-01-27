@@ -180,6 +180,10 @@ systems_mhc = Dict(
     ["mhc_$(i)" => System(; wireL = wires["jos_mhc"], wireR = wires["jos_mhc"], junction = Junction(; TN = i)) for i in Ts]
 )
 
+systems_mhc_test = Dict(
+    ["mhc_test_$(i)" => System(; wireL = wires["jos_mhc"], wireR = wires["jos_mhc"], junction = Junction(; TN = i)) for i in Ts]
+)
+
 systems_scm_triv = Dict(
     ["scm_triv_$(i)" => System(; wireL = wires["jos_scm_triv"], wireR = wires["jos_scm_triv"], junction = Junction(; TN = i),) for i in Ts]
 )
@@ -194,19 +198,6 @@ system_test_scm = Dict(
 
 systems_mhc_30 = Dict(
     ["mhc_30_$(i)" => System(; 
-        wireL = wires["jos_mhc_30"], 
-        wireR = wires["jos_mhc_30"],
-        junction = Junction(; TN = i), 
-        j_params = J_Params(;
-            imshift = 1e-6, 
-            maxevals = 1e5
-        ),
-    ) 
-    for i in Ts]
-)
-
-systems_mhc_test = Dict(
-    ["mhc_30_test_$(i)" => System(; 
         wireL = wires["jos_mhc_30"], 
         wireR = wires["jos_mhc_30"],
         junction = Junction(; TN = i), 
