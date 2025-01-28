@@ -5,14 +5,13 @@ manifest_format = "2.0"
 project_hash = "ff7c34d3ec5bd323837f09f6774c37b9a6fd9fc3"
 
 [[deps.Accessors]]
-deps = ["CompositionsBase", "ConstructionBase", "InverseFunctions", "MacroTools"]
-git-tree-sha1 = "e93c42e833e6d4bd28be7b3b56d8deb99fd51f25"
+deps = ["CompositionsBase", "ConstructionBase", "Dates", "InverseFunctions", "MacroTools"]
+git-tree-sha1 = "0ba8f4c1f06707985ffb4804fdad1bf97b233897"
 uuid = "7d9f7c33-5ae7-4f3b-8dc6-eff91059b697"
-version = "0.1.40"
+version = "0.1.41"
 
     [deps.Accessors.extensions]
     AxisKeysExt = "AxisKeys"
-    DatesExt = "Dates"
     IntervalSetsExt = "IntervalSets"
     LinearAlgebraExt = "LinearAlgebra"
     StaticArraysExt = "StaticArrays"
@@ -22,7 +21,6 @@ version = "0.1.40"
 
     [deps.Accessors.weakdeps]
     AxisKeys = "94b1ba4f-4ee9-5380-92f1-94cde586c3c5"
-    Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
     IntervalSets = "8197267c-284f-5f27-9208-e0e47529a953"
     LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
     Requires = "ae029012-a4dd-5104-9daa-d747884805df"
@@ -191,7 +189,7 @@ version = "0.1.2"
 
 [[deps.FullShell]]
 deps = ["Parameters", "Quantica", "Roots"]
-git-tree-sha1 = "78801c523348145e9b1deef415dbe9e0d2124d6c"
+git-tree-sha1 = "f1824a23315e432857b2b72135990d373caa5ed2"
 repo-rev = "main"
 repo-url = "https://github.com/CarlosP24/FullShell.jl"
 uuid = "7d6ffa35-d0d1-47cf-a89d-5cba1c019934"
@@ -255,9 +253,9 @@ version = "0.2.2"
 
 [[deps.JLD2]]
 deps = ["FileIO", "MacroTools", "Mmap", "OrderedCollections", "PrecompileTools", "Requires", "TranscodingStreams"]
-git-tree-sha1 = "f1a1c1037af2a4541ea186b26b0c0e7eeaad232b"
+git-tree-sha1 = "91d501cb908df6f134352ad73cde5efc50138279"
 uuid = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
-version = "0.5.10"
+version = "0.5.11"
 
 [[deps.JLLWrappers]]
 deps = ["Artifacts", "Preferences"]
@@ -516,9 +514,9 @@ version = "1.11.0"
 
 [[deps.SlurmClusterManager]]
 deps = ["Distributed"]
-git-tree-sha1 = "9ea4bf8d0525f12ed59a8b5b1d7db6703281508e"
+git-tree-sha1 = "c0a1feffb0b481a75f3f4b4de08a2b8584b52d9a"
 uuid = "c82cd089-7bf7-41d7-976b-6b5d413cbe0a"
-version = "0.1.2"
+version = "0.1.4"
 
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
@@ -541,9 +539,9 @@ weakdeps = ["ChainRulesCore"]
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "PrecompileTools", "Random", "StaticArraysCore"]
-git-tree-sha1 = "47091a0340a675c738b1304b58161f3b0839d454"
+git-tree-sha1 = "02c8bd479d26dbeff8a7eb1d77edfc10dacabc01"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.9.10"
+version = "1.9.11"
 weakdeps = ["ChainRulesCore", "Statistics"]
 
     [deps.StaticArrays.extensions]
