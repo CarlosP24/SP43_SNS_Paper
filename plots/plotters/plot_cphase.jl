@@ -77,7 +77,8 @@ end
     "scm_triv" => [0.5, 1.5],
     "scm_test" => [0.5, 1.5],
     "mhc_30_L" => [0.96, 0.96],
-    "mhc_30_Lmismatch" => [0.5, 1.5]
+    "mhc_30_Lmismatch" => [0.5, 1.5],
+    "mhc_test" => [1.1, 1.5],
 )
 tnames = Dict(
     "hc" => "HC",
@@ -86,7 +87,8 @@ tnames = Dict(
     "scm_test" => "SC, test",
     "scm_triv" => "SC, trivial",
     "mhc_30_L" => "Finite length",
-    "mhc_30_Lmismatch" => "Mismatch"
+    "mhc_30_Lmismatch" => "Mismatch",
+    "mhc_test" => "Test"
 )
 function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw...)
     fig = Figure(size = (1700, 1100))
@@ -102,7 +104,7 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("mhc_30_Lmismatch", 1e-4, subdiv(0.501, 1.499, 11); lw = 2, showmajo = true )
+fig = fig_cpr("mhc_test", 0.9, subdiv(0.501, 1.499, 11); lw = 2, showmajo = true )
 #save("test_cpr.pdf", fig)
 fig
 
@@ -129,12 +131,12 @@ function fig_checker(name::String, TN; Jmax = 1e-2, tnames = tnames, kw...)
     ax = plot_checker(fig[1, 1], name, TN; basepath = "data", cmap = :redsblues, colorrange = (-Jmax, Jmax), kw...)
     add_colorbar(fig[1, 2], Jmax; label = L"$J_S$ (arb. units)", ticks = ([-Jmax, Jmax], [L"$-1$", L"$1$"]), labelpadding = -10)
     colgap!(fig.layout, 1, 5)
-    Label(fig[1, 1:2, Top()], L"%$(tnames[name]), $%$(print_T(TN))$", fontsize = 15)
+    #Label(fig[1, 1:2, Top()], L"%$(tnames[name]), $%$(print_T(TN))$", fontsize = 15)
 
     return fig
 end
 
-fig = fig_checker("hc", 0.1; Jmax = 5e-1)
+fig = fig_checker("scm_test", 1e-4; Jmax = 5e-6)
 fig
 
 

@@ -14,7 +14,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; zero_site = false
 
     ΔmJ(r, dr, B) = ifelse(dr[1] > 0,
         mJ(r+dr/2, B, p_right) - mJ(r-dr/2, B, p_left),
-        mJ(r+dr/2, B, p_left) - mJ(r-dr/2, B, p_right))
+        mJ(r+dr/2, B, p_left) - mJ(r-dr/2, B, p_right)) 
 
     Δn(dr, B) = ifelse(dr[1] > 0,
         nint(B, p_right) - nint(B, p_left),

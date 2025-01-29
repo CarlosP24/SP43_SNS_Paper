@@ -60,7 +60,11 @@ function calc_Josephson(name::String)
     bw = maximum([bandwidth(params_left), bandwidth(params_right)])
     itipL = get_itip(params_left)               # This is a function of Φ if the wire is Zed, B if not
     itipR = get_itip(params_right)
-    itip(x) = minimum([itipL(x), itipR(x)])     
+    itip(x) = minimum([itipL(x), itipR(x)])
+
+    ΩL = get_Ω(params_left)
+    ΩR = get_Ω(params_right)
+    Ω(x) = maximum([ΩL(x), ΩR(x)])
 
     #ipath1(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(x)*1im, 0] .+ imshift*1im      # + imshift means retarded Greens. Advanced have a branch cut.
     #ipath2(x) = [-bw, -params_left.Δ0,  -params_left.Δ0/2 - itip(x)*1im, 0] .- imshift*1im     # - imshift means advanced Greens. Retarded have a branch cut.
@@ -73,10 +77,10 @@ function calc_Josephson(name::String)
         else
             imshift_dict = Dict([Z => imshift for Z in Zs])
         end
-        ipath = Paths.polygon((mu, kBT; Φ = 0, Z = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(Φ)*1im, 0) .+ imshift_dict[Z]*1im)     
+        ipath = Paths.polygon((mu, kBT; Φ = 0, Z = 0, _...) -> (-bw, -Ω(Φ),  -Ω(Φ)/2 + itip(Φ)*1im, 0) .+ imshift_dict[Z]*1im)     
     else
         args = (Brng, )
-        ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-bw, -params_left.Δ0,  -params_left.Δ0/2 + itip(B)*1im, 0) .+ imshift*1im)     
+        ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-bw, -Ω(B),  -Ω(B)/2 + itip(B)*1im, 0) .+ imshift*1im)     
     end
 
     J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)

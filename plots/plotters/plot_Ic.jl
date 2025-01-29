@@ -87,6 +87,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     Ibase = Ic .- Imajo
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
     lines!(ax, xrng, Ic; color, linestyle, label, linewidth)
+    scatter!(ax, xrng, Ic; color,)
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
     if showmajo  
         for xindex in xindex_groups
@@ -173,24 +174,36 @@ function KO1(name::String; basepath = "data")
 end
 
 ## Test plots 
-function fig_Ics(name::String; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), diode = false)
-    fig = Figure(size = (600, 800))
+function fig_Ics(model::String; T2 = 1e-4, T1 = 0.9, basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), diode = false)
+    fig = Figure(size = (600, 700))
     xs = [0.96,  0.58, 1.39,  0.75, ]
-    ax, ts = plot_LDOS(fig[1, 1], "valve_65"; colorrange = (0, 1e-2))
-    hidexdecorations!(ax, ticks = false)
-    ax, ts = plot_LDOS(fig[2, 1], "valve_60"; colorrange = (0, 1e-2))
+    ax, ts = plot_LDOS(fig[1, 1], "jos_mhc"; colorrange = (0, 5e-2))
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
+    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
+    plot_Ic(ax,  "$(model)_test_$(T1).jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Corrected self-energy")
+    plot_Ic(ax,  "$(model)_$(T1).jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Old calculation")
+    hidexdecorations!(ax, ticks = false, grid = false)
+    axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+    Label(fig[2, 1, Top()], L"T_N = 0.9", padding = (300, 0, -150, 0))
+
     ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
-    plot_Ic(ax, name; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode)
+    plot_Ic(ax, "$(model)_test_$(T2).jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Corrected self-energy")
+    plot_Ic(ax, "$(model)_$(T2).jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Old calculation")
+    axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
+    Label(fig[3, 1, Top()], L"T_N \rightarrow 0", padding = (300, 0, -200, 0))
+
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = ifelse(i == 1, :red, :black), linestyle = :dash) for (i,x) in enumerate(xs)]
-
+    rowgap!(fig.layout, 1, 5)
+    rowgap!(fig.layout, 2, 5)
     return fig
 end
 
-fig = fig_Ics("Rmismatch_0.0001.jld2")
+model = "mhc"
+fig = fig_Ics(model)
+save("corrected_self-energy_$(model).pdf", fig)
 fig
 
 ## Test vale

@@ -1,4 +1,4 @@
-@with_kw struct Junction
+ @with_kw struct Junction
     TN = 1
     δτ = 0
     hdict = Dict(0 => 1, 1 => δτ)
