@@ -1,0 +1,9 @@
+ξmismatch_d1_0.0001
+ξLmismatch_0.0001
+ξmismatch_d1_0.9
+ξLmismatch_0.9
+ξmismatch_d2_0.9
+ξmismatch_d2_0.0001
+ξmismatch_d1_0.1
+ξLmismatch_0.1
+ξmismatch_d2_0.1
