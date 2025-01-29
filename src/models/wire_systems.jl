@@ -21,6 +21,12 @@ cparams_valve_mat = Calc_Params(
     ωrng = subdiv(-1.0, 0, 601) .+ 1e-3im
 )
 
+cparams_jos = Calc_Params(
+    Calc_Params();
+    Φrng = subdiv(0, 2.499, 400),
+    ωrng = subdiv(-.26, 0, 401) .+ 1e-3im
+)
+
 wire_systems = Dict(
     "valve_65" => wire_system(; 
         wire = (; wires["valve_65"]...,
@@ -80,19 +86,19 @@ wire_systems = Dict(
         wire = (;wires["valve_65_ξ"]...),
         calc_params = cparams_valve_65,
     ),
-    "jos_hc" => wire_system(; wire = wires["jos_hc"]),
-    "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"]),
-    "jos_mhc" => wire_system(; wire = wires["jos_mhc"]),
-    "jos_mhc_triv" => wire_system(; wire = wires["jos_mhc_triv"]),
-    "jos_scm" => wire_system(; wire = wires["jos_scm"]),
-    "jos_scm_triv" => wire_system(; wire = wires["jos_scm_triv"]),
-    "jos_mhc_30" => wire_system(; wire = wires["jos_mhc_30"]),
-    "jos_mhc_30_L_zoom" => wire_system(; wire = wires["jos_mhc_30_L"], calc_params = Calc_Params(Calc_Params();  ωrng = subdiv(1e-4, 0, 201) .+ 1e-5im, Φrng = subdiv(0.501, 1.499, 200))),
-    "jos_mhc_30_L" => wire_system(; wire = wires["jos_mhc_30_L"]),
-    "jos_mhc_30_L2" => wire_system(; wire = wires["jos_mhc_30_L2"]),
-    "jos_mhc_30_Long" => wire_system(; wire = wires["jos_mhc_30_Long"]),
-    "jos_mhc_L" => wire_system(; wire = wires["jos_mhc_L"]),
-    "jos_mhc_L2" => wire_system(; wire = wires["jos_mhc_L2"]),
-    "jos_mhc_Long" => wire_system(; wire = wires["jos_mhc_Long"]),
-    "jos_mhc_short" => wire_system(; wire = wires["jos_mhc_short"]),
+    "jos_hc" => wire_system(; wire = wires["jos_hc"], calc_params = cparams_jos),
+    "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"], calc_params = cparams_jos),
+    "jos_mhc" => wire_system(; wire = wires["jos_mhc"], calc_params = cparams_jos),
+    "jos_mhc_triv" => wire_system(; wire = wires["jos_mhc_triv"], calc_params = cparams_jos),
+    "jos_scm" => wire_system(; wire = wires["jos_scm"], calc_params = cparams_jos),
+    "jos_scm_triv" => wire_system(; wire = wires["jos_scm_triv"], calc_params = cparams_jos),
+    "jos_mhc_30" => wire_system(; wire = wires["jos_mhc_30"], calc_params = cparams_jos),
+    "jos_mhc_30_L_zoom" => wire_system(; wire = wires["jos_mhc_30_L"], calc_params = cparams_jos),
+    "jos_mhc_30_L" => wire_system(; wire = wires["jos_mhc_30_L"], calc_params = cparams_jos),
+    "jos_mhc_30_L2" => wire_system(; wire = wires["jos_mhc_30_L2"], calc_params = cparams_jos),
+    "jos_mhc_30_Long" => wire_system(; wire = wires["jos_mhc_30_Long"], calc_params = cparams_jos),
+    "jos_mhc_L" => wire_system(; wire = wires["jos_mhc_L"], calc_params = cparams_jos),
+    "jos_mhc_L2" => wire_system(; wire = wires["jos_mhc_L2"], calc_params = cparams_jos),
+    "jos_mhc_Long" => wire_system(; wire = wires["jos_mhc_Long"], calc_params = cparams_jos),
+    "jos_mhc_short" => wire_system(; wire = wires["jos_mhc_short"], calc_params = cparams_jos),
 )
