@@ -383,6 +383,7 @@ systems_valve_Rd = merge(systems_Rmismatch_d1, systems_Rmismatch_d2)
 
 systems_jos_triv = merge(systems_hc_triv, systems_mhc_triv, systems_scm_triv)
 systems_jos_topo = merge(systems_hc, systems_mhc, systems_scm)
+systems_jos_length = merge(systems_mhc_short, systems_mhc_Long)
 
 systems_jos_hc = merge(systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc)
 systems_jos_scm = merge(systems_scm_triv, systems_scm)
@@ -410,8 +411,6 @@ systems_dict = Dict(
     "systems_ref_metal" => systems_reference_metal,
     "systems_test" => Dict("reference_metal_1" => systems_reference_metal["reference_metal_1"], "reference_dep_1" => systems_reference_dep["reference_dep_1"]),
     "systems_ref_dep_Z" => systems_reference_dep_Z,
-    "systems_jos_triv" => systems_jos_triv,
-    "systems_jos_topo" => systems_jos_topo,
     "systems_jos_hc" => systems_jos_hc,
     "systems_jos_scm" => systems_jos_scm,
     "systems_jos_mhc_30" => systems_mhc_30,
@@ -421,11 +420,12 @@ systems_dict = Dict(
     "systems_jos_mhc_L" => systems_mhc_L,
     "systems_jos_mhc_Lmismatch" => systems_mhc_Lmismatch,
     "systems_jos_mhc_Longmismatch" => systems_mhc_Longmismatch,
-    "systems_jos_length" => systems_length,
-    "systems_jos_length" => systems_length,
     "systems_jos_mhc_Long" => systems_mhc_Long,
     "systems_jos_mhc_short" => systems_mhc_short,
     "systems_jos" => systems_jos,
+    "systems_jos_triv" => systems_jos_triv,
+    "systems_jos_topo" => systems_jos_topo,
+    "systems_jos_length" => systems_jos_length,
     "systems_valve" => systems_valve,
     "systems_valve2" => systems_valve2,
     "systems_valve3" => systems_valve3
