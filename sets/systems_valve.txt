@@ -1,9 +1,6 @@
-RLmismatch_0.9
-RLmismatch_0.1
-RLmismatch_0.0001
 Rmismatch_0.1
-Rmismatch_0.0001
-Rmismatch_0.9
 ξmismatch_0.0001
+Rmismatch_0.0001
 ξmismatch_0.1
 ξmismatch_0.9
+Rmismatch_0.9
