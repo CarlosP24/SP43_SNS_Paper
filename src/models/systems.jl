@@ -173,7 +173,7 @@ j_params_jos = J_Params(;
     atol = 1e-7    
 )
 calc_params_jos = Calc_Params(;
-    Φrng = subdiv(0, 5.43, 400),
+    Φrng = subdiv(0, 2.5, 400),
     ωrng = subdiv(-.26, 0,  101) .+ 1e-3im,
     φrng = subdiv(0, 2π, 101)
 )

@@ -18,6 +18,7 @@ function fplot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspa
         ax = plot_Ics(fig[i:(i+1), j], cpaths[1:maxTs]; colors = colors[1:maxTs], point_dict, kw...)
         ts = colors
         ylims!(ax, 10^-5, 10^-1)
+        xlims!(ax, (0, 2.5))
     end
     return ax, ts, TNS
 end

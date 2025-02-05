@@ -23,13 +23,14 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         global colors = get(colormap, colorscale)
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
         ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, kw...)
+        xlims!(ax, (0, 2.5))
         ts = colors
         if j == 2
-            text!(ax, 1, 1.9e-5; text = "Skewed\ncritical\ncurrent", align = (:center, :center), fontsize = 12)
+            text!(ax, 1, 5e-6; text = "Skewed\ncritical\ncurrent", align = (:center, :center), fontsize = 12)
             false_ax = Axis(fig[i:(i+1), j])
             xlims!(false_ax, (0, 2.5))
             ylims!(false_ax, (0, 1))
-            arrows!(false_ax, [1], [0.28], [0.24], [0.08])
+            arrows!(false_ax, [1], [0.2], [0.24], [0.08])
             hidedecorations!(false_ax)
             hidespines!(false_ax)
         end
@@ -101,7 +102,8 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         T = args[2]
         ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3])
         color = colors[findmin(abs.(T .- TNS))[2]]
-        pos_text = ifelse((i == 4 ) && (j == 1), -0.95, 0.8 )
+        #pos_text = ifelse((i == 4 ) && (j == 1), -0.95, 0.8 )
+        pos_text = 0.8
         text!(ax, 3π/2, pos_text*mJ; text = print_T(T), color, fontsize = 9, align = (:center, :center),)
         scatter!(ax, π-0.2, 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
         ax.yticks = [0]
@@ -172,6 +174,7 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         Jmax = args[4]
         ax = plot_checker(fig_phases[1, i], args[1], TN; atol = args[3], colorrange = (-Jmax, Jmax), cmap)
         #text!(ax, 2, π/2; text = L"$T_N = %$(TN)$", fontsize = 12  , color = :white, align = (:center, :center))
+        xlims!(ax, (0, 2.5))
         lab = if i in [1, 2]
             "TC"
         else
@@ -264,7 +267,7 @@ layout_andreevs = [
 ]
 
 layout_phases = [
-    ("mhc_triv", 1e-3, 1e-6, 1e-3), ("mhc_triv", 0.9, 1e-6, 0.1), ("scm_triv", 1e-3, 1e-6, 1e-4), ("scm_triv", 5e-2, 1e-4, 1e-2), ("scm_triv", 1e-1, 5e-4, 1e-2), ("scm_triv", 0.9, 5e-4, 0.1)
+    ("mhc_triv", 1e-3, 1e-6, 1e-3), ("mhc_triv", 0.9, 1e-6, 0.1), ("scm_triv", 1e-3, 1e-6, 1e-4), ("scm_triv", 1e-2, 1e-4, 1e-2), ("scm_triv", 1e-1, 5e-4, 1e-2), ("scm_triv", 0.9, 5e-4, 0.1)
 ]
 
 fig = fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs)

@@ -15,8 +15,9 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         colorscale /= maximum(colorscale)
         global colors = get(colormap, colorscale)
         point_dict = Dict([tpath => get(point_dict, T, nothing) for (tpath, T) in zip(tpaths, TNS)])
-        ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, showmajo, showmajo_excp = (j==3), kw...)
+        ax = plot_Ics(fig[i:(i+1), j], cpaths; colors, point_dict, showmajo, kw...)
         ts = colors
+        xlims!(ax, (0, 2.5))
         if j == 1
             text!(ax, 1, 1.9e-5; text = "Majorana fins", align = (:center, :center), fontsize = 12)
             false_ax = Axis(fig[i:(i+1), j])
@@ -158,6 +159,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
 
     for (i, kwargs) in enumerate(layout_phases)
         ax = plot_checker(fig_phases[1, i], kwargs.name, kwargs.TN; kwargs.atol, colorrange = (-kwargs.Jmax, kwargs.Jmax), cmap)
+        xlims!(ax, (0, 2.5))
         ax.yticks = ([-π, 0, π], [L"-\pi","", L"\pi"])
         ax.xticks = ([0.05, 1, 2], [L"0", L"1", L"2"])
         ax.xminorticks = [0.5, 1.5]
@@ -218,7 +220,7 @@ layout_currents = [
 
 kws_currents = [
     (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), highlight_majo = 20,);
-    (showmajo = true,) (showmajo = true,) (showmajo = true, xcut = 3,);
+    (showmajo = true,) (showmajo = true,) (showmajo = true, );
 ]
 
 layout_cpr = [
@@ -235,10 +237,10 @@ layout_trans = [
 ]
 
 layout_phases = [
-    (name = "mhc", TN = 1e-3, atol = 1e-6, Jmax = 1e-3),
-    (name = "mhc", TN = 0.9, atol = 1e-6, Jmax = 1),
+    (name = "mhc", TN = 1e-3, atol = 1e-6, Jmax = 5e-4),
+    (name = "mhc", TN = 0.9, atol = 1e-6, Jmax = 5e-1),
     (name = "scm", TN = 1e-3, atol = 1e-6, Jmax = 1e-4),
-    (name = "scm", TN = 5e-2, atol = 1e-4, Jmax = 1e-2),
+    (name = "scm", TN = 1e-2, atol = 1e-4, Jmax = 1e-3),
     (name = "scm", TN = 1e-1, atol = 5e-4, Jmax = 1e-2),
     (name = "scm", TN = 0.9, atol = 5e-4, Jmax = 0.1)
 ]

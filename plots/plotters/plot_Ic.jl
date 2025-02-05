@@ -85,13 +85,15 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
 
     Ibase = Ic .- Imajo
+    #println(ifelse(sum(Ibase .< 0) > 0, "Problem in $(name)", ""))
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
     lines!(ax, xrng, Ic; color, linestyle, label, linewidth)
-    scatter!(ax, xrng, Ic; color,)
+    #scatter!(ax, xrng, Ic; color,)
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
+    # This methood could be improved to avoid use of abs. Ibase < 0 only when there's no majo, that is not plotted.
     if showmajo  
         for xindex in xindex_groups
-            band!(ax, xrng[xindex], Ibase[xindex], Ic[xindex]; color, alpha = 0.2)
+            band!(ax, xrng[xindex], abs.(Ibase[xindex]), Ic[xindex]; color, alpha = 0.2)
         end
     end
     diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash,)
@@ -114,7 +116,7 @@ function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.ra
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ $(2e/\hbar)$", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo = showmajo && !(showmajo_excp && i == 6))
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo)
     end
 
     return ax
