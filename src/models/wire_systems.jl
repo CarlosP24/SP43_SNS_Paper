@@ -23,8 +23,8 @@ cparams_valve_mat = Calc_Params(
 
 cparams_jos = Calc_Params(
     Calc_Params();
-    Φrng = subdiv(0, 2.499, 400),
-    ωrng = subdiv(-.26, 0, 401) .+ 1e-3im
+    Φrng = subdiv(0, 2.499, 100),
+    ωrng = subdiv(-.26, 0, 101) .+ 1e-3im
 )
 
 wire_systems = Dict(
