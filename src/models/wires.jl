@@ -137,12 +137,10 @@ wires["jos_hc_triv"] = (; wires["jos_hc"]...,
 wires["jos_mhc"] = (;
     wires["jos_hc"]...,
     w = 20,
-    d = 5,
 )
 
 wires["jos_mhc_triv"] = (; wires["jos_mhc"]..., 
     µ = 2,
-    d = 5,
 )
 
 wires["jos_scm"] = (; wires["jos_hc"]...,
@@ -164,7 +162,6 @@ wires["jos_scm_triv"] = (; wires["jos_scm"]...,
 
 wires["jos_mhc_30"] = (; wires["jos_mhc"]...,
     w = 30,
-    d = 5,
 )
 
 wires["jos_mhc_30_L"] = (; wires["jos_mhc_30"]...,
