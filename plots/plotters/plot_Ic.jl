@@ -203,9 +203,9 @@ function fig_Ics(model::String; T2 = 1e-4, T1 = 0.9, basepath = "data", colors =
     return fig
 end
 
-model = "mhc"
-fig = fig_Ics(model)
-save("corrected_self-energy_$(model).pdf", fig)
-fig
+# model = "mhc"
+# fig = fig_Ics(model)
+# save("corrected_self-energy_$(model).pdf", fig)
+# fig
 
 ## Test vale

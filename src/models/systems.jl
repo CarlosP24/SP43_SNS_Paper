@@ -165,7 +165,9 @@ systems_ξLmismatch = Dict(
     for i in Ts_valve]
 )
 # Systems for josephson paper
-Ts = [1e-5, 1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+#Ts = [1e-5, 1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+Ts = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
+
 j_params_jos = J_Params(;
     imshift = 1e-6, 
     imshift0 = false,

@@ -104,9 +104,9 @@ function fig_cpr(name::String, TN, Φs; Φsmajo = Φsmajo, tnames = tnames, kw..
 end
 
 
-fig = fig_cpr("mhc_test", 0.9, subdiv(0.501, 1.499, 11); lw = 2, showmajo = true )
-#save("test_cpr.pdf", fig)
-fig
+# fig = fig_cpr("mhc_test", 0.9, subdiv(0.501, 1.499, 11); lw = 2, showmajo = true )
+# #save("test_cpr.pdf", fig)
+# fig
 
 ##
 for TN in [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
@@ -115,15 +115,15 @@ for TN in [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 end
 ##
 
-dest = "figures/cphases"
-name = "scm"
-TNS = [1e-4, 1e-2, 0.1, 0.2] 
-ΦS = [0.55, 1, 1.45, 2]
-pts = Iterators.product(TNS, ΦS)
-map(pts) do (TN, Φ)
-    fig = fig_cpr(name, TN, Φ; lw = 2, showmajo = true)
-    save("$(dest)/$(name)_$(Φ)_$(TN).pdf", fig)
-end
+# dest = "figures/cphases"
+# name = "scm"
+# TNS = [1e-4, 1e-2, 0.1, 0.2] 
+# ΦS = [0.55, 1, 1.45, 2]
+# pts = Iterators.product(TNS, ΦS)
+# map(pts) do (TN, Φ)
+#     fig = fig_cpr(name, TN, Φ; lw = 2, showmajo = true)
+#     save("$(dest)/$(name)_$(Φ)_$(TN).pdf", fig)
+# end
 
 ##
 function fig_checker(name::String, TN; Jmax = 1e-2, tnames = tnames, kw...)
@@ -136,16 +136,16 @@ function fig_checker(name::String, TN; Jmax = 1e-2, tnames = tnames, kw...)
     return fig
 end
 
-fig = fig_checker("scm_test", 1e-4; Jmax = 5e-6)
-fig
+# fig = fig_checker("scm_test", 1e-4; Jmax = 5e-6)
+# fig
 
 
-##
-dest = "figures/checkerboards"
-name = "scm"
-TNS = [1e-4, 1e-2, 0.1, 0.2]
-map(TNS) do TN
-    fig = fig_checker(name, TN; Jmax = 0.2 * TN, atol = 1e-7)
-    save("$(dest)/$(name)_$(TN).pdf", fig)
-end
+# ##
+# dest = "figures/checkerboards"
+# name = "scm"
+# TNS = [1e-4, 1e-2, 0.1, 0.2]
+# map(TNS) do TN
+#     fig = fig_checker(name, TN; Jmax = 0.2 * TN, atol = 1e-7)
+#     save("$(dest)/$(name)_$(TN).pdf", fig)
+# end
 
