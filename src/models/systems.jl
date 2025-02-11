@@ -398,7 +398,7 @@ systems_scm_test = Dict(
         wireR = (; wires["jos_scm_triv"]..., Vmin = Vmin),
         junction = Junction(; TN = 1e-4),
         j_params = j_params_jos,
-        calc_params = calc_params_jos
+        calc_params = calc_params_test
         )
         for Vmin in Vs
     ]
@@ -410,7 +410,7 @@ systems_scm_test2 = Dict(
         wireR = (; wires["jos_scm_triv"]..., µ = µ),
         junction = Junction(; TN = 1e-4),
         j_params = j_params_jos,
-        calc_params = calc_params_jos
+        calc_params = calc_params_test
         )
         for µ in µs
     ]
