@@ -147,10 +147,10 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i != 1 && rowgap!(fig_trans, i - 1, 5)
     end
 
-    Label(fig_trans[1, 1, TopLeft()], "ñ",  padding = (-30, 0, -30, 0); style...)
-    Label(fig_trans[2, 1, TopLeft()], "o",  padding = (-30, 0, -20, 0); style...)
-    Label(fig_trans[3, 1, TopLeft()], "p",  padding = (-30, 0, -20, 0); style...)
-    Label(fig_trans[4, 1, TopLeft()], "q",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_trans[1, 1, TopLeft()], "o",  padding = (-30, 0, -30, 0); style...)
+    Label(fig_trans[2, 1, TopLeft()], "p",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_trans[3, 1, TopLeft()], "q",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_trans[4, 1, TopLeft()], "r",  padding = (-30, 0, -20, 0); style...)
 
     Label(fig_trans[1, 1, Top()], "Transparency", padding = (0, 0, 0, 0))
 
@@ -191,12 +191,12 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
     Colorbar(fig_phases[1, 7]; colormap = cmap, label = L"$J_S$ (arb. units)", limits = (-1, 1),  ticks = [-1, 1], labelpadding = -15, labelsize = 12)
     colgap!(fig_phases, 6, 5)
 
-    Label(fig_phases[1, 1, TopLeft()], "r",  padding = (-30, 0, -10, 0); style...)
-    Label(fig_phases[1, 2, TopLeft()], "s",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 3, TopLeft()], "t",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 4, TopLeft()], "u",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 5, TopLeft()], "v",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 6, TopLeft()], "w",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 1, TopLeft()], "s",  padding = (-30, 0, -10, 0); style...)
+    Label(fig_phases[1, 2, TopLeft()], "t",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 3, TopLeft()], "u",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 4, TopLeft()], "v",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 5, TopLeft()], "w",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 6, TopLeft()], "x",  padding = (-15, 0, -10, 0); style...)
 
     Label(fig_phases[1, 1, Left()], "Junction phases", rotation = π/2, padding = (-80, 0, 0, 0))
 

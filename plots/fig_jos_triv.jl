@@ -152,11 +152,11 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
        add_colorbar(fig_andreev[i, 2]; limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -5)
     end
 
-    Label(fig_andreev[1, 1, TopLeft()], "ñ",  padding = (-50, 0, -35, 0); style...)
+    Label(fig_andreev[1, 1, TopLeft()], "o",  padding = (-50, 0, -35, 0); style...)
     Label(fig_andreev[1, 1, Top()], print_T(layout_andreevs[1].TN), padding = (50, 0, -50, 0), color = :white, fontsize = 12)
-    Label(fig_andreev[2, 1, TopLeft()], "o",  padding = (-50, 0, -25, 0); style...)
-    Label(fig_andreev[2, 1, Top()], L"$m_J = %$(layout_andreevs[2].Zs[1])$", padding = (0, 0, -40, 0), color = :white)
-    Label(fig_andreev[3, 1, TopLeft()], "p",  padding = (-50, 0, -25, 0); style...)
+    Label(fig_andreev[2, 1, TopLeft()], "p",  padding = (-50, 0, -25, 0); style...)
+    Label(fig_andreev[2, 1, Top()], L"$m_J = %$(layout_andreevs[2].Zs[1])$", padding = (0, 0, -250, 0), color = :white)
+    Label(fig_andreev[3, 1, TopLeft()], "q",  padding = (-50, 0, -25, 0); style...)
     Label(fig_andreev[3, 1, Top()], L"$m_J = %$(layout_andreevs[3].Zs[1])$", padding = (0, 0, -40, 0), color = :white)
 
     Label(fig_andreev[1:2, 1, Top()], "Andreevs", padding = (-15, 0, 0, 0))
@@ -219,12 +219,12 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
     Colorbar(fig_phases[1, 7]; colormap = cmap, label = L"$J_S$ (arb. units)", limits = (-1, 1),  ticks = [-1, 1], labelpadding = -15, labelsize = 12)
 
 
-    Label(fig_phases[1, 1, TopLeft()], "q",  padding = (-30, 0, -10, 0); style...)
-    Label(fig_phases[1, 2, TopLeft()], "r",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 3, TopLeft()], "s",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 4, TopLeft()], "t",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 5, TopLeft()], "u",  padding = (-15, 0, -10, 0); style...)
-    Label(fig_phases[1, 6, TopLeft()], "v",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 1, TopLeft()], "r",  padding = (-30, 0, -10, 0); style...)
+    Label(fig_phases[1, 2, TopLeft()], "s",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 3, TopLeft()], "t",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 4, TopLeft()], "u",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 5, TopLeft()], "v",  padding = (-15, 0, -10, 0); style...)
+    Label(fig_phases[1, 6, TopLeft()], "w",  padding = (-15, 0, -10, 0); style...)
 
     Label(fig_phases[1, 1, Left()], "Junction phases", rotation = π/2, padding = (-80, 0, 0, 0))
 
@@ -267,7 +267,7 @@ layout_andreevs = [
 ]
 
 layout_phases = [
-    ("mhc_triv", 1e-3, 1e-6, 1e-3), ("mhc_triv", 0.9, 1e-6, 0.1), ("scm_triv", 1e-3, 1e-6, 1e-4), ("scm_triv", 1e-2, 1e-4, 1e-2), ("scm_triv", 1e-1, 5e-4, 1e-2), ("scm_triv", 0.9, 5e-4, 0.1)
+    ("mhc_triv", 1e-3, 1e-6, 1e-4), ("mhc_triv", 0.9, 1e-6, 0.1), ("scm_triv", 1e-3, 1e-6, 1e-4), ("scm_triv", 1e-2, 1e-4, 1e-3), ("scm_triv", 1e-1, 5e-4, 1e-2), ("scm_triv", 0.9, 5e-4, 0.1)
 ]
 
 fig = fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs)

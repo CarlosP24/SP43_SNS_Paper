@@ -8,7 +8,7 @@ function interpolate_jump(φrng, J; φtol = 1e-6)
         Jφ = J[i, :]
         Jinter = Jφ[iπ-3:iπ]
         φinter = φrng[iπ-3:iπ]
-        Jfunc = linear_interpolation(φinter, Jinter, extrapolation_bc=Line())
+        Jfunc = linear_interpolation(φinter, Jinter, extrapolation_bc=Reflect())
         return Jfunc(π)
     end
     return I
@@ -68,7 +68,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     end
     push!(xindex_groups, current_group)
     
-    φtol = system.j_params.imshift / 0.23
+    φtol = system.j_params.imshift / (0.23)
 
     Imajo = interpolate_jump(φrng, J; φtol)
 
@@ -84,7 +84,13 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         Imajo = Imajo[xcut:end]
     end
 
-    Ibase = Ic .- Imajo
+    Ibase = map(x -> maximum([x, 1e-6]) ,Ic .- Imajo)
+
+    # For large T, sawtooth is due to transparency, not majo
+    if TN > 0.8
+        Ibase = Ic
+    end
+    #println("$(TN): $(maximum(hcat([Imajo[xindex] for xindex in xindex_groups]...)))")
     #println(ifelse(sum(Ibase .< 0) > 0, "Problem in $(name)", ""))
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
     lines!(ax, xrng, Ic; color, linestyle, label, linewidth)
@@ -93,7 +99,8 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     # This methood could be improved to avoid use of abs. Ibase < 0 only when there's no majo, that is not plotted.
     if showmajo  
         for xindex in xindex_groups
-            band!(ax, xrng[xindex], abs.(Ibase[xindex]), Ic[xindex]; color, alpha = 0.2)
+            band!(ax, xrng[xindex], Ibase[xindex], Ic[xindex]; color, alpha = 0.2)
+            #lines!(ax, xrng[xindex], Ibase[xindex]; color, linestyle = :dash)
         end
     end
     diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash,)
