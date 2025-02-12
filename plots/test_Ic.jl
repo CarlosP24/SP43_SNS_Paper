@@ -8,7 +8,7 @@ function test_Ic(name::String; basepath = "data/Js")
 
     fig = Figure()
     ax = Axis(fig[1, 1]; xlabel = L"\Phi/\Phi_0", ylabel = L"I_c", yscale = log10)
-    vlines!(ax, [0.73, 0.78]; color = :black, linestyle = :dash)
+    vlines!(ax, [1.04, 1.188]; color = :black, linestyle = :dash)
     lines!(ax, Φrng, Ic; color = :red)
     ylims!(ax, (10.0^(-8), 10))
     text!(ax, 1, 0.3; text = L"$V_{min} = %$(wireL.Vmin)$meV", align = (:center, :center))  
@@ -18,7 +18,7 @@ function test_Ic(name::String; basepath = "data/Js")
     return fig
 end
 
-name = "scm_test_Vmin=-40"
+name = "scm_test_mu=9.0"
 fig = test_Ic(name)
 save("figures/scm_test/$(name).pdf", fig)
 fig
@@ -94,7 +94,7 @@ function plot_checker2(pos, name::String; Zfunc = nothing, basepath = "data", co
 end
 fig = Figure()
 ax = plot_checker2(fig[1, 1], "scm_test_mu=9.0"; colorrange = (-1e-7, 1e-7), cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme, atol = 0)
-vlines!(ax, [0.73, 0.78]; color = :black, linestyle = :dash)
+vlines!(ax, [1.04, 1.188]; color = :black, linestyle = :dash)
 fig
 
 ## 

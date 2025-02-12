@@ -388,7 +388,7 @@ Vs = vcat(collect.([Vs1, Vs2, Vs3])...)
 µs = vcat(collect.([μs1, μs2, μs3, μs4])...)
 
 calc_params_test = Calc_Params(;
-    Φrng = subdiv(0.51, 1.49, 100),
+    Φrng = vcat(collect.([range(0.51, 1, 50), range(1, 1.2, 50), range(1.2, 1.49, 50)])...),
     φrng = subdiv(0, 2π, 101)
 )
 
