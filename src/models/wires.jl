@@ -146,8 +146,8 @@ wires["jos_mhc_triv"] = (; wires["jos_mhc"]...,
 
 wires["jos_scm"] = (; wires["jos_hc"]...,
     w = 65,
-    d = 0,
-    μ = 9,
+    d = 5,
+    μ = 2,
     α = 0,
     preα = 21.66,
     Vmax = 0,
@@ -159,6 +159,8 @@ wires["jos_scm"] = (; wires["jos_hc"]...,
 
 wires["jos_scm_triv"] = (; wires["jos_scm"]...,
     preα = 0,
+    d = 0,
+    μ = 9
 )
 
 wires["jos_mhc_30"] = (; wires["jos_mhc"]...,
