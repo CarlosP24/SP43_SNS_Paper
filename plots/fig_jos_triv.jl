@@ -171,8 +171,8 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
 
     for (i, args) in enumerate(layout_phases)
         TN = args[2]
-        Jmax = args[4]
-        ax = plot_checker(fig_phases[1, i], args[1], TN; atol = args[3], colorrange = (-Jmax, Jmax), cmap)
+        Jmax = args[3]
+        ax = plot_checker(fig_phases[1, i], args[1], TN; colorrange = (-Jmax, Jmax), cmap)
         #text!(ax, 2, π/2; text = L"$T_N = %$(TN)$", fontsize = 12  , color = :white, align = (:center, :center))
         xlims!(ax, (0, 2.5))
         lab = if i in [1, 2]
@@ -189,30 +189,34 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         ax.yminorticksvisible = true
         i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false) 
         if i == 1
-            text!(ax, 0.6, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1.05, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
         end
-        if i == 2
-            text!(ax, 0.6, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-        end
+        # if i == 2
+        #     text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
+        #     text!(ax, 1.05, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+        # end
         if i == 3 
-            text!(ax, 1.7, π/2; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 2.1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.6], [π/2], [-0.5], [0]; color = :white)
+            text!(ax, 1.35, π/2; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1.75, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            arrows!(ax, [1.3], [π/2], [-0.1], [0]; color = :white)
+            arrows!(ax, [2.1], [π/2], [0.25], [0]; color = :white)
+
         end
-        if i == 4 
-            text!(ax, 1.7, π/2 + 0.8; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 2.1, π/2 + 0.8; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.6], [π/2 + 0.8], [-0.7], [0]; color = :white)
-            text!(ax, 1.7, π/2 - 0.5; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 2.1, π/2 - 0.5; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.6], [π/2 - 0.5], [-0.45], [0]; color = :white)
-        end
+        # if i == 4 
+        #     text!(ax, 1.7, π/2 + 0.8; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
+        #     text!(ax, 2.1, π/2 + 0.8; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+        #     arrows!(ax, [1.6], [π/2 + 0.8], [-0.7], [0]; color = :white)
+        #     text!(ax, 1.7, π/2 - 0.5; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
+        #     text!(ax, 2.1, π/2 - 0.5; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+        #     arrows!(ax, [1.6], [π/2 - 0.5], [-0.45], [0]; color = :white)
+        # end
         if i == 5 
-            text!(ax, 1.7, π/2 - 0.8; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 2.1, π/2 - 0.8; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.6], [π/2 - 0.8], [-0.45], [0]; color = :white)
+            text!(ax, 1.4, π/2 - 0.8; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 1.82, π/2 - 0.8; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            arrows!(ax, [1.3], [π/2 - 0.8], [-0.15], [0]; color = :white)
+            arrows!(ax, [2.15], [π/2 - 0.8], [0.15], [0]; color = :white)
+
         end
     end
 
@@ -248,15 +252,15 @@ layout_currents = [
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), );
+    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 3e-1), );
     () () ();
 ]
 
 layout_cpr = [
     ("hc_triv", 1e-4, 1) ("hc_triv", 0.9, 1);
     ("mhc_triv", 1e-4, 1) ("mhc_triv", 0.9, 1);
-    ("scm_triv", 1e-4, 0.66) ("scm_triv", 0.1, 0.69);
-    ("scm_triv", 1e-4, 1) ("scm_triv", 0.1, 1);
+    ("scm_triv", 1e-4, 0.7) ("scm_triv", 0.1, 0.7);
+    ("scm_triv", 1e-4, 1.15) ("scm_triv", 0.1, 1.15);
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
@@ -267,7 +271,7 @@ layout_andreevs = [
 ]
 
 layout_phases = [
-    ("mhc_triv", 1e-3, 1e-6, 1e-4), ("mhc_triv", 0.9, 1e-6, 0.1), ("scm_triv", 1e-3, 1e-6, 1e-4), ("scm_triv", 1e-2, 1e-4, 1e-3), ("scm_triv", 1e-1, 5e-4, 1e-2), ("scm_triv", 0.9, 5e-4, 0.1)
+    ("mhc_triv", 1e-3,  1e-4), ("mhc_triv", 0.9, 0.1), ("scm_triv", 1e-3,  1e-4), ("scm_triv", 1e-2, 1e-3), ("scm_triv", 1e-1,  1e-2), ("scm_triv", 0.9, 0.1)
 ]
 
 fig = fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs)

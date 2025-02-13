@@ -1,27 +1,24 @@
+function contour_d!(ax, xs, ys, zs; kw...)
+    pts = Iterators.product(1:length(xs), 1:length(ys))
+    cs = map(pts) do (i, j)
+        z0 = sign(zs[i, j])
+        neighbors = [(i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)]
+        for (it, jt) in neighbors
+            if it > 0 && it <= length(xs) && jt > 0 && jt <= length(ys)
+                zt = zs[it, jt]
+                if zt * z0 < 0
+                    (it < i) && return 1
+                    (jt < j) && (zt < z0) &&  return 1
+                end
+            end
+        end
+        return NaN
+    end
 
-function contour_d!(ax, xs, ys, zs; atol = 1e-6, kw...)
-    dzs = hcat(diff(zs, dims = 2), zeros(size(zs, 1), 1))
-    pts = Iterators.product(1:size(zs, 1), 1:size(zs, 2))
-
-    zn = map(pts) do (i, j)
-        return ifelse(dzs[i, j] < 0, zs[i, j], NaN)
-    end
-    
-    zp = map(pts) do (i, j)
-        return ifelse(dzs[i, j] > 0, zs[i, j], NaN)
-    end
-    
-    zv = map(pts) do (i, j)
-        return ifelse(isapprox(dzs[i, j], 0; atol), zs[i, j], NaN)
-    end
-    
-    #contour!(ax, xs, ys, zn; levels = [0], linestyle = :dot, kw...)
-    contour!(ax, xs, ys, zp; levels = [0],  linestyle = :solid, kw...)
-    contour!(ax, xs, ys, zv; levels = [0], linestyle = :solid, kw...)
-    
+    heatmap!(ax, xs, ys, cs; colormap = [:yellow])
 end
 
-function plot_checker(pos, name::String, TN; Zfunc = nothing, basepath = "data", colorrange = (-1e-2, 1e-2), atol = 1e-6, cmap = :redsblues)
+function plot_checker(pos, name::String, TN; Zfunc = nothing, basepath = "data", colorrange = (-1e-2, 1e-2), cmap = :redsblues)
     path = "$(basepath)/Js/$(name)_$(TN).jld2"
     res = load(path)["res"]
 
@@ -50,10 +47,20 @@ function plot_checker(pos, name::String, TN; Zfunc = nothing, basepath = "data",
         ax.xlabel = L"$B$ (T)"
     end
 
+    φrng = vcat(-reverse(φrng), φrng)
+    J = hcat(J, J)
+    shift = 0.5
+    ylow = -π - shift
+    yhigh = π + shift
 
-    heatmap!(ax, xrng, range(-last(φrng), 2*last(φrng), 3*length(φrng)), hcat(J, J, J); colormap = cmap, colorrange)
-    contour_d!(ax, xrng, range(-last(φrng), 2*last(φrng), 3*length(φrng)), hcat(J, J, J); atol, color = :yellow, linewidth = 3)
-    vlines!(ax, [0.5, 1.5]; color = (:black, 0.5), linestyle = :dash, linewidth = 3 )
+    ihigh = findmin(abs.(φrng .- yhigh))[2]
+    ilow = findmin(abs.(φrng .- ylow))[2]
+
+    nφrng = φrng[ilow:ihigh]
+    nJ = J[:, ilow:ihigh]
+    heatmap!(ax, xrng, nφrng ,nJ ; colormap = cmap, colorrange)
+    contour_d!(ax, xrng, nφrng ,nJ ; atol, color = :yellow, linewidth = 3)
+    vlines!(ax, [0.5, 1.5]; color = (:black, 0.2), linestyle = :dash, linewidth = 2 )
     ylims!(ax, (-π - 0.5, π + 0.5))
     hidedecorations!(ax, ticks = false, ticklabels = false, label = false)
     return ax
@@ -68,3 +75,13 @@ function add_colorbar(pos, Jmax; colormap = :redsblues,  label = L"$J_S$", kw...
     Colorbar(pos; colormap, label, labelpadding = -25, limits = (-Jmax, Jmax), ticks = ([-Jmax, Jmax], [L"$-10^{%$(log10(Jmax) |> round |> Int)}$", L"$10^{%$(log10(Jmax) |> round |> Int)}$"]), ticksize = 2, ticklabelpad = 0, labelsize = 15, kw...)
     return true
 end
+
+
+name = "scm_triv"
+TN = 0.1
+Jmax = 1e-3
+fig = Figure()
+cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme
+colorrange = (-Jmax, Jmax)
+plot_checker(fig[1, 1], name, TN; colorrange = (-Jmax, Jmax), cmap)
+fig

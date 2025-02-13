@@ -95,8 +95,9 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; showmajo = ((args[3] > 0.5) && (args[3] < 1.5)))
         color = colors[findmin(abs.(T .- TNS))[2]]
         pos_text = ifelse(((i == 1) || (i == 2)) &&j == 1, 0.5, 0)
-        text!(ax, 3π/2, 0.8*mJ; text = print_T(T), color, fontsize = 9, align = (:center, :center),)
-        scatter!(ax, π - pos_text, 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
+        posy = ifelse((i == 4), -0.8, 0.8)
+        text!(ax, 3π/2, posy*mJ; text = print_T(T), color, fontsize = 9, align = (:center, :center),)
+        scatter!(ax, π - pos_text, posy*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
         ax.yticks = [0]
         j != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
         i != 4 && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
@@ -158,7 +159,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
     fig_phases = fig[2, 1:3] = GridLayout()
 
     for (i, kwargs) in enumerate(layout_phases)
-        ax = plot_checker(fig_phases[1, i], kwargs.name, kwargs.TN; kwargs.atol, colorrange = (-kwargs.Jmax, kwargs.Jmax), cmap)
+        ax = plot_checker(fig_phases[1, i], kwargs.name, kwargs.TN; colorrange = (-kwargs.Jmax, kwargs.Jmax), cmap)
         xlims!(ax, (0, 2.5))
         ax.yticks = ([-π, 0, π], [L"-\pi","", L"\pi"])
         ax.xticks = ([0.05, 1, 2], [L"0", L"1", L"2"])
@@ -169,22 +170,19 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i != 1 && hideydecorations!(ax, ticks = false, minorticks = false, grid = false)
         i != 1 && colgap!(fig_phases, i - 1, 15)
         Label(fig_phases[1, i, Top()],L"%$(true_names[kwargs.name]), %$(print_T(kwargs.TN))"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0))
-        if i ∈ 1:2
+        if i == 1
             text!(ax, 0.7, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
             text!(ax, 1.1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
         end
         if i == 3
             text!(ax, 0.6, π/2; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
             text!(ax, 1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.4], [π/2], [0.2], [0]; color = :white)
+            arrows!(ax, [1.35], [π/2], [0.15], [0]; color = :white)
         end
-        if i == 4
-            text!(ax, 0.6, π/2 + π/6; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
+        if i == 5
+            text!(ax, 0.6, π/2 + π/6; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
             text!(ax, 1.0, π/2 +π/6; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.4], [π/2 + π/6], [0.2], [0]; color = :white)
-            text!(ax, 0.6,  π/6; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 1.1, π/6; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.5], [π/6], [0.8], [0]; color = :white)
+            arrows!(ax, [1.35], [π/2 + π/6], [0.15], [0]; color = :white)
         end
     end
 
@@ -219,7 +217,7 @@ layout_currents = [
 ]
 
 kws_currents = [
-    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 1.4e-1), highlight_majo = 20,);
+    (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 5e-2), ) (colorrange = (1e-4, 2e-1), highlight_majo = 20,);
     (showmajo = true,) (showmajo = true,) (showmajo = true, );
 ]
 
@@ -227,7 +225,7 @@ layout_cpr = [
     ("hc", 1e-4, 0.6) ("hc", 0.9, 0.6);
     ("mhc", 1e-4, 1) ("mhc", 0.9, 1);
     ("scm", 1e-4, 1) ("scm", 0.1, 1);
-    ("scm", 1e-4, 2) ("scm", 0.1, 2);
+    ("scm", 1e-4, 1.6) ("scm", 0.1, 1.6);
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
@@ -237,12 +235,12 @@ layout_trans = [
 ]
 
 layout_phases = [
-    (name = "mhc", TN = 1e-3, atol = 1e-6, Jmax = 5e-4),
-    (name = "mhc", TN = 0.9, atol = 1e-6, Jmax = 5e-1),
-    (name = "scm", TN = 1e-3, atol = 1e-6, Jmax = 1e-4),
-    (name = "scm", TN = 1e-2, atol = 1e-4, Jmax = 1e-3),
-    (name = "scm", TN = 1e-1, atol = 5e-4, Jmax = 1e-2),
-    (name = "scm", TN = 0.9, atol = 5e-4, Jmax = 0.1)
+    (name = "mhc", TN = 1e-3, Jmax = 5e-4),
+    (name = "mhc", TN = 0.9,  Jmax = 5e-1),
+    (name = "scm", TN = 1e-3,  Jmax = 1e-4),
+    (name = "scm", TN = 1e-2,  Jmax = 1e-3),
+    (name = "scm", TN = 1e-1, Jmax = 1e-2),
+    (name = "scm", TN = 0.9, Jmax = 0.1)
 ]
 
 fig = fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_trans, layout_phases)
