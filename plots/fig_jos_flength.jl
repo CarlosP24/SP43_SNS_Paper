@@ -48,9 +48,11 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colorma
         #vlines!(ax, [1.25]; color = :green, linestyle = :dash)
         #i == 1 && vlines!(ax, [1.07]; color = :white, linestyle = :dash)
         i == 1 && isodd(j) && text!(ax, 2, 0.215; text = "Total", color = :white, fontsize = 14, align = (:center, :center))
-        i == 1 && iseven(j) && text!(ax, 2, 0.215; text = L"m_J = 0", color = :white, fontsize = 14, align = (:center, :center))
+        i == 1 && iseven(j) && text!(ax, 1, 0.215; text = L"m_J = 0", color = :white, fontsize = 12, align = (:center, :center))
+        i == 1 && iseven(j) && text!(ax, 2, 0.215; text = L"m_J = \pm \frac{1}{2}", color = :white, fontsize = 14, align = (:center, :center))
         i == 2 && isodd(j) && text!(ax, 2, 5e-2; text = "Total", color = :black, fontsize = 14, align = (:center, :center))
-        i == 2 && iseven(j) && text!(ax, 2, 5e-2; text = L"m_J = 0", color = :black, fontsize = 14, align = (:center, :center))
+        i == 2 && iseven(j) && text!(ax, 1, 5e-2; text = L"m_J = 0", color = :black, fontsize = 12, align = (:center, :center))
+        i == 2 && iseven(j) && text!(ax, 2, 5e-2; text = L"m_J = \pm \frac{1}{2}", color = :black, fontsize = 12, align = (:center, :center))
         ax.xticks = ([0.01, 1, 2], [L"0", L"1", L"2"])
         ax.xminorticks = [0.5, 1.5]
         ax.xminorticksvisible = true

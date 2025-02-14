@@ -77,11 +77,11 @@ function add_colorbar(pos, Jmax; colormap = :redsblues,  label = L"$J_S$", kw...
 end
 
 
-name = "scm_triv"
-TN = 0.1
-Jmax = 1e-3
-fig = Figure()
-cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme
-colorrange = (-Jmax, Jmax)
-plot_checker(fig[1, 1], name, TN; colorrange = (-Jmax, Jmax), cmap)
-fig
+# name = "scm_triv"
+# TN = 0.1
+# Jmax = 1e-3
+# fig = Figure()
+# cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme
+# colorrange = (-Jmax, Jmax)
+# plot_checker(fig[1, 1], name, TN; colorrange = (-Jmax, Jmax), cmap)
+# fig
