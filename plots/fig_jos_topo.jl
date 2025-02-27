@@ -19,11 +19,11 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         ts = colors
         xlims!(ax, (0, 2.5))
         if j == 1
-            text!(ax, 1, 1.9e-5; text = "Majorana fins", align = (:center, :center), fontsize = 12)
+            text!(ax, 1, 5e-6; text = "Majorana fins", align = (:center, :center), fontsize = 14)
             false_ax = Axis(fig[i:(i+1), j])
             xlims!(false_ax, (0, 2.5))
             ylims!(false_ax, (0, 1))
-            arrows!(false_ax, [1, 1], [0.25, 0.25], [0.3, -0.3], [0.08, 0.08])
+            arrows!(false_ax, [1, 1], [0.15, 0.15], [0.3, -0.3], [0.08, 0.08])
             hidedecorations!(false_ax)
             hidespines!(false_ax)
         end
@@ -176,18 +176,18 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_tra
         i != 1 && colgap!(fig_phases, i - 1, 15)
         Label(fig_phases[1, i, Top()],L"%$(true_names[kwargs.name]), %$(print_T(kwargs.TN))"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0))
         if i == 1
-            text!(ax, 0.7, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :black)
-            text!(ax, 1.1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :black)
+            text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.1, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
         end
         if i == 3
-            text!(ax, 0.6, π/2; text = L"\pi", align = (:center, :center), fontsize = 10, color = :black)
-            text!(ax, 1, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :black)
-            arrows!(ax, [1.35], [π/2], [0.15], [0]; color = :black)
+            text!(ax, 0.55, π/2; text = L"\pi", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.0, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
+            arrows!(ax, [1.3], [π/2 - 0.5], [0.2], [-0.3]; color = :black)
         end
         if i == 5
-            text!(ax, 0.6, π/2 + π/6; text = L"\phi_0", align = (:center, :center), fontsize = 10, color = :black)
-            text!(ax, 1.0, π/2 +π/6; text = "-junction", align = (:center, :center), fontsize = 10, color = :black)
-            arrows!(ax, [1.35], [π/2 + π/6], [0.15], [0]; color = :black)
+            text!(ax, 0.55, π/2 - 0.5; text = L"\phi_0", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.0, π/2 - 0.5; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
+            arrows!(ax, [1.3], [π/2], [0.2], [0.3]; color = :black)
         end
     end
 

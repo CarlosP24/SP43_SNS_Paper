@@ -3,15 +3,15 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; kw...)
         add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
-        j == 1 && text!(ax, 1.5, 0.23; text = "Degeneracy point", align = (:center, :center), color = :white, fontsize = 10, justification = :center)
+        j == 1 && text!(ax, 1.5, 0.23; text = "Degeneracy point", align = (:center, :center), color = :white, fontsize = 12, justification = :center)
         j == 1 && arrows!(ax, [1.5], [0.2], [-0.4], [-0.06]; color = :white)
-        j == 2 && text!(ax, 1.5, 0; text = "Shifted\ngap", align = (:right, :center), justification = :right, color = :white, fontsize = 10)
-        j == 2 && text!(ax, 1.5, 0.23; text = "CdGM analogs", align = (:center, :center), color = :white, fontsize = 10, justification = :center)
+        j == 2 && text!(ax, 1.5, 0; text = "Shifted\ngap", align = (:right, :center), justification = :right, color = :white, fontsize = 12)
+        j == 2 && text!(ax, 1.5, 0.23; text = "CdGM analogs", align = (:center, :center), color = :white, fontsize = 12, justification = :center)
         j == 2 && arrows!(ax, [1.5], [0.2], [-0.4], [-0.05]; color = :white)
         j == 3 && arrows!(ax, [1.2], [-0.13], [0.05], [0.03]; color = turquoise, linewidth = 2)
-        j == 3 && text!(ax, 1.4, -0.13; text = "hC", color = turquoise,  align = (:center, :center), fontsize = 10)
+        j == 3 && text!(ax, 1.4, -0.13; text = "hC", color = turquoise,  align = (:center, :center), fontsize = 12)
         j == 3 && arrows!(ax, [0.9], [-0.15], [-0.05], [0.03]; color = coral, linewidth = 2)
-        j == 3 && text!(ax, 1.05, -0.15; text = "eC", color = coral,  align = (:center, :center), fontsize = 10)
+        j == 3 && text!(ax, 1.05, -0.15; text = "eC", color = coral,  align = (:center, :center), fontsize = 12)
 
     else
         pattern = Regex("^$(name)_[01].?\\d*\\.jld2")
@@ -28,7 +28,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         xlims!(ax, (0, 2.5))
         ts = colors
         if j == 2
-            text!(ax, 1, 5e-6; text = "Skewed\ncritical\ncurrent", align = (:center, :center), fontsize = 12)
+            text!(ax, 1, 4e-6; text = "Skewed\ncritical\ncurrent", align = (:center, :center), fontsize = 14)
             false_ax = Axis(fig[i:(i+1), j])
             xlims!(false_ax, (0, 2.5))
             ylims!(false_ax, (0, 1))
