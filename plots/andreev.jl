@@ -59,8 +59,8 @@ function andreev(name::String; basepath = "data", Zs = nothing, colorrange = (0,
 end
 
 
-fig = andreev("scm_triv_1.0", colorrange = (0, 1))
-save("figures/andreev/scm_triv_1.0.pdf", fig)
+fig = andreev("scm_triv_0.1", colorrange = (0, 1))
+#save("figures/andreev/scm_triv_1.0.pdf", fig)
 fig
 
 ##

@@ -177,7 +177,8 @@ j_params_jos = J_Params(;
 calc_params_jos = Calc_Params(;
     Φrng = subdiv(0, 2.5, 400),
     ωrng = subdiv(-.26, 0,  401) .+ 1e-3im,
-    φrng = subdiv(0, 2π, 101)
+    φrng = subdiv(0, 2π, 201),
+    Φs = [1]
 )
 
 systems_hc_triv = Dict(

@@ -35,3 +35,11 @@ function plot_andreev(pos, name::String; TN = 0.1, ωlims = nothing, Φ = 1, Zs 
     return ax
 
 end
+
+##
+fig = Figure()
+name = "scm_triv"
+TN = 0.1
+Φ = 1
+plot_andreev(fig[1, 1], name; TN = TN, Φ = Φ, colorrange = (0, 1e-1), Zs = [-1, 1])
+fig
