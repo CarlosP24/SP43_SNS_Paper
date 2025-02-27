@@ -18,11 +18,11 @@ function contour_d!(ax, xs, ys, zs; kw...)
     heatmap!(ax, xs, ys, cs; colormap = [:yellow])
 end
 
-function plot_checker(pos, name::String, TN; Zfunc = nothing, basepath = "data", colorrange = (-1e-2, 1e-2), cmap = :redsblues)
+function plot_checker(pos, name::String, TN; Zfunc = nothing, basepath = "data", colorrange = (-1e-2, 1e-2), cmap = :RdYlGn)
     path = "$(basepath)/Js/$(name)_$(TN).jld2"
     res = load(path)["res"]
 
-    ax = Axis(pos; ylabel = L"$\varphi$", yticks = ([-π, -π/2, 0, π/2, π], [L"-\pi", L"-\pi/2", L"0", L"\pi/2", L"\pi"]) , ylabelpadding = -25,)
+    ax = Axis(pos; ylabel = L"$\phi$", yticks = ([-π, -π/2, 0, π/2, π], [L"-\pi", L"-\pi/2", L"0", L"\pi/2", L"\pi"]) , ylabelpadding = -25,)
 
     @unpack params, system, Js = res
     @unpack Brng, Φrng, φrng = params
@@ -59,7 +59,7 @@ function plot_checker(pos, name::String, TN; Zfunc = nothing, basepath = "data",
     nφrng = φrng[ilow:ihigh]
     nJ = J[:, ilow:ihigh]
     heatmap!(ax, xrng, nφrng ,nJ ; colormap = cmap, colorrange)
-    contour_d!(ax, xrng, nφrng ,nJ ; atol, color = :yellow, linewidth = 3)
+    contour_d!(ax, xrng, nφrng ,nJ ; color = :yellow, linewidth = 3)
     vlines!(ax, [0.5, 1.5]; color = (:black, 0.2), linestyle = :dash, linewidth = 2 )
     ylims!(ax, (-π - 0.5, π + 0.5))
     hidedecorations!(ax, ticks = false, ticklabels = false, label = false)

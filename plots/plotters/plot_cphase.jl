@@ -1,4 +1,4 @@
-function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgrad(:BuGn), 0.9), :orange], lw = 0.5, showmajo = false, Zs = nothing, total = true)
+function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [:green, :red], lw = 0.5, showmajo = false, Zs = nothing, total = true)
     path = "$(basepath)/Js/$(name)_$(TN).jld2"
     res = load(path)["res"]
 
@@ -19,7 +19,7 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [get(cgra
 
     JZ = Dict([Z => mapreduce(permutedims, vcat, Js[Z])[iΦ, :] |> vcat for Z in Zs])
 
-    ax = Axis(pos; xlabel = L"$\varphi$", ylabel = L"$J_S$ (a. u.)", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
+    ax = Axis(pos; xlabel = L"$\phi$", ylabel = L"$J_S$ (a. u.)", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
 
     J = sum(values(JZ))
     total && lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")
@@ -128,7 +128,7 @@ end
 ##
 function fig_checker(name::String, TN; Jmax = 1e-2, tnames = tnames, kw...)
     fig = Figure()
-    ax = plot_checker(fig[1, 1], name, TN; basepath = "data", cmap = :redsblues, colorrange = (-Jmax, Jmax), kw...)
+    ax = plot_checker(fig[1, 1], name, TN; basepath = "data", cmap = :greensblues, colorrange = (-Jmax, Jmax), kw...)
     add_colorbar(fig[1, 2], Jmax; label = L"$J_S$ (arb. units)", ticks = ([-Jmax, Jmax], [L"$-1$", L"$1$"]), labelpadding = -10)
     colgap!(fig.layout, 1, 5)
     #Label(fig[1, 1:2, Top()], L"%$(tnames[name]), $%$(print_T(TN))$", fontsize = 15)

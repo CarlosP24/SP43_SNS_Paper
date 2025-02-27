@@ -22,7 +22,7 @@ function TvI(pos; name::String, x::Real, Tspath = "data/Ts", bl = 0.5, br = 0.7)
 
     Ics = getindex(findmax(J; dims = 2),1) |> vec
     
-    ax = Axis(pos; xlabel = L"$T_N$", ylabel = L"$I_c$ $(2e/\hbar)$", xscale = log10, yscale = log10)
+    ax = Axis(pos; xlabel = L"$T_N$", ylabel = L"$I_c$ $(2e/h)$", xscale = log10, yscale = log10)
     scatter!(ax, Trng, Ics; color = :black, markersize = 5)
 
     # Linear fit

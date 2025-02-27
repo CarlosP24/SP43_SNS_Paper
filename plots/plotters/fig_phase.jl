@@ -19,7 +19,7 @@ function fig_phase(name::String; i = 10)
         J = mapreduce(permutedims, vcat, Js)
     end
     J = J |> transpose
-    xlabel =  L"$\Delta \varphi$"
+    xlabel =  L"$\Delta \phi$"
     xticks = ([π/2, π, 3π/2], [L"\pi/2", L"\pi", L"3\pi/2"])
     ax = Axis(fig[1, 1]; xlabel, ylabel = L"$B$ (T)", xticks )
     heatmap!(ax, φrng, Brng, J; )

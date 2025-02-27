@@ -8,8 +8,10 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
         j == 2 && text!(ax, 1.5, 0; text = "Shifted\ngap", align = (:right, :center), justification = :right, color = :white, fontsize = 10)
         j == 2 && text!(ax, 1.5, 0.23; text = "CdGM analogs", align = (:center, :center), color = :white, fontsize = 10, justification = :center)
         j == 2 && arrows!(ax, [1.5], [0.2], [-0.4], [-0.05]; color = :white)
-        j == 3 && arrows!(ax, [1.2], [-0.13], [0.05], [0.03]; color = :red, linewidth = 2)
-        j == 3 && arrows!(ax, [0.9], [-0.15], [-0.05], [0.03]; color = :green, linewidth = 2)
+        j == 3 && arrows!(ax, [1.2], [-0.13], [0.05], [0.03]; color = turquoise, linewidth = 2)
+        j == 3 && text!(ax, 1.4, -0.13; text = "hC", color = turquoise,  align = (:center, :center), fontsize = 10)
+        j == 3 && arrows!(ax, [0.9], [-0.15], [-0.05], [0.03]; color = coral, linewidth = 2)
+        j == 3 && text!(ax, 1.05, -0.15; text = "eC", color = coral,  align = (:center, :center), fontsize = 10)
 
     else
         pattern = Regex("^$(name)_[01].?\\d*\\.jld2")
@@ -34,13 +36,18 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
             hidedecorations!(false_ax)
             hidespines!(false_ax)
         end
+        j == 3 && scatter!(ax, [1], [1.35e-2]; color = (colors[4], 0.4), marker = :rect)
+
     end
     return ax, ts, TNS
 end
 
-
-
-function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs; jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8],  cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme)
+coral = RGB(255/255,127/255,85/255)
+turquoise = RGB(103/255, 203/255, 194/255)
+white = RGB(1, 1, 1)
+cmap = cgrad([coral, white,  turquoise], [0.0, 0.5, 1.0])
+#cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme
+function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_andreevs; jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8], cmap = cmap, colors_cphase = [turquoise, coral])
     fig = Figure(size = (1100, 250 * 3), fontsize = 16,)
 
     # Left sector
@@ -100,19 +107,19 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
     map(cells) do (i, j)
         args = layout_cpr[i, j]
         T = args[2]
-        ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3])
+        ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; colors = colors_cphase)
         color = colors[findmin(abs.(T .- TNS))[2]]
-        #pos_text = ifelse((i == 4 ) && (j == 1), -0.95, 0.8 )
-        pos_text = 0.8
-        text!(ax, 3π/2, pos_text*mJ; text = print_T(T), color, fontsize = 9, align = (:center, :center),)
-        scatter!(ax, π-0.2, 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
+        #pos_text = ifelse((i == 1) && (j == 2), -0.1, 0.2)
+        #posy = ifelse((j == 2) && ((i == 3) || (i == 4)), -0.8, 0.8)
+        i == 1 && text!(ax, π/2, -0.8*mJ; text = print_T(T; low = true), color = :black, fontsize = 12, align = (:center, :center),)
+        scatter!(ax, 14π/8 , 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
         ax.yticks = [0]
         j != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)
         i != 4 && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
-        i == 2 && j == 1 && text!(ax, π/2, -0.7*mJ; text = L"m_J", align = (:center, :center), fontsize = 10) 
-        i == 2 && j == 1 && text!(ax, π/2, -0.5*mJ; text = "Different", align = (:center, :center), fontsize = 10)
+        i == 2 && j == 1 && text!(ax, π/2, -0.72*mJ; text = L"m_J", align = (:center, :center), fontsize = 12) 
+        i == 2 && j == 1 && text!(ax, π/2, -0.5*mJ; text = "Different", align = (:center, :center), fontsize = 12)
         i == 2 && j == 1 && arrows!(ax, [π/2], [-0.4*mJ], [0], [0.2*mJ])
-        i == 2 && j == 2 && text!(ax, π/2, -0.5*mJ; text = "Total", align = (:center, :center), fontsize = 10)
+        i == 2 && j == 2 && text!(ax, π/2, -0.5*mJ; text = "Total", align = (:center, :center), fontsize = 12)
         i == 2 && j == 2 && arrows!(ax, [π/2 + 1], [-0.5*mJ], [0.5], [0])
     end
 
@@ -146,21 +153,21 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
        hlines!(ax, 0; color = :white, linestyle = :dash)
        i != 3 && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
 
-       i == 2 && arrows!(ax, [π/4], [-0.08], [-π/4 + 0.2], [0.02]; color = :red, linewidth = 2)
-       i == 3 && arrows!(ax, [π/4], [-0.08], [-π/4 + 0.2], [0.02]; color = :green, linewidth = 2)
+       i == 2 && arrows!(ax, [π/4], [-0.08], [-π/4 + 0.2], [0.02]; color = turquoise, linewidth = 2)
+       i == 3 && arrows!(ax, [π/4], [-0.08], [-π/4 + 0.2], [0.02]; color = coral, linewidth = 2)
 
        add_colorbar(fig_andreev[i, 2]; limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -5)
     end
 
     Label(fig_andreev[1, 1, TopLeft()], "o",  padding = (-50, 0, -35, 0); style...)
-    Label(fig_andreev[1, 1, Top()], print_T(layout_andreevs[1].TN), padding = (50, 0, -50, 0), color = :white, fontsize = 12)
+    Label(fig_andreev[1, 1, Top()], print_T(layout_andreevs[1].TN), padding = (50, 0, -140, 0), color = :white, fontsize = 12)
     Label(fig_andreev[2, 1, TopLeft()], "p",  padding = (-50, 0, -25, 0); style...)
-    Label(fig_andreev[2, 1, Top()], L"$m_J = %$(layout_andreevs[2].Zs[1])$", padding = (0, 0, -250, 0), color = :white)
+    Label(fig_andreev[2, 1, Top()], L"$m_J = %$(layout_andreevs[2].Zs[1])$", padding = (0, 0, -250, 0), color = :white, fontsize = 12)
     Label(fig_andreev[3, 1, TopLeft()], "q",  padding = (-50, 0, -25, 0); style...)
-    Label(fig_andreev[3, 1, Top()], L"$m_J = %$(layout_andreevs[3].Zs[1])$", padding = (0, 0, -40, 0), color = :white)
+    Label(fig_andreev[3, 1, Top()], L"$m_J = %$(layout_andreevs[3].Zs[1])$", padding = (0, 0, -40, 0), color = :white, fontsize = 12)
 
     Label(fig_andreev[1:2, 1, Top()], "Andreevs", padding = (-15, 0, 0, 0))
-    Label(fig_andreev[1:2, 1, Top()], "✸", padding = (70, 0, 0, 0), color = (colors[findmin(abs.(layout_andreevs[1].TN .- TNS))[2]], 0.5))
+    Label(fig_andreev[1:2, 1, Top()], "■", padding = (70, 0, 0, 0), color = (colors[4] , 0.4))
 
     colgap!(fig_andreev, 1, 5)
     rowgap!(fig_andreev, 1, 8)
@@ -173,7 +180,7 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         TN = args[2]
         Jmax = args[3]
         ax = plot_checker(fig_phases[1, i], args[1], TN; colorrange = (-Jmax, Jmax), cmap)
-        #text!(ax, 2, π/2; text = L"$T_N = %$(TN)$", fontsize = 12  , color = :white, align = (:center, :center))
+        #text!(ax, 2, π/2; text = L"$T_N = %$(TN)$", fontsize = 12  , color = :black, align = (:center, :center))
         xlims!(ax, (0, 2.5))
         lab = if i in [1, 2]
             "TC"
@@ -189,33 +196,23 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         ax.yminorticksvisible = true
         i != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false) 
         if i == 1
-            text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 1.05, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
+            text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.1, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
         end
-        # if i == 2
-        #     text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 10, color = :white)
-        #     text!(ax, 1.05, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-        # end
+
         if i == 3 
-            text!(ax, 1.35, π/2; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 1.75, π/2; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.3], [π/2], [-0.1], [0]; color = :white)
-            arrows!(ax, [2.1], [π/2], [0.25], [0]; color = :white)
+            text!(ax, 1.35, π/2; text = L"\pi", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.8, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
+            arrows!(ax, [1.4], [π/2 - 0.5], [-0.2], [-0.3]; color = :black)
+            arrows!(ax, [2.1], [π/2 - 0.5], [0.2], [-0.3]; color = :black)
 
         end
-        # if i == 4 
-        #     text!(ax, 1.7, π/2 + 0.8; text = L"\pi", align = (:center, :center), fontsize = 10, color = :white)
-        #     text!(ax, 2.1, π/2 + 0.8; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-        #     arrows!(ax, [1.6], [π/2 + 0.8], [-0.7], [0]; color = :white)
-        #     text!(ax, 1.7, π/2 - 0.5; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
-        #     text!(ax, 2.1, π/2 - 0.5; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-        #     arrows!(ax, [1.6], [π/2 - 0.5], [-0.45], [0]; color = :white)
-        # end
+
         if i == 5 
-            text!(ax, 1.4, π/2 - 0.8; text = L"\varphi_0", align = (:center, :center), fontsize = 10, color = :white)
-            text!(ax, 1.82, π/2 - 0.8; text = "-junction", align = (:center, :center), fontsize = 10, color = :white)
-            arrows!(ax, [1.3], [π/2 - 0.8], [-0.15], [0]; color = :white)
-            arrows!(ax, [2.15], [π/2 - 0.8], [0.15], [0]; color = :white)
+            text!(ax, 1.35, π/2; text = L"\phi_0", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.85, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
+            arrows!(ax, [1.4], [π/2 - 0.5], [-0.2], [-0.3]; color = :black)
+            arrows!(ax, [2.1], [π/2 - 0.5], [0.2], [-0.3]; color = :black)
 
         end
     end
@@ -259,8 +256,8 @@ kws_currents = [
 layout_cpr = [
     ("hc_triv", 1e-4, 1) ("hc_triv", 0.9, 1);
     ("mhc_triv", 1e-4, 1) ("mhc_triv", 0.9, 1);
-    ("scm_triv", 1e-4, 0.7) ("scm_triv", 0.1, 0.7);
-    ("scm_triv", 1e-4, 1.15) ("scm_triv", 0.1, 1.15);
+    ("scm_triv", 1e-4, 0.7) ("scm_triv", 0.9, 0.7);
+    ("scm_triv", 1e-4, 1.15) ("scm_triv", 0.9, 1.15);
 ]
 
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]

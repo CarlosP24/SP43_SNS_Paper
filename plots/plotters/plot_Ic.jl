@@ -121,7 +121,7 @@ end
 
 function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false, showmajo_excp = false)
 
-    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ $(2e/\hbar)$", yscale = log10)
+    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ $(2e/h)$", yscale = log10)
     for (i, name) in enumerate(names)
         plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo)
     end
@@ -190,14 +190,14 @@ function fig_Ics(model::String; T2 = 1e-4, T1 = 0.9, basepath = "data", colors =
     hidexdecorations!(ax, ticks = false)
     #xlims!(ax, (0.5, 1.5))
     #[vlines!(ax, x; color = :white, linestyle = :dash) for x in xs]
-    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
+    ax = Axis(fig[2, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/h)$", )
     plot_Ic(ax,  "$(model)_test_$(T1).jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Corrected self-energy")
     plot_Ic(ax,  "$(model)_$(T1).jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Old calculation")
     hidexdecorations!(ax, ticks = false, grid = false)
     axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
     Label(fig[2, 1, Top()], L"T_N = 0.9", padding = (300, 0, -150, 0))
 
-    ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/\hbar)$", )
+    ax = Axis(fig[3, 1], xlabel = L"$\Phi / \Phi_0$", ylabel = L"$I_c$ $(2e/h)$", )
     plot_Ic(ax, "$(model)_test_$(T2).jld2"; basepath, color = colors[1], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Corrected self-energy")
     plot_Ic(ax, "$(model)_$(T2).jld2"; basepath, color = colors[17], point = get(point_dict, name, nothing), showmajo = false, diode, label = "Old calculation")
     axislegend(ax, position = :rt, framevisible = false, fontsize = 15)
