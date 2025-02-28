@@ -40,7 +40,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     @unpack Δ0, ξd, R, d, τΓ = wire
     Ωeff = Ωd(τΓ * Δ0, Δ0) |> real
     norm = Ωeff * π
-    #println(L"\Omega_0^* = %$(Ωeff)")
+    println(L"\Omega_0^* = %$(Ωeff)")
 
     if Js isa Dict
         if Zs !== nothing
@@ -57,7 +57,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         xticksR = xticksL
         numZ = num_modes(Js, TN; atol)
         norm *= numZ
-        #println("Num modes: $(numZ)")
+        println("Num modes: $(numZ)")
     elseif vsΦ
         J = mapreduce(permutedims, vcat, Js)
         xrng = get_Φ(Params(; system.wireL...)).(Brng)
