@@ -40,7 +40,15 @@ function plot_LDOS(pos, name::String; Bticks = nothing, basepath = "data/LDOS", 
             Φb = findmin(abs.(Φrng .- 1.5))[2]
             LDOS[0][Φa:Φb, (end - ωi):end] = LDOS[0][Φa:Φb, (end - ωi):end] .* highlight_majo
         end
-        LDOS = isnothing(Zs) ? sum.(sum(values(LDOS))) : sum.(sum(values(Dict([Z => LDOS[Z] for Z in Zs]))))
+        if isnothing(Zs)
+            LDOS = sum.(sum(values(LDOS)))
+            LDOS = cat(LDOS, reverse(LDOS, dims = 2)[:, 2:end], dims = 2)
+        else
+            LDOSn = sum.(sum([LDOS[Z] for Z in Zs]))
+            LDOSp = sum.(sum([LDOS[-Z] for Z in Zs]))
+            LDOS = cat(LDOSn, reverse(LDOSp, dims = 2)[:, 2:end], dims = 2)
+        end
+        #LDOS = isnothing(Zs) ? sum.(sum(values(LDOS))) : sum.(sum(values(Dict([Z => LDOS[Z] for Z in Zs]))))
         xrng = Φrng
         ns = get_Φticks(Φrng)
         xs = ns .+ 0.5
@@ -52,7 +60,7 @@ function plot_LDOS(pos, name::String; Bticks = nothing, basepath = "data/LDOS", 
     end 
 
     ωrng = vcat(ωrng, -reverse(ωrng)[2:end])
-    LDOS = cat(LDOS, reverse(LDOS, dims = 2)[:, 2:end], dims = 2)
+    #LDOS = cat(LDOS, reverse(LDOS, dims = 2)[:, 2:end], dims = 2)
 
     R = wire.R
     ax = Axis(pos; xlabel, ylabel = L"$\omega$ (meV)")

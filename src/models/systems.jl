@@ -52,7 +52,7 @@ j_params_valve = J_Params(;
 calc_params_valve = Calc_Params(;
     Brng = subdiv(0.0, 0.25, 400),
     Φrng = subdiv(0, 5.43, 400),
-    ωrng = subdiv(-.26, 0,  201) .+ 1e-3im
+    ωrng = subdiv(-.26, 0,  201) .+ 1e-3im,
 )
 
 systems_Rmismatch = Dict(
@@ -270,6 +270,15 @@ systems_mhc_short = Dict(
     for i in Ts]
 )
 
+systems_scm_special = Dict(
+    ["scm_special_$(i)" => System(; 
+    wireL = wires["jos_scm"], 
+    wireR = wires["jos_scm"], 
+    junction = Junction(; TN = 0.1), 
+    j_params = J_Params(j_params_jos; imshift = 1e-3, imshift0 = 1e-6, maxevals = 1e5),
+    calc_params = Calc_Params(calc_params_jos; ωrng)) 
+    for (i, ωrng) in enumerate([subdiv(-0.005, 0, 201) .+ 1e-6im])]
+)
 
 # Tests and other
 systems_mhc_test = Dict(
@@ -475,4 +484,5 @@ systems_dict = Dict(
     "systems_scm_test2" => systems_scm_test2
 )
 
-systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm,  systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_matmismatch, systems_ξLmismatch, systems_mhc_test, systems_scm_test, systems_scm_test2, systems_mhc_triv_test)
+systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm,  systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_matmismatch, systems_ξLmismatch, systems_mhc_test, systems_scm_test, systems_scm_test2, systems_mhc_triv_test, 
+systems_scm_special )

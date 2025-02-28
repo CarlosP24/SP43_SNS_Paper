@@ -1,4 +1,4 @@
-function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [:green, :red], lw = 0.5, showmajo = false, Zs = nothing, total = true)
+function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [:green, :red], lw = 0.5, showmajo = false, Zs = nothing, total = true, totalstyle = :solid)
     path = "$(basepath)/Js/$(name)_$(TN).jld2"
     res = load(path)["res"]
 
@@ -22,7 +22,6 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [:green, 
     ax = Axis(pos; xlabel = L"$\phi$", ylabel = L"$J_S$ (a. u.)", xticks = ([0.09, π,  2π - 0.09], [L"0", L"\pi",  L"2\pi"]), xminorticksvisible = true, xminorticks = [π/2, 3π/2])
 
     J = sum(values(JZ))
-    total && lines!(ax, φrng, J; color = :black, linestyle = :dash, linewidth = 2, label = L"$$ Total")
     lab1 = true
     lab2 = true
 
@@ -58,6 +57,7 @@ function cphase(pos, name::String, TN, Φ; basepath = "data", colors = [:green, 
             end
         end
         lines!(ax, φrng, JZ[Z]; label, color, linewidth)
+        total && lines!(ax, φrng, J; color = :black, linestyle = totalstyle, linewidth = 1, label = L"$$ Total")
         #scatter!(ax,φrng, JZ[Z]; label, color, )
     end
 

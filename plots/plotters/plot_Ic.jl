@@ -13,7 +13,21 @@ function interpolate_jump(φrng, J; φtol = 1e-6)
     end
     return I
 end
-function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid, vsΦ = false, label = nothing, linewidth = 1.5)
+
+function num_modes(Js::Dict, TN; atol = 1e-10, Φi = 1)
+    Zmax = 100
+    tol = TN * atol
+    for (Z, J) in Js
+        Znew = maximum(J[Φi]) > tol ? Z : Zmax
+        if Znew < Zmax
+            Zmax = Znew
+        end
+    end
+    return abs(Zmax)*2
+end
+
+Ωd(Γ, Ω) = (1/3) * (-Ω + (-3*Γ^2 + Ω^2)/(18*Γ^2*Ω - Ω^3 + 3 * sqrt(3)*Γ*sqrt(Γ^4 + 11 * Γ^2*Ω^2 - Ω^4))^(1/3) + (18*Γ^2*Ω - Ω^3 + 3 * sqrt(3)*Γ*sqrt(Γ^4 + 11 * Γ^2*Ω^2 - Ω^4))^(1/3))
+function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = nothing, xcut = nothing, Zs = nothing, showmajo = false, diode = false, linestyle = :solid, vsΦ = false, label = nothing, linewidth = 1.5, atol = 1e-10)
     path = "$(basepath)/Js/$(name)"
     res = load(path)["res"]
 
@@ -21,7 +35,12 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     @unpack Brng, Φrng, φrng = params
     @unpack junction = system
     @unpack TN, δτ = junction
-
+    @unpack wireL = system
+    wire = Params(; wireL...)
+    @unpack Δ0, ξd, R, d, τΓ = wire
+    Ωeff = Ωd(τΓ * Δ0, Δ0) |> real
+    norm = Ωeff * π
+    #println(L"\Omega_0^* = %$(Ωeff)")
 
     if Js isa Dict
         if Zs !== nothing
@@ -36,6 +55,9 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         ax.xlabel = L"$\Phi / \Phi_0$"
         xticksL = get_Φticks(Φrng)
         xticksR = xticksL
+        numZ = num_modes(Js, TN; atol)
+        norm *= numZ
+        #println("Num modes: $(numZ)")
     elseif vsΦ
         J = mapreduce(permutedims, vcat, Js)
         xrng = get_Φ(Params(; system.wireL...)).(Brng)
@@ -43,6 +65,7 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         ax.xlabel = L"$\Phi / \Phi_0$"
         xticksL = get_Φticks(Φrng)
         xticksR = xticksL
+        
     else
         J = mapreduce(permutedims, vcat, Js)
         xrng = Brng
@@ -93,17 +116,17 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     #println("$(TN): $(maximum(hcat([Imajo[xindex] for xindex in xindex_groups]...)))")
     #println(ifelse(sum(Ibase .< 0) > 0, "Problem in $(name)", ""))
     #lines!(ax, xrng, Ic ./ first(Ic); color, label = "")
-    lines!(ax, xrng, Ic; color, linestyle, label, linewidth)
+    lines!(ax, xrng, Ic ./ norm; color, linestyle, label, linewidth)
     #scatter!(ax, xrng, Ic; color,)
     #showmajo && lines!(ax, xrng1, Ibase[xa:xb]; color, label = "")  
     # This methood could be improved to avoid use of abs. Ibase < 0 only when there's no majo, that is not plotted.
     if showmajo  
         for xindex in xindex_groups
-            band!(ax, xrng[xindex], Ibase[xindex], Ic[xindex]; color, alpha = 0.2)
+            band!(ax, xrng[xindex], Ibase[xindex] ./norm, Ic[xindex]./norm; color, alpha = 0.2)
             #lines!(ax, xrng[xindex], Ibase[xindex]; color, linestyle = :dash)
         end
     end
-    diode && lines!(ax, xrng, abs.(Icm); color = :red, linestyle = :dash,)
+    diode && lines!(ax, xrng, abs.(Icm) ./norm; color = :red, linestyle = :dash,)
     #scatter!(ax, xrng, Ic; color, label = L"$%$(TN)$")
 
     xlims!(ax, (0, last(xrng)))
@@ -112,18 +135,18 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
         for p in point
             x = p[1]
             xi = findmin(abs.(xrng .- x))[2]
-            scatter!(ax, x, Ic[xi]; color = (color, 0.5), marker = p[2], markersize = 10)
+            scatter!(ax, x, Ic[xi] ./norm; color = (color, 0.5), marker = p[2], markersize = 10)
         end
     end
 
     Ic, Imajo, Ibase, xticksL, xticksR, xrng
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false, showmajo_excp = false)
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false, showmajo_excp = false, atol = 1e-10)
 
-    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ $(2e/h)$", yscale = log10)
+    ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ ($N_{m_J} \cdot e~\Omega_0^*/\hbar$)", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo)
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo, atol)
     end
 
     return ax
