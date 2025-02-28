@@ -139,23 +139,38 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
 
     fig_andreev = fig_right[1, 1] = GridLayout()
     for (i, args) in enumerate(layout_andreevs)
-        ax = plot_andreev(fig_andreev[i, 1], "scm"; args...)
+        ax = plot_andreev(fig_andreev[i, 1], ifelse(i == 1, "scm", "scm_special"); args...)
  
         #hlines!(ax, 0; color = :white, linestyle = :dash)
-        ax.yticks = [0]
-        ax.ylabel = L"$\omega$ (a. u.)"
-        ax.ylabelpadding = -10
+        if i == 1
+            ax.yticks = ([-0.2, 0], [L"-0.2", "0"])
+            ax.ylabel = L"$\omega$ (meV)"
+            ax.ylabelpadding = -25
+        else
+            ax.yticks = ([-0.002, 0], [L"-2", "0"])
+            ax.ylabel = L"$\omega$ ($\mu$eV)"
+            ax.ylabelpadding = -16
+        end
+        
         ax.xticks = ([0, π, 2π], [L"0", "", L"2\pi"])
         ax.xlabel = L"\phi"
         ax.xlabelpadding = -15
+
         i != 2 && hidexdecorations!(ax; ticks = false, minorticks = false, grid = false)
 
         add_colorbar(fig_andreev[i, 2]; limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (a. u.)", labelpadding = -5, labelsize = 12)
-        i != 1 && rowgap!(fig_andreev, i - 1, 8)
+        i != 1 && rowgap!(fig_andreev, i - 1, 5)
 
     end
     colgap!(fig_andreev, 1, 5)
- 
+
+    Label(fig_andreev[1, 1, TopLeft()], "o",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_andreev[2, 1, TopLeft()], "p",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_andreev[1, 1, Top()], L"T_N = 0.1", padding = (0, 0, -190, 0), color = :white, fontsize = 12)
+    Label(fig_andreev[2, 1, Top()], L"m_J = 0", padding = (0, 0, -180, 0), color = :white, fontsize = 12)
+    Label(fig_andreev[1:2, 1, Top()], "Andreevs", padding = (-15, 0, 0, 0))
+    Label(fig_andreev[1:2, 1, Top()], "■", padding = (70, 0, 0, 0), color = (colors[4] , 0.4), fontsize = 12)
+
     fig_trans = fig_right[2, 1] = GridLayout()
     for (i, kwargs) in enumerate(layout_trans)
         ax = TvI(fig_trans[i, 1]; kwargs...)
@@ -166,6 +181,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         ax.yminorticksvisible = true
         ax.yminorticks = [10^-3, 10^-2, 10^-1]
         ax.ylabelpadding = -25
+        ax.ylabel = L"$I_c$ (a.u)"
         text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 4, 3); text = true_names[kwargs.name], fontsize = 12, align = (:center, :center))
         text!(ax, 10^-1, 5*10.0^-ifelse(i == 4, 5.5, 4); text = L"\frac{\Phi}{\Phi_0} = %$(kwargs.x)", fontsize = 12, align = (:center, :center))
         i == 2 && axislegend(position = (-0.1,1.3), framevisible = false, labelsize = 10, linewidth = 1)
@@ -179,6 +195,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
 
     Label(fig_trans[1, 1, Top()], "Transparency", padding = (-20, 0, -30, 0))
 
+    rowgap!(fig_right, 1, 0)
 
     fig_phases = fig[2, 1:3] = GridLayout()
 
@@ -194,7 +211,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         i != 1 && hideydecorations!(ax, ticks = false, minorticks = false, grid = false)
         i != 1 && colgap!(fig_phases, i - 1, 15)
         Label(fig_phases[1, i, Top()],"$(true_names[kwargs.name])"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0), padding = (-70, 0, 2, 0))
-        Label(fig_phases[1, i, Top()],L"%$(true_names[kwargs.name]), %$(print_T(kwargs.TN))"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0), padding = (40, 0, 0, 0))
+        Label(fig_phases[1, i, Top()],L"%$(print_T(kwargs.TN))"; color = (colors[findmin(abs.(kwargs.TN .- TNS))[2]], 1.0), padding = (40, 0, 0, 0))
         if i == 1
             text!(ax, 0.65, π/2; text = L"0", align = (:center, :center), fontsize = 12, color = :black)
             text!(ax, 1.1, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
@@ -228,7 +245,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
     colsize!(fig.layout, 3, Relative(0.15))
 
     colgap!(fig.layout, 1, 5)
-    colgap!(fig.layout, 2, 25)
+    colgap!(fig.layout, 2, 15)
 
     rowsize!(fig.layout, 1, Relative(0.8))
 
@@ -256,7 +273,7 @@ layout_cpr = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 layout_andreevs = [
-    (TN = 0.1, Φ = 1, colorrange = (0, 3e-1), ωlims = [-0.26, 0] ), (TN = 0.1, Φ = 1, Zs = [0], ωlims = [-0.005, 0], colorrange = (0, 5e-3))
+    (TN = 0.1, Φ = 1, colorrange = (0, 2e-1), ωlims = [-0.2, 0] ), (TN = 1, Φ = 1, Zs = [0], ωlims = [-0.002, 0], colorrange = (0, 5e-3))
 ]
 
 layout_trans = [
