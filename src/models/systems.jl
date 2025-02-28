@@ -34,9 +34,6 @@ systems_reference_dep_Z = Dict(
     ["reference_dep_Z_$(i)" => System(; wireL = wires["valve_65_dep_Z"], wireR = wires["valve_65_dep_Z"], junction = junctions["J$(i)"]) for i in 1:7]
 )   
 
-systems_metal = Dict(
-    ["metal_$(i)" => System(; wireL = wires["valve_65_metal"], wireR = wires["valve_60_metal"], junction = junctions["J$(i)"]) for i in 1:5]
-)
 
 systems_dep = Dict(
     ["dep_$(i)" => System(; wireL = wires["valve_65_dep"], wireR = wires["valve_60_dep"], junction = junctions["J$(i)"]) for i in 1:7]
@@ -159,6 +156,16 @@ systems_ξLmismatch = Dict(
     ["ξLmismatch_$(i)" => System(; 
     wireL = (; wires["valve_65_ξ"]..., Zs = -5:5), 
     wireR = (; wires["valve_65_ξ_100"]..., Zs = -5:5),
+    junction = Junction(; TN = i),
+    j_params = j_params_valve,
+    calc_params = calc_params_valve)
+    for i in Ts_valve]
+)
+
+systems_metal = Dict(
+    ["metal_$(i)" => System(;
+    wireL = wires["valve_65_metal"], 
+    wireR = wires["valve_60_metal"], 
     junction = Junction(; TN = i),
     j_params = j_params_valve,
     calc_params = calc_params_valve)
@@ -462,6 +469,7 @@ systems_valve3 = merge(systems_ξmismatch_d1, systems_ξmismatch_d2, systems_ξL
 systems_dict = Dict(
     "systems_ref" => systems_ref,
     "systems_ref_Z" => systems_ref_Z,
+    "systems_metal" => systems_metal,
     "systems_valve_test" => systems_valve_test,
     "systems_valve" => systems_valve,
     "systems_valve_Rd" => systems_valve_Rd,

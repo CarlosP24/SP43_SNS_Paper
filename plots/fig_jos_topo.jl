@@ -2,8 +2,8 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name;  kw...)     
         add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
-        j == 1 && text!(ax, 1, 0; text = "MZM", align = (:center, :center), color = :white, fontsize = 12, justification = :center)
-        j == 1 && arrows!(ax, [0.8, 1.2], [0, 0], [-0.1, 0.1], [0, 0]; color = :white, arrowsize = 5)
+        j == 2 && text!(ax, 1.2, 0.08; text = "MZM", align = (:center, :center), color = :white, fontsize = 12, justification = :center)
+        j == 2 && arrows!(ax, [1.2], [0.05], [-0.2], [-0.03]; color = :white, arrowsize = 5)
     else
         pattern = Regex("^$(name)_[01].?\\d*\\.jld2")
         filenames = readdir(jspath)
@@ -27,6 +27,7 @@ function plot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspat
             hidedecorations!(false_ax)
             hidespines!(false_ax)
         end
+        j == 2 && scatter!(ax, 1, 6e-2; marker = :circle, color = (colors[4], 0.4))
     end
     return ax, ts, TNS
 end
@@ -97,7 +98,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
     map(cells) do (i, j)
         args = layout_cpr[i, j]
         T = args[2]
-        ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; colors = colors_cphase, showmajo = ((args[3] > 0.5) && (args[3] < 1.5)), totalstyle = :dash)
+        ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; colors = colors_cphase, showmajo = ((args[3] > 0.5) && (args[3] < 1.5)), totalwidth = 1.5 )
         color = colors[findmin(abs.(T .- TNS))[2]]
         #pos_text = ifelse(((i == 1) || (i == 2)) && j == 1, 0.5, 0)
         #posy = ifelse((i == 4), -0.8, 0.8)
@@ -116,17 +117,17 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         xlims!(ax, (0, 2π))
     end
 
-    Label(fig_cpr[1, 1, TopLeft()], "g",  padding = (-30, 0, -30, 0); style...)
-    Label(fig_cpr[1, 2, TopLeft()], "h",  padding = (-10, 0, -30, 0); style...)
+    Label(fig_cpr[1, 1, TopLeft()], "g",  padding = (-30, 0, -35, 0); style...)
+    Label(fig_cpr[1, 2, TopLeft()], "h",  padding = (-10, 0, -35, 0); style...)
 
-    Label(fig_cpr[2, 1, TopLeft()], "i",  padding = (-30, 0, -20, 0); style...)
-    Label(fig_cpr[2, 2, TopLeft()], "j",  padding = (-10, 0, -20, 0); style...)
+    Label(fig_cpr[2, 1, TopLeft()], "i",  padding = (-30, 0, -25, 0); style...)
+    Label(fig_cpr[2, 2, TopLeft()], "j",  padding = (-10, 0, -25, 0); style...)
 
-    Label(fig_cpr[3, 1, TopLeft()], "k",  padding = (-30, 0, -20, 0); style...)
-    Label(fig_cpr[3, 2, TopLeft()], "l",  padding = (-10, 0, -20, 0); style...)
+    Label(fig_cpr[3, 1, TopLeft()], "k",  padding = (-30, 0, -25, 0); style...)
+    Label(fig_cpr[3, 2, TopLeft()], "l",  padding = (-10, 0, -25, 0); style...)
 
-    Label(fig_cpr[4, 1, TopLeft()], "m",  padding = (-30, 0, -20, 0); style...)
-    Label(fig_cpr[4, 2, TopLeft()], "n",  padding = (-10, 0, -20, 0); style...)
+    Label(fig_cpr[4, 1, TopLeft()], "m",  padding = (-30, 0, -25, 0); style...)
+    Label(fig_cpr[4, 2, TopLeft()], "n",  padding = (-10, 0, -25, 0); style...)
 
     Label(fig_cpr[1, 1:2, Top()], "Current-phase relations", padding = (0, 0, 0, 0))
 
@@ -139,7 +140,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
 
     fig_andreev = fig_right[1, 1] = GridLayout()
     for (i, args) in enumerate(layout_andreevs)
-        ax = plot_andreev(fig_andreev[i, 1], ifelse(i == 1, "scm", "scm_special"); args...)
+        ax = plot_andreev(fig_andreev[i, 1], ifelse(i == 1, "mhc", "mhc_special"); args...)
  
         #hlines!(ax, 0; color = :white, linestyle = :dash)
         if i == 1
@@ -147,9 +148,9 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
             ax.ylabel = L"$\omega$ (meV)"
             ax.ylabelpadding = -25
         else
-            ax.yticks = ([-0.002, 0], [L"-2", "0"])
+            ax.yticks = ([-0.01, 0], [L"-10", "0"])
             ax.ylabel = L"$\omega$ ($\mu$eV)"
-            ax.ylabelpadding = -16
+            ax.ylabelpadding = -25
         end
         
         ax.xticks = ([0, π, 2π], [L"0", "", L"2\pi"])
@@ -164,12 +165,12 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
     end
     colgap!(fig_andreev, 1, 5)
 
-    Label(fig_andreev[1, 1, TopLeft()], "o",  padding = (-30, 0, -20, 0); style...)
-    Label(fig_andreev[2, 1, TopLeft()], "p",  padding = (-30, 0, -20, 0); style...)
+    Label(fig_andreev[1, 1, TopLeft()], "o",  padding = (-30, 0, -35, 0); style...)
+    Label(fig_andreev[2, 1, TopLeft()], "p",  padding = (-30, 0, -25, 0); style...)
     Label(fig_andreev[1, 1, Top()], L"T_N = 0.1", padding = (0, 0, -190, 0), color = :white, fontsize = 12)
     Label(fig_andreev[2, 1, Top()], L"m_J = 0", padding = (0, 0, -180, 0), color = :white, fontsize = 12)
     Label(fig_andreev[1:2, 1, Top()], "Andreevs", padding = (-15, 0, 0, 0))
-    Label(fig_andreev[1:2, 1, Top()], "■", padding = (70, 0, 0, 0), color = (colors[4] , 0.4), fontsize = 12)
+    Label(fig_andreev[1:2, 1, Top()], "●", padding = (70, 0, 0, 0), color = (colors[4] , 0.4), fontsize = 12)
 
     fig_trans = fig_right[2, 1] = GridLayout()
     for (i, kwargs) in enumerate(layout_trans)
@@ -273,7 +274,7 @@ layout_cpr = [
 TNS = [1e-4, 1e-3, 1e-2, 0.1, 0.2, 0.9]
 
 layout_andreevs = [
-    (TN = 0.1, Φ = 1, colorrange = (0, 2e-1), ωlims = [-0.2, 0] ), (TN = 1, Φ = 1, Zs = [0], ωlims = [-0.002, 0], colorrange = (0, 5e-3))
+    (TN = 0.1, Φ = 1, colorrange = (0, 2e-1), ωlims = [-0.2, 0] ), (TN = 0.1, Φ = 1, Zs = [0], ωlims = [-0.01, 0], colorrange = (0, 5e-3))
 ]
 
 layout_trans = [
