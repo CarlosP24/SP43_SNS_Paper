@@ -172,3 +172,28 @@ end
 fig = Figure()
 cphase2(fig[1, 1], "scm_test_Vmin=-37", 0.9;)
 fig
+
+
+## Test Metal
+name = "metal_0.0001"
+res = load("data/Js/$(name).jld2")["res"]
+Brng = res.params.Brng
+fig = Figure()
+ax = Axis(fig[1, 1]; xlabel = L"$\Phi/\Phi_0$", ylabel = L"$I_c$")
+Ic, things = plot_Ic(ax, "$(name).jld2")
+zubkov, gap_L, gap_R, ΦL, ΦR, n = KO1(name)
+Itheo = zubkov.(Brng)
+Igaps = gap_L.(Brng) .* gap_R.(Brng) .* (n.(ΦL.(Brng)).== n.(ΦR.(Brng)))
+Igapsn = Igaps ./ first(Igaps)
+Icn = Ic ./ first(Ic)
+Itheon = Itheo ./ first(Itheo)
+fig = Figure()
+ax = Axis(fig[1, 1]; xlabel = L"$B$", ylabel = L"$I_c / I_c(0)$")
+lines!(ax, Brng, Icn; color = :blue, label = L"$I_c$")
+#lines!(ax, Brng, Itheon; color = :red, linestyle = :dash, label = L"$I_{c, th}$")
+lines!(ax, Brng, Igapsn; color = :black, linestyle = :dash, label = L"$\Delta_L \Delta_R$")
+#lines!(ax, Brng, gap_L.(Brng) / gap_L(0); color = :red, linestyle = :dash, label = L"$\Delta_L$")
+#lines!(ax, Brng, gap_R.(Brng) / gap_R(0); color = :green, linestyle = :dash, label = L"$\Delta_L$")
+
+ylims!(ax, (0.5, 1.05))
+fig

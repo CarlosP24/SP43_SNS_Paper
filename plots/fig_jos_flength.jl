@@ -23,7 +23,9 @@ function fplot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspa
     return ax, ts, TNS
 end
 
-function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8],cmap = get(ColorSchemes.balance, range(0.2, 0.8, length = 1000)) |> ColorScheme)
+coral = RGB(255/255,127/255,85/255)
+turquoise = RGB(103/255, 203/255, 194/255)
+function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colormap = reverse(ColorSchemes.rainbow), symbols = [:utriangle, :circle, :rect, :star8], colors_cphase = [turquoise, coral])
     fig = Figure(size = (1100, 0.8 * 250 * 3), fontsize = 16,)
 
     fig_currents = fig[1, 1] = GridLayout()
@@ -111,7 +113,7 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colorma
     map(cells) do (i, j)
         args = layout_cpr[i, j]
         T = args[2]
-        ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; showmajo = ((args[3] > 0.5) && (args[3] < 1.5)))
+        ax, mJ = cphase(fig_cpr[i, j], args[1], T, args[3]; colors = colors_cphase, showmajo = ((args[3] > 0.5) && (args[3] < 1.5)))
         color = colors[findmin(abs.(T .- TNS))[2]]
         #pos_text = ifelse(((i == 1) || (i == 2)) &&j == 1, 0.5, 0)
         if (i == 1) || (i == 2)
@@ -119,19 +121,19 @@ function fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr; colorma
         else
             ltext = L"$L = 2.5 \mu$m"
         end
-        text!(ax, 3π/2, 0.85*mJ; text = ltext, color, fontsize = 10, align = (:center, :center),)
-        text!(ax, 3π/2, 0.6*mJ; text = print_T(T), color, fontsize = 10, align = (:center, :center),)
-        text!(ax, 3π/2, 0.35*mJ; text = L"$\Phi = %$(args[3])\Phi_0$", color, fontsize = 12, align = (:center, :center),)
+        text!(ax, 3π/2, 0.85*mJ; text = ltext, color = :black, fontsize = 12, align = (:center, :center),)
+        text!(ax, 3π/2, 0.6*mJ; text = print_T(T; low = true), color = :black, fontsize = 12, align = (:center, :center),)
+        text!(ax, 3π/2, 0.35*mJ; text = L"$\Phi = %$(args[3])\Phi_0$", color = :black, fontsize = 12, align = (:center, :center),)
         scatter!(ax, π , 0.8*mJ; color = (color, 0.5), marker = symbols[i], markersize = 10)
         ax.yticks = [0]
 
-        i == 1 && text!(ax, π/2, -0.5*mJ; text = L"m_J \neq 0", align = (:center, :center), fontsize = 10)
+        i == 1 && text!(ax, π/2, -0.5*mJ; text = L"m_J \neq 0", align = (:center, :center), fontsize = 12)
         i == 1  && arrows!(ax, [π/2], [-0.4*mJ], [0], [0.2*mJ])
 
-        i == 2 && text!(ax, π/2 + 0.3, -0.5*mJ; text = "Total", align = (:center, :center), fontsize = 10)
+        i == 2 && text!(ax, π/2 + 0.3, -0.5*mJ; text = "Total", align = (:center, :center), fontsize = 12)
         i == 2 && arrows!(ax, [π/2 + 1], [-0.5*mJ], [0.5], [0])
 
-        i == 3 && text!(ax, π/2, 0.2*mJ; text = L"m_J=0", align = (:center, :center), fontsize = 10, color = :magenta)
+        i == 3 && text!(ax, π/2, 0.2*mJ; text = L"m_J=0", align = (:center, :center), fontsize = 12, color = :magenta)
         i == 3 && arrows!(ax, [π/2], [0.35*mJ], [0], [0.25*mJ], color = :magenta)
 
         j != 1 && hideydecorations!(ax; ticks = false, minorticks = false, grid = false)

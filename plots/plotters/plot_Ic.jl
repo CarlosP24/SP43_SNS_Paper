@@ -165,12 +165,13 @@ function KO1(name::String; basepath = "data")
     n(Φ) = round(Int64, Φ)
     
     function get_Δ(wire)
-        RLP= wire.R + wire.d/2
-        Φ(B) = B * (π * (RLP)^2 * conv) 
         Δ0 = wire.Δ0
         ξd = wire.ξd
         R = wire.R
         d = wire.d
+        RLP= R + d/2
+        Φ(B) = B * (π * (RLP)^2 * conv) 
+
         Λ(B) = pairbreaking(Φ(B), n(Φ(B)), Δ0, ξd, R, d)
         Δd(B) = ΔΛ(real(Λ(B)), real(Δ0))
         Ω(B) = (Δd(B)^(2/3) - Λ(B)^(2/3))^(3/2)
@@ -196,13 +197,13 @@ function KO1(name::String; basepath = "data")
         φs = range(0, 2π, length = 500)
         I = maximum(filter(x -> !isnan(x), Is.(φs)))
 
-        return I * (n(ΦL(B)) == n(ΦR(B)))
+        return I  * (n(ΦL(B)) == n(ΦR(B)))
     end
 
     gap_L = B -> ΔL(B) / ΔL(0)
     gap_R = B -> ΔR(B) / ΔR(0)
 
-    return zubkov, gap_L, gap_R
+    return zubkov, gap_L, gap_R, ΦL, ΦR, n
 end
 
 ## Test plots 
