@@ -90,7 +90,7 @@ wire_systems = Dict(
     "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"], calc_params = cparams_jos),
     "jos_mhc" => wire_system(; wire = wires["jos_mhc"], calc_params = cparams_jos),
     "jos_mhc_triv" => wire_system(; wire = wires["jos_mhc_triv"], calc_params = cparams_jos),
-    "jos_mhc_triv_dep" => wire_system(; wire = (; wires["jos_mhc_triv"]..., µ = 200), calc_params = cparams_jos), 
+    "jos_mhc_triv_dep" => wire_system(; wire = (; wires["jos_mhc_triv"]..., µ = -200), calc_params = cparams_jos), 
     "jos_scm" => wire_system(; wire = wires["jos_scm"], calc_params = cparams_jos),
     "jos_scm_triv" => wire_system(; wire = wires["jos_scm_triv"], calc_params = cparams_jos),
     "jos_mhc_30" => wire_system(; wire = wires["jos_mhc_30"], calc_params = cparams_jos),
