@@ -1,4 +1,4 @@
-function fplot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), maxTs = 3, kw...)
+function fplot(fig, (i, j), name; TNS = [1e-4, 1e-3, 1e-2, 0.1,  0.5, 0.8], jspath = "data/Js", colormap = reverse(ColorSchemes.rainbow), point_dict = Dict(), maxTs = 4, kw...)
     if i == 1
         ax, ts = plot_LDOS(fig[i, j], name; basepath = "data/LDOS_junction", kw...)
         add_xticks(ax, ts.ns, ts.xs; xshift = 0.25, pre = "L")
@@ -176,5 +176,5 @@ layout_cpr = [
 ]
 
 fig = fig_jos_flength(layout_currents, kws_currents, TNS, layout_cpr)
-#save("figures/fig_jos_flength.pdf", fig)
+save("figures/fig_jos_flength_v2.pdf", fig)
 fig
