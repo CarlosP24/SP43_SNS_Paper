@@ -256,7 +256,7 @@ systems_mhc_Long = Dict(
     j_params = J_Params(j_params_jos;
         imshift = 1e-3,
         imshift0 = 1e-6, 
-        maxevals = 1e5
+        maxevals = 1e6
     ),
     calc_params = calc_params_jos
 ) 
@@ -271,7 +271,7 @@ systems_mhc_short = Dict(
     j_params = J_Params(j_params_jos;
         imshift = 1e-3,
         imshift0 = 1e-6, 
-        maxevals = 1e5
+        maxevals = 1e6
     ),
     calc_params = calc_params_jos
 ) 
