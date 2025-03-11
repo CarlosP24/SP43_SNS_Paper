@@ -252,7 +252,7 @@ systems_mhc_Long = Dict(
     ["mhc_Long_$(i)" => System(; 
     wireL = wires["jos_mhc_Long"], 
     wireR = wires["jos_mhc_Long"], 
-    junction = Junction(; TN = i), 
+    junction = Junction(; kBT = 0.001, TN = i), 
     j_params = J_Params(j_params_jos;
         imshift = 1e-6, 
         maxevals = 1e6
@@ -266,7 +266,7 @@ systems_mhc_short = Dict(
     ["mhc_short_$(i)" => System(; 
     wireL = wires["jos_mhc_short"], 
     wireR = wires["jos_mhc_short"], 
-    junction = Junction(; TN = i), 
+    junction = Junction(; kBT = 0.001, TN = i), 
     j_params = J_Params(j_params_jos;
         imshift = 1e-6, 
         atol = 1e-8,

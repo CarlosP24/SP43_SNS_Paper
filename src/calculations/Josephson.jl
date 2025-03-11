@@ -10,7 +10,7 @@ function calc_Josephson(name::String)
     # Load system 
     @unpack wireL, wireR, junction, calc_params, j_params = system
     # Load junction params
-    @unpack TN, hdict = junction
+    @unpack TN, hdict, kBT = junction
     # Load parameters
     @unpack Brng, Φrng, φrng, outdir = calc_params 
     # Load Josephson integrator parameters
@@ -86,7 +86,7 @@ function calc_Josephson(name::String)
     J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 
     # Compute Josephson current
-    Js = pjosephson(J, args..., length(calc_params2.φrng); τ, hdict)
+    Js = pjosephson(J, args..., length(calc_params2.φrng); kBT, τ, hdict)
 
     return Results(;
         params = calc_params2,

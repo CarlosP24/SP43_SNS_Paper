@@ -6,7 +6,7 @@ lg is the length of the φrng inside J. Needed for error handling purposes.
     pjosephson(J, Brng, τs; hdict = Dict(0 => 1, 1 => 0.1))
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given noise harmonics hdict.
 """
-function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+function pjosephson(J, Brng, lg::Int; kBT = 0, τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     tmp_dir = "tmp/$(ENV["SLURM_JOB_ID"])_$(ENV["SLURM_ARRAY_TASK_ID"])"
     mkpath(tmp_dir)
     Jss = @showprogress pmap(Brng) do B
@@ -15,7 +15,7 @@ function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
         println(test_io, "Worker $(myid()) at node $(gethostname()).\nComputing Josephson current at B = $B.")
         close(test_io)
         j = try
-            J(; B, τ, hdict, )
+            J(kBT; B, τ, hdict, )
         catch e 
             @warn "An error ocurred at B=$B. \n$e \nOutput is NaN."
             [NaN for _ in 1:Int(lg)]
@@ -28,13 +28,13 @@ function pjosephson(J, Brng, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
 end
 
 
-function pjosephson(J, Φrng, Zs, lg::Int; τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
+function pjosephson(J, Φrng, Zs, lg::Int; kBT = 0, τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
     pts = Iterators.product(Φrng, Zs)
     Jss = @showprogress pmap(pts) do pt
         Φ, Z = pt
         #@info "Worker $(Distributed.myid()): starting computation at Φ=$Φ, Z=$Z."
         j = try
-            return J(; Φ, Z, τ, hdict, )
+            return J(kBT; Φ, Z, τ, hdict, )
         catch e 
             @warn "An error ocurred at Φ=$Φ, Z=$Z. \n$e \nOutput is NaN."
             return [NaN for _ in 1:Int(lg)]

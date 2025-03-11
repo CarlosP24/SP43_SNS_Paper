@@ -142,11 +142,11 @@ function plot_Ic(ax, name::String; basepath = "data", color = :blue, point = not
     Ic, Imajo, Ibase, xticksL, xticksR, xrng
 end
 
-function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false, showmajo_excp = false, atol = 1e-10)
+function plot_Ics(pos, names::Array; basepath = "data", colors = ColorSchemes.rainbow, point_dict = Dict(), xcut = nothing, Zs = nothing, showmajo = false, showmajo_excp = false, atol = 1e-10, linewidth = 1.5)
 
     ax = Axis(pos; xlabel = L"$B$ (T)", ylabel = L"$I_c$ ($N_{m_J} \cdot e~\Omega_0^*/\hbar$)", yscale = log10)
     for (i, name) in enumerate(names)
-        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo, atol)
+        plot_Ic(ax, name; basepath, color = colors[i], point = get(point_dict, name, nothing), xcut, Zs, showmajo, atol, linewidth)
     end
 
     return ax
