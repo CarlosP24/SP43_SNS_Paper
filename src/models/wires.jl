@@ -191,10 +191,18 @@ wires["jos_mhc_Long"] = (; wires["jos_mhc"]...,
     L = 500,
 )
 
+wires["jos_mhc_triv_Long"] = (; wires["jos_mhc_triv"]...,
+    L = 500,
+)
+
 wires["jos_mhc_Long2"] = (; wires["jos_mhc"]...,
     L = 600,
 )
 
 wires["jos_mhc_short"] = (; wires["jos_mhc"]...,
+    L = 200,
+)
+
+wires["jos_mhc_triv_short"] = (; wires["jos_mhc_triv"]...,
     L = 200,
 )
