@@ -102,6 +102,6 @@ wire_systems = Dict(
     "jos_mhc_L2" => wire_system(; wire = wires["jos_mhc_L2"], calc_params = cparams_jos),
     "jos_mhc_Long" => wire_system(; wire = wires["jos_mhc_Long"], calc_params = cparams_jos),
     "jos_mhc_short" => wire_system(; wire = wires["jos_mhc_short"], calc_params = cparams_jos),
-    "jos_mhc_triv_Long" => wire_system(; wire = wires["jos_mhc_Long"], calc_params = cparams_jos),
-    "jos_mhc_triv_short" => wire_system(; wire = wires["jos_mhc_short"], calc_params = cparams_jos),
+    "jos_mhc_triv_Long" => wire_system(; wire = wires["jos_mhc_triv_Long"], calc_params = cparams_jos),
+    "jos_mhc_triv_short" => wire_system(; wire = wires["jos_mhc_triv_short"], calc_params = cparams_jos),
 )

@@ -18,7 +18,7 @@ function test_Ic(name::String; basepath = "data/Js")
     return fig
 end
 
-name = "scm_test_mu=9.0"
+name = "mhc_triv_Long_0.001"
 fig = test_Ic(name)
 save("figures/scm_test/$(name).pdf", fig)
 fig
