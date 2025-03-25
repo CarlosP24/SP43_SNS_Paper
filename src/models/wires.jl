@@ -35,6 +35,11 @@ wires["valve_65"] = (;
     d = 5,
 )
 
+wires["valve_trivial_65"] = (;
+    wires["valve_65"]...,
+    α = 0,
+)
+
 wires["valve_MoRe"] = (;
     wires["valve_65"]...,
     Δ0 = 0.9,
@@ -51,6 +56,11 @@ wires["valve_Al"] = (;
 wires["valve_60"] = (;
     wires["valve_65"]...,
     R = 60
+)
+
+wires["valve_trivial_60"] = (;
+    wires["valve_60"]...,
+    α = 0
 )
 
 # ξmismatch

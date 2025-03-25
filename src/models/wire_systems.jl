@@ -33,6 +33,11 @@ wire_systems = Dict(
             Zs = -5:5),
         calc_params = cparams_valve_65,
     ),
+    "valve_trivial_65" => wire_system(; 
+        wire = (; wires["valve_trivial_65"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_65,
+    ),
     "valve_MoRe" => wire_system(; 
         wire = (; wires["valve_MoRe"]...,
             Zs = -5:5),
@@ -60,6 +65,11 @@ wire_systems = Dict(
     ),
     "valve_60" => wire_system(; 
         wire = (; wires["valve_60"]...,
+            Zs = -5:5),
+        calc_params = cparams_valve_60,
+    ),
+    "valve_trivial_60" => wire_system(; 
+        wire = (; wires["valve_trivial_60"]...,
             Zs = -5:5),
         calc_params = cparams_valve_60,
     ),
