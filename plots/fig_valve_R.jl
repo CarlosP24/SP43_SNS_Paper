@@ -72,8 +72,8 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcolo
 end
 
 layout_LDOS = [
-    "valve_65";
-    "valve_60"
+    "valve_trivial_65";
+    "valve_trivial_60"
 ]
 
 kws_LDOS = [
