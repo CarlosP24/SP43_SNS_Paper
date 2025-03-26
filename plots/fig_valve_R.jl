@@ -82,7 +82,7 @@ kws_LDOS = [
 ]
 
 layout_currents = [
-    ["Rmismatch_0.9.jld2", "Rmismatch_d1_0.9.jld2", "Rmismatch_d2_0.9.jld2"],
+    ["Rmismatch_trivial_0.7.jld2", "Rmismatch_trivial_d1_0.7.jld2", "Rmismatch_trivial_d2_0.7.jld2"],
     ["Rmismatch_0.0001.jld2", "Rmismatch_d1_0.0001.jld2", "Rmismatch_d2_0.0001.jld2"]
 ]
 
