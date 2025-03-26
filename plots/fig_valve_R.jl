@@ -33,20 +33,39 @@ function plot_FQV(ax, xrng, xticksL, xticksR, Ic; color, linestyle, linewidth, k
         xi = findmin(abs.(xrng .- x))[2]
         return (IM - Ic[xi]) / IM
     end
-    lines!(ax, xrng, FQV; color, linestyle, linewidth)
+    lines!(ax, xrng, FQV; color, linestyle, linewidth = 2)
     xlims!(ax, (first(xrng), last(xrng)))
+    ylow = floor(minimum(Iterators.filter(!isnan,FQV)), digits = 1)
+    ylims!(ax, (0.25, 1.05))
+    ax.yticks = [0.4, 1]
+    ax.ylabel = L"$$ FQV"
+    ax.xlabel = L"$B$ (T)"
+end
+
+function plot_fluxoid(ax, xticks, ylower, yupper; colormap = :rainbow)
+    pushfirst!(xticks, 0)
+    colors = get(colorschemes[colormap], collect(0:length(xticks))/length(xticks))
+    for (i, (xright, color)) in enumerate(zip(xticks, colors))
+        i == 1 && continue
+        xleft = xticks[i-1]
+        band!(ax, [xleft, xright], ylower, yupper, color = (color, 0.2))
+        text!(ax, (xleft + xright)/2, (ylower + yupper)/2; text =  L"$%$(i-2)$", align = (:center, :center), color = color, fontsize = 10)
+    end
 end
 function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25)
     fig = Figure(size = (600, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
 
-    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $(e \Omega_0^*/\hbar)$", )
+    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $(N_{m_J} \cdot e \Omega_0^*/\hbar)$", )
     axQ = Axis(fig_currents[2, 1])
     for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FQV)
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
         plot_FQV(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c...)
+        plot_fluxoid(axQ, xticksL[2], 0.3, 0.35)
+        plot_fluxoid(axQ, xticksR[2], 0.25, 0.3)
+
     end
     for ax in (axI, axQ)
         vlines!(ax, xticksL[2]; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
@@ -62,8 +81,7 @@ function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_current
         orientation = :horizontal
     )
 
-
-    #rowgap!(fig_currents, 1, 5)
+    rowgap!(fig_currents, 1, 5)
 
     Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (400, 0, -60, 0),) 
 
