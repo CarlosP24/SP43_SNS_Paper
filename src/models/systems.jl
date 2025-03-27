@@ -42,8 +42,8 @@ systems_dep = Dict(
 # Valve paper
 Ts_valve = [1e-4, 0.1, 0.5, 0.7, 0.9]
 j_params_valve = J_Params(;
-    imshift = 1e-5, 
-    maxevals = 1e5,
+    imshift = 1e-6, 
+    maxevals = 1e6,
     atol = 1e-8    
 )
 calc_params_valve = Calc_Params(;
@@ -567,7 +567,7 @@ systems_valve = merge(systems_Rmismatch, systems_ξmismatch)
 systems_valve2 = merge(systems_Rmismatch_d1, systems_RLmismatch_d2)
 systems_valve3 = merge(systems_ξmismatch_d1, systems_ξmismatch_d2, systems_ξLmismatch)
 
-systems_valve_trivial = merge(systems_Rmismatch_trivial, systems_Rmismatch_trivial_d1, systems_Rmismatch_trivial_d2)
+systems_valve_trivial = merge(systems_Rmismatch_trivial, systems_Rmismatch_trivial_d1, systems_Rmismatch_trivial_d2, systems_ξmismatch_trivial, systems_ξmismatch_trivial_d1, systems_ξmismatch_trivial_d2, systems_ξLmismatch_trivial)
 
 systems_dict = Dict(
     "systems_ref" => systems_ref,

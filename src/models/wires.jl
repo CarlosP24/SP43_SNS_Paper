@@ -37,7 +37,7 @@ wires["valve_65"] = (;
 
 wires["valve_trivial_65"] = (;
     wires["valve_65"]...,
-    α = 5,
+    α = 1,
 )
 
 wires["valve_MoRe"] = (;
@@ -60,7 +60,7 @@ wires["valve_60"] = (;
 
 wires["valve_trivial_60"] = (;
     wires["valve_60"]...,
-    α = 5,
+    α = 1,
 )
 
 # ξmismatch
@@ -71,7 +71,7 @@ wires["valve_65_ξ"] = (;
 
 wires["valve_trivial_65_ξ"] = (;
     wires["valve_65_ξ"]...,
-    α = 5,
+    α = 1,
 )
 
 # Depleaded
