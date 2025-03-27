@@ -38,6 +38,7 @@ wires["valve_65"] = (;
 wires["valve_trivial_65"] = (;
     wires["valve_65"]...,
     α = 0,
+    g = 1,
 )
 
 wires["valve_MoRe"] = (;
