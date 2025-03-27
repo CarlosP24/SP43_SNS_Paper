@@ -1,58 +1,5 @@
-# function set_yticks(Ic)
-#     max_Ic = round(maximum(Ic), sigdigits=1)
-#     significant_digit = floor(Int, log10(max_Ic))
-#     if significant_digit == 0 
-#         return 0:round(Int, maximum(Ic)), ["$(round(Int,y))" for y in 0:round(Int, maximum(Ic))], L"$I_c$ $(2e/\hbar)$"
-#     end
-#     ys = 0:10.0^significant_digit:max_Ic
 
-#     labs = ["$(round(Int, y / 10.0^significant_digit))" for y in ys]
-
-#     ylab = L"$I_c $ $(2e/\hbar \cdot 10^{%$(significant_digit)})$"
-#     return  ys, labs, ylab
-# end
-
-function get_Iborder(xrng, xleft, Ic)
-    xi = findmin(abs.(xrng .- xleft))[2]
-    Ileft = Ic[xi-1]
-    return Ileft
-end 
-
-function plot_FQV(ax, xrng, xticksL, xticksR, Ic; color, linestyle, linewidth, kws... )
-    valve_closed = [sort([xtickL, xtickR]) for (xtickL, xtickR) in zip(xticksL[1:end-1], xticksR[1:end-1])]
-    valve_dict = Dict(
-        [valve_lims => get_Iborder(xrng, valve_lims[1], Ic) for valve_lims in valve_closed]
-    )
-    FQV = map(xrng) do x 
-        index = findfirst(valve_lims -> valve_lims[1] < x < valve_lims[2], valve_closed)
-        if index === nothing 
-            return NaN
-        end
-        lims = valve_closed[index]
-        IM = valve_dict[lims] 
-        xi = findmin(abs.(xrng .- x))[2]
-        return (IM - Ic[xi]) / IM
-    end
-    lines!(ax, xrng, FQV; color, linestyle, linewidth = 2)
-    xlims!(ax, (first(xrng), last(xrng)))
-    ylow = floor(minimum(Iterators.filter(!isnan,FQV)), digits = 1)
-    ylims!(ax, (0.25, 1.05))
-    ax.yticks = [0.4, 1]
-    ax.ylabel = L"$$ FQV"
-    ax.xlabel = L"$B$ (T)"
-end
-
-function plot_fluxoid(ax, xticks, ylower, yupper; colormap = :rainbow)
-    pushfirst!(xticks, 0)
-    colors = get(colorschemes[colormap], collect(0:length(xticks))/length(xticks))
-    for (i, (xright, color)) in enumerate(zip(xticks, colors))
-        i == 1 && continue
-        xleft = xticks[i-1]
-        band!(ax, [xleft, xright], ylower, yupper, color = (color, 0.2))
-        text!(ax, (xleft + xright)/2, (ylower + yupper)/2; text =  L"$%$(i-2)$", align = (:center, :center), color = color, fontsize = 10)
-    end
-end
-function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25)
+function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25, Tlab = L"T_N = 0.7", topo = false)
     fig = Figure(size = (600, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
@@ -62,7 +9,7 @@ function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_current
     for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FQV)
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
-        plot_FQV(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c...)
+        plot_FQV(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
         plot_fluxoid(axQ, xticksL[2], 0.3, 0.35)
         plot_fluxoid(axQ, xticksR[2], 0.25, 0.3)
 
@@ -78,15 +25,28 @@ function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_current
     
     hidexdecorations!(axI, ticks = false, grid = false)
 
-    axislegend(axI,
-        position = (0.6, 0.96),
-        framevisible = false,
-        orientation = :horizontal
-    )
+    if topo 
+        axislegend(axQ,
+            position = (0.1, 0.2),
+            framevisible = false,
+            orientation = :horizontal
+        )
+        Label(fig_currents[2, 1, Top()], Tlab, padding = (180, 0, -230, 0),) 
+        axI.yticks  = [0, 0.01]
+        axI.ylabelpadding = -5
+
+    else
+        axislegend(axI,
+            position = (0.6, 0.96),
+            framevisible = false,
+            orientation = :horizontal
+        )
+        Label(fig_currents[1, 1, Top()], Tlab, padding = (400, 0, -60, 0),) 
+
+    end
 
     rowgap!(fig_currents, 1, 5)
 
-    Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (400, 0, -60, 0),) 
 
     fig_LDOS = fig[1, 1] = GridLayout()
 
@@ -133,6 +93,33 @@ layout_currents = [
 ]
 
 kws_currents = [
+    ( color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
+]
+
+kws_FQV = [
+    (), (), (),
+]
+
+fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV)
+save("figures/fig_valve_triv_R.pdf", fig)
+fig
+
+## Topological 
+layout_LDOS = [
+    "valve_65";
+    "valve_60"
+]
+
+kws_LDOS = [
+    (colorrange = (9e-5, 1e-2),);
+    (colorrange = (9e-5, 1e-2),)
+]
+
+layout_currents = [
+    "Rmismatch_0.0001.jld2", "Rmismatch_d1_0.0001.jld2", "Rmismatch_d2_0.0001.jld2",
+]
+
+kws_currents = [
     (showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]
 
@@ -140,6 +127,6 @@ kws_FQV = [
     (), (), (),
 ]
 
-fig = fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV)
-save("figures/fig_valve_R.pdf", fig)
+fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV; Tlab = L"T_N  \rightarrow 0", topo = true)
+save("figures/fig_valve_topo_R.pdf", fig)
 fig
