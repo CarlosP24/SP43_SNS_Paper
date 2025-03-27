@@ -72,6 +72,9 @@ function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_current
         vlines!(ax, xticksR[2]; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
         ax.xticks = xticks
     end
+
+    axI.ylabelpadding = 20
+    axQ.ylabelpadding = 5
     
     hidexdecorations!(axI, ticks = false, grid = false)
 
@@ -107,10 +110,10 @@ function fig_valve_R_trivial(layout_LDOS, kws_LDOS, layout_currents, kws_current
     rowgap!(fig.layout, 1, 5)
 
     style = (font = "CMU Serif Bold", fontsize   = 20)
-    Label(fig_LDOS[1, 1, TopLeft()], "a",  padding = (-40, 0, -35, 0); style...)
-    Label(fig_LDOS[2, 1, TopLeft()], "b",  padding = (-40, 0, -35, 0); style...)
-    Label(fig_currents[1, 1, TopLeft()], "c",  padding = (-40, 0, -35, 0); style...)
-    Label(fig_currents[2, 1, TopLeft()], "d",  padding = (-40, 0, -35, 0); style...)
+    Label(fig_LDOS[1, 1, TopLeft()], "a",  padding = (-40, 0, -25, 0); style...)
+    Label(fig_LDOS[2, 1, TopLeft()], "b",  padding = (-40, 0, -25, 0); style...)
+    Label(fig_currents[1, 1, TopLeft()], "c",  padding = (-40, 0, -25, 0); style...)
+    Label(fig_currents[2, 1, TopLeft()], "d",  padding = (-40, 0, -25, 0); style...)
 
     return fig
 end
