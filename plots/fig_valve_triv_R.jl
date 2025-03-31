@@ -1,17 +1,17 @@
 
-function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25, Tlab = L"T_N = 0.7", topo = false)
+function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25, Tlab = L"T_N = 0.7", topo = false)
     fig = Figure(size = (600, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
 
     axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $(N_{m_J} \cdot e \Omega_0^*/\hbar)$", )
     axQ = Axis(fig_currents[2, 1])
-    for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FQV)
+    for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FVQ)
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
-        plot_FQV(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
-        plot_fluxoid(axQ, xticksL[2], 0.3, 0.35)
-        plot_fluxoid(axQ, xticksR[2], 0.25, 0.3)
+        plot_FVQ(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
+        plot_fluxoid(axQ, xticksL[2], 0.3, 0.35; fontsize = 13)
+        plot_fluxoid(axQ, xticksR[2], 0.25, 0.3; fontsize = 13)
 
     end
     for ax in (axI, axQ)
@@ -96,11 +96,11 @@ kws_currents = [
     ( color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]
 
-kws_FQV = [
+kws_FVQ = [
     (), (), (),
 ]
 
-fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV)
+fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ)
 save("figures/fig_valve_triv_R.pdf", fig)
 fig
 
@@ -123,10 +123,10 @@ kws_currents = [
     (showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]
 
-kws_FQV = [
+kws_FVQ = [
     (), (), (),
 ]
 
-fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FQV; Tlab = L"T_N  \rightarrow 0", topo = true)
+fig = fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; Tlab = L"T_N  \rightarrow 0", topo = true)
 save("figures/fig_valve_topo_R.pdf", fig)
 fig
