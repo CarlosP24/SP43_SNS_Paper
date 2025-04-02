@@ -4,7 +4,7 @@ function fig_LDOS(name; kw...)
     return fig
 end
 
-fig = fig_LDOS("valve_65"; basepath = "data/LDOS", colorrange = (0, 1e-2))
+fig = fig_LDOS("valve_trivial_65"; basepath = "data/LDOS", colorrange = (0, 1e-2))
 fig
 
 

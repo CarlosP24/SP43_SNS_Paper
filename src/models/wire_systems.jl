@@ -5,14 +5,14 @@ end
 
 cparams_valve_65 = Calc_Params(
     Calc_Params();
-    Φrng = subdiv(0, 5.40, 800),
-    ωrng = subdiv(-.26, 0, 301) .+ 1e-3im
+    Φrng = subdiv(0, 5.40, 400),
+    ωrng = subdiv(-.26, 0, 401) .+ 1e-3im
 )
 
 cparams_valve_60 = Calc_Params(
     Calc_Params();
-    Φrng = subdiv(0, 4.63, 800),
-    ωrng = subdiv(-.26, 0, 301) .+ 1e-3im
+    Φrng = subdiv(0, 4.63, 400),
+    ωrng = subdiv(-.26, 0, 401) .+ 1e-3im
 )
 
 cparams_valve_mat = Calc_Params(

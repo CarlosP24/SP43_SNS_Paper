@@ -49,7 +49,7 @@ j_params_valve = J_Params(;
 calc_params_valve = Calc_Params(;
     Brng = subdiv(0.0, 0.78, 400),
     Φrng = subdiv(0, 5.39, 400),
-    ωrng = subdiv(-.26, 0,  201) .+ 1e-3im,
+    ωrng = subdiv(-.26, 0,  301) .+ 1e-3im,
 )
 
 systems_Rmismatch = Dict(
