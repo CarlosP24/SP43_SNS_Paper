@@ -1,14 +1,14 @@
 function build_coupling(p_left::Params_mm, p_right::Params_mm; zero_site = false,  kw...)
     p_left.a0 != p_right.a0 && throw(ArgumentError("Lattice constants must be equal"))
     a0 = p_left.a0
-    conv = p_left.conv
+    πoΦ0 = p_left.πoΦ0
     num_mJ_right = p_right.num_mJ
     num_mJ_left = p_left.num_mJ
     t = p_left.t
     α = (p_left.α + p_right.α) / 2
     num_mJ = max(num_mJ_left, num_mJ_right)
 
-    n(B, p) =  B * π * (p.R + p.d/2)^2 * conv
+    n(B, p) =  B * π * (p.R + p.d/2)^2 * πoΦ0
     nint(B, p) = round(Int, n(B, p))
     mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
 
