@@ -1,6 +1,10 @@
 Rmismatch_0.1
-ξmismatch_0.0001
 Rmismatch_0.0001
-ξmismatch_0.1
-ξmismatch_0.9
+ξmismatch_0.7
 Rmismatch_0.9
+Rmismatch_0.7
+ξmismatch_d1_0.7
+ξmismatch_d2_0.7
+ξLmismatch_0.7
+ξLmismatch_d1_0.7
+ξLmismatch_d2_0.7
