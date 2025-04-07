@@ -43,8 +43,8 @@ systems_dep = Dict(
 Ts_valve = [1e-4, 0.1, 0.5, 0.7, 0.9]
 j_params_valve = J_Params(;
     imshift = 1e-6, 
-    maxevals = 1e6,
-    atol = 1e-8    
+    maxevals = 1e5,
+    atol = 1e-7    
 )
 calc_params_valve = Calc_Params(;
     Brng = subdiv(0.0, 0.78, 200),
