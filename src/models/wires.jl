@@ -72,7 +72,7 @@ wires["valve_65_ξ"] = (;
 
 wires["valve_trivial_65_ξ"] = (;
     wires["valve_65_ξ"]...,
-    α = -1,
+    α = 0,
 )
 
 # Depleaded
