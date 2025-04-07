@@ -32,9 +32,9 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
         end
         vlines!(ax, xs; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 1)
         vlines!(ax, xs; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 1)
-        ys, labs, ylab = set_yticks(Ic)
-        ax.yticks = (ys, labs)
-        ax.ylabel = ylab
+        # ys, labs, ylab = set_yticks(Ic)
+        # ax.yticks = (ys, labs)
+        # ax.ylabel = ylab
         i == 1 && hidexdecorations!(ax, ticks = false, grid = false)
         if i == 1
             axislegend(ax; position = (0.96, 0.9), framevisible = false,)
@@ -60,8 +60,8 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
 end
 
 layout_LDOS = [
-    "valve_65";
-    "valve_65_ξ"
+    "valve_trivial_65";
+    "valve_trivial_65_ξ"
 ]
 
 kws_LDOS = [
@@ -70,7 +70,7 @@ kws_LDOS = [
 ]
 
 layout_currents = [
-    ["ξmismatch_0.9.jld2", "ξmismatch_d1_0.9.jld2", "ξmismatch_d2_0.9.jld2", "ξLmismatch_0.9.jld2"],
+    ["ξmismatch_trivial_0.7.jld2", "ξmismatch_trivial_d1_0.7.jld2", "ξmismatch_trivial_d2_0.7.jld2", "ξLmismatch_trivial_0.7.jld2"],
     ["ξmismatch_0.0001.jld2", "ξmismatch_d1_0.0001.jld2", "ξmismatch_d2_0.0001.jld2", "ξLmismatch_0.0001.jld2"]
 ]
 
