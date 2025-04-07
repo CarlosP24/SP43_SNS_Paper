@@ -9,7 +9,7 @@ sbatch --export=ALL <<EOT
 ## Slurm header
 #SBATCH --partition=most
 #SBATCH --ntasks-per-node=192
-#SBATCH --nodes=1
+#SBATCH --nodes=5
 ###SBATCH --exclude=a[2-4]
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=2G
