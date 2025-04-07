@@ -9,11 +9,12 @@ sbatch --export=ALL <<EOT
 ## Slurm header
 #SBATCH --partition=esbirro
 #SBATCH --ntasks-per-node=32
-#SBATCH --nodes=5
+#SBATCH --nodes=7
 #SBATCH --cpus-per-task=1
 ##SBATCH --mem-per-cpu=1G
 #SBATCH --output="logs/%A_%a.out"
-#SBATCH --job-name="${PWD##*/}_$ARRAY_SIZE"
+####SBATCH --job-name="${PWD##*/}_$ARRAY_SIZE"
+#SBATCH --job-name="$1"
 #SBATCH --mail-user=carlos.paya@csic.es
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=1-$ARRAY_SIZE

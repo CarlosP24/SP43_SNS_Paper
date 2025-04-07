@@ -1,7 +1,7 @@
 function get_Bticks(model, Brng)
     R = model.R
     d = model.d
-    Φs = Brng .* (π * (R + d/2)^2 * conv)
+    Φs = Brng .* ((R + d/2)^2 * conv)
     ns = range(round(Int, first(Φs)), round(Int, last(Φs)))
     Bs = Brng[map(n -> findmin(abs.(n + 0.5 .- Φs))[2], ns)]
     return ns, Bs

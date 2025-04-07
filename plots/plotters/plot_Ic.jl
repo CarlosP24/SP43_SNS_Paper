@@ -170,7 +170,7 @@ function KO1(name::String; basepath = "data")
         R = wire.R
         d = wire.d
         RLP= R + d/2
-        Φ(B) = B * (π * (RLP)^2 * conv) 
+        Φ(B) = B * RLP^2 * conv 
 
         Λ(B) = pairbreaking(Φ(B), n(Φ(B)), Δ0, ξd, R, d)
         Δd(B) = ΔΛ(real(Λ(B)), real(Δ0))

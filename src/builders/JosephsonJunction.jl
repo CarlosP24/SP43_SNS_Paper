@@ -8,7 +8,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; zero_site = false
     α = (p_left.α + p_right.α) / 2
     num_mJ = max(num_mJ_left, num_mJ_right)
 
-    n(B, p) =  B * π * (p.R + p.d/2)^2 * πoΦ0
+    n(B, p) =  B * (p.R + p.d/2)^2 * πoΦ0
     nint(B, p) = round(Int, n(B, p))
     mJ(r, B, p) = r[2]/a0 + ifelse(iseven(nint(B, p)), 0.5, 0)
 
