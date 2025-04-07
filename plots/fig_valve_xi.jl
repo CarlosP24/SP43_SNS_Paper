@@ -77,7 +77,7 @@ kws_currents = [
     [(showmajo = false, color = :red, label = L"$\infty$", linewidth = 3, vsΦ = true), 
         (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
         (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), 
-        (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length")],
+        (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length", vsΦ = true)],
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
