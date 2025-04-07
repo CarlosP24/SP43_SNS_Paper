@@ -4,7 +4,7 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
 
     fig_currents = fig[2, 1] = GridLayout()
 
-    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $(N_{m_J} \cdot e \Omega_0^*/\hbar)$", )
+    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $e \Omega_0^*/\hbar)$", )
     axQ = Axis(fig_currents[2, 1])
     for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FVQ)
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)

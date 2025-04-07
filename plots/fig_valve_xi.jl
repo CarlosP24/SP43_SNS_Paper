@@ -22,7 +22,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
     fig_currents = fig[2, 1] = GridLayout()
 
     for (i, names) in enumerate(layout_currents)
-        ax = Axis(fig_currents[i, 1],  ylabel = L"$I_c$ $(N_{m_J} \cdot e \Omega_0^*/\hbar)$", )
+        ax = Axis(fig_currents[i, 1],  ylabel = L"$I_c$ $(e \Omega_0^*/\hbar)$", )
         
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(ax, names[1]; kws_currents[i][1]...)
         if length(names) >= 2
@@ -74,7 +74,7 @@ layout_currents = [
 ]
 
 kws_currents = [
-    [(showmajo = false, color = :red, label = L"$\infty$", linewidth = 3), 
+    [(showmajo = false, color = :red, label = L"$\infty$", linewidth = 3, vsΦ = true), 
         (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
         (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), 
         (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length")],
