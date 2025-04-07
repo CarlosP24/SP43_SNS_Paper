@@ -1,5 +1,5 @@
 
-function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; vcolors = [:lightblue, :orange], xticks = 0:0.05:0.25, Tlab = L"T_N = 0.7", topo = false)
+function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; vcolors = [:lightblue, :orange], xticks = 0:0.1:0.8, Tlab = L"T_N = 0.7", topo = false)
     fig = Figure(size = (600, 250 * 3), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
@@ -10,8 +10,9 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
         plot_FVQ(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
-        plot_fluxoid(axQ, xticksL[2], 0.3, 0.35; fontsize = 13)
-        plot_fluxoid(axQ, xticksR[2], 0.25, 0.3; fontsize = 13)
+        plot_fluxoid(axQ, xticksL[2], 0.33, 0.4; fontsize = 17)
+        plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
+        ylims!(axQ, (0.26, 1.05))
 
     end
     for ax in (axI, axQ)
@@ -21,6 +22,7 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
     end
 
     axI.ylabelpadding = 20
+    axI.yticks = [0, 1, 2]
     axQ.ylabelpadding = 5
     
     hidexdecorations!(axI, ticks = false, grid = false)
@@ -57,7 +59,7 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
             ns = ns[1:end-1]
             xs = xs[1:end-1]
         end
-        add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
+        #add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
         hidexdecorations!(ax, ticks = false)
     end
 
@@ -84,8 +86,8 @@ layout_LDOS = [
 ]
 
 kws_LDOS = [
-    (colorrange = (9e-5, 1e-2),);
-    (colorrange = (9e-5, 1e-2),)
+    (colorrange = (5e-4, 9e-3),);
+    (colorrange = (5e-4, 9e-3),)
 ]
 
 layout_currents = [

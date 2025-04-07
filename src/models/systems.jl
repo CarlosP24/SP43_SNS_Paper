@@ -114,8 +114,8 @@ systems_Rmismatch_trivial_d2 = Dict(
 
 systems_ξmismatch = Dict(
     ["ξmismatch_$(i)" => System(; 
-    wireL = (; wires["valve_65"]..., Zs = -5:5), 
-    wireR = (;wires["valve_65_ξ"]..., Zs = -5:5), 
+    wireL = wires["valve_65"], 
+    wireR = wires["valve_65_ξ"], 
     junction = Junction(; TN = i),
     j_params = j_params_valve,
     calc_params = calc_params_valve) 
@@ -124,8 +124,8 @@ systems_ξmismatch = Dict(
 
 systems_ξmismatch_trivial = Dict(
     ["ξmismatch_trivial_$(i)" => System(; 
-    wireL = (; wires["valve_trivial_65"]..., Zs = -5:5), 
-    wireR = (;wires["valve_trivial_65_ξ"]..., Zs = -5:5), 
+    wireL = wires["valve_trivial_65"], 
+    wireR = wires["valve_trivial_65_ξ"], 
     junction = Junction(; TN = i),
     j_params = j_params_valve,
     calc_params = calc_params_valve) 

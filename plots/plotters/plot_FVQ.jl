@@ -24,7 +24,7 @@ function plot_FVQ(ax, xrng, xticksL, xticksR, Ic; color, linestyle, linewidth, l
     ylow = floor(minimum(Iterators.filter(!isnan,FVQ)), digits = 1)
     ylims!(ax, (0.25, 1.05))
     ax.yticks = [0.4, 1]
-    ax.ylabel = L"$$ FVQ"
+    ax.ylabel = L"$Q^{FV}$"
     ax.xlabel = L"$B$ (T)"
 end
 

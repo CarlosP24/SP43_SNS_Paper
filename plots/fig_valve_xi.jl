@@ -22,7 +22,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
     fig_currents = fig[2, 1] = GridLayout()
 
     for (i, names) in enumerate(layout_currents)
-        ax = Axis(fig_currents[i, 1], ylabel = L"$I_c$ $(2e/\hbar)$", )
+        ax = Axis(fig_currents[i, 1],  ylabel = L"$I_c$ $(N_{m_J} \cdot e \Omega_0^*/\hbar)$", )
         
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(ax, names[1]; kws_currents[i][1]...)
         if length(names) >= 2
@@ -43,10 +43,10 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
         ax.xticks = xticks
     end
 
-    rowgap!(fig_currents, 1, 5)
+    #rowgap!(fig_currents, 1, 5)
 
-    Label(fig_currents[1, 1, Top()], L"$T_N = 0.9$", padding = (400, 0, -60, 0),) 
-    Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -40, 0), )
+    Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (400, 0, -60, 0),) 
+    #Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -40, 0), )
 
     rowgap!(fig.layout, 1, 5)
 
@@ -71,18 +71,13 @@ kws_LDOS = [
 
 layout_currents = [
     ["ξmismatch_trivial_0.7.jld2", "ξmismatch_trivial_d1_0.7.jld2", "ξmismatch_trivial_d2_0.7.jld2", "ξLmismatch_trivial_0.7.jld2"],
-    ["ξmismatch_0.0001.jld2", "ξmismatch_d1_0.0001.jld2", "ξmismatch_d2_0.0001.jld2", "ξLmismatch_0.0001.jld2"]
 ]
 
 kws_currents = [
-    [(showmajo = true, color = :red, label = L"$\infty$", linewidth = 3), 
+    [(showmajo = false, color = :red, label = L"$\infty$", linewidth = 3), 
         (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
         (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), 
         (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length")],
-    [(showmajo = true, color = :red, label = L"\infty", linewidth = 3), 
-        (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
-        (showmajo = false, color = (:navyblue, 0.8), label = L"\delta \tau = 0.1"),  
-        (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length")]
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
