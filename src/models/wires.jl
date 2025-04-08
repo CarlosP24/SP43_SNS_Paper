@@ -41,6 +41,11 @@ wires["valve_trivial_65"] = (;
     g = 1,
 )
 
+wires["valve_trivial_65_mu"] = (;
+    wires["valve_trivial_65"]...,
+    μ = 2,
+)
+
 wires["valve_MoRe"] = (;
     wires["valve_65"]...,
     Δ0 = 0.9,
@@ -74,6 +79,11 @@ wires["valve_trivial_65_ξ"] = (;
     wires["valve_65_ξ"]...,
     α = 0,
     g = 1,
+)
+
+wires["valve_trivial_65_mu_ξ"] = (;
+    wires["valve_trivial_65_ξ"]...,
+    μ = 2,
 )
 
 # Depleaded

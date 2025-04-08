@@ -105,6 +105,14 @@ wire_systems = Dict(
         wire = (;wires["valve_trivial_65_ξ"]...),
         calc_params = cparams_valve_65,
     ),
+    "valve_trivial_65_mu" => wire_system(;
+        wire = (;wires["valve_trivial_65_mu"]...),
+        calc_params = cparams_valve_65,
+    ),
+    "valve_trivial_65_mu_ξ" => wire_system(;
+        wire = (;wires["valve_trivial_65_mu_ξ"]...),
+        calc_params = cparams_valve_65,
+    ),
     "jos_hc" => wire_system(; wire = wires["jos_hc"], calc_params = cparams_jos),
     "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"], calc_params = cparams_jos),
     "jos_mhc" => wire_system(; wire = wires["jos_mhc"], calc_params = cparams_jos),
