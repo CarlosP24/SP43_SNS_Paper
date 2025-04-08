@@ -61,7 +61,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
 end
 
 layout_LDOS = [
-    "valve_trivial_65";
+    "valve_trivial_65_mu";
     "valve_trivial_65_ξ"
 ]
 
