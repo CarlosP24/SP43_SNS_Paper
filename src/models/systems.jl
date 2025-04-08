@@ -124,8 +124,8 @@ systems_ξmismatch = Dict(
 
 systems_ξmismatch_trivial = Dict(
     ["ξmismatch_trivial_$(i)" => System(; 
-    wireL = wires["valve_trivial_65"], 
-    wireR = wires["valve_trivial_65_ξ"], 
+    wireL = wires["valve_trivial_65_mu"], 
+    wireR = wires["valve_trivial_65_mu_ξ"], 
     junction = Junction(; TN = i),
     j_params = j_params_valve,
     calc_params = calc_params_valve) 
@@ -144,8 +144,8 @@ systems_ξmismatch_d1 = Dict(
 
 systems_ξmismatch_trivial_d1 = Dict(
     ["ξmismatch_trivial_d1_$(i)" => System(; 
-    wireL = wires["valve_trivial_65"], 
-    wireR = wires["valve_trivial_65_ξ"], 
+    wireL = wires["valve_trivial_65_mu"], 
+    wireR = wires["valve_trivial_65_mu_ξ"],
     junction = Junction(; TN = i, δτ = 0.01),
     j_params = j_params_valve,
     calc_params = calc_params_valve)
@@ -164,8 +164,8 @@ systems_ξmismatch_d2 = Dict(
 
 systems_ξmismatch_trivial_d2 = Dict(
     ["ξmismatch_trivial_d2_$(i)" => System(; 
-    wireL = wires["valve_trivial_65"], 
-    wireR = wires["valve_trivial_65_ξ"], 
+    wireL = wires["valve_trivial_65_mu"], 
+    wireR = wires["valve_trivial_65_mu_ξ"],
     junction = Junction(; TN = i, δτ = 0.1),
     j_params = j_params_valve,
     calc_params = calc_params_valve) 

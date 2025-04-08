@@ -62,12 +62,12 @@ end
 
 layout_LDOS = [
     "valve_trivial_65_mu";
-    "valve_trivial_65_ξ"
+    "valve_trivial_65_mu_ξ"
 ]
 
 kws_LDOS = [
-    (colorrange = (9e-5, 1e-2),);
-    (colorrange = (9e-5, 1e-2),)
+    (colorrange = (9e-5, 3e-2),);
+    (colorrange = (9e-5, 3e-2),)
 ]
 
 layout_currents = [
