@@ -1,5 +1,5 @@
 function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcolors = [:lightblue, :lightblue], xticks = 0:5)
-    fig = Figure(size = (600, 250 * 3), fontsize = 16,)
+    fig = Figure(size = (600, 250 * 3 * 3/4), fontsize = 16,)
 
 
     fig_LDOS = fig[1, 1] = GridLayout()
@@ -35,7 +35,8 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
         # ys, labs, ylab = set_yticks(Ic)
         # ax.yticks = (ys, labs)
         # ax.ylabel = ylab
-        i == 1 && hidexdecorations!(ax, ticks = false, grid = false)
+        ax.ylabelpadding = 20
+        #i == 1 && hidexdecorations!(ax, ticks = false, grid = false)
         if i == 1
             axislegend(ax; position = (0.96, 0.9), framevisible = false,)
         end
@@ -49,12 +50,12 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
     #Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -40, 0), )
 
     rowgap!(fig.layout, 1, 5)
+    rowsize!(fig.layout, 1, Relative(0.6))
 
     style = (font = "CMU Serif Bold", fontsize   = 20)
     Label(fig_LDOS[1, 1, TopLeft()], "a",  padding = (-40, 0, -35, 0); style...)
     Label(fig_LDOS[2, 1, TopLeft()], "b",  padding = (-40, 0, -35, 0); style...)
     Label(fig_currents[1, 1, TopLeft()], "c",  padding = (-40, 0, -35, 0); style...)
-    Label(fig_currents[2, 1, TopLeft()], "d",  padding = (-40, 0, -35, 0); style...)
 
     return fig
 end
