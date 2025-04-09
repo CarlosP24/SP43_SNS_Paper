@@ -91,7 +91,7 @@ kws_LDOS = [
 
 layout_currents = [
     "Rmismatch_0.9.jld2", "Rmismatch_d1_0.9.jld2", "Rmismatch_d2_0.9.jld2",
-]
+    ]
 
 kws_currents = [
     ( color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
