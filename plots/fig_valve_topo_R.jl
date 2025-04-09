@@ -13,7 +13,6 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, 
         plot_fluxoid(axQ, xticksL[2], 0.33, 0.4; fontsize = 17)
         plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
         ylims!(axQ, (0.26, 1.05))
-
     end
     for ax in (axI, axQ)
         vlines!(ax, xticksL[2]; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
@@ -102,6 +101,6 @@ kws_FVQ = [
     (), (), (),
 ]
 
-fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ)
+fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; )
 #save("figures/fig_valve_triv_R.pdf", fig)
 fig
