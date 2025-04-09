@@ -47,7 +47,7 @@ j_params_valve = J_Params(;
     atol = 1e-8    
 )
 calc_params_valve = Calc_Params(;
-    Brng = subdiv(0.0, 0.78, 100),
+    Brng = subdiv(0.0, 0.78, 200),
     Φrng = subdiv(0, 5.39, 400),
     ωrng = subdiv(-.26, 0, 401) .+ 1e-3im,
 )
