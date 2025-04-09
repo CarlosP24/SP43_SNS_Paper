@@ -1,12 +1,17 @@
 
-function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; vcolors = [:lightblue, :orange], xticks = 0:0.1:0.8, Tlab = L"T_N = 0.7", topo = false)
-    fig = Figure(size = (600, 250 * 3), fontsize = 16,)
+function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_currents_high, layout_currents_low, kws_currents_low, kws_FVQ; vcolors = [:lightblue, :orange], xticks = 0:0.1:0.8,)
+    fig = Figure(size = (600, 250 * 3.5), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
+    ylabel = L"$I_c$ $(T_N \cdot e \Omega_0^*/\hbar)$"
+    axIhigh = Axis(fig_currents[1, 1]; ylabel)
 
-    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $e \Omega_0^*/\hbar)$", )
-    axQ = Axis(fig_currents[2, 1])
-    for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FVQ)
+    for (name, kws_c) in zip(layout_currents_high, kws_currents_high)
+        Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axIhigh, name; kws_c...)
+    end
+    axI = Axis(fig_currents[2, 1]; ylabel)
+    axQ = Axis(fig_currents[3, 1])
+    for (name, kws_c, kws_Q) in zip(layout_currents_low, kws_currents_low, kws_FVQ)
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
         plot_FVQ(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
@@ -14,40 +19,33 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, 
         plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
         ylims!(axQ, (0.26, 1.05))
     end
-    for ax in (axI, axQ)
+    for ax in (axIhigh, axI, axQ)
         vlines!(ax, xticksL[2]; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
         vlines!(ax, xticksR[2]; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
         ax.xticks = xticks
     end
 
-    axI.ylabelpadding = 20
-    axI.yticks = [0, 1, 2]
+    axIhigh.yticks = [0, 1, 2]
+    axIhigh.yticks = ([0, 1.04, 2.08], ["0", "1.5", "3"])
+    axIhigh.ylabelpadding = 5
+    axI.yticks = ([0, 0.005, 0.01], ["0", "50", "100"])
+    axI.ylabelpadding = 0
     axQ.ylabelpadding = 5
     
+    hidexdecorations!(axIhigh, ticks = false, grid = false)
     hidexdecorations!(axI, ticks = false, grid = false)
 
-    if topo 
-        axislegend(axQ,
-            position = (0.1, 0.2),
-            framevisible = false,
-            orientation = :horizontal
-        )
-        Label(fig_currents[2, 1, Top()], Tlab, padding = (180, 0, -230, 0),) 
-        axI.yticks  = [0, 0.01]
-        axI.ylabelpadding = -5
+    axislegend(axIhigh,
+        position = (0.6, 0.96),
+        framevisible = false,
+        orientation = :horizontal
+    )
+    Label(fig_currents[1, 1, Top()], L"T_N = 0.7", padding = (400, 0, -60, 0),) 
+    Label(fig_currents[2, 1, Top()], L"T_N \rightarrow 0", padding = (-115, 0, -60, 0),) 
+    Label(fig_currents[3, 1, Top()], L"T_N \rightarrow 0", padding = (-115, 0, -60, 0),) 
 
-    else
-        axislegend(axI,
-            position = (0.6, 0.96),
-            framevisible = false,
-            orientation = :horizontal
-        )
-        Label(fig_currents[1, 1, Top()], Tlab, padding = (400, 0, -60, 0),) 
-
-    end
-
-    rowgap!(fig_currents, 1, 5)
-
+    rowgap!(fig_currents, 1, 0)
+    rowgap!(fig_currents, 2, 0)
 
     fig_LDOS = fig[1, 1] = GridLayout()
 
@@ -62,19 +60,20 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, 
         hidexdecorations!(ax, ticks = false)
     end
 
-    rowgap!(fig_LDOS, 1, 5)
-
+    rowgap!(fig_LDOS, 1, 0)
 
     Label(fig_LDOS[1, 1, Top()], L"$R_1 = 65$nm", padding = (420, 0, -40, 0), color = :white)
     Label(fig_LDOS[2, 1, Top()], L"$R_2 = 60$nm", padding = (370, 0, -40, 0), color = :white)
 
-    rowgap!(fig.layout, 1, 5)
+    rowgap!(fig.layout, 1, 0)
+    rowsize!(fig.layout, 1, Relative(0.45))
 
     style = (font = "CMU Serif Bold", fontsize   = 20)
-    Label(fig_LDOS[1, 1, TopLeft()], "a",  padding = (-40, 0, -25, 0); style...)
-    Label(fig_LDOS[2, 1, TopLeft()], "b",  padding = (-40, 0, -25, 0); style...)
-    Label(fig_currents[1, 1, TopLeft()], "c",  padding = (-40, 0, -25, 0); style...)
-    Label(fig_currents[2, 1, TopLeft()], "d",  padding = (-40, 0, -25, 0); style...)
+    Label(fig_LDOS[1, 1, TopLeft()], "a",  padding = (-40, 0, -20, 0); style...)
+    Label(fig_LDOS[2, 1, TopLeft()], "b",  padding = (-40, 0, -20, 0); style...)
+    Label(fig_currents[1, 1, TopLeft()], "c",  padding = (-40, 0, -20, 0); style...)
+    Label(fig_currents[2, 1, TopLeft()], "d",  padding = (-40, 0, -20, 0); style...)
+    Label(fig_currents[3, 1, TopLeft()], "e",  padding = (-40, 0, -20, 0); style...)
 
     return fig
 end
@@ -89,18 +88,26 @@ kws_LDOS = [
     (colorrange = (5e-4, 9e-3),)
 ]
 
-layout_currents = [
-    "Rmismatch_0.9.jld2", "Rmismatch_d1_0.9.jld2", "Rmismatch_d2_0.9.jld2",
+layout_currents_high = [
+    "Rmismatch_0.7.jld2", "Rmismatch_d1_0.7.jld2", "Rmismatch_d2_0.7.jld2",
     ]
 
-kws_currents = [
-    ( color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
+kws_currents_high = [
+    (color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
+]
+
+layout_currents_low = [
+    "Rmismatch_0.0001.jld2", "Rmismatch_d1_0.0001.jld2", "Rmismatch_d2_0.0001.jld2",
+    ]
+
+kws_currents_low = [
+    (showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]
 
 kws_FVQ = [
     (), (), (),
 ]
 
-fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_FVQ; )
+fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_currents_high, layout_currents_low, kws_currents_low, kws_FVQ; )
 #save("figures/fig_valve_triv_R.pdf", fig)
 fig
