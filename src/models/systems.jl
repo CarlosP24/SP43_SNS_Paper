@@ -46,6 +46,14 @@ j_params_valve = J_Params(;
     maxevals = 1e6,
     atol = 1e-8    
 )
+
+j_params_valve_reduced = J_Params(;
+    imshift = 1e-5, 
+    maxevals = 1e5,
+    atol = 1e-7,
+    imshift0 = 1e-4,
+)
+
 calc_params_valve = Calc_Params(;
     Brng = subdiv(0.0, 0.78, 600),
     Φrng = subdiv(0, 5.39, 400),
@@ -57,7 +65,7 @@ systems_Rmismatch = Dict(
     wireL = wires["valve_65"], 
     wireR = wires["valve_60"], 
     junction = Junction(; TN = i),
-    j_params = j_params_valve,
+    j_params = TN < 0.5 ? j_params_valve : j_params_valve_reduced,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
 )
@@ -77,7 +85,7 @@ systems_Rmismatch_d1 = Dict(
     wireL = wires["valve_65"], 
     wireR = wires["valve_60"], 
     junction = Junction(; TN = i, δτ = 0.01),
-    j_params = j_params_valve,
+    j_params = TN < 0.5 ? j_params_valve : j_params_valve_reduced,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
 )
@@ -97,7 +105,7 @@ systems_Rmismatch_d2 = Dict(
     wireL = wires["valve_65"], 
     wireR = wires["valve_60"], 
     junction = Junction(; TN = i, δτ = 0.1),
-    j_params = j_params_valve,
+    j_params = TN < 0.5 ? j_params_valve : j_params_valve_reduced,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
 )

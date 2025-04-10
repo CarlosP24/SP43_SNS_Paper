@@ -84,8 +84,8 @@ layout_LDOS = [
 ]
 
 kws_LDOS = [
-    (colorrange = (5e-4, 9e-3),);
-    (colorrange = (5e-4, 9e-3),)
+    (colorrange = (2e-4, 9e-3),);
+    (colorrange = (2e-4, 9e-3),)
 ]
 
 layout_currents_high = [
@@ -109,5 +109,5 @@ kws_FVQ = [
 ]
 
 fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_currents_high, layout_currents_low, kws_currents_low, kws_FVQ; )
-#save("figures/fig_valve_triv_R.pdf", fig)
+save("figures/fig_valve_topo_R.pdf", fig)
 fig
