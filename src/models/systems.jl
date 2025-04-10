@@ -65,7 +65,7 @@ systems_Rmismatch = Dict(
     wireL = wires["valve_65"], 
     wireR = wires["valve_60"], 
     junction = Junction(; TN = i),
-    j_params = TN < 0.5 ? j_params_valve : j_params_valve_reduced,
+    j_params = i < 0.5 ? j_params_valve : j_params_valve_reduced,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
 )
@@ -85,7 +85,7 @@ systems_Rmismatch_d1 = Dict(
     wireL = wires["valve_65"], 
     wireR = wires["valve_60"], 
     junction = Junction(; TN = i, δτ = 0.01),
-    j_params = TN < 0.5 ? j_params_valve : j_params_valve_reduced,
+    j_params = i < 0.5 ? j_params_valve : j_params_valve_reduced,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
 )
@@ -105,7 +105,7 @@ systems_Rmismatch_d2 = Dict(
     wireL = wires["valve_65"], 
     wireR = wires["valve_60"], 
     junction = Junction(; TN = i, δτ = 0.1),
-    j_params = TN < 0.5 ? j_params_valve : j_params_valve_reduced,
+    j_params = i < 0.5 ? j_params_valve : j_params_valve_reduced,
     calc_params = calc_params_valve) 
     for i in Ts_valve]
 )
