@@ -4,17 +4,18 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
 
     fig_currents = fig[2, 1] = GridLayout()
 
-    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $e \Omega_0^*/\hbar)$", )
+    axI = Axis(fig_currents[1, 1], ylabel = L"$I_c$ $(e \left|\Delta_0^*\right|/\hbar)$", )
     axQ = Axis(fig_currents[2, 1])
     for (name, kws_c, kws_Q) in zip(layout_currents, kws_currents, kws_FVQ)
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
         plot_FVQ(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
-        plot_fluxoid(axQ, xticksL[2], 0.33, 0.4; fontsize = 17)
-        plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
+
         ylims!(axQ, (0.26, 1.05))
 
     end
+    plot_fluxoid(axQ, xticksL[2], 0.33, 0.4; fontsize = 17)
+    plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
     for ax in (axI, axQ)
         vlines!(ax, xticksL[2]; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
         vlines!(ax, xticksR[2]; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
@@ -39,11 +40,11 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
 
     else
         axislegend(axI,
-            position = (0.6, 0.96),
+            position = (1, 0.5),
             framevisible = false,
-            orientation = :horizontal
+            #orientation = :horizontal
         )
-        Label(fig_currents[1, 1, Top()], Tlab, padding = (400, 0, -60, 0),) 
+        Label(fig_currents[1, 1, Top()], Tlab, padding = (370, 0, -60, 0),) 
 
     end
 
@@ -55,6 +56,12 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
     for (i, name) in enumerate(layout_LDOS)
         ax, (; xrng, ns, xs, R) = plot_LDOS(fig_LDOS[i, 1], name; Bticks = xticks, kws_LDOS[i]...)
         vlines!(ax, xs[1:end-1]; color = vcolors[i], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
+        if i == 1
+            text!(ax, 0.4, 0.18; text = L"$\left|\Delta_0\right|$", color = :white, align = (:center, :center))
+            arrows!(ax, [0.25], [0.19], [-0.17], [0.02]; color = :white)
+            text!(ax, 0.3, 0.05; text = L"$\left|\Delta^*_0\right|$", color = :white, align = (:center, :center))
+            arrows!(ax, [0.23], [0.09], [-0.17], [0.02]; color = :white)
+        end
         if i == 2
             ns = ns[1:end-1]
             xs = xs[1:end-1]
@@ -66,8 +73,8 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
     rowgap!(fig_LDOS, 1, 5)
 
 
-    Label(fig_LDOS[1, 1, Top()], L"$R_1 = 65$nm", padding = (420, 0, -40, 0), color = :white)
-    Label(fig_LDOS[2, 1, Top()], L"$R_2 = 60$nm", padding = (370, 0, -40, 0), color = :white)
+    Label(fig_LDOS[1, 1, Top()], L"$R_1 = 65$nm", padding = (380, 0, -40, 0), color = :white)
+    Label(fig_LDOS[2, 1, Top()], L"$R_2 = 60$nm", padding = (380, 0, -40, 0), color = :white)
 
     fig_bars = fig[1, 2] = GridLayout()
     Colorbar(fig_bars[1, 1], colormap = :thermal, limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -10)
@@ -90,8 +97,8 @@ layout_LDOS = [
 ]
 
 kws_LDOS = [
-    (colorrange = (5e-4, 9e-3),);
-    (colorrange = (5e-4, 9e-3),)
+    (colorrange = (1e-4, 9e-3),);
+    (colorrange = (1e-4, 9e-3),)
 ]
 
 layout_currents = [

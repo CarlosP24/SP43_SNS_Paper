@@ -3,7 +3,7 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_curre
     fig = Figure(size = (600, 250 * 3.5), fontsize = 16,)
 
     fig_currents = fig[2, 1] = GridLayout()
-    ylabel = L"$I_c$ $(T_N \cdot e \Omega_0^*/\hbar)$"
+    ylabel = L"$I_c$ $(e \left|\Delta_0^*\right|/\hbar)$"
     axIhigh = Axis(fig_currents[1, 1]; ylabel)
 
     for (name, kws_c) in zip(layout_currents_high, kws_currents_high)
@@ -15,10 +15,11 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_curre
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(axI, name; kws_c...)
         global xticksL, xticksR = xticksL, xticksR
         plot_FVQ(axQ, xrng, xticksL[2], xticksR[2], Ic; kws_c..., kws_Q...)
-        plot_fluxoid(axQ, xticksL[2], 0.33, 0.4; fontsize = 17)
-        plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
+
         ylims!(axQ, (0.26, 1.05))
     end
+    plot_fluxoid(axQ, xticksL[2], 0.33, 0.4; fontsize = 17)
+    plot_fluxoid(axQ, xticksR[2], 0.26, 0.33; fontsize = 17)
     for ax in (axIhigh, axI, axQ)
         vlines!(ax, xticksL[2]; color = vcolors[1], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
         vlines!(ax, xticksR[2]; color = vcolors[2], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
@@ -36,11 +37,11 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_curre
     hidexdecorations!(axI, ticks = false, grid = false)
 
     axislegend(axIhigh,
-        position = (0.6, 0.96),
+        position = (1, 1),
         framevisible = false,
-        orientation = :horizontal
+        #orientation = :horizontal
     )
-    Label(fig_currents[1, 1, Top()], L"T_N = 0.7", padding = (400, 0, -60, 0),) 
+    Label(fig_currents[1, 1, Top()], L"T_N = 0.7", padding = (180, 0, -55, 0),) 
     Label(fig_currents[2, 1, Top()], L"T_N \rightarrow 0", padding = (-115, 0, -60, 0),) 
     Label(fig_currents[3, 1, Top()], L"T_N \rightarrow 0", padding = (-115, 0, -60, 0),) 
 
@@ -62,8 +63,12 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_curre
 
     rowgap!(fig_LDOS, 1, 0)
 
-    Label(fig_LDOS[1, 1, Top()], L"$R_1 = 65$nm", padding = (420, 0, -40, 0), color = :white)
-    Label(fig_LDOS[2, 1, Top()], L"$R_2 = 60$nm", padding = (370, 0, -40, 0), color = :white)
+    Label(fig_LDOS[1, 1, Top()], L"$R_1 = 65$nm", padding = (380, 0, -40, 0), color = :white)
+    Label(fig_LDOS[2, 1, Top()], L"$R_2 = 60$nm", padding = (380, 0, -40, 0), color = :white)
+
+    fig_bars = fig[1, 2] = GridLayout()
+    Colorbar(fig_bars[1, 1], colormap = :thermal, limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -10)
+    colgap!(fig.layout, 1, 5)
 
     rowgap!(fig.layout, 1, 0)
     rowsize!(fig.layout, 1, Relative(0.45))

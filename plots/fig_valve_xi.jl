@@ -16,13 +16,13 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
 
     rowgap!(fig_LDOS, 1, 5)
 
-    Label(fig_LDOS[1, 1, Top()], L"$\xi_1 = 70$nm", padding = (420, 0, -40, 0), color = :white)
-    Label(fig_LDOS[2, 1, Top()], L"$\xi_2 = 140$nm", padding = (420, 0, -40, 0), color = :white)
+    Label(fig_LDOS[1, 1, Top()], L"$\xi_1 = 70$nm", padding = (380, 0, -40, 0), color = :white)
+    Label(fig_LDOS[2, 1, Top()], L"$\xi_2 = 140$nm", padding = (380, 0, -40, 0), color = :white)
 
     fig_currents = fig[2, 1] = GridLayout()
 
     for (i, names) in enumerate(layout_currents)
-        ax = Axis(fig_currents[i, 1],  ylabel = L"$I_c$ $(e \Omega_0^*/\hbar)$", )
+        ax = Axis(fig_currents[i, 1],  ylabel = L"$I_c$ $(e \left|\Delta_0^*\right|/\hbar)$", )
         
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(ax, names[1]; kws_currents[i][1]...)
         if length(names) >= 2
@@ -46,8 +46,12 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
 
     #rowgap!(fig_currents, 1, 5)
 
-    Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (400, 0, -45, 0),) 
+    Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (380, 0, -45, 0),) 
     #Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -40, 0), )
+
+    fig_bars = fig[1, 2] = GridLayout()
+    Colorbar(fig_bars[1, 1], colormap = :thermal, limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -10)
+    colgap!(fig.layout, 1, 5)
 
     rowgap!(fig.layout, 1, 5)
     rowsize!(fig.layout, 1, Relative(0.6))

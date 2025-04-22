@@ -35,7 +35,7 @@ function plot_fluxoid(ax, xticks, ylower, yupper; colormap = :rainbow, kws...)
     for (i, (xright, color)) in enumerate(zip(xticks, colors))
         i == 1 && continue
         xleft = xticks[i-1]
-        band!(ax, [xleft, xright], ylower, yupper, color = (color, 0.2))
+        band!(ax, [xleft, xright], ylower, yupper, color = (color, 0.5))
         text!(ax, (xleft + xright)/2, (ylower + yupper)/2; text =  L"$%$(i-2)$", align = (:center, :center), color = color, fontsize = 10, kws...)
     end
 end
