@@ -67,6 +67,7 @@ wires["valve_60"] = (;
 wires["valve_trivial_60"] = (;
     wires["valve_60"]...,
     α = 0,
+    g = 1,
 )
 
 # ξmismatch

@@ -69,6 +69,10 @@ function fig_valve_R(layout_LDOS, kws_LDOS, layout_currents, kws_currents, kws_F
     Label(fig_LDOS[1, 1, Top()], L"$R_1 = 65$nm", padding = (420, 0, -40, 0), color = :white)
     Label(fig_LDOS[2, 1, Top()], L"$R_2 = 60$nm", padding = (370, 0, -40, 0), color = :white)
 
+    fig_bars = fig[1, 2] = GridLayout()
+    Colorbar(fig_bars[1, 1], colormap = :thermal, limits = (0, 1), ticks = [0, 1], label = L"$$ LDOS (arb. units)", labelpadding = -10)
+    colgap!(fig.layout, 1, 5)
+
     rowgap!(fig.layout, 1, 5)
 
     style = (font = "CMU Serif Bold", fontsize   = 20)

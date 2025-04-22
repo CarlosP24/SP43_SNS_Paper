@@ -1,7 +1,7 @@
 @with_kw struct Calc_Params
-    Brng = subdiv(0.0, 0.25, 100)
-    Φrng = subdiv(0.03, 2.499, 100) 
-    ωrng = subdiv(-.26, 0,  101) .+ 1e-3im
+    Brng = subdiv(0.0, 0.25, 800)
+    Φrng = subdiv(0.03, 2.499, 800) 
+    ωrng = subdiv(-.26, 0,  401) .+ 1e-3im
     φrng = subdiv(0, 2π, 51)
     Φs = [0.65, 1, 1.45]
     φs = [0, π/2, π, 3π/2, 2π]
