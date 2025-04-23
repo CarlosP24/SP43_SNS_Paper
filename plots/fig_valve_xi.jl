@@ -75,14 +75,13 @@ kws_LDOS = [
 ]
 
 layout_currents = [
-    ["ξmismatch_trivial_0.7.jld2", "ξmismatch_trivial_d1_0.7.jld2", "ξmismatch_trivial_d2_0.7.jld2", "ξLmismatch_trivial_0.7.jld2"],
+    ["ξmismatch_trivial_0.7.jld2", "ξmismatch_trivial_d1_0.7.jld2", "ξmismatch_trivial_d2_0.7.jld2"],
 ]
 
 kws_currents = [
     [(showmajo = false, color = :red, label = L"$\infty$", linewidth = 3, vsΦ = true), 
         (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
-        (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), 
-        (showmajo = false, color = (:red, 1), linestyle = :dash, label = "Finite length", vsΦ = true)],
+        (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), ],
 ]
 
 fig = fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents)
