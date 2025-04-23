@@ -38,7 +38,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
         ax.ylabelpadding = 20
         #i == 1 && hidexdecorations!(ax, ticks = false, grid = false)
         if i == 1
-            axislegend(ax; position = (0.96, 1.0), framevisible = false,)
+            axislegend(ax; position = (1, .7), framevisible = false,)
         end
         i == 2 && ylims!(ax, (-1e-4, 4e-3))
         ax.xticks = xticks
@@ -46,7 +46,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
 
     #rowgap!(fig_currents, 1, 5)
 
-    Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (380, 0, -45, 0),) 
+    Label(fig_currents[1, 1, Top()], L"$T_N = 0.7$", padding = (350, 0, -45, 0),) 
     #Label(fig_currents[2, 1, Top()], L"$T_N = 10^{-4}$", padding = (400, 0, -40, 0), )
 
     fig_bars = fig[1, 2] = GridLayout()
@@ -79,7 +79,7 @@ layout_currents = [
 ]
 
 kws_currents = [
-    [(showmajo = false, color = :red, label = L"$\infty$", linewidth = 3, vsΦ = true), 
+    [(showmajo = false, color = :red, label = L"$\delta \tau = 0$", linewidth = 3, vsΦ = true), 
         (showmajo = false, color = (:green, 0.8), label = L"\delta \tau = 0.01"), 
         (showmajo = false, color = (:navyblue, 0.8),  label = L"\delta \tau = 0.1"), ],
 ]
