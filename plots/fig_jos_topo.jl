@@ -223,7 +223,7 @@ function fig_jos_topo(layout_currents, kws_currents, TNS, layout_cpr, layout_and
             arrows!(ax, [1.3], [π/2 - 0.5], [0.2], [-0.3]; color = :black)
         end
         if i == 5
-            text!(ax, 0.55, π/2 - 0.5; text = L"\phi_0", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 0.55, π/2 - 0.5; text = L"\phi", align = (:center, :center), fontsize = 12, color = :black)
             text!(ax, 1.0, π/2 - 0.5; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
             arrows!(ax, [1.3], [π/2], [0.2], [0.3]; color = :black)
         end

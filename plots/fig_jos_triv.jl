@@ -219,7 +219,7 @@ function fig_jos_triv(layout_currents, kws_currents, TNS, layout_cpr, layout_and
         end
 
         if i == 5 
-            text!(ax, 1.35, π/2; text = L"\phi_0", align = (:center, :center), fontsize = 12, color = :black)
+            text!(ax, 1.35, π/2; text = L"\phi", align = (:center, :center), fontsize = 12, color = :black)
             text!(ax, 1.85, π/2; text = "-junction", align = (:center, :center), fontsize = 12, color = :black)
             arrows!(ax, [1.4], [π/2 - 0.5], [-0.2], [-0.3]; color = :black)
             arrows!(ax, [2.1], [π/2 - 0.5], [0.2], [-0.3]; color = :black)
