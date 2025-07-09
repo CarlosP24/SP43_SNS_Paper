@@ -129,6 +129,10 @@ wires["valve_trivial_65_ξ_100"] = (;
     L = 100
 )
 
+wires["valve_test"] = (;
+    wires["valve_65"]...,
+    R = 50)
+
 # Zed wires wires
 wires["valve_65_Z"] = merge(
     wires["valve_65"], 

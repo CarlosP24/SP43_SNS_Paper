@@ -412,6 +412,10 @@ systems_mhc_test = Dict(
     ["mhc_test_$(i)" => System(; wireL = wires["jos_mhc"], wireR = wires["jos_mhc"], junction = Junction(; TN = i)) for i in Ts]
 )
 
+systems_valve_test = Dict(
+    "valve_test" => System(; wireL = wires["valve_65"], wireR = wires["valve_test"], junction = Junction(; TN = 1e-4))
+)
+
 systems_mhc_triv_test = Dict(
     ["mhc_triv_test_$(i)" => System(; wireL = wires["jos_mhc_triv"], wireR = wires["jos_mhc_triv"], junction = Junction(; TN = i)) for i in Ts]
 )
@@ -555,7 +559,7 @@ systems_scm_test2 = Dict(
 
 systems_ref = merge(systems_reference, systems_reference_metal, systems_reference_dep)
 systems_ref_Z = merge(systems_reference_Z, systems_reference_metal_Z, systems_reference_dep_Z)
-systems_valve_test = merge(systems_metal, systems_dep)
+#systems_valve_test = merge(systems_metal, systems_dep)
 systems_valve = merge(systems_Rmismatch, systems_ξmismatch, systems_RLmismatch)
 systems_valve_Rd = merge(systems_Rmismatch_d1, systems_Rmismatch_d2)
 
@@ -581,7 +585,6 @@ systems_dict = Dict(
     "systems_ref" => systems_ref,
     "systems_ref_Z" => systems_ref_Z,
     "systems_metal" => systems_metal,
-    "systems_valve_test" => systems_valve_test,
     "systems_valve" => systems_valve,
     "systems_valve_Rd" => systems_valve_Rd,
     "systems_valve_R" => systems_Rmismatch,
@@ -618,4 +621,4 @@ systems_dict = Dict(
 )
 
 systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm,  systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_matmismatch, systems_ξLmismatch, systems_mhc_test, systems_scm_test, systems_scm_test2, systems_mhc_triv_test, 
-systems_scm_special, systems_mhc_special, systems_mhc_triv_short, systems_mhc_triv_Long, systems_Rmismatch_trivial, systems_Rmismatch_trivial_d1, systems_Rmismatch_trivial_d2, systems_ξmismatch_trivial, systems_ξmismatch_trivial_d1, systems_ξmismatch_trivial_d2, systems_ξLmismatch_trivial)
+systems_scm_special, systems_mhc_special, systems_mhc_triv_short, systems_mhc_triv_Long, systems_Rmismatch_trivial, systems_Rmismatch_trivial_d1, systems_Rmismatch_trivial_d2, systems_ξmismatch_trivial, systems_ξmismatch_trivial_d1, systems_ξmismatch_trivial_d2, systems_ξLmismatch_trivial, systems_valve_test)

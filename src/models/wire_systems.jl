@@ -9,6 +9,12 @@ cparams_valve_65 = Calc_Params(
     ωrng = subdiv(-.26, 0, 401) .+ 1e-3im
 )
 
+cparams_test = Calc_Params(
+    Calc_Params();
+    Φrng = subdiv(0, 5.40, 100),
+    ωrng = subdiv(-.26, 0, 101) .+ 1e-3im
+)
+
 cparams_valve_60 = Calc_Params(
     Calc_Params();
     Φrng = subdiv(0, 4.63, 400),
@@ -114,6 +120,11 @@ wire_systems = Dict(
         wire = (;wires["valve_trivial_65_mu_ξ"]...,
         Zs = -6:6),
         calc_params = cparams_valve_65,
+    ),
+    "valve_test" => wire_system(;
+        wire = (; wires["valve_test"]...,
+        Zs = -6:6),
+        calc_params = cparams_test,
     ),
     "jos_hc" => wire_system(; wire = wires["jos_hc"], calc_params = cparams_jos),
     "jos_hc_triv" => wire_system(; wire = wires["jos_hc_triv"], calc_params = cparams_jos),
