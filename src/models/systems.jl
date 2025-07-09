@@ -418,7 +418,7 @@ systems_mhc_test = Dict(
 )
 
 systems_valve_test = Dict(
-    "valve_test" => System(; 
+    "valve_test_j" => System(; 
         wireL = wires["valve_65"],
         wireR = wires["valve_test"], 
         junction = Junction(; TN = 1e-4),
