@@ -60,6 +60,11 @@ calc_params_valve = Calc_Params(;
     ωrng = subdiv(-.26, 0, 401) .+ 1e-3im,
 )
 
+calc_params_test = Calc_Params(;
+    Brng = subdiv(0.0, 2, 100),
+    ωrng = subdiv(-.26, 0.0, 101) .+ 1e-3im    
+)
+
 systems_Rmismatch = Dict(
     ["Rmismatch_$(i)" => System(; 
     wireL = wires["valve_65"], 
@@ -413,7 +418,13 @@ systems_mhc_test = Dict(
 )
 
 systems_valve_test = Dict(
-    "valve_test" => System(; wireL = wires["valve_65"], wireR = wires["valve_test"], junction = Junction(; TN = 1e-4))
+    "valve_test" => System(; 
+        wireL = wires["valve_65"],
+        wireR = wires["valve_test"], 
+        junction = Junction(; TN = 1e-4),
+        j_params = j_params_valve,
+        calc_params = calc_params_test
+    )
 )
 
 systems_mhc_triv_test = Dict(

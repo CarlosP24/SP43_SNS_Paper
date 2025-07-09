@@ -11,7 +11,7 @@ cparams_valve_65 = Calc_Params(
 
 cparams_test = Calc_Params(
     Calc_Params();
-    Φrng = subdiv(0, 5.40, 100),
+    Φrng = subdiv(0, 10, 100),
     ωrng = subdiv(-.26, 0, 101) .+ 1e-3im
 )
 
