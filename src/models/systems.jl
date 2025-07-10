@@ -63,7 +63,7 @@ calc_params_valve = Calc_Params(;
 calc_params_majos = Calc_Params(;
     Brng = subdiv(0.0, 1, 600),
     ωrng = subdiv(-.26, 0.0, 401) .+ 1e-3im, 
-    Bs = [0.65]
+    Bs = [0.7]
 )
 
 systems_Rmismatch = Dict(
@@ -130,7 +130,7 @@ systems_valve_majos = Dict(
     "valve_majos" => System(; 
         wireL = wires["valve_65"],
         wireR = wires["valve_50"], 
-        junction = Junction(; TN = 1e-4),
+        junction = Junction(; TN = 1e-2),
         j_params = j_params_valve,
         calc_params = calc_params_majos
     )
@@ -138,10 +138,10 @@ systems_valve_majos = Dict(
 
 systems_valve_majos_d = Dict(
     "valve_majos_d1" => System(systems_valve_majos["valve_majos"];
-    junction = Junction(; TN = 1e-4, δτ = 0.01),
+    junction = Junction(; TN = 1e-2, δτ = 0.01),
     ),
     "valve_majos_d2" => System(systems_valve_majos["valve_majos"];
-    junction = Junction(; TN = 1e-4, δτ = 0.1),
+    junction = Junction(; TN = 1e-2, δτ = 0.1),
     )
 )
 
