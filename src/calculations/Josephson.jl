@@ -84,7 +84,7 @@ function calc_Josephson(name::String)
     end
 
     #THIS IS FOR TESTING REMOVE!!!
-    ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-0.02, -0.01 +1e-4im, 0))     
+    ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-0.002, -0.001 + itip(B)*1im, 0) .+ imshift*1im)     
 
     J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 
