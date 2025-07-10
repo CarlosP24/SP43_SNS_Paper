@@ -56,8 +56,8 @@ function calc_Josephson(name::String)
     println("τ = $τ")
 
     # Build Josephson integrator
-    #bw = maximum([wireL.Δ0, wireR.Δ0]) * 50
-    bw = maximum([bandwidth(params_left), bandwidth(params_right)])
+    bw = maximum([wireL.Δ0, wireR.Δ0])
+    #bw = maximum([bandwidth(params_left), bandwidth(params_right)])
     itipL = get_itip(params_left)               # This is a function of Φ if the wire is Zed, B if not
     itipR = get_itip(params_right)
     itip(x) = minimum([itipL(x), itipR(x)])
