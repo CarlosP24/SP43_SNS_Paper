@@ -25,7 +25,7 @@ function calc_Josephson(name::String)
 
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
     # Setup output path
-    path = "$(outdir)/Js/$(name).jld2"
+    path = "$(outdir)/Js/$(name)_test.jld2"
     mkpath(dirname(path))
 
     # Build nanowires
