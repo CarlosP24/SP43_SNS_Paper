@@ -27,7 +27,7 @@ function plot_LDOS_fakeB(pos, name; highlight_majo = true, basepath = "data/LDOS
     return ax
 end
 
-function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.65, ωzoom = (-0.05, 0))
+function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.7, ωzoom = (-0.01, 0))
     path = "$(basepath)/$(name).jld2"
     res = load(path)["res"]
 
@@ -51,7 +51,7 @@ function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.65, ωzoom = (
 end
 
 
-function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev; Blims = (0, 0.7), B = 0.65, kws...)
+function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev; Blims = (0, 1), B = 0.7, kws...)
     fig = Figure(size = (600, 250 * 3), fontsize = 16, )
 
     fig_LDOS = fig[1, 1] = GridLayout()

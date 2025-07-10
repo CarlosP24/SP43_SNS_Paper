@@ -62,9 +62,11 @@ calc_params_valve = Calc_Params(;
 
 calc_params_majos = Calc_Params(;
     Brng = subdiv(0.0, 1, 600),
-    ωrng = subdiv(-.26, 0.0, 401) .+ 1e-3im, 
+    #ωrng = subdiv(-.26, 0.0, 401) .+ 1e-3im, 
+    ωrng = subdiv(-0.005, 0.0, 401) .+ 1e-6im,
     Bs = [0.7]
 )
+
 
 systems_Rmismatch = Dict(
     ["Rmismatch_$(i)" => System(; 
