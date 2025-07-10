@@ -116,3 +116,38 @@ kws_FVQ = [
 fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_currents_high, layout_currents_low, kws_currents_low, kws_FVQ; )
 save("figures/fig_valve_topo_R.pdf", fig)
 fig
+
+##
+layout_LDOS = [
+    "valve_65";
+    "valve_test"
+]
+
+kws_LDOS = [
+    (colorrange = (2e-4, 9e-3),);
+    (colorrange = (2e-4, 9e-3),)
+]
+
+layout_currents_high = [
+    "valve_test_j.jld2",
+    ]
+
+kws_currents_high = [
+    (color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"),
+]
+
+layout_currents_low = [
+    "valve_test_j.jld2",
+    ]
+
+kws_currents_low = [
+    (showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), 
+]
+
+kws_FVQ = [
+    (),
+]
+
+fig = fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_currents_high, layout_currents_low, kws_currents_low, kws_FVQ; )
+#save("figures/fig_valve_topo_R.pdf", fig)
+fig
