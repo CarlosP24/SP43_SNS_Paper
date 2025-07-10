@@ -113,8 +113,8 @@ kws_c = [
 
 kws_andreev = [
     (;colorrange = (1e-1, 2e-1)),
-    (;colorrange = (1e-1, 2e-1), ωzoom = (-0.062, -0.061)),
-    (;colorrange = (1e-1, 2e-1), )
+    (;colorrange = (0.3, 0.31), ωzoom = (-0.062, -0.061)),
+    (;colorrange = (1e-2, 2e-2), ωzoom = (-0.105, -0.995,) )
 ]
 fig = fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev, kws_andreev; Blims = (0, 1))
 save( "figures/fig_valve_majos.pdf", fig)
