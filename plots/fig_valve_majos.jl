@@ -27,31 +27,32 @@ function plot_LDOS_fakeB(pos, name; highlight_majo = true, basepath = "data/LDOS
     return ax
 end
 
-function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.7, ωzoom = (-0.105, -0.10), colorrange = (6e-3, 8e-3))
+function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.7, ωzoom = nothing, colorrange = (6e-3, 8e-3))
     path = "$(basepath)/$(name).jld2"
     res = load(path)["res"]
 
     @unpack params, system, LDOS_xs = res
     @unpack φrng, ωrng = params
     ωrng = real.(ωrng)
-
-    ωa = findmin(abs.(ωrng .- ωzoom[1]))[2]
-    ωb = findmin(abs.(ωrng .- ωzoom[2]))[2]
-    ωrng = ωrng[ωa:ωb]
-
-
     LDOS = LDOS_xs[B]
-    LDOS = LDOS[:, ωa:ωb]
-    ax = Axis(pos; xlabel = L"$\phi$", ylabel = L"$\omega$ (meV)" )
-    heatmap!(ax, φrng, real.(ωrng), abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
 
-    text!(ax, π, ωzoom[1] * 0.9; text = L"$\delta \tau = %$(system.junction.δτ)$", color = :white, align = (:center, :center))
+    if ωzoom !== nothing
+        ωa = findmin(abs.(ωrng .- ωzoom[1]))[2]
+        ωb = findmin(abs.(ωrng .- ωzoom[2]))[2]
+        ωrng = ωrng[ωa:ωb]
+        LDOS = LDOS[:, ωa:ωb]
+    end
+
+    ax = Axis(pos; xlabel = L"$\phi$", ylabel = L"$\omega$ (meV)" )
+    heatmap!(ax, φrng, ωrng, abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
+
+    #text!(ax, π, ωzoom[1] * 0.9; text = L"$\delta \tau = %$(system.junction.δτ)$", color = :white, align = (:center, :center))
 
     return ax
 end
 
 
-function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev; Blims = (0, 1), B = 0.7, kws...)
+function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev, kws_andreev; Blims = (0, 1), B = 0.7, kws...)
     fig = Figure(size = (600, 250 * 3), fontsize = 16, )
 
     fig_LDOS = fig[1, 1] = GridLayout()
@@ -79,9 +80,10 @@ function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev; Bl
     vlines!(ax, B; color = :black, linestyle = :dash)
 
     fig_andreev = fig[3, 1] = GridLayout()
-    for (i, name) in enumerate(layout_andreev)
-        ax = plot_Andreev(fig_andreev[1, i], name; B)
-        i != 1 && hideydecorations!(ax, ticks = false)
+    for (i, (name, kws)) in enumerate(zip(layout_andreev, kws_andreev))
+        println(kws)
+        ax = plot_Andreev(fig_andreev[1, i], name; B, kws...)
+        #i != 1 && hideydecorations!(ax, ticks = false)
         ax.xticks = ([0, π, 2π], ["0", L"\pi", L"2\pi"])
     end
 
@@ -94,24 +96,27 @@ layout_LDOS = [
 ]
 
 layout_currents = [
-    "valve_majos.jld2",
-    "valve_majos_d1.jld2",
-    "valve_majos_d2.jld2"
+    "valve_majos_test.jld2",
 ]
 
 layout_andreev = [
-    "valve_majos",
-    "valve_majos_d1",
-    "valve_majos_d2"
+    "valve_majos_0",
+    "valve_majos_65",
+    "valve_majos_10"
 ]
 
 kws_c = [
     (showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), 
-    (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), 
-    (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
-
+    #(color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), 
+    #(color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]
-fig = fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev; Blims = (0, 1))
+
+kws_andreev = [
+    (;colorrange = (1e-1, 2e-1)),
+    (;colorrange = (1e-1, 2e-1), ωzoom = (-0.062, -0.061)),
+    (;colorrange = (1e-1, 2e-1), )
+]
+fig = fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev, kws_andreev; Blims = (0, 1))
 save( "figures/fig_valve_majos.pdf", fig)
 fig
 
