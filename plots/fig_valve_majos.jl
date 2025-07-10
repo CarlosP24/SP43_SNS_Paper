@@ -27,7 +27,7 @@ function plot_LDOS_fakeB(pos, name; highlight_majo = true, basepath = "data/LDOS
     return ax
 end
 
-function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.7, ωzoom = (-0.01, 0))
+function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.7, ωzoom = (-0.01, 0), colorrange = (4e-2, 1e-1))
     path = "$(basepath)/$(name).jld2"
     res = load(path)["res"]
 
@@ -43,7 +43,7 @@ function plot_Andreev(pos, name; basepath = "data/Andreev", B = 0.7, ωzoom = (-
     LDOS = LDOS_xs[B]
     LDOS = LDOS[:, ωa:ωb]
     ax = Axis(pos; xlabel = L"$\phi$", ylabel = L"$\omega$ (meV)" )
-    heatmap!(ax, φrng, real.(ωrng), abs.(LDOS); colormap = :thermal, colorrange = (1e-4, 1e-2), lowclip = :black, rasterize = 5)
+    heatmap!(ax, φrng, real.(ωrng), abs.(LDOS); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
 
     text!(ax, π, ωzoom[1] * 0.1; text = L"$\delta \tau = %$(system.junction.δτ)$", color = :white, align = (:center, :center))
 
