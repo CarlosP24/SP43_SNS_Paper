@@ -77,6 +77,7 @@ function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev, kw
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(ax, name; kws...)
     end
     xlims!(ax, Blims)
+    ylims!(ax, (0, 1e-9))
     vlines!(ax, B; color = :black, linestyle = :dash)
 
     fig_andreev = fig[3, 1] = GridLayout()
@@ -106,7 +107,7 @@ layout_andreev = [
 ]
 
 kws_c = [
-    (showmajo = true, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), 
+    (showmajo = false, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), 
     #(color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), 
     #(color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]

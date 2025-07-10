@@ -25,7 +25,7 @@ function calc_Josephson(name::String)
 
     gs = ifelse(wireL.L == 0, ifelse(wireR.L == 0, "semi", "semi_finite"), ifelse(wireR.L == 0, "finite_semi", "finite"))
     # Setup output path
-    path = "$(outdir)/Js/$(name)_test.jld2"
+    path = "$(outdir)/Js/$(name).jld2"
     mkpath(dirname(path))
 
     # Build nanowires
@@ -83,8 +83,6 @@ function calc_Josephson(name::String)
         ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-bw, -Ω(B),  -Ω(B)/2 + itip(B)*1im, 0) .+ imshift*1im)     
     end
 
-    #THIS IS FOR TESTING REMOVE!!!
-    ipath = Paths.polygon((mu, kBT; B = 0, _...) -> (-0.002, -0.001 + itip(B)*1im, 0) .+ imshift*1im)     
 
     J = josephson(g[attach_link[gs]], ipath; omegamap = ω -> (; ω), phases = φrng, atol, maxevals, order,)
 

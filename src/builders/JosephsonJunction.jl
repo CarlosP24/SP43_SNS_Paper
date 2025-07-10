@@ -34,7 +34,7 @@ function build_coupling(p_left::Params_mm, p_right::Params_mm; zero_site = false
     model = @hopping((r, dr; τ = 1, B = p_left.B, hdict = Dict(0 => 1, 1 => 0.1) ) ->
         wire_hopping(dr/2 + dr/2 * zero_site) * τ * (δτc(dr, δτ(hdict, r, dr, B, 1)) * c_up + (δτc(dr, δτ(hdict, r, dr, B, -1)) * c_down));
         range = 3*num_mJ*a0
-    )
+    ) 
 
     return model
 end

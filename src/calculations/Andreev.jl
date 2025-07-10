@@ -49,7 +49,7 @@ function calc_Andreev(name::String)
     end
 
     #LDOS_phases = Dict([phase => pldos(ldos(g[attach_link[gs]]), xrng, args...; τ, phase) for phase in φs])
-    LDOS_xs = pandreev(ldos(g[attach_link[gs]]), φrng, args...; τ)
+    LDOS_xs = pandreev(ldos(g[attach_link[gs]]), φrng, args...; τ, hdict)
 
     return Results(;
         params = calc_params2,
