@@ -77,7 +77,7 @@ function fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev, kw
         Ic, Imajo, Ibase, xticksL, xticksR, xrng = plot_Ic(ax, name; kws...)
     end
     xlims!(ax, Blims)
-    ylims!(ax, (0, 1e-9))
+    #ylims!(ax, (0, 1e-9))
     vlines!(ax, B; color = :black, linestyle = :dash)
 
     fig_andreev = fig[3, 1] = GridLayout()
@@ -97,7 +97,9 @@ layout_LDOS = [
 ]
 
 layout_currents = [
-    "valve_majos_test.jld2",
+    "valve_majos.jld2",
+    "valve_majos_d1.jld2",
+    "valve_majos_d2.jld2",
 ]
 
 layout_andreev = [
@@ -108,17 +110,17 @@ layout_andreev = [
 
 kws_c = [
     (showmajo = false, color = :red, linestyle = :solid, linewidth = 3, label = L"\delta \tau = 0"), 
-    #(color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), 
-    #(color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
+    (color = (:green, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.01"), 
+    (color = (:navyblue, 0.8), linestyle = :solid, linewidth = 1, label = L"\delta \tau = 0.1"),
 ]
 
 kws_andreev = [
     (;colorrange = (1e-1, 2e-1)),
-    (;colorrange = (0.3, 0.31), ωzoom = (-0.062, -0.061)),
+    (;colorrange = (0.35, 0.36), ωzoom = (-0.062, -0.061)),
     (;colorrange = (1e-2, 2e-2), ωzoom = (-0.105, -0.995,) )
 ]
 fig = fig_valve_majos(layout_LDOS, layout_currents, kws_c, layout_andreev, kws_andreev; Blims = (0, 1))
-save( "figures/fig_valve_majos.pdf", fig)
+save("figures/fig_valve_majos.pdf", fig)
 fig
 
 

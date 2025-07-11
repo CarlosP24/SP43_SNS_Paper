@@ -153,6 +153,12 @@ systems_valve_majos_Andreev = Dict(
             ωrng = subdiv(-0.105, -0.995, 401) .+ 1e-7im,
             )
     ),
+    "valve_majos_triv" => System(systems_valve_majos["valve_majos"];
+        calc_params = Calc_Params(systems_valve_majos["valve_majos"].calc_params; 
+            ωrng = subdiv(-.26, 0, 2001) .+ 1e-7im,
+            Bs = [0.55]
+            )
+    ),
 )
 
 systems_valve_majos_d = Dict(
