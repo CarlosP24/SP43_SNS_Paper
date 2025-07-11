@@ -130,3 +130,36 @@ fig
 fig = Figure()
 ax = plot_Andreev(fig[1, 1], "valve_majos_d2"; B = 0.65)
 fig
+
+
+###
+data = load("data/Andreev/valve_majos_triv.jld2")["res"]
+@unpack φrng, ωrng = data.params
+global ωrng = real.(ωrng)
+
+global LDOS = data.LDOS_xs[0.55]
+
+fig = Figure()
+ax = Axis(fig[1, 1]; xlabel = L"$\phi$", ylabel = L"$\omega$ (meV)")
+heatmap!(ax, φrng, ωrng, abs.(LDOS); colormap = :thermal, colorrange = (0, 1e-2), lowclip = :black, rasterize = 5)
+
+
+function zoom(pos, ω1, ω2; colorrange = (0, 1e-2))
+    ax = Axis(pos; xlabel = L"$\phi$", ylabel = L"$\omega$ (meV)")
+    ωa = findmin(abs.(ωrng .- ω1))[2]
+    ωb = findmin(abs.(ωrng .- ω2))[2]
+    ωrng1 = ωrng[ωa:ωb]
+    LDOS1 = LDOS[:, ωa:ωb]
+    heatmap!(ax, φrng, ωrng1, abs.(LDOS1); colormap = :thermal, colorrange, lowclip = :black, rasterize = 5)
+    return 
+end
+
+zoom_panels = fig[1, 2] = GridLayout()
+
+zoom(zoom_panels[1, 1], -0.0025, -0.002; colorrange = (0, 6e-1))
+zoom(zoom_panels[2, 1], -0.158, -0.157; colorrange = (1e-2, 2e-2))
+
+
+
+
+fig
