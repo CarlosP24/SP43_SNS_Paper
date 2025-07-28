@@ -41,6 +41,8 @@ systems_dep = Dict(
 
 # Valve paper
 Ts_valve = [1e-4, 0.1, 0.5, 0.7, 0.9]
+δτs = [1e-4, 1e-3, 1e-2, 1e-1, 0.2, 0.3, 0.4, 0.5]
+
 j_params_valve = J_Params(;
     imshift = 1e-6, 
     maxevals = 1e6,
@@ -66,6 +68,9 @@ calc_params_majos = Calc_Params(;
     Bs = [0.7]
 )
 
+calc_params_dtau = Calc_Params(;
+    Brng = [0.23, 0.4]
+)
 
 systems_Rmismatch = Dict(
     ["Rmismatch_$(i)" => System(; 
@@ -169,6 +174,16 @@ systems_valve_majos_d = Dict(
     junction = Junction(; TN = 1e-2, δτ = 0.1),
     )
 )
+
+systems_valve_dtau = Dict([
+    "valve_dtau_$(i)" => System(; 
+        wireL = wires["valve_65"], 
+        wireR = wires["valve_60"], 
+        junction = Junction(; TN = 0.7, δτ = i),
+        j_params = j_params_valve,
+        calc_params = calc_params_dtau
+    ) for i in δτs
+])
 
 systems_ξmismatch = Dict(
     ["ξmismatch_$(i)" => System(; 
@@ -669,7 +684,8 @@ systems_dict = Dict(
     "systems_scm_test" => systems_scm_test,
     "systems_scm_test2" => systems_scm_test2,
     "systems_valve_majos" => systems_valve_majos_full,
+    "systems_valve_dtau" => systems_valve_dtau,
 )
 
 systems = merge(systems_reference, systems_reference_Z, systems_reference_metal, systems_reference_metal_Z, systems_reference_dep, systems_reference_dep_Z, systems_metal, systems_dep, systems_Rmismatch, systems_ξmismatch, systems_RLmismatch, systems_hc_triv, systems_hc, systems_mhc_triv, systems_mhc, systems_scm_triv, systems_scm,  systems_mhc_30, systems_mhc_30_L, systems_mhc_30_Lmismatch, systems_mhc_30_Long, systems_mhc, systems_mhc_L, systems_mhc_Lmismatch, systems_mhc_Long, systems_mhc_short, systems_mhc_Longmismatch, systems_RLmismatch_d1, systems_RLmismatch_d2, systems_Rmismatch_d1, systems_Rmismatch_d2, systems_ξmismatch_d1, systems_ξmismatch_d2, systems_matmismatch, systems_ξLmismatch, systems_mhc_test, systems_scm_test, systems_scm_test2, systems_mhc_triv_test, 
-systems_scm_special, systems_mhc_special, systems_mhc_triv_short, systems_mhc_triv_Long, systems_Rmismatch_trivial, systems_Rmismatch_trivial_d1, systems_Rmismatch_trivial_d2, systems_ξmismatch_trivial, systems_ξmismatch_trivial_d1, systems_ξmismatch_trivial_d2, systems_ξLmismatch_trivial, systems_valve_majos, systems_valve_majos_d, systems_valve_majos_Andreev )
+systems_scm_special, systems_mhc_special, systems_mhc_triv_short, systems_mhc_triv_Long, systems_Rmismatch_trivial, systems_Rmismatch_trivial_d1, systems_Rmismatch_trivial_d2, systems_ξmismatch_trivial, systems_ξmismatch_trivial_d1, systems_ξmismatch_trivial_d2, systems_ξLmismatch_trivial, systems_valve_majos, systems_valve_majos_d, systems_valve_majos_Andreev, systems_valve_dtau )

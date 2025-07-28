@@ -1,0 +1,8 @@
+valve_dtau_0.0001
+valve_dtau_0.4
+valve_dtau_0.001
+valve_dtau_0.5
+valve_dtau_0.2
+valve_dtau_0.1
+valve_dtau_0.01
+valve_dtau_0.3
