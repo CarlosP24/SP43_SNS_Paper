@@ -7,23 +7,23 @@ lg is the length of the φrng inside J. Needed for error handling purposes.
 Compute the Josephson current from J::Josephson integrator for a set of magnetic fields and junction transmissions, given noise harmonics hdict.
 """
 function pjosephson(J, Brng, lg::Int; kBT = 0, τ = 1,  hdict = Dict(0 => 1, 1 => 0.1))
-    tmp_dir = "tmp/$(ENV["SLURM_JOB_ID"])_$(ENV["SLURM_ARRAY_TASK_ID"])"
-    mkpath(tmp_dir)
+    #tmp_dir = "tmp/$(ENV["SLURM_JOB_ID"])_$(ENV["SLURM_ARRAY_TASK_ID"])"
+    #mkpath(tmp_dir)
     Jss = @showprogress pmap(Brng) do B
-        report_file = "$(tmp_dir)/worker_$(myid()).txt"
-        test_io = open(report_file, "w")
-        println(test_io, "Worker $(myid()) at node $(gethostname()).\nComputing Josephson current at B = $B.")
-        close(test_io)
+        #report_file = "$(tmp_dir)/worker_$(myid()).txt"
+        #test_io = open(report_file, "w")
+        #println(test_io, "Worker $(myid()) at node $(gethostname()).\nComputing Josephson current at B = $B.")
+        #close(test_io)
         j = try
             J(kBT; B, τ, hdict, )
         catch e 
             @warn "An error ocurred at B=$B. \n$e \nOutput is NaN."
             [NaN for _ in 1:Int(lg)]
         end
-        rm(report_file)
+        #rm(report_file)
         return j
     end
-    rm(tmp_dir, recursive = true)
+    #rm(tmp_dir, recursive = true)
     return reshape(Jss, size(Brng)...)
 end
 
