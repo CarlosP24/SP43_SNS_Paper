@@ -1,5 +1,5 @@
 name = "valve_dtau"
-δtaus = [1e-4, 1e-3, 1e-2, 1e-1, 0.2, 0.3, 0.4, 0.5]
+δtaus = [1e-4, 1e-3, 1e-2, 1e-1, 0.2, 0.3, 0.4, 0.5, 0.9]
 
 function findIc(fullname::String, B::Float64)
     data = load(fullname)["res"]
@@ -14,13 +14,13 @@ function plot_dtaus(ax, name::String; δtaus = δtaus, B = 0.23, basepath = "dat
     Ics = [
         findIc("$(path)_$(δτ).jld2", B) for δτ in δtaus
     ]
-
-    scatter!(ax, δtaus, Ics)
+    
+    scatter!(ax, δtaus,  Ics,  markersize = 10, color = :black)
 
     return ax
 end
 
 fig = Figure()
-ax = Axis(fig[1, 1], xlabel = L"\delta \tau", ylabel = L"I_c", xscale = log10, yscale = log10)
+ax = Axis(fig[1, 1], xlabel = L"\delta \tau", ylabel = L"I_c / I_c (\delta \tau = 1)", xscale = log10,)
 plot_dtaus(ax, name)
 fig

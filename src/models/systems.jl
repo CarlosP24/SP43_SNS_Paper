@@ -41,8 +41,8 @@ systems_dep = Dict(
 
 # Valve paper
 Ts_valve = [1e-4, 0.1, 0.5, 0.7, 0.9]
-δτs = [1e-4, 1e-3, 1e-2, 1e-1, 0.2, 0.3, 0.4, 0.5, 0.9]
-
+#δτs = [1e-4, 1e-3, 1e-2, 1e-1, 0.2, 0.3, 0.4, 0.5, 0.9]
+δτs = 10 .^ range(-4, log10(0.9), length=50)
 j_params_valve = J_Params(;
     imshift = 1e-6, 
     maxevals = 1e6,
