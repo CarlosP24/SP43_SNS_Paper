@@ -7,7 +7,7 @@ function fig_valve_xi(layout_LDOS, kws_LDOS, layout_currents, kws_currents; vcol
     for (i, name) in enumerate(layout_LDOS)
         ax, (; xrng, ns, xs, R) = plot_LDOS(fig_LDOS[i, 1], name; kws_LDOS[i]...)
         vlines!(ax, xs[1:end-1]; color = vcolors[i], linestyle = :dash, linewidth = 1.5, alpha = 0.5)
-        #add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
+        add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
         hidexdecorations!(ax, ticks = false)
         #i == 1 && ylims!(ax, (-0.26, 0.26))
         ax.xticks = xticks

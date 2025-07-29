@@ -57,7 +57,7 @@ function fig_valve_R_topo(layout_LDOS, kws_LDOS, layout_currents_high, kws_curre
             ns = ns[1:end-1]
             xs = xs[1:end-1]
         end
-        #add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
+        add_xticks(ax, ns, xs; xshift = 0.2, pre = "L")
         hidexdecorations!(ax, ticks = false)
     end
 
