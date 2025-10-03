@@ -24,7 +24,7 @@ function pldos(ρ, Φrng, ωs, Zs; kw...)
         ld = try 
             ρ(ω; ω, Φ, Z, kw...)
         catch
-            NaN
+            NaN 
         end
         return ld
     end
